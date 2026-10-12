@@ -1,0 +1,13 @@
+# Obsidian per-device state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.trash/
+
+# graphify build cache (regenerate with /graphify)
+graphify-out/cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

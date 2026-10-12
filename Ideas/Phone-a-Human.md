@@ -1,0 +1,22 @@
+---
+type: idea
+cluster: "Humans as the eval engine"
+score: 7.6
+novelty: 8
+buildable: 7
+sponsor_fit: 8
+shortlisted: false
+trap: false
+status: idea
+tags: [idea]
+---
+# Phone-a-Human
+
+When an agent gets stuck, it phones a paid expert, interviews them by voice, pays per minute from its own wallet, and turns the call into a labeled correction example.
+
+**Score 7.6** · novelty 8 · buildable in 36h 7 · sponsor fit 8
+**Angle:** [[Humans as the eval engine]]
+**Sponsors:** [[Afterquery]], [[Cartesia]], [[Coinbase]], [[Anthropic]]
+
+## Team notes
+-
