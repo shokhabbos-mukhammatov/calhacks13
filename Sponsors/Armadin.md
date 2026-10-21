@@ -25,3 +25,8 @@ Skim OWASP Top 10 for LLM Apps and MITRE ATLAS.
 - [[Zero-Trust Base Defense]] (score 7.6)
 - [[Blast Radius]] (score 7.0)
 - [[Street Injection Lens]] (score 6.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+- **[Armadin] Best Security Hack** · $996: Apple Headphones (possibly hacking tools)
+See [[Prizes]].

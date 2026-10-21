@@ -27,3 +27,8 @@ Pick a web game stack (Phaser or three.js) to pair with SpacetimeDB.
 - [[Dial-In MMO]] (score 7.2)
 - [[Market-Maker NPCs]] (score 6.8)
 - [[Thinking Rows]] (score 5.8)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Golden Bear**.
+No prize posted on Devpost yet.
+See [[Prizes]].

@@ -18,3 +18,7 @@ Agents with rigorous evals.
 
 ## Ideas that hit this sponsor
 - [[Jailbreak Booth]] (score 6.7)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+**Not listed among Devpost sponsors as of Oct 21.** May have dropped out.
+See [[Prizes]].

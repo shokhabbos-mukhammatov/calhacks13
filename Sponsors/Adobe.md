@@ -18,3 +18,8 @@ Creative or document workflows on Adobe APIs.
 
 ## Ideas that hit this sponsor
 None directly. Bolt-on: Export the audit or incident report as a signed PDF via Adobe PDF Services.
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Partner**.
+No prize posted on Devpost yet.
+See [[Prizes]].

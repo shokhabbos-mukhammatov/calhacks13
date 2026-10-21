@@ -29,3 +29,10 @@ Most-awarded sponsor: 7 winners. Judged functionality 25%, Fetch tech 20%, innov
 - [[Agent Tanda]] (score 7.3)
 - [[Agent AML]] (score 7.0)
 - [[Waitlist Exchange]] (score 6.3)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Golden Bear**.
+- **[Fetch.ai] 1st Place Best Use of Fetch.ai** · $1,500
+- **[Fetch.ai] 2nd Place Best Use of Fetch.ai** · $1,000
+- **[Fetch.ai] 3rd Place Best Use of Fetch.ai** · $500
+See [[Prizes]].

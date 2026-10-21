@@ -18,3 +18,8 @@ Student learning and productivity.
 
 ## Ideas that hit this sponsor
 None directly. Bolt-on: Weak fit for our shortlist. Skip unless they announce a track.
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+- **[Notability] Best Use of Notability** · $396: 1 year of Notability Pro + exclusive company merch
+See [[Prizes]].

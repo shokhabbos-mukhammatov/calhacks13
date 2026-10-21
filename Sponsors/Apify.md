@@ -22,3 +22,13 @@ Free account; run one Actor through MCP.
 ## Ideas that hit this sponsor
 - [[Two-Face]] (score 8.0)
 - [[Cal Hacks Futures]] (score 7.1)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+- **[Apify] 1st Place Best use of Apify** · $2,000
+- **[Apify] 2nd Place Best use of Apify** · $1,000
+- **[Apify] 3rd Place Best use of Apify** · $800
+- **[Apify] 4th Place Best use of Apify** · $400
+- **[Apify] 5th Place Best use of Apify** · $400
+- **[Apify] Best Actor sponsored by Apify** · $400
+See [[Prizes]].

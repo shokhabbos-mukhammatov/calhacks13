@@ -21,3 +21,8 @@ Watch for a sandbox API announcement.
 
 ## Ideas that hit this sponsor
 - [[AgentFICO]] (score 7.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+- **[Capital One] Best Use of Nessie** · $1,200: $300 Giftogram per person on winning team
+See [[Prizes]].

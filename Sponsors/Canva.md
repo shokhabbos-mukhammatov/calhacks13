@@ -18,3 +18,8 @@ Canva apps or programmatic design generation.
 
 ## Ideas that hit this sponsor
 None directly. Bolt-on: Generate the shareable output (a scorecard, report or poster) as a Canva design via Connect API.
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

@@ -32,3 +32,8 @@ TypeScript module + React client quickstart in a scratch repo; deploy once.
 - [[Waitlist Exchange]] (score 6.3)
 - [[The Pit]] (score 5.8)
 - [[Thinking Rows]] (score 5.8)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Anchor**.
+No prize on Devpost yet, but SpacetimeDB's blog says it will award a prize for the most impressive use of Spacetime.
+See [[Prizes]].

@@ -24,3 +24,8 @@ npx convex dev in a scratch app.
 - [[Memory Blame]] (score 7.3)
 - [[Save States]] (score 6.3)
 - [[IRL Speedrun Splits]] (score 6.3)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+- **[Convex] Best use of Convex** · $1,308: Teenage Engineering EP-133 K.O. II and a Waveshare ESP32-S3 touch display board
+See [[Prizes]].

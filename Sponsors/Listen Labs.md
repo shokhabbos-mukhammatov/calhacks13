@@ -18,3 +18,8 @@ AI-run research and insight generation.
 
 ## Ideas that hit this sponsor
 - [[Death Heatmap]] (score 7.6)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

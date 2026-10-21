@@ -18,3 +18,8 @@ AI for financial advisors.
 
 ## Ideas that hit this sponsor
 None directly. Bolt-on: Fire Drill variant: fake "client" calls asking an advisor's agent to move money.
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

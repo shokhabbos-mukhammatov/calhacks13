@@ -23,3 +23,8 @@ Winners: Haven, Krates (AI DevOps), Brydge (engineering-knowledge workflows).
 - [[Netting House]] (score 8.3)
 - [[Two-Face]] (score 8.0)
 - [[Fire Drill]] (score 8.0)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

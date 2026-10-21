@@ -18,3 +18,8 @@ Technically deep, well-reasoned projects.
 
 ## Ideas that hit this sponsor
 - [[Frame-Data Exchange]] (score 7.3)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].
