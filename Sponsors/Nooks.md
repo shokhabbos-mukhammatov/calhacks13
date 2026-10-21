@@ -18,3 +18,7 @@ Revenue and sales agents. Avoid sales-practice bots: two won at CH12 and Nooks n
 
 ## Ideas that hit this sponsor
 None directly. Bolt-on: Fire Drill can drill outbound sales agents against prospects who try to manipulate them.
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+**Not listed among Devpost sponsors as of Oct 21.** May have dropped out.
+See [[Prizes]].

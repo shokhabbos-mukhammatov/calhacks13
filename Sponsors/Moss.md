@@ -25,3 +25,8 @@ npm i @moss-dev/moss; free tier includes $5 credits.
 - [[IRL Speedrun Splits]] (score 6.3)
 - [[Thrift Ticker]] (score 5.8)
 - [[Where Did I Put It]] (score 5.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+- **[Moss] Best Use of Moss** · $996: Airpod Max/pros
+See [[Prizes]].

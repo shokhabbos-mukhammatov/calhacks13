@@ -24,3 +24,8 @@ Know your latency and data numbers cold.
 - [[Cal Hacks Futures]] (score 7.1)
 - [[Market-Maker NPCs]] (score 6.8)
 - [[The Pit]] (score 5.8)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

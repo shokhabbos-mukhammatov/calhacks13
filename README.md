@@ -28,3 +28,6 @@ Our prep vault for Cal Hacks 13 (Oct 23–25, 2026, Palace of Fine Arts, SF): sp
 - Add thoughts under **Team notes** at the bottom of each idea note.
 - Commit and push when done: `git add -A && git commit -m "notes on X" && git push`
 - Your Obsidian window layout (`.obsidian/workspace.json`) isn't tracked, so it never conflicts.
+
+## Updates
+- **Oct 21:** added [[Prizes]] (all 66 posted prizes, rules, judging) and [[Recent Winners 2026]]; each sponsor note now ends with its posted prizes; corrected the deadline in [[Prep Plan]] (table by 8 AM, submit by 9 AM). `calhacks13-playbook.html` is still the Oct 11 snapshot.

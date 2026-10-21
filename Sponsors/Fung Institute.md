@@ -18,3 +18,8 @@ Probably judges or mentors; impact and leadership.
 
 ## Ideas that hit this sponsor
 No tech to integrate. These sponsors judge startup potential.
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Partner**.
+No prize posted on Devpost yet.
+See [[Prizes]].

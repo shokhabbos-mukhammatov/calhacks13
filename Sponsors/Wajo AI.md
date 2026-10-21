@@ -20,3 +20,8 @@ Trustworthy personal agents.
 - [[Fire Drill]] (score 8.0)
 - [[Coyote Time]] (score 7.3)
 - [[The 36-Hour Company]] (score 7.2)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Partner**.
+No prize posted on Devpost yet.
+See [[Prizes]].

@@ -21,3 +21,8 @@ Sandbox keys; read the agent skills docs.
 
 ## Ideas that hit this sponsor
 - [[Agent AML]] (score 7.0)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

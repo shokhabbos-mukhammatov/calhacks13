@@ -28,3 +28,9 @@ Winners: AgentOverflow, MarketMind.
 - [[Memory Blame]] (score 7.3)
 - [[Agent AML]] (score 7.0)
 - [[Blast Radius]] (score 7.0)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+- **[Elastic] 1st Place Best use of the Elastic Agent Builder on a Serverless instance** · $1,200: 1st Place Meta Quest 3S headsets
+- **[Elastic] 2nd Place Best use of the Elastic Agent Builder on a Serverless instance** · $1,436: 2nd Place Bose QuietComfort headphones
+See [[Prizes]].

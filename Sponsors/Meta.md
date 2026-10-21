@@ -25,3 +25,8 @@ Ask organizers whether glasses can be borrowed; set up developer mode.
 - [[The Pit]] (score 5.8)
 - [[Thrift Ticker]] (score 5.8)
 - [[Where Did I Put It]] (score 5.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+- **[Meta] Meta/Facebook: Bringing People Closer Together with AI** · non-cash: Invitation to advance to the Round 2 Hackathon hosted at Meta's Menlo Park campus. Travel and accommodations provided. Advancement to Round 2 is subject to eligibility verification and compliance…
+See [[Prizes]].

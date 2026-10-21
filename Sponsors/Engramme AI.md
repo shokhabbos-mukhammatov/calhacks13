@@ -19,3 +19,8 @@ Memory augmentation and lifelong personal memory.
 ## Ideas that hit this sponsor
 - [[Memory Blame]] (score 7.3)
 - [[Where Did I Put It]] (score 5.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

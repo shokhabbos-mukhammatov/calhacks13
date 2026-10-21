@@ -18,3 +18,8 @@ Deploy open models on Runpod.
 
 ## Ideas that hit this sponsor
 - [[Kernel Bounties]] (score 5.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

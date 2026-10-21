@@ -25,3 +25,8 @@ Account + test the MCP server from Claude.
 ## Ideas that hit this sponsor
 - [[Two-Face]] (score 8.0)
 - [[Thrift Ticker]] (score 5.8)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+No prize posted on Devpost yet.
+See [[Prizes]].

@@ -22,3 +22,8 @@ Free Atlassian cloud developer site.
 ## Ideas that hit this sponsor
 - [[Backlog Tower Defense]] (score 7.6)
 - [[Intent Diff]] (score 7.4)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

@@ -20,3 +20,8 @@ Network security, containment, visibility.
 - [[Flytrap]] (score 7.6)
 - [[Zero-Trust Base Defense]] (score 7.6)
 - [[Blast Radius]] (score 7.0)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Partner**.
+No prize posted on Devpost yet.
+See [[Prizes]].
