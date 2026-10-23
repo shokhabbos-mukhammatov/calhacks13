@@ -7,7 +7,7 @@ tags: [research, shortlist]
 Oct 23, before opening. Checks [[Fire Drill + Apify]] against Apify's docs, accounts-payable (AP) guidance on bank-change callbacks, prior art, Apify's pricing and our two-person schedule ([[Prep Plan]]).
 
 ## Verdict
-**Keep Apify, but build half of it.** The Attack Feed is the best part of the plan: it fixes the load-bearing risk in [[Top Ideas Stress Test]] with data we didn't write. The rest is too wide for two people. It promises more trust than it can prove, and `vendor-verify` claims more than it checks.
+**Keep Apify, but build half of it.** The Attack Feed is the best part of the plan: it fixes the load-bearing risk in [[Fire Drill Stress Test]] with data we didn't write. The rest is too wide for two people. It promises more trust than it can prove, and `vendor-verify` claims more than it checks.
 
 Build the reshaped version in [[#Reshaped Apify plan]]: two Actors of ours instead of four, and roughly 5 hours instead of 9. Add a third Actor only once the core loop works. [[Fire Drill]]'s own re-score (7.3) doesn't change. The reshaped add-on is a realistic shot at a Best use place and at Best Actor without endangering the [[Hyphenate]] demo.
 
@@ -120,4 +120,4 @@ Fallbacks: demo mode if the practice target fails, the number on file if `vendor
 - Pluto Security on Apify MCP (Aug 31, 2026): https://pluto.security/blog/apify-mcp-prompt-injection/
 - Apify $1M Challenge: https://apify.com/challenge · BuildHer Hackathon 2026: https://www.startupresearcher.com/news/she-code-africa-and-apify-launch-buildher-hackathon-2026
 
-Back to [[Home]] · [[Fire Drill + Apify]] · [[Fire Drill]] · [[Top Ideas Stress Test]]
+Back to [[Home]] · [[Fire Drill + Apify]] · [[Fire Drill]] · [[Fire Drill Stress Test]]
