@@ -2,58 +2,19 @@
 type: index
 tags: [index]
 ---
-# Cal Hacks 13
+# Cal Hacks 13: Fire Drill + Apify (solo)
 
-**Oct 23–25, 2026** · Palace of Fine Arts, SF · 36 hours · $126,988 in listed prizes · teams of 2–4
-Researched Oct 11, 2026. **Prizes, rules and judging criteria posted on Devpost; updated Oct 21:** see [[Prizes]].
-**Deadlines (Hacker Guide, Oct 23):** submit by Sun 9 AM, then the whole team is at its assigned table by 10:30 AM. Judging runs 10:30 AM–12:30 PM with a 2-minute pitch and a live demo. See [[Prizes#Hacker Guide update (Oct 23)]].
+**Oct 23–25, 2026** · Palace of Fine Arts, SF · solo build
+**Deadlines (Hacker Guide):** submit on Devpost by Sun 9 AM, then be at your assigned table by 10:30 AM. Judging runs 10:30 AM–12:30 PM: a 2-minute pitch plus a live demo. Personal hotspots are banned. See [[Prizes#Hacker Guide update (Oct 23)]].
 
-## Start here
-- [[Prizes]]: all 66 prizes, rules and judging criteria (Oct 21)
-- [[Recent Winners 2026]]: what won at the Berkeley AI Hackathon, TreeHacks, LA Hacks, PennApps and Hack the North
-- [[Shortlist]]: the four worked-out ideas (★ [[Fire Drill]] is the top pick)
-- [[Prep Plan]]: access requests, roles, 36-hour clock
-- [[Cal Hacks 12 Lessons]]: what won last year
+## The project
+- [[Fire Drill]]: the idea, demo script and fit with the posted tracks
+- [[Fire Drill Stress Test]]: the original review and its fixes
+- [[Fire Drill + Apify]]: the Apify plan
+- [[Fire Drill + Apify Stress Test]]: build order and fixes
+- [[Fire Drill + Apify Methods]]: scoring, statistics, commit-reveal and architecture
 
-## Sponsors by category
-- [[Frontier AI & models]] (4)
-- [[Chips & GPU compute]] (3)
-- [[Backends, search & web data]] (6)
-- [[Agent platforms & dev tools]] (6)
-- [[Voice & customer-facing agents]] (5)
-- [[AI data & evals]] (2)
-- [[Payments, fintech & finance ops]] (7)
-- [[Security]] (2)
-- [[Design & creative]] (3)
-- [[Games, learning & memory]] (3)
-- [[Quant trading]] (3)
-- [[Investors & ecosystem]] (6)
-
-## Tier 1 sponsors (our tiers; Devpost anchors are Annapurna Labs, Anthropic, Hyphenate, SpacetimeDB)
-- [[Anthropic]]
-- [[Annapurna Labs]]
-- [[SpacetimeDB]]
-- [[Hyphenate]]
-
-## Ideas by angle
-- [[Trust rails for the agent economy]]: Agents now hold money and identity. Who checks them before they pay or get paid?
-- [[CFO office, made live]]: Hyphenate's world: finance operations as agents plus humans.
-- [[Attack your own agents]]: Security attacks on agents, inverted into products.
-- [[Humans as the eval engine]]: People's attempts and expertise become AI eval data as a side effect.
-- [[Shared worlds on SpacetimeDB]]: Multiplayer where real-time sync is the point, not a feature.
-- [[Dev tools with teeth]]: Coding agents held to account.
-- [[Hardware-bound moonshots]]: Glasses and Trainium ideas. Mostly traps unless hardware access is guaranteed.
-
-## Top ideas by score
-- [[Netting House]] · 8.3
-- [[Two-Face]] · 8.0
-- [[Fire Drill]] · 8.0
-- [[Stump Market]] · 8.0
-- [[Vault Heist]] · 7.8
-- [[Close Raid]] · 7.6
-- [[Flytrap]] · 7.6
-- [[Zero-Trust Base Defense]] · 7.6
-- [[Phone-a-Human]] · 7.6
-- [[Death Heatmap]] · 7.6
-
-The interactive version with team voting: https://claude.ai/artifact/CJEDy2gtz6dW5dMTajDLrQ
+## Prizes and sponsors
+- [[Prizes]]: rules, judging and each track's criteria
+- Target sponsors: [[Hyphenate]], [[Apify]], [[CRS Credit API]], [[Cartesia]], [[Armadin]], [[Anthropic]], [[Factory]], [[Capital One]], [[Elastic]], [[Microsoft]]
+- Going solo also qualifies for **Best Solo Hack**.

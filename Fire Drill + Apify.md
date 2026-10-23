@@ -4,7 +4,7 @@ tags: [plan, shortlist]
 ---
 # Fire Drill + Apify
 
-Oct 23, before opening. Can [[Apify]] make [[Fire Drill]] more trusted, prove its results with data, and win Apify's prizes, without changing the plan in [[Top Ideas Stress Test]]? Yes, if Apify does real work and isn't a wrapper added at the end.
+Oct 23, before opening. Can [[Apify]] make [[Fire Drill]] more trusted, prove its results with data, and win Apify's prizes, without changing the plan in [[Fire Drill Stress Test]]? Yes, if Apify does real work and isn't a wrapper added at the end.
 
 **Stress-tested Oct 23:** see [[Fire Drill + Apify Stress Test]]. With $200 of Apify credit, follow its build order: all four Actors, each with a fallback, commit-reveal for the held-out attacks, and OFAC kept out of the live demo. Where the two notes differ, the stress test wins. The algorithms, formulas and architecture are in [[Fire Drill + Apify Methods]].
 
@@ -134,4 +134,4 @@ To make that true rather than staged:
 - Community Actors, fallback only (mostly unrated): [Contact Details Scraper](https://apify.com/vdrmota/contact-info-scraper) · [WHOIS Domain Lookup](https://apify.com/confidential_gnat/whois-com) · [OFAC Sanctions Scraper](https://apify.com/opendata-labs/ofac-sanctions-scraper)
 - Apify $1M Challenge criteria: https://apify.com/challenge
 
-Back to [[Home]] · [[Fire Drill]] · [[Apify]] · [[Top Ideas Stress Test]]
+Back to [[Home]] · [[Fire Drill]] · [[Apify]] · [[Fire Drill Stress Test]]
