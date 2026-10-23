@@ -6,7 +6,7 @@ tags: [plan, shortlist]
 
 Oct 23, before opening. Can [[Apify]] make [[Fire Drill]] more trusted, prove its results with data, and win Apify's prizes, without changing the plan in [[Top Ideas Stress Test]]? Yes, if Apify does real work and isn't a wrapper added at the end.
 
-**Stress-tested Oct 23:** see [[Fire Drill + Apify Stress Test]]. Build its reshaped version: two Actors of ours instead of four, commit-reveal for the held-out attacks, and no OFAC. Where the two notes differ, the stress test wins.
+**Stress-tested Oct 23:** see [[Fire Drill + Apify Stress Test]]. With $200 of Apify credit, follow its build order: all four Actors, each with a fallback, commit-reveal for the held-out attacks, and OFAC kept out of the live demo. Where the two notes differ, the stress test wins.
 
 ## Verdict
 Give Apify three jobs. Each one fixes a weakness the stress test already found:
