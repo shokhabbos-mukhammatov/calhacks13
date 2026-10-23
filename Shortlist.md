@@ -22,7 +22,7 @@ The four ideas worked out in full: demo script, architecture, how to qualify per
 ## Re-check against posted prizes (Oct 21)
 | Idea | Posted prizes it can target | Verdict |
 | --- | --- | --- |
-| [[Fire Drill]] | [[Hyphenate]] $8K/$5K/$3K + interviews, [[Armadin]] Best Security Hack, [[Cartesia]], [[CRS Credit API]] Identity/Fraud, [[Elastic]], [[Capital One]] Nessie (instead of the Visa sandbox, since Visa's prize is about shopping) | Strongest money match |
+| [[Fire Drill]] | [[Hyphenate]] $8K/$5K/$3K + interviews, [[Armadin]] Best Security Hack, [[Cartesia]], [[CRS Credit API]] Identity/Fraud, [[Elastic]], [[Capital One]] Nessie (instead of the Visa sandbox, since Visa's prize is about shopping), [[Apify]] (6 prizes, see [[Fire Drill + Apify]]) | Strongest money match |
 | [[Two-Face]] | [[Visa]] Reimagining Shopping $5K, [[Apify]] (6 prizes), [[Elastic]], [[Coinbase]] x402 | Strong; Visa's prize is exactly agent shopping |
 | [[Netting House]] | [[Hyphenate]], [[Fetch.ai]], [[Coinbase]] | OK; Visa's posted prize is about shopping, not B2B settlement |
 | [[Vault Heist]] | Its main targets ([[SpacetimeDB]], [[Supercell]], [[Scale]], [[Afterquery]]) have no posted prizes yet. Could still go for **Hacker's Choice** and **Most Creative** if the whole venue plays | Depends on opening-day announcements |
