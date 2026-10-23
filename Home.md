@@ -9,7 +9,7 @@ Researched Oct 11, 2026. **Prizes, rules and judging criteria posted on Devpost;
 **Deadlines:** at your table by Sun 8 AM, submit by 9 AM, edits until 10 AM.
 
 ## Start here
-- [[Council Verdict]]: three agents (substance, impact, novelty and venture) scored all 37 ideas and their pivots. Dashboard: https://claude.ai/artifact/CaHbViV7tNGC1XhKS79YFS
+- [[Council Verdict]]: three agents (substance, impact, novelty and venture) scored all 37 ideas and their pivots. With the posted prizes: **build Fire Drill**, Netting House as fallback. Dashboard: https://claude.ai/artifact/CaHbViV7tNGC1XhKS79YFS
 - [[Judge Verdict]]: the shortlist stress-tested from the judges' side, with prior art and killer questions
 - [[Prizes]]: all 66 prizes, rules and judging criteria (Oct 21)
 - [[Recent Winners 2026]]: what won at the Berkeley AI Hackathon, TreeHacks, LA Hacks, PennApps and Hack the North
