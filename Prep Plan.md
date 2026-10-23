@@ -31,6 +31,7 @@ Ideation is allowed before the event; project code is not. Accounts, API keys, s
 - Delete the repos afterwards
 
 ## Rules check (Devpost, Oct 21)
+The Hacker Guide (Oct 23) changes some of this; see [[Prizes#Hacker Guide update (Oct 23)]].
 - Teams of 2–4 required on Devpost (a Best Solo Hack prize also exists; confirm before going solo).
 - All work must be done during the hackathon.
 - Submission: image, GitHub repo, table number, locally saved demo video.
@@ -54,15 +55,14 @@ Ideation is allowed before the event; project code is not. Accounts, API keys, s
 | Sat noon | Core demo path works; start second sponsor integration |
 | Sat 10 pm | Feature freeze |
 | Sun 4 am | Record demo video (must be saved locally); README and Devpost |
-| Sun 8 am | **Be at your table** (CH13 rule) |
-| Sun 9 am | **Submission deadline** with teammates; table number locks |
-| Sun 10 am | Last edits to the submission; judging after (3-min pitch + 2-min Q&A) |
+| Sun 9 am | **Submission deadline** on Devpost; table numbers are assigned after |
+| Sun 10:30 am | **Whole team at the assigned table.** Judges visit 10:30 AM–12:30 PM: 2-minute pitch plus a live demo. (Devpost said "table by 8 AM"; the Hacker Guide says 10:30. Confirm on Slack.) |
 
 ## Pitch checklist
 - [ ] Open with the live moment, not a problem slide
 - [ ] Name each sponsor's tech on screen as it runs
 - [ ] One sentence on why this exists now
-- [ ] Recorded fallback if Wi-Fi or an API dies
+- [ ] Recorded fallback if Wi-Fi or an API dies. Personal hotspots are banned at the venue, so keep it local: a recording and cached results.
 - [ ] Answer ready for "what's the business?"
 
 Back to [[Home]]

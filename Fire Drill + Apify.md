@@ -70,7 +70,7 @@ Keep it small: 30–60 sources is enough. Run the crawl during the hackathon, no
 The patch already requires an out-of-band callback for any bank change. The next question from an auditor is where the callback number came from: a number taken from the request is what the attacker counts on. So the patch adds one tool, `verify_vendor_independently`, served over MCP by our own `vendor-verify` Standby Actor:
 - **Callback number:** Crawlee reads the contact page of the vendor's official website, using the domain in the vendor master and never the one in the request. The number comes from schema.org `telephone` markup, or from the page text if there is none. Google Maps Scraper is an optional second source.
 - **Sender-domain age** (invoice and email channel): an RDAP lookup on the domain the request came from. A lookalike registered yesterday is a strong BEC signal.
-- **Sanctions:** a fuzzy match of the new beneficiary's name against OFAC's SDN list, downloaded from Treasury and cached when the Actor starts. This also ties in [[CRS Credit API]]'s Identity/Fraud prize.
+- **Business identity and sanctions (updated Oct 23):** call the [[CRS Credit API]] sandbox through its MCP server, using business credit, state filings and CRS's OFAC check, instead of our own OFAC match. It targets CRS's "Best Financial AI Agent" prize ($500). Run it at onboarding and keep it off the live demo's critical path.
 - Each check returns its evidence: the source URL, a timestamp and the matched text. The drill report records it.
 - It is useful outside Fire Drill too, so publish it. Any AP team or agent can call it before changing bank details.
 
@@ -111,11 +111,11 @@ To make that true rather than staged:
 | Apify Best Actor | Lead with `fire-drill`: schemas, limited permissions, one priced event, a README with a sample report, and a default input that drills our practice target in one click. Name `vendor-verify` as the second. Apify's own Actor criteria are real-world usefulness, quality and technical excellence. |
 | [[Hyphenate]] | The callback number comes from an independent source, and the report records it. That is the control auditors test. |
 | [[Armadin]] | Real attacks feed the attacker, and the held-out attacks come from real reports. |
-| [[CRS Credit API]] | Vendor identity and sanctions check before money moves. |
+| [[CRS Credit API]] | `vendor-verify` calls CRS (business credit, state filings, OFAC) through the CRS MCP server before money moves: "Best Financial AI Agent". |
 | Cal Hacks judging | Application (a real control), Technical complexity (held-out split, regression suite) and Functionality (runs anyone can open). |
 
 ## At opening
-- [ ] Read Apify's full prize text on Devpost; it blocked our fetcher. If it asks for a Store Actor or the MCP server specifically, re-order the three jobs.
+- [x] Apify's prize text (Hacker Guide, Oct 23): "Top 5 projects using Apify, we also have a best actor award for building an actor for this event. Project must be using Apify in a meaningful way. We will judge the quality of the project as well as other criteria." It doesn't require Store publishing, MCP or pay-per-event. All our Actors are built this weekend, so they qualify, and publishing stays a quality signal.
 - [ ] Visit the Apify booth Friday: ask for credits and what "best use" means to them.
 
 ## Sources

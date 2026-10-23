@@ -87,6 +87,22 @@ The closed loop has to look real. If the re-run passes only because the patch ma
 ## Why other teams won't build it
 The judge-visible hard parts are an attacker that adapts across voice, email and documents, and a fix that provably generalizes on held-out attacks, ending in a payment that is redirected and then blocked. Few teams will build both the attacker and the victim.
 
+## Posted track criteria (Hacker Guide, Oct 23)
+The pitch is **two minutes** with a live demo; the 2-minute script above fits, so cut anything that doesn't. Full criteria: [[Prizes#Hacker Guide update (Oct 23)]].
+
+| Track | What it asks | What Fire Drill shows |
+| --- | --- | --- |
+| [[Hyphenate]] | Real enough; would you hire it (limited access, a clean record, knowing when to ask); something new; the moment. Judges may run their own scenario. Say what's real, what's simulated, and how you know. | The patched agent has least-privilege tools (limited access), an audit trail per drill (clean record) and the callback (knowing when to ask). The moment is the held-out attack blocked, or the judge's call. **Accept a judge-typed scenario live.** A "real vs. simulated" slide: real Claude, real fraud reports, a real phone call and a real sandbox payment; simulated company, vendors and ledger; we know from ledger-state checks, a committed hash and error bars. Seats line: "the AP clerk's agent, and the controls tester that keeps it honest." |
+| [[Apify]] | Meaningful use; Best Actor for an Actor built at the event; overall project quality | `attack-feed` and `fire-drill`, built this weekend. See [[Fire Drill + Apify]]. |
+| [[CRS Credit API]] | Central use, shown live; Best Financial AI Agent through the API or MCP server | `vendor-verify` calls CRS business credit, state filings and OFAC through the CRS MCP server at onboarding and on bank changes. |
+| [[Factory]] ($2K) | Droid on a trigger you designed, controlled scope, visible plans and diffs | **Option:** run the remediation step on Droid. A failed drill triggers it, it may only edit policy and tests, and the UI shows its plan and diff. Decide at opening: Claude Code is the Anthropic story. |
+| [[Anthropic]] | Named community, real problem, works on Monday, where Claude could go wrong | Community: AP managers at mid-market companies piloting AP agents. Fire Drill is literally "where the Claude agent could go wrong". |
+| [[Microsoft]] | Production-minded finance agent with measurable usefulness | Attack success and utility, before and after the patch, are the measurable usefulness. |
+| [[Cartesia]] | Voice is core, not a feature | Voice is one channel here, so Cartesia is a secondary target. Stress the synthetic persona and consent. |
+| Cal Hacks | Most Technically Complex | [[Fire Drill + Apify Methods]] |
+
+[[Armadin]] and [[Elastic]] criteria are still "coming soon".
+
 ## Team notes
 - Oct 23: see [[Top Ideas Stress Test]]. Pick it, with changes: make both outcomes of the judge's call a win, frame it for Hyphenate as controls testing, and add canary tools plus a real callback to the judge's phone.
 - Oct 23: see [[Fire Drill + Apify]]. Adds Apify's prizes (Best use, $4.6K; Best Actor, $400) without changing the plan: drills run as an Actor, held-out attacks come from real fraud reports, and the callback number comes from an independent source.
