@@ -18,5 +18,8 @@ A persistent world you play only by phone. Hundreds of callers share one Spaceti
 **Angle:** [[Shared worlds on SpacetimeDB]]
 **Sponsors:** [[Cartesia]], [[SpacetimeDB]], [[Supercell]], [[Anthropic]]
 
+> [!abstract] Idea Council · #15 of 37 · council 4.7
+> Substance 4.5 · Impact 3.5 · Novelty & venture 6.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

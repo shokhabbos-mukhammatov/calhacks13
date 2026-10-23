@@ -18,5 +18,8 @@ An auctioned savings circle (tanda, susu, ROSCA) run by agents: each round, memb
 **Angle:** [[Trust rails for the agent economy]]
 **Sponsors:** [[CRS Credit API]], [[Fetch.ai]], [[Visa]], [[Convex]]
 
+> [!abstract] Idea Council · #18 of 37 · council 4.4
+> Substance 4 · Impact 4.5 · Novelty & venture 4.7 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

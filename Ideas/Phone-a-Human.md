@@ -18,5 +18,8 @@ When an agent gets stuck, it phones a paid expert, interviews them by voice, pay
 **Angle:** [[Humans as the eval engine]]
 **Sponsors:** [[Afterquery]], [[Cartesia]], [[Coinbase]], [[Anthropic]]
 
+> [!abstract] Idea Council · #14 of 37 · council 5.0
+> Substance 3.5 · Impact 5.5 · Novelty & venture 6.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

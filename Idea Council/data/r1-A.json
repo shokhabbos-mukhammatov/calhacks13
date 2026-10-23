@@ -1,0 +1,831 @@
+{
+  "agent": "A",
+  "lens": "Substance & depth",
+  "ideas": [
+    {
+      "idea": "Agent AML",
+      "score": 5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Fetch.ai watchdog agent on Agentverse (API), payment-event ingestion from x402/MoonPay testnet (API/glue), streaming payment graph with cycle and refund ping-pong detection (original, textbook), circuit-breaker rule (glue), Elastic dashboard (API), Claude explanation of flagged loops (prompt)",
+        "hard_core": "Streaming cycle and collusion detection on a payment graph. It is real logic, but textbook graph algorithms, and it needs no LLM.",
+        "ai_necessity": 2,
+        "clone_time": "a day",
+        "staging_risk": "high",
+        "feasibility_36h": 7
+      },
+      "take": "A graph algorithm looking for a customer: the detection is textbook, the AI is decorative, and there is no real agent-to-agent payment traffic to watch.",
+      "reasoning": "The only non-API piece is cycle detection on a payment graph, which is a standard graph algorithm plus a rules engine; an LLM adds nothing to finding a wash loop. Every loop in the demo would come from your own bots, so the detector catches what you built it to catch. Network-based wash detection is an existing research and compliance field, and x402stats already filters wash and self-dealing volume out of x402 totals.",
+      "red_flag": "No real traffic: the only attacks are ones you script, so judges will see the circuit breaker trip on your own test loop.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "x402stats (filters wash trading and self-dealing from x402 volume)", "url": "https://www.producthunt.com/products/x402stats" },
+        { "title": "Columbia Business School: Network-based detection of wash trading", "url": "https://business.columbia.edu/faculty/research/network-based-detection-wash-trading" }
+      ]
+    },
+    {
+      "idea": "Agent Tanda",
+      "score": 4,
+      "label": "API mashup",
+      "sub": {
+        "components": "Auction ROSCA round logic (original, small), one bidding agent per member (prompt), CRS KYC and income verification (API), collateral sizing rule (glue), Visa payouts (API), Convex state (API)",
+        "hard_core": "An auctioned savings circle with collateral sizing: a few dozen lines of mechanism, and an agent's bid is a formula, not reasoning.",
+        "ai_necessity": 2,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      },
+      "take": "Bidding ROSCAs and chit-fund apps already exist; putting an LLM agent on each member's bid adds cost, not intelligence.",
+      "reasoning": "An auction ROSCA is a well-understood mechanism: the highest discount wins the pot and the discount is shared, and chit-fund software and MoneyFellows already run it online. A member's bid is a function of cash need and rate, which a script computes better than a chat model. The genuinely hard problem, default risk after a member takes the pot, is handed to a CRS API call.",
+      "red_flag": "The only depth is an API call for KYC, and pooled-savings products are regulated in most markets where they are popular.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Chitfund app with online bidding", "url": "https://itsallwidgets.com/chit-fund" },
+        { "title": "MoneyFellows (digital money circles)", "url": "https://www.startuplist.africa/startups/moneyfellows" },
+        { "title": "Study of Taiwanese bidding ROSCAs (Journal of Development Studies)", "url": "https://ideas.repec.org/a/taf/jdevst/v54y2018i9p1483-1495.html" }
+      ]
+    },
+    {
+      "idea": "AgentFICO",
+      "score": 3,
+      "label": "API mashup",
+      "sub": {
+        "components": "Payment-history ingestion from x402 and Visa (API), scoring formula (glue), CRS KYC tying the agent to a human (API), score lookup endpoint or MCP tool (glue), counterparty check in a demo agent (prompt)",
+        "hard_core": "none. A weighted formula over a handful of synthetic transactions; sybil resistance would be the real problem, and the idea does not address it.",
+        "ai_necessity": 2,
+        "clone_time": "hours",
+        "staging_risk": "high",
+        "feasibility_36h": 8
+      },
+      "take": "This already exists as products: AgentScore and DJD Agent Score sell x402 reputation lookups over MCP, and Vouched raised $17M for Know Your Agent.",
+      "reasoning": "Stripped down, it is KYC from CRS plus a scoring formula over payment rows, and none of it needs an LLM. A score built on 36 hours of synthetic transactions carries no signal, and the hard part of agent reputation, sybil agents washing their own history, is not addressed. Funded teams already ship the same lookup as an MCP tool.",
+      "red_flag": "Direct prior art with a published MCP server; a clone takes hours.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AgentScore profile: credit bureau for the AI economy, monitors x402", "url": "https://agentcommunity.org/m/agentscore" },
+        { "title": "DJD Agent Score MCP server (0-100 wallet reputation for x402)", "url": "https://mcp.so/servers/djdagentscore" },
+        { "title": "Vouched announces $17M Series A for Know Your Agent", "url": "https://www.vouched.id/learn/vouched-announces-17-million-series-a-to-accelerate-expansion-building-on-know-your-agent-kya-suite-success" }
+      ]
+    },
+    {
+      "idea": "Backlog Tower Defense",
+      "score": 3.5,
+      "label": "API mashup",
+      "sub": {
+        "components": "Jira webhooks (API), SpacetimeDB tower-defense state and loop (glue/game), Factory Droids fixing tickets and opening PRs (API), merge webhook kills the enemy (glue), phone bug-filing page (glue)",
+        "hard_core": "none. Factory's Droids do the engineering and the game is a skin over a ticket queue.",
+        "ai_necessity": 6,
+        "clone_time": "a day",
+        "staging_risk": "high",
+        "feasibility_36h": 6
+      },
+      "take": "A game skin over Factory's own assign-a-Jira-ticket-get-a-PR feature, which is exactly the 'CRUD app on a game skin' that SpacetimeDB and Supercell judges mark down.",
+      "reasoning": "Factory already lets you assign a Jira ticket to a Droid and get a pull request, and Cursor does the same from Jira. The project adds a visual for that pipeline, and the game has no real-time logic of its own because a fix takes minutes to merge while a wave lasts seconds. The 'watch it die' moment only works on bugs seeded to be trivially fixable.",
+      "red_flag": "Time mismatch: real fixes take minutes, so the live kill needs a pre-baked bug that judges will suspect.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Factory: assign tickets to AI", "url": "https://factory.ai/product/ai-project-manager" },
+        { "title": "Factory docs: Jira integration", "url": "https://docs.factory.ai/onboarding/integrating-with-your-engineering-system/jira" },
+        { "title": "Cursor for Jira (assign an issue, a cloud agent opens the PR)", "url": "https://cursor.com/product/jira" }
+      ]
+    },
+    {
+      "idea": "Blast Radius",
+      "score": 5.5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Agent with MCP tools (API), injection detection on fetched pages (prompt classifier), tool-trust graph with quarantine (original if taint-based, glue if a toggle), live graph visualization (UI), Elastic logging (API)",
+        "hard_core": "Taint propagation across tool calls could be one, but as written detection is a classifier and quarantine is a switch.",
+        "ai_necessity": 5,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 7
+      },
+      "take": "The right problem, but runtime MCP proxies with guardrails already exist, so the version that detects injections with a classifier is a wrapper.",
+      "reasoning": "If quarantine fires because a classifier flagged the page, this is a detector with a graph drawing, and it fails the moment a judge writes an injection the classifier misses. Invariant's mcp-scan proxy and Enkrypt's MCP gateway already do runtime guardrails on tool traffic. The defensible version is deterministic: tag every value by provenance and block untrusted data from reaching sensitive tool arguments, as CaMeL does; that is a real system, so I merged it into my Fire Drill pivot.",
+      "red_flag": "A judge's novel injection beats the classifier live, and the 'zero-trust graph' turns out to be a color change.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "Thoughtworks Radar: mcp-scan (proxy mode with runtime guardrails)", "url": "https://www.thoughtworks.com/radar/tools/mcp-scan" },
+        { "title": "Enkrypt Secure MCP Gateway", "url": "https://www.enkryptai.com/blog/how-enkrypts-secure-mcp-gateway-and-mcp-scanner-prevent-top-attacks" },
+        { "title": "Defeating Prompt Injections by Design (CaMeL)", "url": "https://arxiv.org/pdf/2503.18813" }
+      ]
+    },
+    {
+      "idea": "Cal Hacks Futures",
+      "score": 4,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Scraping public commit activity via Apify/GitHub (API), market maker pricing contracts (textbook LMSR, or a Claude prompt), SpacetimeDB order book and play-money balances (glue), leaderboard UI (glue)",
+        "hard_core": "none. A textbook automated market maker, and commit counts are a weak, gameable signal.",
+        "ai_necessity": 2,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      },
+      "take": "A play-money prediction market with a textbook market maker; its only signal, commit activity, is gameable, and pricing other teams without consent is a trap.",
+      "reasoning": "An LMSR market maker is about twenty lines of code, and having Claude price contracts from commit counts is AI bolted onto a number a formula handles. The scraping only works if other teams' repos are public. Quant judges will find nothing to probe beyond a standard pricing rule.",
+      "red_flag": "Consent and organizer shutdown risk, with no hard core to show.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Close Raid",
+      "score": 4.5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Bank and ledger transaction import (glue), Claude proposing matches (prompt), SpacetimeDB shared world with monsters for unmatched items (glue/game), accountant approval flow (UI), deterministic replay as audit trail (a built-in SpacetimeDB property)",
+        "hard_core": "Many-to-many transaction matching could be one (a subset-sum style problem), but as written Claude proposes the matches and the game is a skin.",
+        "ai_necessity": 5,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 7
+      },
+      "take": "AI bank-rec matching is a crowded product category, and turning it into a raid adds a skin, not a core.",
+      "reasoning": "The only real logic is matching, and the idea hands it to Claude instead of a solver, so a controller will ask how you know the matches are right. Deterministic replay comes free from SpacetimeDB's reducer log rather than being engineered. Digits, Puzzle and YC's End Close already sell AI reconciliation, and monsters lower credibility with exactly the finance judges this targets.",
+      "red_flag": "LLM-proposed matches with no correctness guarantee in front of finance judges.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Digits automates the monthly close with AI bank reconciliations", "url": "https://www.streetinsider.com/Press+Releases/Digits+Automates+the+Monthly+Close+with+AI+Bank+Reconciliations/25583599.html" },
+        { "title": "Puzzle AI close", "url": "https://puzzle.io/ai-close" },
+        { "title": "End Close (Y Combinator)", "url": "https://www.ycombinator.com/companies/end-close" }
+      ]
+    },
+    {
+      "idea": "Coyote Time",
+      "score": 2.5,
+      "label": "Wrapper",
+      "sub": {
+        "components": "Intercept of agent purchases (glue), authorize-now-capture-later payment (API), Cartesia voice announcement and STT listening for 'cancel' (API), countdown timer (glue)",
+        "hard_core": "none. A grace window is authorize-and-capture-later, which card payments already support.",
+        "ai_necessity": 2,
+        "clone_time": "hours",
+        "staging_risk": "low",
+        "feasibility_36h": 8
+      },
+      "take": "Authorize now, capture later, with a voice prompt on top; payments infrastructure already ships the undo window.",
+      "reasoning": "Stripe's manual capture reserves funds and lets you capture or release them later, which is the whole 'rollback before it settles' mechanic. Cartesia announces the purchase and STT listens for one word. Nothing here needs an LLM or original engineering, so it clones in an afternoon.",
+      "red_flag": "Clone time is hours, and there is nothing for the Anthropic judge to score.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Stripe docs: Place a hold on a payment method (manual capture)", "url": "https://docs.stripe.com/payments/place-a-hold-on-a-payment-method" }
+      ]
+    },
+    {
+      "idea": "Death Heatmap",
+      "score": 4.5,
+      "label": "API mashup",
+      "sub": {
+        "components": "Claude computer-use persona agents (API), task scripts per persona (prompt), stuck-point detection from action logs (glue, light original), Figma overlay (API), Listen Labs interviews at choke points (API)",
+        "hard_core": "Aggregating agent failure points into a heatmap. Modest, and the key question (do agent failures predict human failures?) is unanswered.",
+        "ai_necessity": 8,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      },
+      "take": "Persona-driven LLM usability testing already exists as research systems, and this chains computer use, Figma and Listen Labs without adding a validated core.",
+      "reasoning": "The agents do the work through Anthropic's computer-use API and the output is a Figma overlay; the team's glue is logging where an agent stalls. UXAgent and WebProber already run persona agents against live sites and report usability issues. Computer-use agents get stuck for their own reasons (slow screenshots, mis-clicks), so without calibration against real human sessions each 'death' may be an agent artifact, and a swarm of computer-use sessions is slow and costly inside 36 hours.",
+      "red_flag": "Agent stuck-points are not validated against human ones, so a judge can dismiss every death as an agent bug.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "UXAgent: An LLM Agent-Based Usability Testing Framework for Web Design", "url": "https://arxiv.org/pdf/2502.12561" },
+        { "title": "AI Agents for Web Testing: A Case Study in the Wild (WebProber)", "url": "https://arxiv.org/abs/2509.05197" }
+      ]
+    },
+    {
+      "idea": "Dial-In MMO",
+      "score": 4.5,
+      "label": "API mashup",
+      "sub": {
+        "components": "Cartesia Line telephony, Sonic TTS and Ink STT per caller (API), Claude narrator and NPC dialogue (prompt), SpacetimeDB shared world state (API/glue), turn-taking across concurrent callers (original)",
+        "hard_core": "Coordinating many simultaneous voice sessions in one world. Real-time, but mostly the vendor's infrastructure.",
+        "ai_necessity": 6,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 5
+      },
+      "take": "A text adventure behind a phone number: Cartesia does the voice, Claude narrates, SpacetimeDB holds state, and nobody owns a core.",
+      "reasoning": "Every impressive part is a sponsor API: telephony, TTS, STT and the LLM narrator. The only original piece is coordinating callers in one world, and at hackathon scale that means a handful of concurrent calls with obvious cost and rate-limit ceilings. 'Hundreds of callers' is not reachable in a noisy hall on free-tier concurrency.",
+      "red_flag": "Concurrency, latency and cost of simultaneous voice sessions; the demo shrinks to two judges on phones.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Fire Drill",
+      "score": 6.5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Victim AP agent on Claude Agent SDK with mock ledger tools (API/glue), adaptive multi-turn attacker (prompt plus original loop), Cartesia Line voice channel (API), ground-truth scorer from tool calls (original), Claude Code patch writer (API), held-out variant re-run harness (original), Elastic trace (API), Visa sandbox (API), scorecard UI (glue)",
+        "hard_core": "The attack, score, patch, held-out re-run loop with ground truth from tool calls. Real but thin: each piece is commodity and the fix that works is one well-known control.",
+        "ai_necessity": 8,
+        "clone_time": "a week",
+        "staging_risk": "high",
+        "feasibility_36h": 7
+      },
+      "take": "The best-framed security idea in the pool, but as written it is an LLM attacker, an LLM victim and an LLM patcher, and its 'generalizing' fix is close to tautological.",
+      "reasoning": "Multi-turn adaptive attacker agents are now a commodity: promptfoo (bought by OpenAI in March 2026) ships Crescendo, GOAT and Hydra, Cekura sells tens of thousands of red-team scenarios for voice agents, and AgentDojo already scores tool-using agents, including banking tasks, by environment state. The weak point is remediation: the fix that works is 'require an out-of-band callback for bank changes', and once you gate or remove the tool the held-out re-run passes by construction, which proves nothing about the patcher. The victim is a prompt you wrote, so 'did you make it dumb on purpose?' stays open.",
+      "red_flag": "The held-out PASS is tautological if the patch just gates the tool, and the victim's weakness is whatever your prompt made it.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "promptfoo docs: multi-turn jailbreak strategies (Crescendo, GOAT, Hydra)", "url": "https://www.promptfoo.dev/docs/red-team/strategies/multi-turn/" },
+        { "title": "OpenAI to acquire Promptfoo", "url": "https://openai.com/blog/openai-to-acquire-promptfoo" },
+        { "title": "Cekura docs: red teaming", "url": "https://docs.cekura.ai/documentation/red-teaming/overview" },
+        { "title": "AgentDojo: prompt injection attacks and defenses for LLM agents", "url": "https://arxiv.org/html/2406.13352v3" },
+        { "title": "Dark Reading: Social engineering AI agents, the new BEC for 2026", "url": "https://darkreading.com/cybersecurity-operations/social-engineering-ai-agents-bec-2026" }
+      ]
+    },
+    {
+      "idea": "Flytrap",
+      "score": 3.5,
+      "label": "API mashup",
+      "sub": {
+        "components": "Decoy MCP servers advertising fake tools (glue), decoy Agentverse agents (API), Elastic logging of attacker moves (API), quarantine on decoy contact (glue), scripted hostile agent for the demo (prompt)",
+        "hard_core": "none. A honeypot is a tripwire, and MCP honeypots already exist as open-source tools and Canarytokens.",
+        "ai_necessity": 3,
+        "clone_time": "hours",
+        "staging_risk": "high",
+        "feasibility_36h": 8
+      },
+      "take": "MCP honeypots already ship (Thinkst's MCP Canarytoken, HoneyMCP, Beelzebub), and the only attacker in the demo will be one you wrote.",
+      "reasoning": "A decoy tool that alerts when called is a few dozen lines, and Thinkst already generates the mcp.json for you. Palisade's public LLM-agent honeypot flagged about 8 possible AI agents among 8.1 million attempts over three months, so in 36 hours you will catch nothing real. The live moment is a scripted bot walking into your own trap, which is the first thing security judges ask about.",
+      "red_flag": "No real adversary to catch; the demo is staged by construction.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Thinkst: MCP server Canarytoken", "url": "https://blog.thinkst.com/2026/06/one-for-all-the-models-out-there.html" },
+        { "title": "Lenny Zeltser: decoy MCP server honeypot", "url": "https://zeltser.com/decoy-mcp-server-honeypot" },
+        { "title": "LLM Agent Honeypot (Palisade Research)", "url": "https://arxiv.org/html/2410.13919v2" },
+        { "title": "HoneyMCP (ghost tools for MCP servers)", "url": "https://lobehub.com/mcp/barvhaim-honeymcp" }
+      ]
+    },
+    {
+      "idea": "Frame-Data Exchange",
+      "score": 6.5,
+      "label": "Real system",
+      "sub": {
+        "components": "SpacetimeDB tick-based matching engine (original), per-frame inference budget and latency-as-startup-frames scheduler (original), Claude-written trading bots (prompt/codegen), Trainium or GPU inference for bots (API/hardware), leaderboard (glue)",
+        "hard_core": "A deterministic tick exchange where inference latency is a priced, budgeted resource: a real engine, though a small one.",
+        "ai_necessity": 5,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 5
+      },
+      "take": "One of the few ideas with an original engine (an exchange where thinking time costs you), but it is a game for quant recruiters, not a product, and Trainium adds hardware risk.",
+      "reasoning": "The matching engine and frame-budget scheduler are genuine logic that is not one API call, and 'fast-and-dumb beats slow-and-smart' is a crisp, measurable finding. But LLM trading arenas already exist (nof1's Alpha Arena ran frontier models trading live), the AI here is mostly bot codegen, and Trainium serving is the vault's flagged hardware trap. Nobody uses it twice.",
+      "red_flag": "No repeat user and a hardware dependency: impressive to Jane Street, irrelevant to investors.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "ForkLog: Four out of six AI models suffer losses in trading tournament (Alpha Arena)", "url": "https://forklog.com/en/four-out-of-six-ai-models-suffer-losses-in-trading-tournament/" }
+      ]
+    },
+    {
+      "idea": "IRL Speedrun Splits",
+      "score": 2,
+      "label": "Wrapper",
+      "sub": {
+        "components": "Meta glasses camera and mic via the Wearables toolkit (API/hardware), timer and ghost comparison (glue), Cartesia voice splits (API), Moss or Convex storage (API)",
+        "hard_core": "none. A stopwatch with a voice.",
+        "ai_necessity": 1,
+        "clone_time": "hours",
+        "staging_risk": "medium",
+        "feasibility_36h": 3
+      },
+      "take": "A stopwatch with a voice on hardware you may not have; no AI is needed and nothing needs engineering.",
+      "reasoning": "Timing errands against a personal best needs a timer and maybe GPS, not an LLM. Every component is a sponsor API or a device feature. The build depends on Meta glasses being available and working on day one.",
+      "red_flag": "Hardware dependence and zero substance.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Intent Diff",
+      "score": 5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Jira ticket fetch (API), PR diff (glue), static capability diff for new network calls, auth-file edits and new dependencies (original, but rules/AST), Claude scope judgment of ticket vs diff (prompt), Greptile/Factory hooks (API)",
+        "hard_core": "An AST-level capability diff (new sinks, new deps, sensitive paths). Real logic, but rules that a semgrep config mostly covers.",
+        "ai_necessity": 5,
+        "clone_time": "a day",
+        "staging_risk": "low",
+        "feasibility_36h": 8
+      },
+      "take": "Half of it is rules that do not need AI, and the other half CodeRabbit already ships as linked-issue assessment.",
+      "reasoning": "Flagging new network calls, auth-file edits and new dependencies is static analysis; semgrep or an AST walk does it more reliably than an LLM. Mapping ticket intent to the diff is the LLM part, and CodeRabbit already reads the linked Jira issue and assesses whether the PR addresses it. What is left is an 'out of scope' framing: useful, but clonable in a day.",
+      "red_flag": "Direct overlap with CodeRabbit's Jira linked-issue validation.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "CodeRabbit docs: linked issues", "url": "https://docs.coderabbit.ai/guides/linked-issues" },
+        { "title": "CodeRabbit docs: PR validation against issues", "url": "https://docs.coderabbit.ai/issues/pr-validation" }
+      ]
+    },
+    {
+      "idea": "Jailbreak Booth",
+      "score": 2,
+      "label": "Wrapper",
+      "sub": {
+        "components": "Chat kiosk UI (glue), target agent (API plus prompt), LLM labeling of attempts (prompt), dataset export (glue)",
+        "hard_core": "none",
+        "ai_necessity": 4,
+        "clone_time": "hours",
+        "staging_risk": "low",
+        "feasibility_36h": 9
+      },
+      "take": "Gandalf with a kiosk; Lakera already has a huge community dataset and an agent-breaker version.",
+      "reasoning": "A target prompt, a chat box and an LLM labeler is a wrapper. Lakera's Gandalf and its newer Agent Breaker, plus Berkeley's Tensor Trust with hundreds of thousands of attacks, already cover the game and the dataset at a scale a weekend booth cannot approach.",
+      "red_flag": "Judges have played Gandalf.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Lakera: Gandalf Agent Breaker", "url": "https://www.lakera.ai/blog/gandalf-agent-breaker" },
+        { "title": "Tensor Trust: Interpretable Prompt Injection Attacks from an Online Game", "url": "https://arxiv.org/pdf/2311.01011" }
+      ]
+    },
+    {
+      "idea": "Kernel Bounties",
+      "score": 5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Bounty marketplace and escrow (glue plus Coinbase API), benchmark harness on Trainium/Runpod with correctness checks and timing-noise control (original), payout by measured speedup (glue), Claude-assisted kernel writing (API)",
+        "hard_core": "A trustworthy benchmark referee: correctness checks, noise-controlled timing and resistance to reward hacking. Real, but it is the only real piece.",
+        "ai_necessity": 4,
+        "clone_time": "a week",
+        "staging_risk": "high",
+        "feasibility_36h": 3
+      },
+      "take": "The only real part is a fair benchmark referee, which GPU MODE's infrastructure already runs for kernel competitions; the marketplace is empty and the hardware uncertain.",
+      "reasoning": "Paying on measured speedup needs a referee that resists cheating (kernels that skip work or game timing), and that is real engineering. But GPU MODE already hosts kernel leaderboards and ran a $100K AMD competition on that infrastructure, so the referee is not new either. Without guaranteed Trainium access and with no bounty posters, the demo is your own bounty solved by your own agent.",
+      "red_flag": "Hardware access plus a two-sided market you cannot seed in 36 hours.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "NVIDIA: Topping the GPU MODE kernel leaderboard", "url": "https://developer.nvidia.com/blog/topping-the-gpu-mode-kernel-leaderboard-with-nvidia-cuda-compute" },
+        { "title": "KernelBench: Can LLMs Write Efficient GPU Kernels?", "url": "https://arxiv.org/pdf/2502.10517" }
+      ]
+    },
+    {
+      "idea": "Kernel Golf",
+      "score": 5.5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "NKI kernel levels with reference implementations (original content), correctness and speed harness on Trainium (original), SpacetimeDB leaderboard (glue), Claude hints that cost points (prompt)",
+        "hard_core": "A correctness-and-speed scoring harness on real hardware; the optimization itself is done by the players.",
+        "ai_necessity": 3,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 3
+      },
+      "take": "A respectable harness wrapped in a puzzle game, but every player needs Trainium access that nobody has guaranteed.",
+      "reasoning": "Scoring real NKI kernels against each other needs a reliable correctness and timing harness, which is genuine engineering. Claude only gives hints, so AI is peripheral. GPU MODE already runs the competitive-kernel format for GPUs, and AWS now ships Claude Code agents for NKI, so even the hint layer is partly a sponsor product.",
+      "red_flag": "Every player needs working Trainium access; one quota delay kills it.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "NVIDIA: Topping the GPU MODE kernel leaderboard", "url": "https://developer.nvidia.com/blog/topping-the-gpu-mode-kernel-leaderboard-with-nvidia-cuda-compute" },
+        { "title": "AWS Neuron docs: Neuron Agentic Development", "url": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/neuron-agentic-development/index.html" }
+      ]
+    },
+    {
+      "idea": "Kernel Swarm",
+      "score": 4,
+      "label": "API mashup",
+      "sub": {
+        "components": "Judge names a PyTorch op (UI), agents write the NKI kernel (AWS Neuron Agentic Development inside Claude Code, API), compile and benchmark on Trainium (API/hardware), Greptile/Factory review (API)",
+        "hard_core": "Kernel synthesis is deep, but AWS already ships it as open-source agents for Claude Code, so the team's part is orchestration.",
+        "ai_necessity": 9,
+        "clone_time": "hours",
+        "staging_risk": "high",
+        "feasibility_36h": 2
+      },
+      "take": "AWS's own Neuron Agentic Development already writes, debugs and profiles NKI kernels from Claude Code; this is a stage show over their plugin.",
+      "reasoning": "The hard part, translating a PyTorch op into an efficient NKI kernel, is what AWS released as open source on April 30, 2026. What the team adds is a swarm wrapper and a review step. A live compile-and-benchmark inside a 2-minute pitch on uncertain hardware is not realistic.",
+      "red_flag": "The core is the sponsor's existing product; Annapurna judges will recognize their own tool.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AWS What's New: Neuron Agentic Development for NKI kernel development (Apr 2026)", "url": "https://aws.amazon.com/de/about-aws/whats-new/2026/04/announcing-neuron-agentic-development/" },
+        { "title": "AWS Neuron docs: Neuron Agentic Development", "url": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/neuron-agentic-development/index.html" }
+      ]
+    },
+    {
+      "idea": "Market-Maker NPCs",
+      "score": 4,
+      "label": "Thin glue",
+      "sub": {
+        "components": "SpacetimeDB reducers clearing trades (glue), Claude quoting bid/ask and managing inventory (prompt), inventory and bankruptcy state (glue), MMO client (UI)",
+        "hard_core": "none as written. Inventory-aware quoting is a solved quantitative model, and an LLM in the quote loop is slower and worse.",
+        "ai_necessity": 2,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      },
+      "take": "Wrong tool for the core: market making is a formula with inventory skew, and asking Claude to quote is slower, costlier and less correct than twenty lines of math.",
+      "reasoning": "Quant judges will ask why an LLM sets spreads when a closed-form inventory model does it in microseconds. Reducers clearing trades is a basic use of SpacetimeDB. The better version has Claude set personality and risk parameters for a quantitative quoting engine, but that is a game feature, not a project.",
+      "red_flag": "An LLM in the quote loop invites 'what does Claude do here that a script couldn't?' and loses.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Memory Blame",
+      "score": 7.5,
+      "label": "Real system",
+      "sub": {
+        "components": "Agent long-term memory store with provenance edges from source episode to derived belief (original), consolidation step where Claude must cite source ids for each new belief, checked by ablation (prompt plus original validation), bisect over memory write history against a failing behavior test (original), cascade rollback with re-derivation of beliefs that had other support (original, truth-maintenance style), Elastic or Convex storage (API), lineage UI (glue)",
+        "hard_core": "A truth-maintenance system for LLM memory: a belief lineage graph, git-bisect over memory writes against a behavior test, and cascade rollback of everything derived from the poisoned source.",
+        "ai_necessity": 7,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 7
+      },
+      "take": "One of the few ideas with an engine of its own: provenance, bisect and cascading rollback for agent memory, a problem current memory systems demonstrably do not solve.",
+      "reasoning": "Memory poisoning is documented and unsolved: a 2026 study found five agent-memory systems keep retrieving revoked facts by default, and ShadowMerge reports high attack success on graph memory while calling defenses largely conceptual. Graphiti links facts to source episodes but has no cascade rollback, so the lineage graph, bisect and rollback are the team's own engineering. The split of labor is right: Claude consolidates memories and writes the behavior test, while bisect and rollback are deterministic and checkable.",
+      "red_flag": "Lineage accuracy: if Claude's consolidation cites the wrong sources, rollback misses derived beliefs, so you need an ablation check or a judge will ask how you know the graph is right.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "Revoked but Still Authoritative: An Empirical Study of Revocation Enforcement in Agent-Memory Systems", "url": "https://arxiv.org/abs/2609.08258" },
+        { "title": "ShadowMerge: poisoning attack on graph-based agent memory", "url": "https://www.emergentmind.com/papers/2605.09033" },
+        { "title": "Graphiti: temporal knowledge graphs for agent memory (provenance to episodes)", "url": "https://codex.danielvaughan.com/2026/03/30/graphiti-agent-memory-store/" }
+      ]
+    },
+    {
+      "idea": "Netting House",
+      "score": 8,
+      "label": "Real system",
+      "sub": {
+        "components": "Fetch.ai uAgents per company with Agentverse registration (API), Claude invoice extraction, AP-AR matching and dispute flagging (prompt), plain-English treasury policy compiled to typed solver constraints (prompt plus original schema), OR-Tools max-circulation solver (original model on a library), invariant checker (original), two-phase commit with re-solve on reject (original), hash-chained audit log (original), x402/CDP settlement (API), Convex dashboard (glue)",
+        "hard_core": "Optimal multilateral set-off (max-circulation with integral cents) behind an invariant checker and a two-phase commit across independent agents.",
+        "ai_necessity": 5,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 7
+      },
+      "take": "The most real system in the pool: a solver, invariants and a commit protocol move the money, and Claude handles the messy parts a script cannot.",
+      "reasoning": "Nothing that moves money is an LLM call: amounts come from an LP whose answer is in whole cents, an invariant checker gates every proposal, and a two-phase commit handles rejections, which answers every 'where does AI touch the money?' question. The math is published (Cycles' MTCS is a min-cost max-flow), so the solver is a day of work for a strong engineer and the moat is the agent participation layer, not the algorithm. Claude's jobs (messy invoice matching, disputes, policy-to-constraint compilation) are real but supporting, so the Anthropic judge will see Claude as the assistant, not the hero.",
+      "red_flag": "Synthetic economy: the cycles exist because you drew the graph, so 'does this happen for real?' needs Slovenia's or Cycles' numbers on screen.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "Cycles: An introduction to MTCS", "url": "https://cycles.money/blog/an-introduction-to-mtcs" },
+        { "title": "Cycles Protocol: A Peer-to-Peer Electronic Clearing System", "url": "https://arxiv.org/pdf/2507.22309" }
+      ]
+    },
+    {
+      "idea": "Phone-a-Human",
+      "score": 3.5,
+      "label": "API mashup",
+      "sub": {
+        "components": "Stuck detection in the agent loop (prompt), outbound call via Cartesia Line (API), voice interview of the expert (prompt plus API), per-minute payment from the agent's wallet via Coinbase (API), transcript turned into a labeled correction example (prompt)",
+        "hard_core": "none. Each step is an API call or a prompt, and human-as-a-tool already exists.",
+        "ai_necessity": 5,
+        "clone_time": "a day",
+        "staging_risk": "high",
+        "feasibility_36h": 7
+      },
+      "take": "Cartesia plus Coinbase plus a prompt, chained; HumanLayer already gives agents a human-as-tool API, and RentAHuman already lets agents hire and pay people.",
+      "reasoning": "The pieces are sponsor calls: dial, talk, pay, summarize. The hard problems (knowing the agent is truly stuck, checking that the expert is right, turning a rambling call into a clean label) are each delegated to a prompt. The demo's expert will be a teammate, which judges will notice.",
+      "red_flag": "Staged expert and no original logic; clonable in a day.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "HumanLayer docs (API for agents to contact humans)", "url": "https://humanlayer.dev/docs" },
+        { "title": "Analytics Vidhya: AI agents can now hire real humans (RentAHuman)", "url": "https://www.analyticsvidhya.com/blog/2026/02/ai-hiring-humans/" }
+      ]
+    },
+    {
+      "idea": "Save States",
+      "score": 3,
+      "label": "API mashup",
+      "sub": {
+        "components": "Claude Code session snapshots (existing checkpoints), branches via git worktrees (glue), Droids exploring each branch (API), Greptile review per branch (API), Convex UI (glue)",
+        "hard_core": "none. Claude Code already checkpoints and rewinds, and branches are git worktrees.",
+        "ai_necessity": 4,
+        "clone_time": "hours",
+        "staging_risk": "low",
+        "feasibility_36h": 8
+      },
+      "take": "Claude Code already ships checkpoints and /rewind; branching sessions plus Droids plus Greptile is a mashup of existing features.",
+      "reasoning": "Every prompt in Claude Code creates a checkpoint and /rewind restores code and conversation. Parallel alternate timelines are git worktrees with an agent in each, and reviewing each branch is a Greptile call. There is no engineering here the platforms have not already done.",
+      "red_flag": "Anthropic judges will recognize their own feature.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Claude Code docs: Checkpointing", "url": "https://code.claude.com/docs/en/checkpointing" }
+      ]
+    },
+    {
+      "idea": "Scar Tissue",
+      "score": 4,
+      "label": "API mashup",
+      "sub": {
+        "components": "Editor plugin capturing the edit stream (glue), index of past review comments (Greptile learning or own index, API), sub-10 ms retrieval with Moss (API), Cartesia voice interjection (API), Droid applies the known fix (API)",
+        "hard_core": "Low-latency matching of live edits against past review lessons; the latency is Moss's and the learning is Greptile's.",
+        "ai_necessity": 5,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      },
+      "take": "Greptile already learns rules from your team's PR comments; adding Moss for speed and Cartesia for a voice makes it a four-API chain with no core.",
+      "reasoning": "The valuable part, knowing which patterns burned your team, is Greptile's documented memory feature, which infers rules from comments, replies and reactions. Sub-second retrieval is Moss's product. The team writes an editor plugin and glue, and a voice interrupting you mid-keystroke is a UX liability rather than a moat.",
+      "red_flag": "The core value is a sponsor's existing feature.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Greptile docs: memory and learning", "url": "https://www.greptile.com/docs/how-greptile-works/memory-and-learning" }
+      ]
+    },
+    {
+      "idea": "Short the PR",
+      "score": 6,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Staking and payouts over x402 (API), hunter agents generating bug-revealing tests (prompt plus Claude/Factory API), test execution on PR head vs base (original), adjudication of whether a failing test proves a bug (original, unsolved as written), Greptile context (API)",
+        "hard_core": "A verifiable oracle for 'this PR has a bug': a test that fails on the PR. Real, but a failing test proves a behavior difference, not a bug.",
+        "ai_necessity": 7,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      },
+      "take": "It has a real kernel, proof by failing test, but as written the oracle is unsound and the staking market is decoration.",
+      "reasoning": "Writing a test that exposes a real defect is hard reasoning a script cannot do, and running tests gives ground truth, which is the right shape. The flaw is adjudication: a failing test shows the PR behaves differently from what the test asserts, and the PR may have intended that change, so every payout becomes a dispute. The x402 stake is an API on top; prediction markets for audits have been proposed before, and the substance is the oracle, which my pivot fixes.",
+      "red_flag": "Unsound oracle: intended behavior changes also produce 'proofs', so payouts are contestable.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "ethresear.ch: Future market for auditing", "url": "https://ethresear.ch/t/future-market-for-auditing/8037" }
+      ]
+    },
+    {
+      "idea": "Street Injection Lens",
+      "score": 3,
+      "label": "Wrapper",
+      "sub": {
+        "components": "Meta glasses camera feed (API/hardware), OCR plus a Claude 'is this an injection?' classifier (prompt), Moss lookup of known patterns (API), warning to the user's agent (glue)",
+        "hard_core": "none. OCR plus a prompt classifier; the threat is real but the defense is a filter.",
+        "ai_necessity": 6,
+        "clone_time": "a day",
+        "staging_risk": "high",
+        "feasibility_36h": 3
+      },
+      "take": "A real threat (CHAI showed printed signs hijacking embodied agents) answered with OCR and a classifier, on hardware you may not get.",
+      "reasoning": "The CHAI paper shows physical-world prompt injection works against drones and driving agents, so the problem is legitimate. But the build is camera, OCR and a classifier prompt that fails on any phrasing it has not seen, and the demo requires posters you printed. The glasses toolkit dependency is a hard blocker.",
+      "red_flag": "Hardware dependency and a staged demo.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "CHAI: Command Hijacking against embodied AI", "url": "https://arxiv.org/html/2510.00181v2" },
+        { "title": "UC Santa Cruz: Misleading text can hijack AI-enabled robots", "url": "https://news.ucsc.edu/2026/01/misleading-text-can-hijack-ai-enabled-robots/" }
+      ]
+    },
+    {
+      "idea": "Stump Market",
+      "score": 3,
+      "label": "API mashup",
+      "sub": {
+        "components": "Question submission UI (glue), each question run against N frontier models (API), grading against the expert's answer key (prompt or exact match), price equals number of models failed (glue), payouts via Coinbase (API)",
+        "hard_core": "none. The hard part, verifying that the answer key is right and the question is not ambiguous, is missing.",
+        "ai_necessity": 4,
+        "clone_time": "hours",
+        "staging_risk": "medium",
+        "feasibility_36h": 8
+      },
+      "take": "Humanity's Last Exam with a price tag: Scale and CAIS already paid out a $500K pool for expert questions that stump frontier models.",
+      "reasoning": "The mechanism is: call several model APIs, count failures, pay. A question with a wrong or ambiguous answer key stumps every model, so without an answer-verification step the market pays for bad questions, and that verification is the only hard part. HLE ran exactly this with expert review at large scale, and Scale is a sponsor judge.",
+      "red_flag": "Direct prior art run by a sponsor, and the pricing rule rewards wrong answer keys.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Scale AI: Humanity's Last Exam", "url": "https://www.scale.com/blog/humanitys-last-exam" },
+        { "title": "CAIS: Submit your toughest questions for Humanity's Last Exam", "url": "https://safe.ai/blog/humanitys-last-exam" }
+      ]
+    },
+    {
+      "idea": "The 36-Hour Company",
+      "score": 3.5,
+      "label": "API mashup",
+      "sub": {
+        "components": "Capped virtual card per subagent (card-issuing API), Claude Code subagents spending (API), CFO agent matching charges to commits (prompt), month-end close report (glue)",
+        "hard_core": "none. Per-agent cards with limits are a shipping product, and matching charges to commits is fuzzy matching by prompt.",
+        "ai_necessity": 4,
+        "clone_time": "a day",
+        "staging_risk": "high",
+        "feasibility_36h": 4
+      },
+      "take": "Ramp already sells agent cards with spend limits, merchant locks and instant revoke; the rest is a prompt reconciling charges against commits.",
+      "reasoning": "The novel-sounding part, a capped card per subagent, is an existing product category. The CFO agent's reconciliation is an LLM matching strings with no correctness guarantee. Real card issuing in a sandbox may be unavailable to students, so the demo risks mock cards.",
+      "red_flag": "Card issuing access, and the core is an existing product.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Ramp: Virtual cards for AI agents", "url": "https://ramp.com/blog/virtual-cards-for-ai-agents" }
+      ]
+    },
+    {
+      "idea": "The Pit",
+      "score": 3,
+      "label": "API mashup",
+      "sub": {
+        "components": "Neural Band gesture input on Ray-Ban Display (API/hardware), gesture-to-order mapping (glue), SpacetimeDB order-matching reducer (glue), Claude (no clear role)",
+        "hard_core": "none. A matching reducer fed by gesture events, with AI barely present.",
+        "ai_necessity": 1,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 2
+      },
+      "take": "A gesture-controlled order book: gesture recognition is Meta's, matching is a reducer, and AI is not needed.",
+      "reasoning": "Recognizing hand signals is the Neural Band's job and matching orders is a basic reducer. There is no AI reasoning anywhere in the loop. It depends on Display glasses and a Neural Band being on hand and working on day one.",
+      "red_flag": "Hardware dependency and no core.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Thinking Rows",
+      "score": 6,
+      "label": "Real system",
+      "sub": {
+        "components": "SpacetimeDB rows holding per-NPC recurrent state (glue), batched recurrent step kernel on Trainium via NKI (original, hard), tick loop syncing state between database and device (original), training objective for the minds (undefined)",
+        "hard_core": "A batched NKI kernel stepping 10,000 tiny recurrent minds per tick with database-to-device sync. Real systems work, but the math is one batched matmul and the minds have no training objective.",
+        "ai_necessity": 3,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 2
+      },
+      "take": "The most systems-heavy idea in the pool, but a research project with an undefined payoff: untrained recurrent minds are a matmul producing noise.",
+      "reasoning": "Stepping 10,000 recurrent states per tick in one kernel and syncing them with database rows is genuine systems engineering. Without a learning objective the NPCs do nothing interesting, and a GPU runs the same batched GEMM trivially, so the Trainium angle is not load-bearing. Depth is moderate and buildability in 36 hours is near zero.",
+      "red_flag": "Not buildable in 36 hours and no defined behavior for the minds.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Thrift Ticker",
+      "score": 2.5,
+      "label": "API mashup",
+      "sub": {
+        "components": "Glasses camera (API/hardware), product identification by a vision model (API), resale prices via Bright Data scraping (API), pinch gesture to place an order (API), Visa payment (API)",
+        "hard_core": "none",
+        "ai_necessity": 5,
+        "clone_time": "a day",
+        "staging_risk": "high",
+        "feasibility_36h": 3
+      },
+      "take": "Visual product search plus scraped resale prices plus a pinch: five APIs and a hardware dependency.",
+      "reasoning": "Every step is a sponsor or model API: identify the object, scrape prices, show an overlay, pay. There is no original logic beyond wiring them together. It depends on Display glasses and Neural Band access.",
+      "red_flag": "Hardware dependency and no core.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Two-Face",
+      "score": 6,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Bright Data Scraping Browser paired sessions (API), Playwright capture (glue), visible-text, JSON-LD and perceptual-hash diff with a three-run persistence filter (original), Claude diff classifier (prompt), Elastic index plus Agent Builder MCP tools (API), Apify Actor (API), seeded cheating stores (glue), Claude shopper with Visa sandbox (API)",
+        "hard_core": "A controlled paired-identity experiment with a persistence filter to separate cloaking from A/B noise. Genuine methodology, but thin once built.",
+        "ai_necessity": 6,
+        "clone_time": "a day",
+        "staging_risk": "high",
+        "feasibility_36h": 7
+      },
+      "take": "A real experimental design, but the demo's only cheaters are stores you built, and SPLX showed the attack is a trivial user-agent check, so detection is easy where cloaking exists and empty where it does not.",
+      "reasoning": "Isolating identity as the only variable and filtering A/B noise across three runs is real measurement work and the strongest part. Everything else is sponsor APIs: Bright Data runs the sessions, Claude labels the diff, Elastic serves the score. The live moment is a toggle on your own store, which judges will read as staged.",
+      "red_flag": "Staged evidence: if the real-site crawl finds nothing, the trust index is a demo of your own fake stores.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "SPLX: AI-targeted cloaking against OpenAI Atlas", "url": "https://splx.ai/blog/ai-targeted-cloaking-openai-atlas" },
+        { "title": "The Hacker News: New AI-targeted cloaking attack", "url": "https://thehackernews.com/2025/10/new-ai-targeted-cloaking-attack-tricks.html" }
+      ]
+    },
+    {
+      "idea": "Vault Heist",
+      "score": 7,
+      "label": "Real system",
+      "sub": {
+        "components": "SpacetimeDB module with atomic transfer reducers, scheduled customer reducers and private tables (original game logic on sponsor tech), guard workers calling Claude with tools (API plus prompt), Claude-played legitimate customers (prompt), technique and break-turn labeler (prompt), Vault-Bench replay harness measuring breach vs service rate (original), mobile client and big screen (UI), Cartesia voices (API)",
+        "hard_core": "An authoritative real-time economy where an LLM tool call is the only way money moves, under a service-rate constraint that stops guards from refusing everyone, feeding a breach-versus-service benchmark.",
+        "ai_necessity": 8,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      },
+      "take": "A real system with a measurable core (breach rate versus service rate, with ground-truth settlement), though the game and the dataset sit close to Tensor Trust and Lakera's Agent Breaker.",
+      "reasoning": "Coins move only when Claude's tool call reaches a validating reducer, so every attempt has a ground-truth outcome, and forcing guards to serve Claude-played customers turns the game into a security-versus-utility measurement that Tensor Trust's 'access granted' format lacks. That is an original loop someone has to engineer and balance, and reducers being unable to call out (only beta procedures can) confirms the worker design is necessary. The dataset alone is not new, so the value must be the utility constraint and Vault-Bench.",
+      "red_flag": "Turnout and balance: with few real players the data is bot self-play, and the guard itself is a copyable prompt.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "Tensor Trust: Interpretable Prompt Injection Attacks from an Online Game", "url": "https://arxiv.org/pdf/2311.01011" },
+        { "title": "Lakera: Gandalf Agent Breaker", "url": "https://www.lakera.ai/blog/gandalf-agent-breaker" },
+        { "title": "SpacetimeDB docs: Procedures (outbound HTTP, reducers cannot)", "url": "https://spacetimedb.com/docs/procedures" }
+      ]
+    },
+    {
+      "idea": "Waitlist Exchange",
+      "score": 3.5,
+      "label": "API mashup",
+      "sub": {
+        "components": "Cartesia voice agent on the host phone (API), queue-position pricing (glue or a simple auction), SpacetimeDB waitlist state (glue), Visa payment (API), Fetch agents (API)",
+        "hard_core": "none as written; a queue-position auction could be one, but it is not specified.",
+        "ai_necessity": 4,
+        "clone_time": "a day",
+        "staging_risk": "high",
+        "feasibility_36h": 6
+      },
+      "take": "AppointmentTrader already auctions reservations with predicted prices, and states are moving to fine unauthorized resale; this adds a phone voice.",
+      "reasoning": "The voice agent is Cartesia, payments are Visa, and pricing is either a formula or unspecified. The marketplace mechanic exists and faces legal and platform pushback. There is no real restaurant in the demo, so the host-phone moment is staged.",
+      "red_flag": "Prior art plus legal headwinds, and no core.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Wikipedia: Appointment Trader", "url": "https://en.wikipedia.org/wiki/Appointment_Trader" },
+        { "title": "Stateline: Black-market dining reservations, states want to stop that", "url": "https://stateline.org/2025/06/27/black-market-dining-reservations-sell-for-thousands-states-want-to-stop-that/" }
+      ]
+    },
+    {
+      "idea": "Where Did I Put It",
+      "score": 2,
+      "label": "Wrapper",
+      "sub": {
+        "components": "Glasses camera logging (API/hardware), object detection or captioning (API), Moss search (API), voice Q&A via Cartesia (API), Engramme memory (API)",
+        "hard_core": "none",
+        "ai_necessity": 5,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 3
+      },
+      "take": "Meta announced 'remember where you parked' memory for Ray-Ban Meta in 2024; this rebuilds the platform's own feature on hardware you may not have.",
+      "reasoning": "Logging objects and answering 'where is it?' is captioning plus search, both API calls. Meta itself ships a memory feature for the glasses. Nothing is original, and the hardware dependency remains.",
+      "red_flag": "Platform already ships it.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Meta: Ray-Ban Meta glasses get new AI features (memory)", "url": "https://about.fb.com/news/2024/09/ray-ban-meta-glasses-new-ai-features-and-partner-integrations/" }
+      ]
+    },
+    {
+      "idea": "Zero-Trust Base Defense",
+      "score": 5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Network map import (glue), wall placement UI (game), AI red-team raid (LLM agent over the graph, or path search), replay showing the bypassed wall (UI), SpacetimeDB state (API)",
+        "hard_core": "Attack-path search over a segmented network graph. Real logic, but a graph search does it better than an LLM agent.",
+        "ai_necessity": 3,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      },
+      "take": "Attack-path analysis is a graph problem BloodHound has solved for years; an LLM red-teamer on a synthetic map with a Clash skin adds no core.",
+      "reasoning": "Finding which wall the attacker walked around is path search over a graph with edge preconditions, which BloodHound already does on real Active Directory data. An LLM raiding the map is slower and less complete than a search. The stronger version would compute the optimal wall placement (a min-cut) and grade players against it, but that is a training toy, and 'your real network map' will not be real at a hackathon.",
+      "red_flag": "The AI does what a graph algorithm does better, on a synthetic network.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "SpecterOps: BloodHound Community Edition", "url": "https://specterops.io/bloodhound-community-edition/" }
+      ]
+    }
+  ],
+  "pivots": [
+    {
+      "id": "A-P1",
+      "parent": "Fire Drill + Blast Radius",
+      "name": "Fire Drill: Proving Ground",
+      "pitch": "An adaptive attacker searches for social-engineering chains (voice, email, invoice) against your money-moving agent, and the fix is a deterministic provenance policy at the tool boundary, proven on a breach-versus-utility table over 200 generated held-out attacks.",
+      "change": "Three changes. (1) The fix is no longer Claude Code editing a prompt: a tool-boundary proxy tags every value with its source (vendor master, trusted user, or untrusted channel such as a call transcript, email or invoice text) and blocks any money-moving call whose payee or bank fields trace to untrusted text unless an out-of-band confirmation fires; Claude proposes the policy and the engine enforces it. (2) The attacker becomes a search: Claude expands a tree of concession chains per tactic and channel, prunes branches the victim resists, and keeps winning chains as a regression suite. (3) Every claim is a number: breach rate with a confidence interval and benign-task completion before and after, on held-out variants generated from tactic x channel x wording templates the policy never saw. Voice stays as one channel for the live judge call.",
+      "why": "It removes the tautology in the original: enforcement does not depend on wording, so 'what if they reword it?' is answered by design, and the utility column proves you did not just delete the tool. Each part does what it is good at: the LLM searches for attacks (a script cannot), and the engine enforces (an LLM should not). It is CaMeL's information-flow idea turned into a product for finance agents, with a measured result instead of a demo-only PASS.",
+      "score": 8,
+      "label": "Real system",
+      "sub": {
+        "components": "Victim AP agent on Claude Agent SDK (API), tree-search attacker over tactic x channel (original loop plus prompt), Cartesia Line voice channel (API), provenance-tagging tool proxy and policy engine (original), Claude policy proposer (prompt), held-out variant generator plus breach/utility harness (original), Visa sandbox payment (API), scorecard (glue/UI)",
+        "hard_core": "Deterministic provenance enforcement on money-moving tool arguments, plus a statistical breach-versus-utility evaluation over generated held-out attacks.",
+        "ai_necessity": 8,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 6
+      }
+    },
+    {
+      "id": "A-P2",
+      "parent": "Two-Face",
+      "name": "Parity Proxy",
+      "pitch": "An MCP browsing proxy that renders each page in a real browser, computes the text a human can actually perceive, hands the agent only that layer, and logs every hidden delta as evidence.",
+      "change": "Moves from accusing merchants (which needs real cheaters to exist within 36 hours) to a defensive firewall that works on every page. The core becomes a perceptual-visibility engine: computed styles, contrast against the background, font size, clipped and off-viewport boxes, occlusion via point sampling, aria-hidden and zero-opacity text. The paired human/agent crawl stays as a background measurement study rather than the demo, and Claude only classifies borderline deltas.",
+      "why": "The hard core is now original engineering that is not one API call, and it is measurable: precision and recall per hiding technique on a labeled corpus. The live moment is not staged, because a judge can paste any hiding trick into a page and watch it stripped before the agent reads it. Say the limit out loud: it stops hidden instructions, not visible ones.",
+      "score": 7,
+      "label": "Real system",
+      "sub": {
+        "components": "Bright Data Scraping Browser or Playwright rendering (API), perceptual-visibility engine over computed style, layout and pixel sampling (original), DOM-text versus perceivable-text delta (original), Claude borderline classifier (prompt), MCP fetch server (glue), Elastic findings index (API), paired-identity crawl study (original, background)",
+        "hard_core": "Computing the human-perceivable text layer of a rendered page and diffing it against what the agent would otherwise ingest.",
+        "ai_necessity": 5,
+        "clone_time": "a week",
+        "staging_risk": "low",
+        "feasibility_36h": 7
+      }
+    },
+    {
+      "id": "A-P3",
+      "parent": "Short the PR",
+      "name": "Refactor Insurance",
+      "pitch": "For PRs declared 'no behavior change' (refactors, dependency bumps, agent-written cleanups), a swarm of Claude hunters tries to write a test that passes on main and fails on the PR; any such test is machine-checked proof of a regression and blocks the merge.",
+      "change": "Fixes the unsound oracle: restricting to declared no-behavior-change PRs makes a differential test (green on base, red on head, stable over five reruns) an objective proof with no argument about intent. The staking market is dropped, or kept only as an optional x402 bounty. Hunters are scored on a mutation benchmark of seeded regressions, so the pitch ends on a catch rate.",
+      "why": "The AI does the hard reasoning (finding an input that exposes a subtle behavior change) and a script does the judging, which is exactly the split the Anthropic judge looks for. The verdict is mechanically verifiable, the catch rate on seeded mutants is a number, and it targets a real, growing workload: the flood of agent-written refactor PRs.",
+      "score": 7,
+      "label": "Real system",
+      "sub": {
+        "components": "Claude/Factory Droid hunter agents writing differential tests (API plus prompt), sandboxed base-versus-head test runner with flake filter (original), mutation-injection benchmark for catch rate (original), GitHub check gate and report (glue), Greptile context for hunters (API), optional x402 bounty (API)",
+        "hard_core": "A differential-testing oracle (passes on base, fails on head, stable across reruns) that turns an LLM's bug hunt into machine-verified proof, measured by catch rate on seeded regressions.",
+        "ai_necessity": 8,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 7
+      }
+    }
+  ],
+  "wildcards": [],
+  "picks": [
+    { "rank": 1, "ref": "A-P1", "why": "After the pivot it is the deepest security build in the pool: a deterministic policy engine and a measured breach-versus-utility table, with the live judge phone call kept as the hook." },
+    { "rank": 2, "ref": "Netting House", "why": "The most real system as written: an LP, invariants and a two-phase commit move the money, so it survives every 'where does the AI touch the money?' question." },
+    { "rank": 3, "ref": "Memory Blame", "why": "An original engine (lineage graph, bisect, cascade rollback) for a documented, unsolved problem, with a crisp poison, bisect, rollback demo." },
+    { "rank": 4, "ref": "Vault Heist", "why": "Ground-truth settlement in reducers plus a service-rate constraint makes it a measurable security-versus-utility system rather than a jailbreak toy." },
+    { "rank": 5, "ref": "A-P3", "why": "A clean, verifiable oracle where Claude does the hard reasoning and a test runner does the judging; small enough to finish and polish." }
+  ],
+  "ceo_note": "Strip the jargon and more than half the pool is sponsor APIs chained to a prompt, and several ideas (AgentFICO, Stump Market, Kernel Swarm, Flytrap, Coyote Time, Save States) already exist as products or as a sponsor's own feature. Only Netting House, Memory Blame and Vault Heist have an engine of their own as written; Fire Drill becomes the strongest once its fix is a deterministic policy engine with a measured breach-versus-utility table, not Claude patching a prompt it wrote. Whatever you build, make the thing that decides the outcome (moves money, blocks a call, settles a coin) code you wrote and can verify, with Claude doing the reasoning around it."
+}

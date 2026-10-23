@@ -21,5 +21,8 @@ A glasses app that spots adversarial text in the physical world (posters telling
 > [!danger] Trap
 > Depends on glasses hardware and the preview toolkit working on day one.
 
+> [!abstract] Idea Council · #28 of 37 · council 3.7
+> Substance 3 · Impact 3.5 · Novelty & venture 4.7 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

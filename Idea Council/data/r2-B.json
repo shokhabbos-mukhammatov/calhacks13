@@ -1,0 +1,20 @@
+{
+  "agent": "B",
+  "cross": [
+    { "ref": "A-P1", "score": 8, "label": "Emerging", "take": "A fix that holds no matter how the attack is worded, aimed at the most expensive fraud in finance, but it still protects tomorrow's agent AP desks rather than the human desks where the roughly $3B a year is lost today." },
+    { "ref": "A-P2", "score": 7, "label": "Emerging", "take": "The same defensive turn I proposed for Two-Face, made concrete with a measurable visibility engine; it blocks a documented injection class on every page, and it is honest that visible manipulation still gets through." },
+    { "ref": "A-P3", "score": 6.5, "label": "Urgent", "take": "A real, daily workload (agent refactors and dependency bumps) with a reliable test that proves regressions, but it covers a narrower slice of bugs than review in general." },
+    { "ref": "C-P1", "score": 8.5, "label": "Urgent", "take": "The same move as my B-P8: a callback on every payment, using the contact already on file, attacks the biggest documented payments fraud today, and it should be sold to human AP desks as well as agents." },
+    { "ref": "C-P2", "score": 6.5, "label": "Emerging", "take": "Matches my B-P7: it measures a real and fast-growing customer, AI shoppers, with a revenue number, but agent-driven sales are still a small base." },
+    { "ref": "C-P3", "score": 6, "label": "Emerging", "take": "It names who absorbs the loss, but the loss itself, stores actually cheating agents, is still unmeasured, so the impact is no larger than Two-Face's." },
+    { "ref": "C-P4", "score": 6, "label": "Urgent", "take": "Proof-backed review answers a real noise problem, but the pricing and staking layer adds nothing to impact and brings back some gaming risk compared with a plain proof-only reviewer." }
+  ],
+  "picks": [
+    { "rank": 1, "ref": "Netting House", "why": "Still the biggest, most frequent real-money pain in the pool, with a mechanism proven to free 1-5% of GDP in liquidity a year." },
+    { "rank": 2, "ref": "C-P1", "why": "Two agents independently reached the same pivot: a callback on every payment turns Fire Drill into a control that blocks today's BEC losses." },
+    { "ref": "B-P1", "rank": 3, "why": "Containment with very few false alarms for the agent attack that cannot be prevented, needed by every company that connects agents to private data." },
+    { "rank": 4, "ref": "Intent Diff", "why": "A daily, growing pain for every team merging agent PRs, with a clear per-PR metric." },
+    { "rank": 5, "ref": "A-P2", "why": "Two agents converged on the defensive Two-Face; A's visibility engine makes it measurable and protects agents on every page today." }
+  ],
+  "changed": "Same five bets: I swapped my B-P8 and B-P2 for the near-identical C-P1 and A-P2, so the council's votes land together on the versions other agents also proposed."
+}

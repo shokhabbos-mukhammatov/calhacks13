@@ -21,5 +21,8 @@ A play-money prediction market on the hackathon itself; market-maker agents pric
 > [!danger] Trap
 > Prices other teams without their consent and needs their repos public; organizers may shut it down.
 
+> [!abstract] Idea Council · #30 of 37 · council 3.0
+> Substance 4 · Impact 2 · Novelty & venture 3.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

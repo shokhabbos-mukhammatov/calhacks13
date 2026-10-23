@@ -85,5 +85,8 @@ Real sites may show almost no identity-based differences within 36 hours, or too
 ## Why other teams won't build it
 It is a controlled experiment, not a scraper: isolating identity as the only variable while filtering real-world noise, having Claude judge intent with evidence, and feeding the verdict into a live agent’s payment decision.
 
+> [!abstract] Idea Council · #3 of 37 · council 9.4
+> Substance 6 · Impact 6.5 · Novelty & venture 6.7 (best version: the original). Picked by A#6 via Render-Parity Shield, B#5 via Parity Proxy, C#3 via Two-Face KYM: Know Your Merchant for agent cards. See [[Council Verdict]].
+
 ## Team notes
 -

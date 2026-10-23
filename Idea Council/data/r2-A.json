@@ -1,0 +1,26 @@
+{
+  "agent": "A",
+  "cross": [
+    { "ref": "B-P1", "score": 4.5, "label": "Thin glue", "take": "Honeytokens inside your own fleet are a sound signal, but the decoy tool and alert-on-call already ship (Thinkst's MCP Canarytoken, Beelzebub), and an attacker after one payment redirect never touches 'export_all_customers_decoy', so coverage is thin and the demo attack is one you aim at the decoy." },
+    { "ref": "B-P2", "score": 7, "label": "Real system", "take": "Same defensive core as my A-P2: a human-perceivable render layer computed per page is original engineering that works on any page, is measurable per hiding technique, and needs no staged cheater." },
+    { "ref": "B-P3", "score": 5, "label": "Thin glue", "take": "It drops Vault Heist's real core (the service-rate constraint) for a bounty marketplace that Gray Swan already runs at scale for agents, and at a hackathon the 'company agent' will be your own." },
+    { "ref": "B-P4", "score": 3, "label": "API mashup", "take": "A tanda ledger plus CRS data furnishing plus reminder agents: Mission Asset Fund already runs the model, and nothing here needs an LLM or original engineering." },
+    { "ref": "B-P5", "score": 4.5, "label": "Thin glue", "take": "Per-task budgets and freezes are card-issuer features Ramp already sells, loop and duplicate checks are rules, and charge-to-task attribution is a tag at authorization time, so the AI is optional." },
+    { "ref": "B-P6", "score": 6.5, "label": "Real system", "take": "Sandboxed test generation and execution as the gate for every comment is real, but outside regressions a failing test only proves the reviewer's assertion, which may be wrong, so the oracle is weaker than it sounds." },
+    { "ref": "B-P7", "score": 5, "label": "Thin glue", "take": "Fixes Death Heatmap's validity problem (agent failures are now the real failures), but it is still computer-use runs plus logging, and lab agents like Claude computer use are proxies for production shopping agents, not the same thing." },
+    { "ref": "B-P8", "score": 5.5, "label": "Thin glue", "take": "A callback on the number of record is the right control, but it is a registry lookup, a Cartesia call and a payment hold, and drilling human AP desks is existing KnowBe4/Abnormal territory, so it adds a product but no core." },
+    { "ref": "C-P1", "score": 6, "label": "Thin glue", "take": "Slightly deeper than B-P8 because the rail refuses to release funds without a signed attestation, a deterministic gate, but Trustpair and Eftsure already verify bank details and there is no breach-versus-utility measurement." },
+    { "ref": "C-P2", "score": 5, "label": "Thin glue", "take": "Same engine as B-P7 with a better buyer; the real work would be making stochastic agent runs reproducible enough to attribute revenue loss, and the pivot does not say how." },
+    { "ref": "C-P3", "score": 6, "label": "Thin glue", "take": "A new buyer for the same paired-crawl, diff and Claude classifier, and a pre-authorization check cannot run a three-pass crawl in authorization time, so it becomes a lookup into an index whose cheaters are still your own stores." },
+    { "ref": "C-P4", "score": 6, "label": "Thin glue", "take": "Same proof-by-failing-test core as B-P6, but tying payment to 'first valid proof' makes the unsound oracle carry money, and the staking and reviewer-marketplace layers add integration surface, not depth." }
+  ],
+  "picks": [
+    { "rank": 1, "ref": "A-P1", "why": "All three agents pivoted Fire Drill, and this version has the deepest core: deterministic provenance enforcement on money-moving tools plus a measured breach-versus-utility table, keeping the live judge phone call." },
+    { "rank": 2, "ref": "Netting House", "why": "Still the most real system as written: an LP, invariants and a two-phase commit move the money, and Claude handles the mess a script cannot." },
+    { "rank": 3, "ref": "Memory Blame", "why": "An original engine (lineage graph, bisect, cascade rollback) for a documented, unsolved memory-poisoning problem, with a crisp demo." },
+    { "rank": 4, "ref": "Vault Heist", "why": "Ground-truth settlement in reducers plus a service-rate constraint makes it a measurable security-versus-utility system; keep the constraint, not the bounty marketplace." },
+    { "rank": 5, "ref": "A-P3", "why": "The soundest version of the proof-by-failing-test idea all three agents converged on: limited to no-behavior-change PRs, a differential test is a mechanical proof." },
+    { "rank": 6, "ref": "B-P2", "why": "B independently reached the same render-parity core as my A-P2; it is a real, measurable system that works on any page without staged cheaters." }
+  ],
+  "changed": "I added the render-parity shield (B-P2, the same core as my A-P2) at #6 because the Impact Analyst converged on it independently; no other pivot beat my picks on substance, and the Callback, checkout-heatmap and Proof-of-Bug variants add buyers, not engines."
+}

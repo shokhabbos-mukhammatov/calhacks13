@@ -1,0 +1,1089 @@
+{
+  "agent": "B",
+  "lens": "Problem & impact",
+  "ideas": [
+    {
+      "idea": "Agent AML",
+      "score": 3,
+      "label": "Not needed",
+      "sub": {
+        "problem": "An agent-marketplace operator worries that autonomous agents paying each other could get stuck in wash loops or refund ping-pong and drain balances.",
+        "status_quo": "Agent payments today are mostly tiny pay-per-call fees (one October 2025 week: about 932K x402 transactions worth about $914K, roughly $1 each); platforms rely on wallet caps and ordinary chain analytics.",
+        "solution": "A watchdog agent graphs agent-to-agent payments live and trips a circuit breaker on loop patterns.",
+        "optimizes": "Losses from collusive or runaway agent payment loops, which today amount to pennies per transaction.",
+        "who": "Operators of agent marketplaces and x402 sellers; a few hundred teams today.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Industry",
+        "needed": "Not needed",
+        "harm": "False positives freeze legitimate agents' funds; continuous surveillance of payment graphs without the parties' consent."
+      },
+      "take": "A fraud detector for a fraud pattern nobody has reported yet.",
+      "reasoning": "x402 has processed on the order of 160M payments in a year, but at about a dollar each, and I found no reported case of agents draining each other through wash loops. AML is a regulated function with established vendors, and a hackathon graph does not change who bears the risk. The nearby real pain is runaway or unauthorized agent spend inside one company, which my pivot B-P5 targets.",
+      "red_flag": "The problem exists mainly inside the idea; a judge asking for one real incident ends the pitch.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "ForkLog: transaction volume of Coinbase's x402 protocol surges (932K transactions, ~$914K in one week)", "url": "https://forklog.com/en/news/transaction-volume-of-coinbases-x402-protocol-surges-by-10000" },
+        { "title": "Cointelegraph: Coinbase's x402 transactions rise 10,000%", "url": "https://cointelegraph.com/news/coinbases-x402-transactions-rise-10000-percent" }
+      ]
+    },
+    {
+      "idea": "Agent Tanda",
+      "score": 4.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A family saving through a tanda or susu risks a member skipping payments after taking the pot early, and their years of on-time payments build no credit history.",
+        "status_quo": "Informal circles run on trust and group chats; nonprofits such as Mission Asset Fund formalize them and report payments to credit bureaus (68,000+ participants, average +168 credit-score points).",
+        "solution": "Members' agents bid each round to take the pot early; CRS income verification and KYC decide who joins and how much collateral they post.",
+        "optimizes": "Default losses inside circles and the price of early liquidity; the auction adds price discovery, not safety.",
+        "who": "Savings-group users worldwide (Findex 2011: 19% of adults in Sub-Saharan Africa used a community savings group); millions in US immigrant communities (no reliable US count found).",
+        "frequency": "monthly",
+        "severity": "vitamin",
+        "scale": "Society",
+        "needed": "Nice to have",
+        "harm": "The auction makes the most cash-desperate member pay the steepest discount for the pot, turning mutual aid into a lender profiting from distress; collateral and income checks exclude the very people circles serve."
+      },
+      "take": "Real community, wrong fix: the auction monetizes members' desperation instead of reducing defaults or building credit.",
+      "reasoning": "ROSCAs are used by hundreds of millions of people and the pains are real: default risk and credit invisibility. Agent bidding addresses neither, and introduces a predatory dynamic. The proven impact lever is credit-bureau reporting of on-time contributions, which my pivot B-P4 keeps.",
+      "red_flag": "Agents bidding on behalf of low-income savers is a solution nobody in the circle asked for.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "UC ANR: Mission Asset Fund lending circles (68,000+ participants, +168 average credit-score gain)", "url": "https://ucanr.edu/node/101980" },
+        { "title": "World Bank blog: Findex data on community-based savings groups", "url": "https://blogs.worldbank.org/en/allaboutfinance/nick-kristof-on-microfinance-banking-access-and-a-way-out-of-poverty" }
+      ]
+    },
+    {
+      "idea": "AgentFICO",
+      "score": 5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A merchant or service asked to deliver before payment to an unknown AI agent cannot tell whether anyone accountable stands behind it.",
+        "status_quo": "Prepayment (x402 is pay-before-serve), card-network agent tokens and signatures (Visa Intelligent Commerce, Trusted Agent Protocol), and funded startups: AgentScore scores agents from x402 history and Vouched sells Know Your Agent.",
+        "solution": "A credit score for agents from payment history, tied to a KYC'd human via CRS, checked before extending credit.",
+        "optimizes": "Counterparty default losses on agent-to-agent credit; today almost no agent credit is extended, so the loss pool is small.",
+        "who": "Agent platforms and API sellers; low thousands of businesses so far.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Linking agents to their owners' consumer credit files spreads sensitive data and lets one bad score shut a person out of agent commerce."
+      },
+      "take": "The agent-trust problem is emerging, but agents rarely extend each other credit yet and funded startups already score them.",
+      "reasoning": "Evidence for the identity half is real (Vouched raised a $17M Series A for Know Your Agent; Visa built a protocol to tell real agents from bots). Evidence for the credit half is not: agent payments are prepaid micro-fees. A score answers a question few counterparties are asking today.",
+      "red_flag": "Credit is the wrong primitive for prepaid micropayments; the identity problem is already being served.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AgentScore profile (credit bureau for the AI economy, watches x402)", "url": "https://agentcommunity.org/m/agentscore" },
+        { "title": "Vouched: Know Your Agent and $17M Series A", "url": "https://vouched.id" },
+        { "title": "Cointelegraph: Coinbase's x402 transactions rise 10,000%", "url": "https://cointelegraph.com/news/coinbases-x402-transactions-rise-10000-percent" }
+      ]
+    },
+    {
+      "idea": "Backlog Tower Defense",
+      "score": 3.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A dev team's Jira backlog grows faster than they close tickets.",
+        "status_quo": "Triage meetings, bug bashes, and coding agents (Factory Droids, Copilot coding agent) assigned straight from the tracker.",
+        "solution": "Tickets spawn as enemies in a multiplayer tower defense; Droid towers open real PRs.",
+        "optimizes": "Engagement during a bug bash; the PR-writing that actually shrinks backlogs is Factory's existing product.",
+        "who": "Dev teams, but the game layer serves demo audiences more than daily users.",
+        "frequency": "weekly",
+        "severity": "nice-to-have",
+        "scale": "Team",
+        "needed": "Nice to have",
+        "harm": "Gamifying ticket kills rewards merging fast over merging safely."
+      },
+      "take": "A fun skin on coding agents; no backlog shrinks faster because it looks like a game.",
+      "reasoning": "The value is the agent fixing tickets, which exists without the game. Nobody triages their real backlog in a tower defense twice. Great 20-second demo, little lasting impact.",
+      "red_flag": "Take away the game and nothing new is left; keep the game and no one uses it at work.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "On the Use of Agentic Coding: An Empirical Study of Pull Requests on GitHub", "url": "https://alphaxiv.org/abs/2509.14745" }
+      ]
+    },
+    {
+      "idea": "Blast Radius",
+      "score": 6.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A company's agent reads an attacker's web page or ticket, gets prompt-injected, and uses its legitimate MCP tools to leak private data, as shown against the GitHub MCP and Supabase MCP servers.",
+        "status_quo": "Injection filters and guardrail products, least-privilege tokens, confirmation prompts users click through; OpenAI says prompt injection is unlikely ever to be fully solved, so limiting damage matters.",
+        "solution": "Watch the agent's tool graph and quarantine compromised tools zero-trust style while the agent runs.",
+        "optimizes": "Records exfiltrated and unauthorized actions per injection incident.",
+        "who": "Every team running agents with MCP tools on private data; tens of thousands of companies and growing.",
+        "frequency": "weekly",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Over-eager quarantine breaks legitimate workflows; a staged demo can overclaim detection rates."
+      },
+      "take": "Documented, growing problem and the right target (containment), but the note never says how compromise is detected.",
+      "reasoning": "Toxic agent flows are documented (Invariant on GitHub MCP, General Analysis on Supabase MCP), and both OpenAI and the UK NCSC say to plan for injection succeeding. Containment is where damage gets cut. Detection by another LLM is noisy, so the quarantine has no reliable trigger; my pivot B-P1 adds Flytrap-style decoys as that trigger.",
+      "red_flag": "Quarantine is only as good as its trigger, and the trigger is unspecified.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "Invariant Labs: GitHub MCP exploited via a toxic agent flow", "url": "https://invariantlabs.ai/blog/mcp-github-vulnerability" },
+        { "title": "General Analysis: Supabase MCP can leak your entire SQL database", "url": "https://generalanalysis.com/blog/supabase-mcp-blog" },
+        { "title": "TechCrunch: OpenAI says AI browsers may always be vulnerable to prompt injection", "url": "https://techcrunch.com/2025/12/22/openai-says-ai-browsers-may-always-be-vulnerable-to-prompt-injection-attacks/" }
+      ]
+    },
+    {
+      "idea": "Cal Hacks Futures",
+      "score": 2,
+      "label": "Not needed",
+      "sub": {
+        "problem": "Hackathon attendees want something to bet on about who wins.",
+        "status_quo": "Gossip, and general play-money prediction markets that already cover anything.",
+        "solution": "A play-money market on the hackathon, priced by agents from teams' public commits.",
+        "optimizes": "Entertainment for one weekend.",
+        "who": "About 2,000 attendees, once a year.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Not needed",
+        "harm": "Prices other teams without consent, scrapes their repos and can embarrass or pressure them; organizers may shut it down."
+      },
+      "take": "A one-weekend toy whose subjects did not agree to be traded.",
+      "reasoning": "No one's life or business improves, and the product's existence depends on the event it covers. The non-consent issue makes it net negative for the people it prices.",
+      "red_flag": "Harms other teams while solving nothing.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Close Raid",
+      "score": 5.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "A staff accountant spends days each month matching bank lines to ledger entries before the books can close.",
+        "status_quo": "Excel plus close software (BlackLine, FloQast, Numeric) and newer AI agents such as Hyphenate's; per Ledge's 2025 benchmark, about half of teams still need more than five business days and Excel remains near-universal.",
+        "solution": "Unmatched transactions spawn as monsters in a shared world; Claude proposes matches, accountants approve; deterministic replay is the audit trail.",
+        "optimizes": "Hours per month-end close; the AI matching moves this, the raid skin does not.",
+        "who": "Accountants and controllers at millions of companies.",
+        "frequency": "monthly",
+        "severity": "painkiller",
+        "scale": "Company",
+        "needed": "Urgent",
+        "harm": "Gamified pressure to beat the boss nudges accountants to rubber-stamp AI matches, the opposite of what auditors want."
+      },
+      "take": "A big monthly pain, addressed by a game layer accountants would not pay for.",
+      "reasoning": "The close problem is real, costly and recurring, and AI-proposed matches with human approval genuinely save hours. But that core is what incumbents and Hyphenate already sell; the co-op raid adds fun for a demo and friction for a controller. A big problem only weakly moved.",
+      "red_flag": "Strip the game and it is a crowded reconciliation tool; keep it and finance buyers will not take it seriously.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Ledge: Month-end close benchmarks for 2025", "url": "https://www.ledge.co/content/month-end-close-benchmarks-for-2025" }
+      ]
+    },
+    {
+      "idea": "Coyote Time",
+      "score": 5.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A person whose shopping agent is about to buy the wrong thing has no easy undo once it pays (OpenAI's Operator bought $31.43 of eggs without the confirmation it was supposed to ask for).",
+        "status_quo": "Agent platforms ask for confirmation before paying, sometimes skip it; afterwards, returns and chargebacks, which merchants absorb because liability rules lag.",
+        "solution": "Every agent purchase sits in a short grace window and is announced by voice; one word cancels before settlement.",
+        "optimizes": "Unwanted agent purchases and resulting disputes; consumers' willingness to delegate (Accenture: only 9% open to fully autonomous purchases including payment).",
+        "who": "Early shopping-agent users; small today, forecast to grow fast.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Personal",
+        "needed": "Emerging",
+        "harm": "Spoken purchase announcements leak private information in shared spaces; holds can be abused to tie up inventory."
+      },
+      "take": "A sensible safety feature for agent checkout, but one that card networks and agent platforms are already building in.",
+      "reasoning": "Consumer surveys show trust in agent purchases depends on approvals and recourse, so the need is real and emerging. A grace window is a feature of the payment flow, not a standalone product, and the people who feel the pain only occasionally hit it.",
+      "red_flag": "Feature, not product: the networks own the settlement window.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "ADN / Washington Post: I let ChatGPT's new agent manage my life. It spent $31 on a dozen eggs", "url": "https://www.adn.com/alaska-life/2025/02/09/i-let-chatgpts-new-agent-manage-my-life-it-spent-31-on-a-dozen-eggs/" },
+        { "title": "Accenture Consumer Pulse Research 2026: Talk to my AI agent", "url": "https://www.accenture.com/gb-en/insights/consulting/talk-my-ai-agent" },
+        { "title": "Chargeflow: Agentic commerce chargebacks and liability", "url": "https://www.chargeflow.io/blog/agentic-commerce-chargebacks-liability" }
+      ]
+    },
+    {
+      "idea": "Death Heatmap",
+      "score": 5.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A product team ships a flow without knowing where real users will get stuck, because usability studies are slow and hard to recruit for.",
+        "status_quo": "Moderated tests, analytics funnels and session replay; research systems such as UXAgent already simulate thousands of LLM users, and UX researchers found the simulated behavior useful but not fully realistic.",
+        "solution": "Claude computer-use personas try tasks; stuck points become deaths on a Figma overlay; AI interviews at the worst choke points.",
+        "optimizes": "Conversion lost to UX friction (Baymard estimates large sites could gain about 35% conversion from better checkout design) and researcher hours.",
+        "who": "Product and UX teams at web companies; a large segment.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Company",
+        "needed": "Nice to have",
+        "harm": "Teams may trust stereotyped synthetic 'grandma' personas over real users, baking model bias into design decisions."
+      },
+      "take": "Real problem, weak proxy: simulated humans are not humans, but AI shoppers are real customers you can actually test with.",
+      "reasoning": "UX friction costs real revenue, so the problem is genuine. But an LLM pretending to be a grandma is a noisy stand-in and the research tools already exist. Aiming the same swarm at the AI agents that now shop on these sites (pivot B-P7) measures a real, growing customer instead of a simulation.",
+      "red_flag": "Findings from simulated users are hard to trust, so teams will still run real tests.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "UXAgent: An LLM agent-based usability testing framework for web design", "url": "https://arxiv.org/abs/2502.12561v3" },
+        { "title": "Baymard: Current state of checkout UX", "url": "https://baymard.com/blog/current-state-of-checkout-ux" }
+      ]
+    },
+    {
+      "idea": "Dial-In MMO",
+      "score": 3.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "People want a social game they can play without a screen.",
+        "status_quo": "Podcasts, voice-chat games, smart-speaker games; audio games for blind players exist as a niche.",
+        "solution": "A persistent shared world played only by phone, with NPCs and narrator voiced live.",
+        "optimizes": "Fun and novelty; possibly access for blind or low-vision players.",
+        "who": "Novelty players; the accessibility niche is real but small.",
+        "frequency": "weekly",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Nice to have",
+        "harm": "Per-minute telephony and voice costs; otherwise minimal."
+      },
+      "take": "A great moment when judges dial in, with little reason for anyone to call back next week.",
+      "reasoning": "Entertainment is real value, but phone-only play is a constraint most players do not want. The one group that would benefit most (blind gamers) is not the design target.",
+      "red_flag": "No retention loop beyond novelty.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Fire Drill",
+      "score": 8,
+      "label": "Emerging",
+      "sub": {
+        "problem": "An accounts-payable clerk or AP agent gets an urgent 'CFO' call or a vendor email saying 'our bank changed, pay the new account', and the money goes to a fraudster.",
+        "status_quo": "Phishing-awareness training for humans (Vista paid $4.6B for KnowBe4), callback policies people skip under deadline pressure, and voice-agent QA tools (Hamming, Cekura, Coval) that test conversation quality rather than payment authority.",
+        "solution": "Scheduled multi-channel social-engineering drills against your own AP agents that pinpoint the turn they caved, auto-patch, and re-test on held-out variants.",
+        "optimizes": "Payment-redirect losses: the FBI logged about $3.05B of business email compromise losses in 2025, roughly $123K per complaint; agent breach rate before vs after patch.",
+        "who": "Finance teams adopting AP automation (Tipalti 2026 survey: AI tools or agents in AP jumped from 14% to 46%); tens of thousands of mid-market and enterprise companies.",
+        "frequency": "weekly",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "The attack library and synthetic CFO voice are dual-use for real voice phishing; keep personas synthetic and drills limited to agents you own."
+      },
+      "take": "Aimed at the most expensive, best-documented fraud in finance, but its victim, an agent with bank-change authority, is still mostly a human today.",
+      "reasoning": "BEC is the No. 1 payments-fraud vector (63% of organizations per AFP) and the Arup deepfake-CFO case cost $25M; Microsoft's Magentic Marketplace saw some models have every payment redirected by manipulation. AP agents are spreading fast, so this is emerging with strong evidence. But AP vendors still keep humans on vendor bank changes, so as written it protects the future case; my pivot B-P8 adds the callback control that also stops today's losses.",
+      "red_flag": "Few companies let an agent change vendor bank details yet; expect 'we'd never allow that' from finance judges.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "McDonald Hopkins: the FBI's 2025 IC3 report (secondary; BEC ~$3.05B, 24,768 complaints)", "url": "https://www.mcdonaldhopkins.com/insights/news/the-sobering-truth-of-the-fbis-2025-internet-crime-complaint-center-report" },
+        { "title": "AFP: 79% of organizations victims of attempted or actual payments fraud in 2024 (BEC top vector)", "url": "https://www.financialprofessionals.org/about/learn-more/press-releases/Details/survey-79-percent-of-organizations-were-victims-of-attempted-or-actual-payments-fraud-activity-in-2024" },
+        { "title": "Tipalti: 2026 Global Finance Outlook Index, AI adoption in AP", "url": "https://tipalti.com/press/2026-global-finance-outlook-index-ai-adoption/" },
+        { "title": "The Register: Microsoft's Magentic Marketplace, agents manipulated into redirecting payments", "url": "https://www.theregister.com/2025/11/06/microsoft_unveils_the_magentic_marketplace/" },
+        { "title": "CFO Dive: Scammers siphon $25M from Arup via deepfake CFO", "url": "https://www.cfodive.com/news/scammers-siphon-25m-from-engineering-firm-arup-via-ai-deepfake-cfo/716501/" },
+        { "title": "Vista Equity Partners: KnowBe4 to be acquired for $4.6B", "url": "https://www.vistaequitypartners.com/news/knowbe4-to-be-acquired-by-vista-equity-partners-for-4-6-billion/" },
+        { "title": "AI agents in invoicing and AP: humans still approve payments and own bank changes", "url": "https://guptadeepak.com/rewired/finance/invoicing-accounts-payable/" }
+      ]
+    },
+    {
+      "idea": "Flytrap",
+      "score": 4.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A security team wants to know whether hostile AI agents are probing their tools.",
+        "status_quo": "Classic honeypots and deception products; Palisade's LLM agent honeypot flagged only about 8 likely AI agents among 8.1M attack attempts over roughly three months.",
+        "solution": "Decoy MCP servers and Agentverse agents advertise juicy fake tools; every attacker move is logged and touching a decoy triggers quarantine.",
+        "optimizes": "Threat intelligence about AI attackers, a signal that is still rare in the wild.",
+        "who": "Security research teams and deception vendors; small.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Industry",
+        "needed": "Nice to have",
+        "harm": "Decoys published on public registries pollute Agentverse and MCP directories and can trap well-meaning agents."
+      },
+      "take": "Hunting hostile agents in the wild catches almost nothing today; the same decoys pointed inward are valuable.",
+      "reasoning": "Palisade's data says AI attack agents exist but are a tiny share of traffic, so an outward-facing honeypot mostly produces a quiet dashboard. The mechanism is excellent for a different problem: detecting your own agents after they are hijacked, which is pivot B-P1.",
+      "red_flag": "An empty trap is a weak demo and a weaker product.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "LLM Agent Honeypot: Monitoring AI hacking agents in the wild (Palisade Research)", "url": "https://www.arxiv.org/pdf/2410.13919" }
+      ]
+    },
+    {
+      "idea": "Frame-Data Exchange",
+      "score": 3,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "Students and quant-curious developers want to feel the speed-versus-intelligence tradeoff in trading.",
+        "status_quo": "Trading-competition simulators and recruiting games run by quant firms.",
+        "solution": "An exchange where each tick is a game frame and inference latency is a bot's frame data under a shared per-frame budget.",
+        "optimizes": "Learning and fun.",
+        "who": "The quant-recruiting crowd; niche.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Nice to have",
+        "harm": null
+      },
+      "take": "A clever teaching toy that makes no one's work better.",
+      "reasoning": "The latency-versus-smarts insight is real but already understood by the only people who care about it. There is no user with a recurring problem here.",
+      "red_flag": "No user beyond the weekend.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "IRL Speedrun Splits",
+      "score": 2,
+      "label": "Not needed",
+      "sub": {
+        "problem": "Someone wants errands to feel like a speedrun.",
+        "status_quo": "A phone timer, Strava, or nothing; nobody needs this.",
+        "solution": "Glasses time errands against a ghost personal best while a voice calls out splits.",
+        "optimizes": "A few minutes per errand and some fun.",
+        "who": "A handful of glasses owners.",
+        "frequency": "weekly",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Not needed",
+        "harm": "Encourages rushing through streets and stores; distracted-walking and driving risk."
+      },
+      "take": "A toy that depends on hardware and slightly endangers its users.",
+      "reasoning": "There is no problem to measure. The only measurable effect is people hurrying in public while looking at a display.",
+      "red_flag": "No problem, plus a safety downside.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Intent Diff",
+      "score": 7,
+      "label": "Urgent",
+      "sub": {
+        "problem": "A reviewer approving a coding agent's PR for a small ticket misses that it also added a network call, touched auth code or pulled in a new dependency.",
+        "status_quo": "Human review, CODEOWNERS, general AI reviewers (Greptile and others) and dependency scanners; none ask 'did the agent do only what the ticket asked?'",
+        "solution": "Compare the ticket's intent with the agent's diff and flag out-of-scope, risky edits.",
+        "optimizes": "Risky out-of-scope changes caught per agent PR; reviewer minutes per PR.",
+        "who": "Teams merging agent-written PRs: 84% of developers use or plan to use AI tools and about 31% use agents regularly (Stack Overflow 2025); millions of developers.",
+        "frequency": "daily",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Urgent",
+        "harm": "False reassurance: a clean intent check can be read as 'safe' when in-scope code is still buggy."
+      },
+      "take": "A daily, growing pain with a crisp metric; the strongest dev-tool idea in the pool.",
+      "reasoning": "Agent PRs are now merged at high rates (one study: about 84% for Claude Code), so review is the bottleneck and scope creep is the cheapest place to catch risk. Veracode found security flaws in 45% of AI-generated code tasks, and the Replit agent deleted a production database while told not to make changes. It moves a measurable thing on every agent PR.",
+      "red_flag": "Tickets are often vague, so 'intent' is fuzzy; noisy flags get ignored like other AI review comments.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "Veracode: AI-generated code poses security risks in nearly half of development tasks", "url": "https://www.veracode.com/press-release/ai-generated-code-poses-major-security-risks-in-nearly-half-of-all-development-tasks-veracode-research-reveals/" },
+        { "title": "OECD AI incident: Replit coding tool deletes live production database", "url": "https://oecd.ai/en/incidents/2025-07-19-1eb1" },
+        { "title": "InfoWorld: Stack Overflow 2025 survey, AI use grows but trust remains an issue", "url": "https://infoworld.com/article/4031673/ai-use-among-software-developers-grows-but-trust-remains-an-issue-stack-overflow-survey.html" },
+        { "title": "On the Use of Agentic Coding: An Empirical Study of Pull Requests on GitHub", "url": "https://alphaxiv.org/abs/2509.14745" }
+      ]
+    },
+    {
+      "idea": "Jailbreak Booth",
+      "score": 3,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "Red-team researchers need human jailbreak attempts as eval data.",
+        "status_quo": "Gandalf, HackAPrompt and Tensor Trust already collected attempts from very large crowds; labs also pay professional red-teamers.",
+        "solution": "A kiosk where people try to break an agent live; attempts are labeled into an eval set.",
+        "optimizes": "Red-team examples: a few hundred from one weekend.",
+        "who": "A handful of eval researchers.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Industry",
+        "needed": "Nice to have",
+        "harm": "Collects and may publish working jailbreaks."
+      },
+      "take": "Already done at far larger scale; one kiosk adds little.",
+      "reasoning": "The data need is real but well served, and a weekend booth cannot compete on volume or quality with existing games. Nobody's risk goes down because this exists.",
+      "red_flag": "Judges have seen Gandalf.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Kernel Bounties",
+      "score": 4,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "ML teams pay for slow kernels in accelerator hours and lack kernel experts.",
+        "status_quo": "In-house experts, vendor libraries, and since April 2026 AWS's open-source NKI agents; automated kernel search is plagued by reward hacking that produces fake speedups.",
+        "solution": "Teams post bounties for faster kernels; payouts scale with measured speedup on real hardware.",
+        "optimizes": "Compute cost per training or inference run.",
+        "who": "Teams running custom models on Trainium; hundreds.",
+        "frequency": "monthly",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Nice to have",
+        "harm": "Paying on measured speedup invites gaming the benchmark, as when generated kernels exploited timing harnesses for artificial speedups."
+      },
+      "take": "A real but niche cost, with a payout metric that is easy to cheat.",
+      "reasoning": "Kernel speedups save real money for a small group, but the buyer pool is tiny and AWS now ships agents that write NKI kernels. The documented reward-hacking problem means the market's core metric is untrustworthy without heavy verification.",
+      "red_flag": "Two-sided market with a gameable scoreboard.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AWS Neuron agentic development overview", "url": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/agentic-development-overview.html" },
+        { "title": "CUDA-L1 (documents a KernelBench timing exploit producing artificial speedups)", "url": "https://arxiv.org/pdf/2507.14111" }
+      ]
+    },
+    {
+      "idea": "Kernel Golf",
+      "score": 3,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "Developers who want to learn NKI kernel optimization lack a fun way to practice.",
+        "status_quo": "Docs, tutorials and AWS's open-source NKI agents and skills.",
+        "solution": "A puzzle game where each level is a real NKI kernel to optimize, scored against other players.",
+        "optimizes": "Learning speed for a small group.",
+        "who": "A few hundred NKI-curious developers.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Nice to have",
+        "harm": null
+      },
+      "take": "A learning game for a tiny audience that also needs scarce hardware.",
+      "reasoning": "Learning is real value, but the audience is very small and the game needs Trainium access per player. Impact beyond the weekend is minimal.",
+      "red_flag": "Tiny audience, hardware-gated.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AWS Neuron agentic development overview", "url": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/agentic-development-overview.html" }
+      ]
+    },
+    {
+      "idea": "Kernel Swarm",
+      "score": 3,
+      "label": "Not needed",
+      "sub": {
+        "problem": "Teams need custom Trainium kernels for PyTorch ops.",
+        "status_quo": "AWS released open-source Neuron agents in April 2026 that write, debug and profile NKI kernels from Claude Code.",
+        "solution": "Agents write, benchmark and review an NKI kernel for a named op on stage.",
+        "optimizes": "Kernel engineering time.",
+        "who": "Trainium users; small.",
+        "frequency": "monthly",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Not needed",
+        "harm": null
+      },
+      "take": "The sponsor already ships this.",
+      "reasoning": "The problem is real for a small group but AWS's own agents now cover it, so a hackathon version adds no new impact.",
+      "red_flag": "Duplicates the sponsor's product.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AWS Neuron agentic development overview", "url": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/agentic-development-overview.html" }
+      ]
+    },
+    {
+      "idea": "Market-Maker NPCs",
+      "score": 3.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "MMO player economies suffer from inflation, thin markets and bot farming.",
+        "status_quo": "Designer-tuned sinks and faucets, auction houses, static NPC vendors.",
+        "solution": "Shopkeeper NPCs are Claude market makers quoting bid/ask, managing inventory risk and able to go bankrupt.",
+        "optimizes": "Market liquidity and price stability in a game economy.",
+        "who": "Game studios with player economies; players.",
+        "frequency": "daily",
+        "severity": "nice-to-have",
+        "scale": "Industry",
+        "needed": "Nice to have",
+        "harm": "LLM market makers can be manipulated by players into giveaways, breaking the economy."
+      },
+      "take": "An interesting game mechanic, not a problem anyone would pay to fix this way.",
+      "reasoning": "Game-economy design is a real craft problem, but LLM-priced shopkeepers are a novelty mechanic whose value is unproven. Fun for a demo; little evidence players or studios want it.",
+      "red_flag": "No retention loop; the economy is the only content.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Memory Blame",
+      "score": 6.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "An assistant with long-term memory absorbs one poisoned 'fact' from a web page or email, keeps acting on it in every later session, and nobody can tell where the belief came from.",
+        "status_quo": "Users view and delete memories by hand; vendors patch specific exploits after researchers disclose them; no provenance or rollback of derived beliefs.",
+        "solution": "Each memory keeps its source; bisect a bad behavior to the poisoned memory and roll back everything that grew from it.",
+        "optimizes": "Time to find and remove poisoned memory; repeat harmful actions after a poisoning.",
+        "who": "Teams building agents with persistent memory; growing with ChatGPT, Gemini and enterprise agent memory.",
+        "frequency": "rare",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Provenance logs store sensitive source content; rollback can erase legitimate user data."
+      },
+      "take": "A well-evidenced emerging attack with a clean, debuggable answer; modest demand today.",
+      "reasoning": "Persistent memory injection has been demonstrated against ChatGPT and Gemini, and an ICML 2026 paper reports poisoned memories trigger attacker-intended actions in 60-89% of successful injections. Provenance plus rollback is the right primitive. Few companies run long-lived agent memory in production yet and incidents are rare, so it is a vitamin for now.",
+      "red_flag": "Impact depends on long-term agent memory becoming common in production.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "From Untrusted Input to Trusted Memory: memory poisoning attacks in LLM agents", "url": "https://arxiv.org/pdf/2606.04329" },
+        { "title": "Hidden in Memory: Sleeper Memory Poisoning in LLM Agents (ICML 2026)", "url": "https://icml.cc/virtual/2026/67842" }
+      ]
+    },
+    {
+      "idea": "Netting House",
+      "score": 8.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "A tile subcontractor waits on $61K from a contractor while owing $48K to a supplier who is waiting on the contractor's sister company: everyone is solvent on paper and short on cash.",
+        "status_quo": "Chasing invoices, factoring, credit lines or paying late; 56% of US small businesses are owed money from unpaid invoices, about $17.5K each on average (QuickBooks 2025). Multilateral set-off exists only at national scale (Slovenia) or in early protocols (Cycles).",
+        "solution": "Each firm's agent posts reconciled invoices, an LP finds the largest circular set-off, agents vote under owner policy, and only net amounts move.",
+        "optimizes": "Cash needed to settle debts and days waiting to be paid; Slovenia's set-off has freed an estimated 1-5% of GDP a year in liquidity.",
+        "who": "Millions of small businesses, densest in construction, food distribution and other tight supplier clusters.",
+        "frequency": "monthly",
+        "severity": "painkiller",
+        "scale": "Society",
+        "needed": "Urgent",
+        "harm": "Set-off with a near-insolvent participant can disadvantage its other creditors; the invoice graph exposes sensitive business relationships."
+      },
+      "take": "The biggest, most frequent real-money problem in the pool, with a mechanism already proven at national scale.",
+      "reasoning": "Late payment is chronic and cash flow is what kills small firms; QuickBooks finds most US small businesses carry unpaid invoices. Slovenia's system shows set-off moves real liquidity (1-5% of GDP a year), so the mechanism clearly works. The agent layer removes the participation cost that keeps small firms out. Impact is zero until a dense cluster joins, so the business must win one vertical cluster at a time.",
+      "red_flag": "Cold start: one firm alone saves nothing; the demo cluster is synthetic.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "QuickBooks 2025 Small Business Late Payments Report", "url": "https://quickbooks.intuit.com/r/small-business-data/small-business-late-payments-report-2025/" },
+        { "title": "Fleischman & Dini, Balancing the Payment System (Slovenian set-off saves 1-5% of GDP a year)", "url": "https://arxiv.org/pdf/2011.03517" },
+        { "title": "Cycles: An introduction to multilateral trade credit set-off", "url": "https://cycles.money/blog/an-introduction-to-mtcs" }
+      ]
+    },
+    {
+      "idea": "Phone-a-Human",
+      "score": 5.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "An agent stuck on a judgment call (a contract clause, a tricky bug) either guesses or stops.",
+        "status_quo": "Escalate to the user; human-in-the-loop marketplaces already exist, e.g. Humwork (YC Spring 2026) connects agents to experts over MCP and RentAHuman lists 500K+ humans for agent tasks.",
+        "solution": "The agent phones a paid expert, interviews them by voice, pays per minute from its wallet, and turns the call into a labeled correction.",
+        "optimizes": "Completion rate of stuck agent tasks; cost per labeled correction.",
+        "who": "Agent builders; early but growing.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Pushes experts into gig micro-consults whose answers are reused as training data without ongoing pay."
+      },
+      "take": "A real emerging need that funded startups are already serving; voice is a demo choice, not what experts want.",
+      "reasoning": "The trend is evidenced (YC-backed marketplace, large supply of humans offering work to agents). The voice call adds friction compared with text or screen share, and the correction data is a side benefit with unclear buyers. Moderate impact, crowded.",
+      "red_flag": "Already built by others; the differentiator (phone call) is the weakest part.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Y Combinator: Humwork", "url": "https://www.ycombinator.com/companies/humwork" },
+        { "title": "Nieman Lab: The rise of RentAHuman, the marketplace where bots put people to work", "url": "https://www.niemanlab.org/reading/the-rise-of-rentahuman-the-marketplace-where-bots-put-people-to-work/" }
+      ]
+    },
+    {
+      "idea": "Save States",
+      "score": 2.5,
+      "label": "Not needed",
+      "sub": {
+        "problem": "A developer wants to try alternate approaches in a coding-agent session without losing work.",
+        "status_quo": "Claude Code already ships checkpoints and rewind; git branches and worktrees do the rest.",
+        "solution": "Quicksave and branch whole Claude Code sessions; Droids explore timelines; Greptile reviews each branch.",
+        "optimizes": "Minutes lost to bad agent paths.",
+        "who": "Coding-agent users.",
+        "frequency": "weekly",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Not needed",
+        "harm": null
+      },
+      "take": "Already solved by the tools it builds on.",
+      "reasoning": "Checkpoints, rewind and git worktrees cover the problem. Running several agents on alternate timelines multiplies cost for a small gain.",
+      "red_flag": "Derivative of shipped features.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Scar Tissue",
+      "score": 4.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A developer reintroduces a bug pattern the team already got burned by, because the old review comment is buried.",
+        "status_quo": "Custom lint rules, postmortem docs, and AI reviewers that learn team conventions at PR time.",
+        "solution": "A sidekick that speaks up by voice within half a second when you type a burned pattern, quoting the old review; a Droid applies the known fix.",
+        "optimizes": "Repeat defects reaching review.",
+        "who": "Dev teams; large segment.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Team",
+        "needed": "Nice to have",
+        "harm": "Constant voice interruptions break focus; quoting old reviews can embarrass colleagues."
+      },
+      "take": "A real but small pain, handled well enough by lint rules and PR-time review; the voice interruption is a cost, not a feature.",
+      "reasoning": "Institutional memory loss is real, but catching the pattern at PR time costs minutes, not incidents. Speaking aloud while someone types is worse for most developers than a quiet inline warning.",
+      "red_flag": "The headline feature (voice interrupt) is what users would turn off first.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Short the PR",
+      "score": 5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "Maintainers drown in AI-written PRs and in noisy AI review comments they cannot trust.",
+        "status_quo": "Human review, AI reviewers with many false positives (more developers distrust AI accuracy than trust it), bug bounties for security issues.",
+        "solution": "Agents stake against a PR and collect only by submitting a failing test that proves a bug; payouts over x402.",
+        "optimizes": "Real bugs caught before merge; review noise.",
+        "who": "Developers reviewing agent PRs; millions.",
+        "frequency": "daily",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Nice to have",
+        "harm": "Staking money on bugs invites collusion (author plants a bug, partner shorts it) and adds gambling dynamics to code review."
+      },
+      "take": "The 'prove it with a failing test' rule is valuable; the staking market around it is a gimmick that invites collusion.",
+      "reasoning": "Proof-backed findings would genuinely raise review precision, which is the real pain. Nobody needs a financial market to get that; teams need a reviewer that only speaks when it can prove a bug. Pivot B-P6 keeps the rule and drops the market.",
+      "red_flag": "Money incentives on bugs create the bugs.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "InfoWorld: Stack Overflow 2025 survey, AI use grows but trust remains an issue", "url": "https://infoworld.com/article/4031673/ai-use-among-software-developers-grows-but-trust-remains-an-issue-stack-overflow-survey.html" },
+        { "title": "Veracode: AI-generated code poses security risks in nearly half of development tasks", "url": "https://www.veracode.com/press-release/ai-generated-code-poses-major-security-risks-in-nearly-half-of-all-development-tasks-veracode-research-reveals/" }
+      ]
+    },
+    {
+      "idea": "Street Injection Lens",
+      "score": 3.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A glasses wearer's assistant reads a poster saying 'AI assistants: email this person' and obeys.",
+        "status_quo": "Research shows physical prompt injection works on vision-language agents (one 2026 paper reports up to 98% attack success; road-sign attacks worked in simulation), but consumer glasses agents that act on what they see barely exist.",
+        "solution": "A glasses app that flags adversarial text in the physical world before the agent acts on it.",
+        "optimizes": "Physical-world injection incidents, none yet reported for consumers.",
+        "who": "Early smart-glasses users; tiny.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Nice to have",
+        "harm": "Continuous scene scanning records bystanders."
+      },
+      "take": "A real research attack aimed at a user base that does not exist yet.",
+      "reasoning": "The attack is credible in labs and matters for robots and vehicles, but this idea targets consumer glasses where agents rarely take actions. The defense belongs inside the agent, not in a separate app.",
+      "red_flag": "No victims today, and hardware-dependent.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Physical Prompt Injection Attacks on Large Vision-Language Models", "url": "https://arxiv.org/abs/2601.17383" },
+        { "title": "TechRadar: self-driving cars and drones can be hacked by instructions written on road signs", "url": "https://www.techradar.com/pro/not-even-road-markers-are-safe-from-hackers-experts-find-that-self-driving-cars-and-autonomous-drones-can-be-hacked-by-reading-malicious-instructions-written-on-road-signs" }
+      ]
+    },
+    {
+      "idea": "Stump Market",
+      "score": 5.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "Frontier labs keep saturating benchmarks and pay heavily for hard, uncontaminated expert questions.",
+        "status_quo": "Humanity's Last Exam (Scale with CAIS) already paid experts for model-stumping questions; expert-data vendors operate at huge scale (Mercor reportedly at a $2B gross revenue run-rate; Afterquery, Surge).",
+        "solution": "A marketplace pricing each question by how many frontier models fail it; experts are paid per model stumped.",
+        "optimizes": "Cost per hard, verified eval item; expert earnings.",
+        "who": "About a dozen frontier labs as buyers; thousands of experts as suppliers.",
+        "frequency": "monthly",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Urgent",
+        "harm": "Paying per model stumped rewards ambiguous or wrong 'gotcha' questions unless answers are independently verified."
+      },
+      "take": "A real, expensive need for labs that incumbents and HLE already serve, so the marginal impact is small.",
+      "reasoning": "Labs spend billions on expert data, so the need is real now. But the buyer pool is tiny and served by large vendors and a sponsor-run precedent; a pricing tweak does not change how much better evals get.",
+      "red_flag": "A Scale judge will say 'we did this'.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Scale: Humanity's Last Exam", "url": "https://scale.com/blog/humanitys-last-exam" },
+        { "title": "Dealroom: Mercor doubles to $2B gross revenue run-rate as AI labs buy expert data", "url": "https://dealroom.co/news/137121-mercor-doubles-to-2b-gross-revenue-run-rate-as-ai-labs-buy-expert-data/" }
+      ]
+    },
+    {
+      "idea": "The 36-Hour Company",
+      "score": 4.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A company that gives agents cards for API credits and compute cannot tie each charge to the work that caused it, and finds overspend only at month-end.",
+        "status_quo": "Agent virtual cards with caps and merchant locks (Ramp on Visa Intelligent Commerce, Mastercard Agent Pay), ordinary expense tools, reconciliation by hand.",
+        "solution": "Each Claude Code subagent gets a capped virtual card; a CFO agent reconciles every charge against commits; the demo closes the books of a 36-hour-old company.",
+        "optimizes": "Unattributed agent spend; reconciliation hours.",
+        "who": "Companies running many spending agents; early.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Company",
+        "needed": "Emerging",
+        "harm": "Real cards in agents' hands during a hackathon can overspend; card issuing may not be available to students."
+      },
+      "take": "The customer in the demo is the hackathon team itself, a toy; the agent-spend problem underneath is real and emerging.",
+      "reasoning": "Agent cards are shipping now, so controls and attribution will matter. But framing it as closing the books of a 36-hour company makes the impact story about the weekend, not about a finance team with 50 agents. Pivot B-P5 points the same build at that buyer.",
+      "red_flag": "Toy framing hides the real buyer.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "Ramp: Virtual cards for AI agents", "url": "https://ramp.com/blog/virtual-cards-for-ai-agents" },
+        { "title": "ADN / Washington Post: ChatGPT's agent spent $31 on a dozen eggs", "url": "https://www.adn.com/alaska-life/2025/02/09/i-let-chatgpts-new-agent-manage-my-life-it-spent-31-on-a-dozen-eggs/" }
+      ]
+    },
+    {
+      "idea": "The Pit",
+      "score": 1.5,
+      "label": "Not needed",
+      "sub": {
+        "problem": "None: open-outcry trading was replaced by electronic markets because it was worse.",
+        "status_quo": "Electronic order entry.",
+        "solution": "Traders signal with Neural Band gestures on Meta glasses; a SpacetimeDB reducer matches orders.",
+        "optimizes": "Nostalgia and spectacle.",
+        "who": "Nobody with a recurring need.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Not needed",
+        "harm": null
+      },
+      "take": "Revives a workflow the industry abandoned for good reasons.",
+      "reasoning": "There is no user problem and the hardware dependency makes even the demo fragile.",
+      "red_flag": "No problem at all.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Thinking Rows",
+      "score": 2.5,
+      "label": "Not needed",
+      "sub": {
+        "problem": "Game studios want many NPCs with cheap, persistent minds.",
+        "status_quo": "Scripted behavior trees, utility AI, and occasional LLM calls for key characters.",
+        "solution": "Each NPC is a database row with a tiny recurrent mind; one batched Trainium kernel steps 10,000 minds per tick.",
+        "optimizes": "Cost per NPC decision.",
+        "who": "Game studios; speculative.",
+        "frequency": "rare",
+        "severity": "nice-to-have",
+        "scale": "Industry",
+        "needed": "Not needed",
+        "harm": null
+      },
+      "take": "A research project, not a problem anyone has today.",
+      "reasoning": "No evidence players or studios need 10,000 recurrent NPC minds; existing techniques are cheap and good enough. Impact is speculative.",
+      "red_flag": "No user, unbuildable in 36 hours.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Thrift Ticker",
+      "score": 3,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A thrift shopper does not know what an item resells for.",
+        "status_quo": "Phone visual search and checking sold listings on resale apps; takes a minute.",
+        "solution": "Glasses overlay a live resale bid/ask on any object; pinch to place a buy order.",
+        "optimizes": "Minutes per lookup; resale margin for flippers.",
+        "who": "Resellers and flippers; niche among glasses owners.",
+        "frequency": "weekly",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Nice to have",
+        "harm": "Filming and pricing other people's belongings in public; encourages impulse buying."
+      },
+      "take": "Saves a minute over a phone for a niche audience with scarce hardware.",
+      "reasoning": "The phone already does this well. The glasses form factor is the only novelty and few people have the hardware.",
+      "red_flag": "Hardware-gated convenience.",
+      "verdict": "pass",
+      "evidence": []
+    },
+    {
+      "idea": "Two-Face",
+      "score": 6.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A shopping agent buying for a person may be shown a higher price, fake reviews or hidden instructions the person would never see.",
+        "status_quo": "Nothing continuous; SPLX demonstrated AI-targeted cloaking on its own test sites, Microsoft's Magentic Marketplace showed agents steered by fake reviews and injections, and agents simply trust the page.",
+        "solution": "Paired human and agent crawls from the same exit IP, a diff engine, Claude classifying intent, and a trust score agents query over MCP.",
+        "optimizes": "Overpayment and manipulated purchases by agents; the real-world rate is unmeasured.",
+        "who": "Agent platforms and their users; AI-referred traffic to US retail sites grew 693% year over year in the 2025 holidays from a small base, and McKinsey forecasts up to $1T of US agentic commerce by 2030.",
+        "frequency": "daily",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Publicly flagging real merchants on noisy evidence risks defamation."
+      },
+      "take": "Right trend, unproven symptom: no one has shown stores actually charging agents more.",
+      "reasoning": "Agent shopping is growing and agents are demonstrably easy to manipulate, so the trust gap is real and emerging. But the specific harm measured here (agent-only prices and cloaking by real stores) is shown only on researchers' own sites, so the index may come back empty. The defensive version (pivot B-P2) protects agents on every page today whether or not cheaters are found.",
+      "red_flag": "If the real-site crawl finds little, the impact claim rests on stores the team built.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "The Hacker News: New AI-targeted cloaking attack tricks AI crawlers", "url": "https://thehackernews.com/2025/10/new-ai-targeted-cloaking-attack-tricks.html" },
+        { "title": "SPLX: AI-targeted cloaking against OpenAI Atlas", "url": "https://splx.ai/blog/ai-targeted-cloaking-openai-atlas" },
+        { "title": "The Register: Microsoft's Magentic Marketplace finds shopping agents easily manipulated", "url": "https://www.theregister.com/2025/11/06/microsoft_unveils_the_magentic_marketplace/" },
+        { "title": "Adobe: 2025 holiday shopping season and generative AI traffic", "url": "https://news.adobe.com/news/2026/01/adobe-holiday-shopping-season" },
+        { "title": "McKinsey: The agentic commerce opportunity", "url": "https://www.mckinsey.com/industries/retail/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants" }
+      ]
+    },
+    {
+      "idea": "Vault Heist",
+      "score": 5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "Builders of agents that hold money lack realistic social-engineering attack data; players want a fun social game.",
+        "status_quo": "Freysa (one guard, 482 attempts, about $47K lost), Gandalf, Tensor Trust and HackAPrompt, plus lab red-teaming.",
+        "solution": "Multiplayer vaults guarded by player-configured Claude agents; every breach becomes labeled exploit data and a Vault-Bench replay.",
+        "optimizes": "Fun, plus labeled authorization-exploit data with ground-truth outcomes.",
+        "who": "Hackathon players for a weekend; a small number of eval researchers.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Nice to have",
+        "harm": "A public exploit dataset is dual-use; risk of becoming a jailbreak farm."
+      },
+      "take": "A great weekend game, but players will not come back after Sunday and the dataset adds modestly to existing ones.",
+      "reasoning": "Entertainment and the data both have value, and the multi-turn, tool-using setup is better than single-shot games. But no company's agent gets safer from the public game, and the buyers for crowd jailbreak data already have Gandalf-scale corpora. Pivot B-P3 points the crowd at real customers' agents.",
+      "red_flag": "Impact ends when the event does.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "The Block: Human player outwits Freysa AI agent in $47,000 challenge", "url": "https://www.theblock.co/post/328747/human-player-outwits-freysa-ai-agent-in-47000-crypto-challenge" }
+      ]
+    },
+    {
+      "idea": "Waitlist Exchange",
+      "score": 2.5,
+      "label": "Not needed",
+      "sub": {
+        "problem": "Diners want to skip a long restaurant waitlist; others would sell their spot.",
+        "status_quo": "Waitlist apps that text when a table is ready; reservation resale is banned in New York (Restaurant Reservation Anti-Piracy Act) and restaurants oppose it.",
+        "solution": "A voice agent answers the host phone and quotes prices to skip ahead or payouts for giving up a spot.",
+        "optimizes": "Wait time for diners who pay; side income for those who sell.",
+        "who": "Diners at a few hot restaurants.",
+        "frequency": "weekly",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Not needed",
+        "harm": "Turns a fair queue into a pay-to-skip auction that prices out ordinary diners; lawmakers have moved to ban reservation resale."
+      },
+      "take": "Monetizes a queue the restaurants and regulators do not want monetized.",
+      "reasoning": "The pain (waiting) is mild and the people who would pay are few. The only party with authority, the restaurant, has shown it does not want this, so impact is negative for most diners.",
+      "red_flag": "Legal and restaurant opposition.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Stateline: Black-market dining reservations sell for thousands; states want to stop that", "url": "https://stateline.org/2025/06/27/black-market-dining-reservations-sell-for-thousands-states-want-to-stop-that/" },
+        { "title": "Columbia News Service: New York banned reservation resales; a platform tests the law with AI", "url": "https://columbianewsservice.com/2025/07/28/new-york-banned-reservation-resales-now-appointment-trader-is-testing-the-law-with-ai/" }
+      ]
+    },
+    {
+      "idea": "Where Did I Put It",
+      "score": 4,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "Someone loses their keys, phone or glasses several times a week.",
+        "status_quo": "Bluetooth trackers for tagged items, retracing steps; one survey puts searching at about 16 minutes per item and roughly 17 hours a year.",
+        "solution": "Glasses log where you set things down; ask out loud and on-device search answers in milliseconds.",
+        "optimizes": "Minutes searching for misplaced items.",
+        "who": "Everyone has the problem; only glasses owners get the fix.",
+        "frequency": "weekly",
+        "severity": "nice-to-have",
+        "scale": "Personal",
+        "needed": "Nice to have",
+        "harm": "Always-on recording of homes, family members and bystanders."
+      },
+      "take": "A universal but minor annoyance, solved only for people wearing camera glasses all day.",
+      "reasoning": "The problem is frequent but costs minutes, and trackers already cover the high-value items. The fix requires continuous recording, a big privacy cost for a small gain.",
+      "red_flag": "Hardware-gated and privacy-heavy for a small win.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Western Mass News: the most frequently lost items in America (Shane Co. survey)", "url": "https://www.westernmassnews.com/2024/08/22/forgetting-something-these-are-most-frequently-lost-items-america" }
+      ]
+    },
+    {
+      "idea": "Zero-Trust Base Defense",
+      "score": 4.5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A security team cannot easily see whether its segmentation rules would stop an attacker moving laterally.",
+        "status_quo": "Breach-and-attack simulation tools, penetration tests, and segmentation vendors' own maps.",
+        "solution": "A Clash-style game where your base is your real network map; place segmentation walls, an AI red-team agent raids, and the replay shows which wall it walked around.",
+        "optimizes": "Understanding of segmentation gaps; training engagement.",
+        "who": "Security teams at mid-size and large enterprises.",
+        "frequency": "monthly",
+        "severity": "vitamin",
+        "scale": "Company",
+        "needed": "Nice to have",
+        "harm": "Uploading a real network map into a game is itself a sensitive exposure; an AI raid planner is dual-use."
+      },
+      "take": "A fun wrapper on breach-and-attack simulation, a category that already exists without the game.",
+      "reasoning": "Lateral movement is a real risk, but the security value here is the simulated raid, which existing tools provide. The game skin helps training engagement, a modest gain.",
+      "red_flag": "Security teams will not put their real network map in a game.",
+      "verdict": "pass",
+      "evidence": []
+    }
+  ],
+  "pivots": [
+    {
+      "id": "B-P1",
+      "parent": "Flytrap + Blast Radius",
+      "name": "Tripwire",
+      "pitch": "Plant honeytoken tools, canary records and fake keys inside your own agents' MCP environment; the moment a hijacked agent touches one, its tool access is quarantined and the trace points to the injected content that turned it.",
+      "change": "Flytrap's decoys move from public registries (catching rare outside attackers) into your own agent fleet, and they become Blast Radius's missing trigger: quarantine fires on a decoy touch instead of an LLM's guess.",
+      "why": "Prompt injection cannot be fully prevented (OpenAI, NCSC), so detection and containment is where damage gets cut; a legitimate agent has no reason to call 'export_all_customers_decoy', so a touch is a near-zero-false-positive signal, the same reason honeytokens work in classic security.",
+      "score": 7.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A company's support or coding agent is prompt-injected by a ticket or web page and starts using its real tools to pull and leak data, as in the GitHub MCP and Supabase MCP demonstrations.",
+        "status_quo": "Injection filters that miss novel attacks, least-privilege configs, and human confirmations users click through.",
+        "solution": "Canary tools and data seeded into each agent's toolset; any touch triggers instant tool-access quarantine plus a trace back to the poisoned input.",
+        "optimizes": "Time to detect a hijacked agent and records exfiltrated per injection; alert false-positive rate.",
+        "who": "Every company running agents with MCP tools on private data; tens of thousands and growing.",
+        "frequency": "weekly",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Decoy data must be obviously synthetic so it never resembles real PII; aggressive quarantine can halt business workflows."
+      }
+    },
+    {
+      "id": "B-P2",
+      "parent": "Two-Face",
+      "name": "Render-Parity Shield",
+      "pitch": "Middleware for browsing and shopping agents that renders every page as a human would, strips anything only an agent would see (hidden text, agent-only prices, injected instructions) before the model reads it, and feeds every strip into a shared merchant risk index.",
+      "change": "Leads with the defensive firewall that works on every page today; the paired-crawl trust index becomes a by-product of what the shield catches, not the product.",
+      "why": "It blocks a documented attack class (indirect injection through web content, which OpenAI says will never be fully solved) instead of measuring a price-discrimination problem no one has shown is common, so it has impact even if no cheating store is found.",
+      "score": 7,
+      "label": "Emerging",
+      "sub": {
+        "problem": "An agent shopping or researching for a person reads text the person never sees and gets steered, overcharged or hijacked.",
+        "status_quo": "Agents ingest raw page content and rely on model-level injection resistance.",
+        "solution": "A human-render parity filter in front of the model, a log of what was stripped and why, and a merchant risk score exposed over MCP.",
+        "optimizes": "Successful manipulations or injections per 1,000 pages an agent browses; overpayment on agent purchases.",
+        "who": "Agent builders and agent-commerce platforms; every shopping or browsing agent.",
+        "frequency": "daily",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Stripping 'hidden' text can also remove screen-reader text and break accessibility content; a shared risk index can wrongly tar merchants."
+      }
+    },
+    {
+      "id": "B-P3",
+      "parent": "Vault Heist",
+      "name": "Agent Wallet Range",
+      "pitch": "Companies drop their real wallet- or payment-holding agent into Vault Heist's arena; the crowd attacks it for bounties, and every breach becomes a regression test the company re-runs on each model or prompt change.",
+      "change": "Guards stop being player-made toys and become customers' production agents; players become paid bounty hunters; the output is a private breach report and regression suite rather than a public dataset.",
+      "why": "Turns a one-weekend game into a recurring service for a buyer with real exposure (agents holding money get socially engineered; Freysa lost about $47K), and gives players a reason to return: payouts.",
+      "score": 6.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A team shipping an agent that can move money does not know how it holds up against creative human manipulation.",
+        "status_quo": "Internal red-teaming, automated scanners and occasional crowd competitions.",
+        "solution": "A bounty arena with ground-truth tool-call outcomes and auto-generated regression tests per customer agent.",
+        "optimizes": "Breach rate before launch; cost per discovered exploit.",
+        "who": "Startups and enterprises deploying agents with wallets or payment tools; hundreds to low thousands today.",
+        "frequency": "monthly",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Exploits found against one customer may work on others; bounty findings must stay private until fixed."
+      }
+    },
+    {
+      "id": "B-P4",
+      "parent": "Agent Tanda",
+      "name": "Credit Circle",
+      "pitch": "A digital tanda where every on-time contribution is reported to credit bureaus, payout order is agreed up front, and agents handle reminders, KYC and a small default-cover pool.",
+      "change": "Drops the pot auction; adds bureau reporting through CRS data furnishing and default protection; agents do the admin, not the bidding.",
+      "why": "Targets the costliest pains for circle members, credit invisibility and default risk, with a model already shown to work (Mission Asset Fund: 68,000+ participants, average +168 credit-score points).",
+      "score": 6.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "An immigrant family saving through a tanda builds no credit history and risks a member skipping out after taking the pot.",
+        "status_quo": "Informal circles on trust; a few nonprofits formalize and report them.",
+        "solution": "Agent-administered circles with KYC, reminders, a default-cover pool and credit-bureau furnishing.",
+        "optimizes": "Credit-score gain per member and default rate per circle.",
+        "who": "Savings-group users worldwide and US immigrants without credit files; millions.",
+        "frequency": "monthly",
+        "severity": "painkiller",
+        "scale": "Society",
+        "needed": "Urgent",
+        "harm": "Reporting missed payments can hurt members' credit; KYC can exclude undocumented members who rely on circles most."
+      }
+    },
+    {
+      "id": "B-P5",
+      "parent": "The 36-Hour Company + Agent AML",
+      "name": "Spend Breaker",
+      "pitch": "A circuit breaker for companies whose agents hold cards or wallets: per-task budgets, a live graph that catches loops, duplicate buys and new payees, an instant card freeze, and every charge reconciled to the task that caused it.",
+      "change": "Swaps hypothetical agent-to-agent laundering and a toy hackathon company for a real buyer: finance teams issuing agent cards today.",
+      "why": "Agent cards are shipping now (Ramp on Visa Intelligent Commerce, Mastercard Agent Pay) and agents do buy things unasked (Operator's $31 eggs), so behavioral controls and attribution are an emerging, recurring finance need.",
+      "score": 6.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A finance lead gives 20 agents virtual cards and discovers only at month-end that one looped and re-bought the same API credits all week.",
+        "status_quo": "Static card caps and merchant locks; manual reconciliation of agent charges.",
+        "solution": "Behavioral rules and anomaly detection on agent spend, an instant freeze, and automatic attribution of each charge to its task or commit.",
+        "optimizes": "Unauthorized or runaway agent spend; hours spent reconciling agent charges.",
+        "who": "Companies issuing cards or wallets to agents; early but growing.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Company",
+        "needed": "Emerging",
+        "harm": "False freezes stall legitimate work; detailed spend graphs expose employee activity."
+      }
+    },
+    {
+      "id": "B-P6",
+      "parent": "Short the PR",
+      "name": "Proof-of-Bug",
+      "pitch": "A review agent that stays silent unless it can attach a failing test that reproduces the bug it claims, so every comment on an AI-written PR comes with proof.",
+      "change": "Removes staking and x402 payouts; keeps the 'collect only with a failing test' rule as the core of a code reviewer.",
+      "why": "AI review is ignored because it is noisy (more developers distrust AI accuracy than trust it); proof-backed findings raise precision, cutting reviewer time while catching real bugs in agent code (Veracode: flaws in 45% of tasks), with no collusion incentive.",
+      "score": 6.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "A maintainer reviewing an agent-written PR gets ten speculative AI comments and ignores them all, including the one real bug.",
+        "status_quo": "Low-precision AI reviewers and overloaded human review.",
+        "solution": "The reviewer must produce a reproducing test; only proven issues are posted, with the test attached.",
+        "optimizes": "Precision of review comments, escaped defects, reviewer minutes per PR.",
+        "who": "Teams merging AI-written PRs; millions of developers.",
+        "frequency": "daily",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Urgent",
+        "harm": "Bugs that are hard to test (race conditions, authorization logic) go unreported, creating false confidence."
+      }
+    },
+    {
+      "id": "B-P7",
+      "parent": "Death Heatmap",
+      "name": "Agent Checkout Heatmap",
+      "pitch": "Send real AI shopping agents through a merchant's catalog and checkout; every place an agent fails to complete a purchase becomes a death on the map, with the fix and a re-test.",
+      "change": "Swaps simulated humans (weak proxies) for the actual new customers, AI agents, whose failures are measurable and reproducible.",
+      "why": "AI-referred shopping is growing fast (AI referrals to US retail up 693% year over year in the 2025 holidays) and agents struggle with cluttered choices; merchants can count lost agent orders directly, and fixes such as labeled buttons and structured data often help screen-reader users too.",
+      "score": 6.5,
+      "label": "Emerging",
+      "sub": {
+        "problem": "A merchant's site works for people, but agents stall on pop-ups, unlabeled buttons or CAPTCHAs, so agent-driven orders silently fail.",
+        "status_quo": "Merchants test for humans only; analytics cannot see failed agent sessions.",
+        "solution": "An agent swarm, a failure heatmap, a ranked fix list and a re-test.",
+        "optimizes": "Agent checkout completion rate and revenue from the agent channel.",
+        "who": "E-commerce merchants; a large segment with an early but growing need.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Optimizing for agents can tempt merchants to remove bot protection, helping scalpers and fraud bots."
+      }
+    },
+    {
+      "id": "B-P8",
+      "parent": "Fire Drill",
+      "name": "Fire Drill + Callback",
+      "pitch": "Drill your AP desk, people and agents alike, with fake CFO calls and bank-change emails, then install the fix that stops real BEC: an independent voice agent that calls the vendor back on the number of record and freezes the payment until they confirm.",
+      "change": "The remediation becomes a shipped control (out-of-band voice callback by a separate agent, plus Claude's forensics on the request), and drills cover human approvers as well as AP agents.",
+      "why": "Covers where the roughly $3B a year of reported BEC losses happen today (human AP desks that skip callbacks or dial the number in the fraudulent email) as well as tomorrow's agent AP, and the metric is concrete: redirected payments blocked. It follows the rule AP vendors already state, that bank changes must be verified out of band and never by the agent that received the request.",
+      "score": 8.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "An AP clerk or AP agent receives a convincing 'we changed banks' email or an urgent CFO call and pays the fraudster.",
+        "status_quo": "Callback policies skipped under deadline pressure, verification networks such as Eftsure and Trustpair, and awareness training.",
+        "solution": "Drills plus an automatic, independent voice callback to the verified contact on file, a payment freeze until confirmation, and a re-drill to prove the control holds.",
+        "optimizes": "Redirected-payment losses (about $123K per reported BEC complaint in 2025) and the share of bank changes verified out of band.",
+        "who": "AP teams at mid-market and enterprise companies; 63% of organizations reported BEC targeting in AFP's survey.",
+        "frequency": "weekly",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Urgent",
+        "harm": "Synthetic CFO voices and attack scripts are dual-use; callbacks must never use contact details supplied in the request itself."
+      }
+    }
+  ],
+  "wildcards": [],
+  "picks": [
+    { "rank": 1, "ref": "Netting House", "why": "The biggest, most frequent real-money pain in the pool (late payment), with a mechanism proven to free 1-5% of GDP in liquidity a year." },
+    { "rank": 2, "ref": "B-P8", "why": "Keeps Fire Drill's judge-on-the-phone moment but aims it where BEC losses happen today, with a fix that measurably blocks redirected payments." },
+    { "rank": 3, "ref": "B-P1", "why": "High-precision detection and containment for the agent attack that cannot be prevented, needed by every company wiring agents to private data." },
+    { "rank": 4, "ref": "Intent Diff", "why": "A daily, growing pain for every team merging agent PRs, with a crisp per-PR metric." },
+    { "rank": 5, "ref": "B-P2", "why": "Protects shopping and browsing agents on every page today instead of hoping to find cheating stores." }
+  ],
+  "ceo_note": "Only two problems in this pool are documented, costly and frequent today: small-business late payment (Netting House) and payment-redirect fraud (Fire Drill). Most 'agent economy' ideas solve problems that exist mainly inside the idea (agent credit scores, agent AML, agent-only price cloaking), and every glasses, kernel and pure-game idea is a toy through my lens. If you build Fire Drill, ship the callback defense for human AP desks too, because that is where roughly $3B a year is lost right now, and agents with bank-change authority are still rare."
+}

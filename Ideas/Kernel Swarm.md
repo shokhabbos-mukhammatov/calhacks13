@@ -21,5 +21,8 @@ A judge names a PyTorch op; agents write, benchmark and review an NKI kernel for
 > [!danger] Trap
 > AWS already ships agentic NKI tooling (Apr 2026), and live kernel work in 2 minutes is unrealistic.
 
+> [!abstract] Idea Council · #31 of 37 · council 3.0
+> Substance 4 · Impact 3 · Novelty & venture 2.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

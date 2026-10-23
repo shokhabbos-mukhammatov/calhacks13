@@ -18,5 +18,8 @@ Compare the Jira ticket with what a coding agent actually changed, and flag out-
 **Angle:** [[Dev tools with teeth]]
 **Sponsors:** [[Greptile]], [[Atlassian]], [[Factory]], [[Anthropic]]
 
+> [!abstract] Idea Council · #8 of 37 · council 6.1
+> Substance 5 · Impact 7 · Novelty & venture 3.3 (best version: the original). Picked by B#4. See [[Council Verdict]].
+
 ## Team notes
 -

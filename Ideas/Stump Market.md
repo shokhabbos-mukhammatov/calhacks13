@@ -18,5 +18,8 @@ Experts submit questions; each question's price is how many frontier models fail
 **Angle:** [[Humans as the eval engine]]
 **Sponsors:** [[Afterquery]], [[Scale]], [[Anthropic]], [[Coinbase]]
 
+> [!abstract] Idea Council · #22 of 37 · council 4.1
+> Substance 3 · Impact 5.5 · Novelty & venture 3.7 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

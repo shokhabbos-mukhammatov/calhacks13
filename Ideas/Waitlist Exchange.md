@@ -18,5 +18,8 @@ Restaurant waitlist spots become tradable. A voice agent answers the host phone,
 **Angle:** [[Shared worlds on SpacetimeDB]]
 **Sponsors:** [[Cartesia]], [[SpacetimeDB]], [[Visa]], [[Fetch.ai]]
 
+> [!abstract] Idea Council · #29 of 37 · council 3.6
+> Substance 3.5 · Impact 2.5 · Novelty & venture 4.7 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

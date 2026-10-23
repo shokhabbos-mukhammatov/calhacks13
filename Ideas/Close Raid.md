@@ -21,5 +21,8 @@ Month-end close as a co-op raid: unmatched transactions spawn as monsters in a s
 > [!warning] Note
 > Came up in 2 branches.
 
+> [!abstract] Idea Council · #12 of 37 · council 5.2
+> Substance 4.5 · Impact 5.5 · Novelty & venture 5.7 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

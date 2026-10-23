@@ -1,0 +1,88 @@
+{
+  "agent": "C",
+  "cross": [
+    {
+      "ref": "A-P1",
+      "score": 7.0,
+      "label": "New angle",
+      "sub": { "novelty": 6, "venture": 7, "win": 8 },
+      "take": "The most defensible version of Fire Drill: CaMeL and FIDES-style information-flow control exist only as research, with no product found, so a provenance policy for money-moving agents is open ground. The breach-versus-utility table wins technical judges, but the fix is less visible on stage than a phone ringing; it works best as the trigger for C-P1's callback."
+    },
+    {
+      "ref": "A-P2",
+      "score": 5.0,
+      "label": "Better execution",
+      "sub": { "novelty": 4, "venture": 4, "win": 7 },
+      "take": "A good live moment (paste any hiding trick and watch it vanish), but render-based hidden-text stripping already exists: a Chrome extension does it and Claude Code users have requested it. Browser-agent vendors will build it in, so it is a feature, not a company."
+    },
+    {
+      "ref": "A-P3",
+      "score": 5.7,
+      "label": "New angle",
+      "sub": { "novelty": 5, "venture": 6, "win": 6 },
+      "take": "A sound oracle aimed at a growing workload, but Testora (ICSE 2026) and DiffTestGen already generate tests that expose behavior changes between base and PR, so this turns research into a CI check that code-review vendors can copy."
+    },
+    {
+      "ref": "B-P1",
+      "score": 4.3,
+      "label": "Already exists",
+      "sub": { "novelty": 2, "venture": 5, "win": 6 },
+      "take": "Agent Canary already plants decoy MCP tools and canary files that a hijacked agent will touch, and HoneyMCP and Beelzebub do the same; adding quarantine is a small step on an existing open-source idea."
+    },
+    {
+      "ref": "B-P2",
+      "score": 5.3,
+      "label": "Better execution",
+      "sub": { "novelty": 4, "venture": 5, "win": 7 },
+      "take": "A slightly better business than A-P2, because the shared merchant risk index becomes a data asset, but the shield itself is a feature that render-based extensions and agent vendors already cover, and a defensive filter has no clear payer."
+    },
+    {
+      "ref": "B-P3",
+      "score": 4.7,
+      "label": "Already exists",
+      "sub": { "novelty": 2, "venture": 5, "win": 7 },
+      "take": "This is HackerOne's AI red-teaming and AI bug-bounty business (H1 Agentic Pentest launched Jan 2026) and Gray Swan's private arenas; there is a real buyer, but incumbents already serve it."
+    },
+    {
+      "ref": "B-P4",
+      "score": 3.3,
+      "label": "Already exists",
+      "sub": { "novelty": 2, "venture": 4, "win": 4 },
+      "take": "Mission Asset Fund's Lending Circles already run zero-interest circles and report payments to all three bureaus, for free, so a venture-backed copy faces a nonprofit that costs users nothing."
+    },
+    {
+      "ref": "B-P5",
+      "score": 5.3,
+      "label": "Better execution",
+      "sub": { "novelty": 4, "venture": 6, "win": 6 },
+      "take": "A real buyer exists today, but card issuers (Mercury Agent Cards, Ramp, Agentcard, Allowance) already ship limits and freezes, so loop detection and per-task attribution are features they will bundle."
+    },
+    {
+      "ref": "B-P6",
+      "score": 5.0,
+      "label": "Better execution",
+      "sub": { "novelty": 4, "venture": 5, "win": 6 },
+      "take": "Requiring proof before a review comment is already practiced (Claude Code Review's verification step, 'no proof, no report' review skills, CodeAnt's reproduction steps); without the pay-per-proven-bug pricing in C-P4 nothing sets it apart in a crowded category."
+    },
+    {
+      "ref": "B-P7",
+      "score": 6.3,
+      "label": "New angle",
+      "sub": { "novelty": 6, "venture": 6, "win": 7 },
+      "take": "This is the same pivot as my C-P2, reached independently: merchants are a real payer with weekly use, and Shopify's free readiness checker is static, not a live agent run, but agent traffic is still small enough that budgets are early."
+    },
+    {
+      "ref": "B-P8",
+      "score": 7.3,
+      "label": "New angle",
+      "sub": { "novelty": 5, "venture": 8, "win": 9 },
+      "take": "This converges with my C-P1, which is a strong signal. Covering human AP desks widens today's market (IC3 counted about $3B of BEC losses in 2025), but it also walks into KnowBe4, Trustpair and Eftsure territory, so pitch it as agent-native and treat the human desk as an expansion."
+    }
+  ],
+  "picks": [
+    { "rank": 1, "ref": "C-P1", "why": "Fire Drill with a real callback, which B independently converged on (B-P8); use A-P1's provenance policy as the trigger so the fix holds however the attacker words it, and the demo ends with a second phone ringing." },
+    { "rank": 2, "ref": "Netting House", "why": "Rigorous build with a basis-points network business and the deepest Fetch.ai use; name Cycles and Causa Prima before the judges do." },
+    { "rank": 3, "ref": "C-P3", "why": "Keeps Two-Face's cloak-switch demo and its Bright Data and Elastic fit, but sells to the agent-card issuers who actually lose money; the defensive shield variants (A-P2, B-P2) are features without a payer." }
+  ],
+  "changed": "No change in the picks: B-P8 converged on C-P1, and A-P1's provenance policy makes a better trigger for its callback, which strengthens the top pick rather than replacing it."
+}

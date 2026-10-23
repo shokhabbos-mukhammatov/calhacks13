@@ -18,5 +18,8 @@ Jira tickets spawn as enemies in a multiplayer tower defense; towers are Factory
 **Angle:** [[Shared worlds on SpacetimeDB]]
 **Sponsors:** [[SpacetimeDB]], [[Atlassian]], [[Factory]], [[Supercell]]
 
+> [!abstract] Idea Council · #19 of 37 · council 4.3
+> Substance 3.5 · Impact 3.5 · Novelty & venture 6.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

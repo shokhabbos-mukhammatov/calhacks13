@@ -88,5 +88,8 @@ The jaw-drop needs about 12 independent agents to lock, vote, re-solve and commi
 ## Why other teams won't build it
 Most teams will build an agent that pays invoices. Netting needs a real optimization model, an all-or-nothing commit across independent agents, and a demo that balances to the cent in front of finance judges.
 
+> [!abstract] Idea Council · #1 of 37 · council 10.8
+> Substance 8 · Impact 8.5 · Novelty & venture 7.0 (best version: the original). Picked by A#2, B#1, C#2. See [[Council Verdict]].
+
 ## Team notes
 -

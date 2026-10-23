@@ -1,0 +1,1155 @@
+{
+  "agent": "C",
+  "lens": "Novelty, startup potential & hackathon-win potential",
+  "ideas": [
+    {
+      "idea": "Agent AML",
+      "score": 5.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 5,
+        "win": 6,
+        "prior_art": ["AgentScore (agent wallet trust scores, watches x402)", "DJD Agent Score (counterparty screening for agent wallets on Base)", "Castellum transaction-monitoring agents", "x402stats / Artemis wash-filtered x402 analytics"],
+        "why_now": "x402 and Agentverse wallets let agents pay agents, and analyses report that roughly half or more of x402 transactions are gamed (wash trading or self-dealing).",
+        "buyer": "x402 facilitators, agent marketplaces and agent-payment platforms",
+        "model": "Per-transaction screening fee plus compliance SaaS",
+        "usage": "daily",
+        "wedge": "Wash filtering and circuit breakers for one agent marketplace's payment rail",
+        "one_liner": "Chainalysis for agent-to-agent payments",
+        "wow": "A wash loop between two agents lights up on the live graph and the breaker freezes both wallets mid-loop.",
+        "tracks": ["Fetch.ai", "Coinbase", "Elastic"]
+      },
+      "take": "A real problem with a tiny market today; it is a feature a facilitator or trust-score startup will ship, not a company you can win with this weekend.",
+      "reasoning": "Wash trading on x402 is documented (Artemis; Visa's Cuy Sheffield adjusted cumulative volume to about $19M), which gives a why-now, but genuine agentic volume is still small, so a compliance buyer will not appear for a while. Trust-score startups like AgentScore and DJD already sit on the same data and can add loop detection. The demo is a graph that turns red, which judges have seen many times.",
+      "red_flag": "Real agent-payment volume is tiny (reported around $28K a day of real x402 volume), so there is no paying buyer yet.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Forkast: Half of x402's transaction volume is artificial", "url": "https://forkast.news/half-of-x402s-transaction-volume-is-artificial-the-infrastructure-layer-keeps-building-anyway/" },
+        { "title": "The Defiant: Visa's Sheffield pegs adjusted x402 volume at $19M", "url": "https://thedefiant.io/news/infrastructure/visa-s-sheffield-pegs-adjusted-x402-volume-at-19m" },
+        { "title": "AgentScore profile", "url": "https://agentcommunity.org/m/agentscore" },
+        { "title": "Castellum transaction monitoring agents", "url": "https://www.castellum.ai/products/transaction-monitoring-agent" }
+      ]
+    },
+    {
+      "idea": "Agent Tanda",
+      "score": 4.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 5,
+        "venture": 4,
+        "win": 5,
+        "prior_art": ["MoneyFellows (Egypt, digital money circles, $60M+ raised, 8.5M users)", "ElGameya (Egypt, digital ROSCA, 7-figure round 2025)", "BX Smart Labs (Mexico, on-chain tandas, UNICEF fund)"],
+        "why_now": "CRS offers KYC and income verification by API, and agent wallets can bid automatically.",
+        "buyer": "Savings-circle members (diaspora and underbanked communities) through a platform fee",
+        "model": "Take rate on the pot or a membership fee, plus a lending spread",
+        "usage": "monthly",
+        "wedge": "US diaspora tanda and susu groups already running circles on WhatsApp",
+        "one_liner": "MoneyFellows with agent bidding",
+        "wow": "Agents bid live for this month's pot and the winner's collateral is set from a CRS income check.",
+        "tracks": ["CRS Credit API", "Fetch.ai", "Convex"]
+      },
+      "take": "Digital ROSCAs are proven and funded; letting agents bid adds little for users and nothing a judge will remember.",
+      "reasoning": "MoneyFellows has raised over $60M and serves millions, so the category is known. The agent auction is a twist without a user need: members bid once a month and can do it by hand. The demo is an auction of play money, and CRS sandbox access is by request only.",
+      "red_flag": "No user pain that the agent solves; the auction is a solution looking for a problem.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "TechCrunch: MoneyFellows raises $13M", "url": "https://techcrunch.com/2025/05/04/moneyfellows-raises-13m-to-take-its-group-savings-model-outside-egypt" },
+        { "title": "FinTech Global: ElGameya secures 7-figure investment", "url": "https://fintech.global/2025/05/21/egyptian-fintech-elgameya-secures-7-figure-investment-to-scale-digital-rosca-platform/" },
+        { "title": "UNICEF Venture Fund: BX Smart Labs saving circles", "url": "https://www.unicefventurefund.org/story/bx-smart-labs-developing-decentralized-app-saving-circles" }
+      ]
+    },
+    {
+      "idea": "AgentFICO",
+      "score": 4.0,
+      "label": "Already exists",
+      "sub": {
+        "novelty": 2,
+        "venture": 6,
+        "win": 4,
+        "prior_art": ["AgentScore (pitches itself as the credit bureau for the AI economy, indexes x402)", "DJD Agent Score", "Vouched Know Your Agent ($17M Series A, KnowThat.ai directory)", "Baselayer (reported $35M, agent identity)"],
+        "why_now": "Agent payments over x402 and Visa Intelligent Commerce now create payment histories.",
+        "buyer": "Merchants and agents extending credit; payment platforms",
+        "model": "Per-query score fee",
+        "usage": "daily",
+        "wedge": "x402 merchants deciding whether to extend credit to an agent",
+        "one_liner": "FICO for AI agents",
+        "wow": "An agent checks a counterparty's score and refuses credit.",
+        "tracks": ["CRS Credit API", "Visa", "Coinbase"]
+      },
+      "take": "Already funded several times over; judges will name AgentScore or Vouched before the pitch ends.",
+      "reasoning": "AgentScore already calls itself a credit bureau for agents on x402, Vouched raised $17M for Know Your Agent, and Baselayer reportedly raised $35M for agent identity. The vault itself notes the idea came up in 3 of 5 brainstorm branches, so other teams will pitch it. The buyer is real, which keeps venture at 6, but there is no room for a new entrant from a hackathon.",
+      "red_flag": "Several funded incumbents, and other teams will pitch the same thing.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AgentScore profile", "url": "https://agentcommunity.org/m/agentscore" },
+        { "title": "DJD Agent Score MCP server", "url": "https://mcp.so/servers/djdagentscore" },
+        { "title": "Vouched raises $17M Series A for Know Your Agent", "url": "https://www.vouched.id/learn/vouched-raises-17m-series-a-to-scale-know-your-agent-and-bring-real-identity-to-ai-agents" },
+        { "title": "Baselayer raises $35M for agent identity platform", "url": "https://letsdatascience.com/news/baselayer-raises-35m-for-agent-identity-platform-f1ba3b01" }
+      ]
+    },
+    {
+      "idea": "Backlog Tower Defense",
+      "score": 6.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 3,
+        "win": 8,
+        "prior_art": ["Bug Hunter: Code Defense (itch.io bug-themed tower defense, no Jira)", "Jira-triggered background coding agents (Atlassian Marketplace)", "Factory Droids"],
+        "why_now": "Coding agents can now take a Jira ticket and open a PR unattended.",
+        "buyer": "Unclear: engineering teams for morale, or devrel teams for demos",
+        "model": "None obvious; maybe a team SaaS",
+        "usage": "event-only",
+        "wedge": "Hackathons and company bug-bash days",
+        "one_liner": "Clash Royale for your Jira backlog",
+        "wow": "A judge files a bug from their phone, it spawns as an enemy, and dies on screen when a Droid's fix merges.",
+        "tracks": ["SpacetimeDB", "Atlassian", "Factory"]
+      },
+      "take": "One of the most memorable live demos in the pool, but it is a game skin on a coding agent, and nobody pays for the skin.",
+      "reasoning": "I found no game that turns Jira tickets into enemies, so it would stand out, and three sponsors do real work in it. But the business is the agent that fixes the ticket, which Factory and Jira-integrated agents already sell. PR turnaround time makes the 20-second wow fragile.",
+      "red_flag": "No buyer and event-only usage; a fix that takes minutes to merge kills the live moment.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Bug Hunter: Code Defense (itch.io)", "url": "https://hugomatsu.itch.io/bug-hunter-code-defense" },
+        { "title": "Atlassian Marketplace: background coding agent for Jira", "url": "https://marketplace.atlassian.com/apps/1645584133" }
+      ]
+    },
+    {
+      "idea": "Blast Radius",
+      "score": 5.0,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 3,
+        "venture": 6,
+        "win": 6,
+        "prior_art": ["Runlayer ($11M seed, MCP and agent security)", "Helmet Security ($9M, MCP monitoring)", "MCP-Shield, mcpwall and MCP Output Firewall (open source)", "Lakera (acquired by Check Point, reported ~$300M)"],
+        "why_now": "MCP tools are everywhere and indirect prompt injection is a top agent risk.",
+        "buyer": "CISOs and platform security teams",
+        "model": "Per-agent runtime SaaS",
+        "usage": "daily",
+        "wedge": "Engineering orgs wiring third-party MCP servers into coding agents",
+        "one_liner": "Zero-trust segmentation for MCP tools",
+        "wow": "A judge hides an instruction in a web page; as the agent reads it, the tool graph turns red and the compromised tools are cut off.",
+        "tracks": ["Illumio", "Armadin", "Elastic"]
+      },
+      "take": "A crowded, well-funded category; this would be one more MCP firewall.",
+      "reasoning": "Runlayer, Helmet and a long list of open-source MCP firewalls already gate or quarantine tools on injection, and Check Point bought Lakera. The buyer is real and usage is daily, which keeps venture at 6, but security judges will ask how it differs from what they already run.",
+      "red_flag": "Security judges will name three competitors from memory.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "TechCrunch: Runlayer launches with $11M", "url": "https://techcrunch.com/2025/11/17/mcp-ai-agent-security-startup-runlayer-launches-with-8-unicorns-11m-from-khoslas-keith-rabois-and-felicis" },
+        { "title": "Helmet Security raises $9M", "url": "https://technical.ly/entrepreneurship/helmet-security-raises-9m-agentic-ai/" },
+        { "title": "MCP Output Firewall", "url": "https://mcpservers.org/servers/tangfei7777-cell/mcp-output-firewall" },
+        { "title": "Lakera acquired by Check Point", "url": "https://www.venturelab.swiss/Lakera-acquired-by-Checkpoint-in-USD-300-million-deal" }
+      ]
+    },
+    {
+      "idea": "Cal Hacks Futures",
+      "score": 3.0,
+      "label": "Already exists",
+      "sub": {
+        "novelty": 3,
+        "venture": 1,
+        "win": 5,
+        "prior_art": ["Manifold markets on which hackathon projects will win", "Hackerboard (ETHGlobal New York, betting on hackathon teams)"],
+        "why_now": "Nothing specific to 2025-2026.",
+        "buyer": "None",
+        "model": "None",
+        "usage": "event-only",
+        "wedge": "None",
+        "one_liner": "Kalshi for hackathons",
+        "wow": "Live odds swing as teams push commits.",
+        "tracks": ["Jane Street", "SpacetimeDB", "Apify"]
+      },
+      "take": "A fun toy that has been done, has no buyer, and prices other teams without their consent.",
+      "reasoning": "Manifold has run markets on hackathon winners and Hackerboard let people bet on teams at ETHGlobal. Usage ends when the event ends. The consent problem flagged in the note could get it shut down mid-weekend.",
+      "red_flag": "Event-only, and organizers may shut it down.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Manifold: Which projects will win the EA Bahamas hackathon", "url": "https://manifold.markets/Austin/which-projects-will-win-the-ea-baha" },
+        { "title": "ETHGlobal showcase: Hackerboard", "url": "https://ethglobal.com/showcase/hackerboard-0yofi" }
+      ]
+    },
+    {
+      "idea": "Close Raid",
+      "score": 5.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 4,
+        "win": 7,
+        "prior_art": ["Hyphenate (sponsor; close and bank-rec agents with human escalation)", "Maxima (Kleiner Perkins-backed close agents)", "End Close (YC)", "Puzzle (agent executes, human approves)"],
+        "why_now": "Close agents now propose matches and humans approve them.",
+        "buyer": "Controllers and accounting teams",
+        "model": "SaaS per entity",
+        "usage": "monthly",
+        "wedge": "Mid-market finance teams still doing manual bank rec",
+        "one_liner": "Month-end close as a co-op raid",
+        "wow": "Unmatched transactions spawn as monsters; Claude proposes a match, an accountant approves, the monster dies, and the replay is the audit trail.",
+        "tracks": ["Hyphenate", "SpacetimeDB", "Supercell"]
+      },
+      "take": "A clever way to hit Hyphenate and SpacetimeDB at once, but the game layer is the first thing a controller would remove.",
+      "reasoning": "The close-automation core is crowded (Hyphenate itself, Maxima, End Close, Puzzle), and I found no one gamifying it, so the novelty is the skin. Controllers buy accuracy and speed, not fun, and usage is monthly. It could still win two Tier 1 tracks with a tight demo.",
+      "red_flag": "Pitching a game to Hyphenate, whose product does the same work without one.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Kleiner Perkins: Maxima, AI agents for enterprise accounting", "url": "https://www.kleinerperkins.com/perspectives/maxima-bringing-ai-agents-to-the-heart-of-enterprise-accounting-2/" },
+        { "title": "End Close (YC)", "url": "https://www.ycombinator.com/companies/end-close" },
+        { "title": "Puzzle: agentic AI for month-end", "url": "https://puzzle.io/blog/agentic-ai-accountants-month-end" },
+        { "title": "TNW: Maximor rebrands as Hyphenate after 86x growth", "url": "https://thenextweb.com/news/maximor-rebrands-hyphenate-86x-growth-autonomous-finance" }
+      ]
+    },
+    {
+      "idea": "Coyote Time",
+      "score": 5.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 5,
+        "venture": 4,
+        "win": 6,
+        "prior_art": ["Mercury Agent Cards (human-set limits, Aug 2026)", "Reap passkey-approved spending mandates", "HumanLayer (YC, approval gates for agent actions)", "Nuvei consumer research on reversing agent purchases"],
+        "why_now": "Agents now buy with cards (Visa Intelligent Commerce, agent cards) and there is no undo pattern for agent purchases.",
+        "buyer": "Agent-card issuers and agent apps (as a feature), not end users",
+        "model": "API or feature licensing fee",
+        "usage": "daily",
+        "wedge": "Personal agents that hold virtual cards",
+        "one_liner": "Undo-send for agent purchases",
+        "wow": "The agent says 'buying 3 flights, cancel?' out loud, and one spoken word rolls it back on screen.",
+        "tracks": ["Visa", "Cartesia", "Wajo AI"]
+      },
+      "take": "A good feature that issuers and agent apps will build themselves; a thin company.",
+      "reasoning": "Consumers say they want to cancel agent purchases (Nuvei reports 84%), but the fix is a pre-settlement hold plus a confirmation, which issuers and approval tools like Mercury, Reap and HumanLayer already approximate. The voice 'cancel?' moment is cute but short. Hard to defend once Visa or an issuer ships it.",
+      "red_flag": "A feature, not a company; incumbents own the settlement window.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Nuvei: Agentic commerce and how payments have to change", "url": "https://www.nuvei.com/posts/agentic-commerce-what-it-is-and-how-payments-have-to-change" },
+        { "title": "Ergomania: UX for undoing AI agent purchases", "url": "https://ergomania.eu/ux-undo-ai-agent-purchases/" },
+        { "title": "Fast Company: Mercury launches virtual cards for AI agents", "url": "https://www.fastcompany.com/91574324/mercury-launches-virtual-credit-cards-ai-agents" },
+        { "title": "HumanLayer (YC)", "url": "https://ycombinator.com/companies/humanlayer" }
+      ]
+    },
+    {
+      "idea": "Death Heatmap",
+      "score": 5.0,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 4,
+        "venture": 5,
+        "win": 6,
+        "prior_art": ["Synthetic Society (YC S25, AI agents as simulated users for QA and UX)", "Uxia (pre-seed Nov 2025, persona usability feedback)", "Talp (2026 pre-seed, AI personas on websites)", "Brox.ai (synthetic users navigating sites)"],
+        "why_now": "Computer-use models can now navigate real websites end to end.",
+        "buyer": "PMs and UX researchers",
+        "model": "SaaS per seat or per run",
+        "usage": "weekly",
+        "wedge": "B2B developer-tool companies",
+        "one_liner": "Synthetic usability tests with a death map",
+        "wow": "The 'grandma' agent dies three times on the same modal and the heatmap glows red there.",
+        "tracks": ["Anthropic", "Figma", "Listen Labs"]
+      },
+      "take": "Synthetic-user testing is already a funded and skeptically received category; pointing it at real AI shoppers for merchants (C-P2) is stronger.",
+      "reasoning": "Synthetic Society (YC), Uxia and Talp already sell AI personas that click through products, and practitioners doubt LLMs mimic human behavior (Userbrain's 2026 experiment). Testing actual AI shopping agents makes the result true by construction and gives merchants a reason to pay.",
+      "red_flag": "'AI personas are not real users' is the first Q&A question, and there is no good answer.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "Dealroom: Synthetic Society", "url": "https://app.dealroom.co/companies/synthetic_society" },
+        { "title": "Seedtable: Uxia pre-seed", "url": "https://seedtable.com/companies/uxia/funding-rounds/pre-seed-2025-11" },
+        { "title": "Seedtable: Talp pre-seed 2026", "url": "https://seedtable.com/companies/talp/funding-rounds/pre-seed-2026-07" },
+        { "title": "Userbrain: synthetic users experiment", "url": "https://www.userbrain.com/blog/synthetic-users-experiment/" }
+      ]
+    },
+    {
+      "idea": "Dial-In MMO",
+      "score": 6.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 3,
+        "win": 8,
+        "prior_art": ["The Parlor (AI Tinkerers hackathon, multiplayer voice-narrated mystery)", "Playworlds (voice-first single-player, Steam)", "GenFable (text MMO with AI narration)"],
+        "why_now": "Sub-100 ms TTS and phone numbers provisioned by CLI (Cartesia Line agents GA in Feb 2026) make phone-native play cheap to build.",
+        "buyer": "Players (consumer game)",
+        "model": "Free-to-play with paid minutes or premium",
+        "usage": "weekly",
+        "wedge": "None clear; perhaps accessibility or audio-first players",
+        "one_liner": "An MMO you play by phone call",
+        "wow": "Judges dial in from their seats and hear each other's moves narrated in the same world.",
+        "tracks": ["Cartesia", "SpacetimeDB", "Supercell"]
+      },
+      "take": "Unforgettable for two minutes and a weak company; per-minute voice cost and phone UX cap the market.",
+      "reasoning": "I found no persistent phone-only multiplayer world, so it is fresh and a strong Cartesia plus SpacetimeDB story. But consumer voice games are a hard business: reported Cartesia agent pricing of about $0.06 per minute plus telephony means every player-hour costs money, and audio-only retention is unproven. Expo-hall noise is a real live risk.",
+      "red_flag": "Every minute played costs money and there is no clear paying user.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AI Tinkerers: The Parlor", "url": "https://la.aitinkerers.org/hackathons/h_VX1czfEIeZU/entries/ht_Yjy4XDHWPpA" },
+        { "title": "GenFable text MMO", "url": "https://svejkgames.itch.io/genfable" },
+        { "title": "Cartesia voice agents GA and pricing (tracker)", "url": "https://usagepricing.com/blueprint/activity/cartesia-2026-02-10-launch" }
+      ]
+    },
+    {
+      "idea": "Fire Drill",
+      "score": 7.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 5,
+        "venture": 7,
+        "win": 9,
+        "prior_art": ["Coval ($28M Series A, Jun 2026, voice/chat agent simulation)", "Hamming ($3.8M seed, voice agent red-teaming)", "Cekura (YC, $2.4M seed)", "Gray Swan ($40M Series A, automated agent red-teaming)", "Promptfoo (acquired by OpenAI, Mar 2026)", "KnowBe4 Agent Risk Manager (agent governance, Claude support Aug 2026)", "AIUC ($40M Series A, AIUC-1 agent certification with quarterly testing)"],
+        "why_now": "Finance agents now hold payment authority (Hyphenate reports 86x growth; agent cards from Mercury and YC startups), BEC losses hit $2.77B in 2024, and autonomous offense is funded (Armadin, $445M total).",
+        "buyer": "Finance and security leaders deploying AP agents; AP-automation vendors that must prove safety to customers",
+        "model": "Per-agent SaaS for scheduled drills, plus audit and insurance evidence packs",
+        "usage": "weekly",
+        "wedge": "Vendor bank-detail change and payment-redirect drills for AP agents at mid-market companies",
+        "one_liner": "Social-engineering pen tests for AI finance agents",
+        "wow": "A judge plays an urgent CFO on the phone, talks the agent into redirecting a payment, then watches the patched agent refuse a reworded attack.",
+        "tracks": ["Armadin", "Cartesia", "Anthropic"]
+      },
+      "take": "The best live moment in the pool on a real, growing risk, but agent red-teaming is a funded field, so own the finance-fraud angle and drop the 'KnowBe4 for AI agents' line.",
+      "reasoning": "I found no one selling multi-channel social-engineering drills against agents that can move money, with a verified fix, so the angle is open. The neighborhood is crowded and funded, though: Coval, Hamming and Cekura test voice agents, Gray Swan raised $40M for automated agent red-teaming, OpenAI bought Promptfoo, AIUC certifies agents with quarterly testing, and KnowBe4 itself now governs Claude agents. Drills are periodic; adding a real per-transaction callback (C-P1) turns it into daily infrastructure and adds a second phone moment.",
+      "red_flag": "KnowBe4 now ships Agent Risk Manager for Claude agents, so 'KnowBe4 for AI agents' invites the question 'why won't KnowBe4 just do this?'.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "TNW: Coval raises $28M to stress-test AI voice agents", "url": "https://thenextweb.com/news/coval-28m-series-a-voice-ai-testing" },
+        { "title": "Hamming AI raises $3.8M seed", "url": "https://hamming.ai/blog/hamming-ai-seed-funding-to-make-voice-agents-more-reliable" },
+        { "title": "Cekura raises $2.4M", "url": "https://cekura.ai/blogs/fundraise" },
+        { "title": "Gray Swan raises $40M Series A", "url": "https://www.grayswan.ai/news/gray-swan-announces-series-a" },
+        { "title": "Security Boulevard: OpenAI acquires Promptfoo", "url": "https://securityboulevard.com/2026/03/openai-acquires-security-startup-promptfoo-to-fortify-ai-agents" },
+        { "title": "KnowBe4: Agent Risk Manager", "url": "https://www.knowbe4.com/press/knowbe4-secures-the-human-and-ai-workforce-with-agent-risk-manager" },
+        { "title": "FinTech Global: AIUC raises $40M", "url": "https://fintech.global/2026/09/17/aiuc-raises-40m-to-police-risk-in-frontier-ai-agents/" },
+        { "title": "Nacha: IC3 finds almost $8.5B lost to BEC in three years", "url": "https://www.nacha.org/news/fbis-ic3-finds-almost-85-billion-lost-business-email-compromise-last-three-years" },
+        { "title": "SecurityWeek: Armadin raises $255M at $2.5B valuation", "url": "https://securityweek.com/kevin-mandias-armadin-raises-255-million-at-2-5-billion-valuation" }
+      ]
+    },
+    {
+      "idea": "Flytrap",
+      "score": 4.7,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 3,
+        "venture": 5,
+        "win": 6,
+        "prior_art": ["HoneyMCP (ghost tools in MCP servers)", "Agent Canary (decoy MCP tools and canary tokens)", "Beelzebub MCP honeypot", "Zeltser's decoy MCP server honeypot"],
+        "why_now": "Hostile agents and hijacked agents now probe MCP servers.",
+        "buyer": "SOC and detection teams",
+        "model": "SaaS per environment",
+        "usage": "daily",
+        "wedge": "Companies exposing remote MCP servers",
+        "one_liner": "Honeypots for hostile AI agents",
+        "wow": "A live attacker agent grabs the juicy fake tool and is quarantined instantly.",
+        "tracks": ["Illumio", "Elastic", "Armadin"]
+      },
+      "take": "Decoy MCP tools already exist as open-source projects; a nice security demo with little novelty left.",
+      "reasoning": "HoneyMCP, Agent Canary, Beelzebub and others plant tools that alert when an agent calls them. Deception is a real security budget line, which keeps venture at 5, but a hackathon version adds a dashboard, not a new idea, and the attacker can look scripted.",
+      "red_flag": "Open-source decoy MCP servers already do the core trick.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Zeltser: decoy MCP server honeypot", "url": "https://zeltser.com/decoy-mcp-server-honeypot" },
+        { "title": "HoneyMCP", "url": "https://lobehub.com/mcp/barvhaim-honeymcp" },
+        { "title": "Agent Canary", "url": "https://mcpservers.org/servers/dorianchn/agent-canary" }
+      ]
+    },
+    {
+      "idea": "Frame-Data Exchange",
+      "score": 4.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 2,
+        "win": 5,
+        "prior_art": ["HFTBench, 'Win Fast or Lose Slow' (latency-ranked LLM trading)", "StockSim (latency-aware market simulator)"],
+        "why_now": "Cheap small models make the speed-versus-smarts trade-off a live design choice.",
+        "buyer": "Quant firms, for recruiting events at best",
+        "model": "Sponsored competitions",
+        "usage": "event-only",
+        "wedge": "Quant recruiting competitions",
+        "one_liner": "Fighting-game frame data for trading bots",
+        "wow": "A fast, dumb bot front-runs a slow, smart one on the live tape.",
+        "tracks": ["Jane Street", "SpacetimeDB", "Annapurna Labs"]
+      },
+      "take": "A clever benchmark-game that quant judges will enjoy, with no buyer beyond recruiting.",
+      "reasoning": "HFTBench already studies this exact speed-versus-accuracy trade-off for LLM trading agents. The fighting-game framing is fresh, but it needs explaining before anything impressive happens and lives only as a competition.",
+      "red_flag": "Takes 40 seconds to explain before the wow.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "arXiv: Win Fast or Lose Slow (HFTBench)", "url": "https://arxiv.org/abs/2505.19481v1" },
+        { "title": "StockSim overview", "url": "https://www.emergentmind.com/topics/stocksim" }
+      ]
+    },
+    {
+      "idea": "IRL Speedrun Splits",
+      "score": 3.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 4,
+        "venture": 2,
+        "win": 3,
+        "prior_art": ["Race Yourself (Google Glass ghost racing)", "Ghost Pacer (AR ghost runner)", "Ghost Trax (ghost splits app)"],
+        "why_now": "Meta opened display glasses to developers in 2026.",
+        "buyer": "Consumers, weakly",
+        "model": "Consumer subscription",
+        "usage": "weekly",
+        "wedge": "The speedrunning community",
+        "one_liner": "Speedrun splits for errands",
+        "wow": "A voice calls 'minus 12 seconds' as you beat your grocery-run ghost.",
+        "tracks": ["Meta", "Cartesia", "Moss"]
+      },
+      "take": "Ghost racing on head-mounted displays has been done for running; errands add no value, and the hardware may not show up.",
+      "reasoning": "Race Yourself and Ghost Pacer did you-versus-your-ghost on glasses years ago. Timing errands is a novelty, not a need, and it depends on borrowed glasses working on day one.",
+      "red_flag": "Hardware dependency and no real-world demand.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "The Ghost Pacer AR running partner", "url": "https://gadgetsandwearables.com/2020/08/12/the-ghost-pacer/" },
+        { "title": "IBTimes: Race Yourself on Google Glass", "url": "https://www.ibtimes.co.uk/ghost-replays-zombies-runaway-trains-race-yourself-google-glass-makes-exercise-fun-1434258" },
+        { "title": "Product Hunt: Ghost Trax", "url": "https://www.producthunt.com/products/ghost-trax" }
+      ]
+    },
+    {
+      "idea": "Intent Diff",
+      "score": 3.3,
+      "label": "Already exists",
+      "sub": {
+        "novelty": 2,
+        "venture": 4,
+        "win": 4,
+        "prior_art": ["unasked (PyPI scope-drift detector for agent edits)", "overreach (MCP server auditing diffs against the prompt)", "scope-creep-detector (Claude Code skill)", "arXiv 2607.29516, intent and drift scoring for AI diffs"],
+        "why_now": "Coding agents make unrequested edits.",
+        "buyer": "Engineering teams, but it is a code-review feature",
+        "model": "SaaS add-on",
+        "usage": "daily",
+        "wedge": "Teams running background coding agents from Jira",
+        "one_liner": "Scope-creep alarm for coding agents",
+        "wow": "A diff lights up a new network call the ticket never asked for.",
+        "tracks": ["Greptile", "Atlassian", "Factory"]
+      },
+      "take": "Several open-source tools and a paper already do exactly this; it is a feature for Greptile, not a product.",
+      "reasoning": "unasked, overreach and a Claude Code skill already compare intent to diff and flag drift, and a July 2026 paper formalizes the method. Greptile, a sponsor, is the natural owner. A highlighted diff is a quiet demo.",
+      "red_flag": "Greptile's judges will say they can add it in a sprint.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "PyPI: unasked", "url": "https://pypi.org/project/unasked/" },
+        { "title": "overreach MCP server", "url": "https://mcpservers.org/servers/naveja00/overreach" },
+        { "title": "scope-creep-detector skill", "url": "https://claudeskills.info/skills/shubhamsaboo/awesome-llm-apps/scope-creep-detector/" },
+        { "title": "arXiv: From Code Review to Code Critique", "url": "https://arxiv.org/pdf/2607.29516" }
+      ]
+    },
+    {
+      "idea": "Jailbreak Booth",
+      "score": 2.3,
+      "label": "Already exists",
+      "sub": {
+        "novelty": 1,
+        "venture": 2,
+        "win": 4,
+        "prior_art": ["Gandalf by Lakera (80M+ data points, b3 benchmark)", "Gray Swan Arena 2.0 ($300K agent-injection challenge launched Oct 20, 2026)", "HackAPrompt 2.0 ($100K)"],
+        "why_now": "Nothing new.",
+        "buyer": "Labs buying red-team data, already served",
+        "model": "Data sales",
+        "usage": "event-only",
+        "wedge": "None",
+        "one_liner": "Gandalf in a kiosk",
+        "wow": "A judge breaks the agent and their attempt appears as a labeled row.",
+        "tracks": ["Afterquery", "Scale", "Anthropic"]
+      },
+      "take": "Gandalf and Gray Swan's Arena already do this at scale, and Gray Swan relaunched two days before the event with Anthropic as a sponsor.",
+      "reasoning": "Gandalf has generated over 80 million data points, and Gray Swan's Arena 2.0 offers $300K for agent attacks this month. A kiosk collects a few hundred attempts. Nothing here is new to an Anthropic or Scale judge.",
+      "red_flag": "Judges will have played Gandalf.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Business Wire: Lakera open-source benchmark from Gandalf data", "url": "https://www.businesswire.com/news/home/20251028168283/en" },
+        { "title": "Fortune: Gray Swan Arena contest to jailbreak AI agents", "url": "https://fortune.com/2026/10/20/exclusive-ai-security-company-gray-swan-red-team-arena-contest-to-jailbreak-ai-agents/" },
+        { "title": "Learn Prompting: HackAPrompt 2.0", "url": "https://learnprompting.org/blog/announce-hackaprompt-2" }
+      ]
+    },
+    {
+      "idea": "Kernel Bounties",
+      "score": 3.0,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 4,
+        "venture": 3,
+        "win": 2,
+        "prior_art": ["GPU MODE KernelBot competitions (AMD x GPU MODE, $1.1M prize pool, 2026)", "NVIDIA Blackwell NVFP4 kernel hackathon"],
+        "why_now": "Agentic kernel writers make speedups cheaper to find.",
+        "buyer": "AI infrastructure teams that want speedups",
+        "model": "Take rate on bounties",
+        "usage": "monthly",
+        "wedge": "Open-source inference projects",
+        "one_liner": "Bounties for faster kernels",
+        "wow": "A bounty pays out as a measured 1.4x speedup lands.",
+        "tracks": ["Annapurna Labs", "Runpod", "Coinbase"]
+      },
+      "take": "Kernel competitions with big prize pools already exist; a two-sided bounty market plus hardware access is too much for 36 hours.",
+      "reasoning": "GPU MODE runs kernel competitions with AMD and NVIDIA, including a $1.1M prize pool this year. A bounty marketplace is a variant with cold start on both sides, and Trainium access is uncertain.",
+      "red_flag": "Needs real hardware and two-sided liquidity.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AMD: GPU MODE E2E Model Speedrun", "url": "https://www.amd.com/en/developer/resources/technical-articles/2026/new-gpumode-virtual-hackathon--e2e-model-speedrun.html" },
+        { "title": "ICML: KernelBot competition platform", "url": "https://icml.cc/virtual/2025/48208" }
+      ]
+    },
+    {
+      "idea": "Kernel Golf",
+      "score": 3.3,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 4,
+        "venture": 2,
+        "win": 4,
+        "prior_art": ["GPU MODE KernelBot leaderboards", "Paradigm's kernel-optimization leaderboard", "TileLang Puzzles", "AWS Neuron Agentic Development"],
+        "why_now": "NKI is new and needs learning tools.",
+        "buyer": "AWS devrel or learners",
+        "model": "None, or sponsored",
+        "usage": "weekly",
+        "wedge": "Trainium developer onboarding",
+        "one_liner": "LeetCode for NKI kernels",
+        "wow": "Your kernel climbs the leaderboard while Claude's hints cost you points.",
+        "tracks": ["Annapurna Labs", "Anthropic", "SpacetimeDB"]
+      },
+      "take": "A port of kernel leaderboards and puzzles to NKI; nice for AWS devrel, weak as a company, and blocked on Trainium access.",
+      "reasoning": "Kernel leaderboards and puzzle sets already exist for CUDA, Triton and TileLang. An NKI edition would please Annapurna judges if the hardware works, but nobody pays for it.",
+      "red_flag": "Every player needs working Trainium access.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "ICML: KernelBot", "url": "https://icml.cc/virtual/2025/48208" },
+        { "title": "Paradigm kernel puzzle leaderboard", "url": "https://www.paradigm.xyz/puzzles/anthropic-challenge/about" },
+        { "title": "TileLang Puzzles", "url": "https://hyper.ai/de/notebooks/tilelang-puzzles-learn-gpu-kernel-programming-with-10-puzzles" }
+      ]
+    },
+    {
+      "idea": "Kernel Swarm",
+      "score": 2.0,
+      "label": "Already exists",
+      "sub": {
+        "novelty": 1,
+        "venture": 2,
+        "win": 3,
+        "prior_art": ["AWS Neuron Agentic Development (Apr 2026: open-source NKI kernel writer, debugger and profiler agents for Claude Code)"],
+        "why_now": "AWS already shipped it.",
+        "buyer": "None beyond AWS",
+        "model": "None",
+        "usage": "one-time",
+        "wedge": "None",
+        "one_liner": "Kernel-writing agents for Trainium",
+        "wow": "Agents write and benchmark a kernel on stage.",
+        "tracks": ["Annapurna Labs", "Anthropic", "Factory"]
+      },
+      "take": "AWS shipped this as open source in April; the sponsor's own judges built it.",
+      "reasoning": "Neuron Agentic Development includes a kernel writer that turns PyTorch into NKI, a debugger and a profile analyzer, all inside Claude Code. Live kernel work in 2 minutes is also unrealistic.",
+      "red_flag": "The sponsor already ships it.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AWS Neuron: agentic development overview", "url": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/agentic-development-overview.html" },
+        { "title": "AWS What's New: Neuron Agentic Development", "url": "https://aws.amazon.com/de/about-aws/whats-new/2026/04/announcing-neuron-agentic-development/" }
+      ]
+    },
+    {
+      "idea": "Market-Maker NPCs",
+      "score": 4.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 2,
+        "win": 5,
+        "prior_art": ["MART: LLM merchant NPCs that negotiate (arXiv 2412.11189)", "Business Arena: LLM agents in a simulated marketplace (arXiv 2608.08621)"],
+        "why_now": "LLM NPCs are now cheap enough to run per shop.",
+        "buyer": "Game studios, as a feature",
+        "model": "None standalone",
+        "usage": "weekly",
+        "wedge": "None",
+        "one_liner": "Market-maker shopkeepers in an MMO",
+        "wow": "A shopkeeper widens its spread during a run on potions and goes bankrupt live.",
+        "tracks": ["SpacetimeDB", "Supercell", "Jane Street"]
+      },
+      "take": "A fun game mechanic, not a startup, and research already has LLM merchants.",
+      "reasoning": "LLM merchant NPCs are an active research topic and dynamic pricing in game economies is old. It could please Supercell and Jane Street judges, but the wow needs a player economy big enough to move prices.",
+      "red_flag": "Needs a live player economy to show anything.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "arXiv: LLMs for active merchant NPCs", "url": "https://arxiv.org/pdf/2412.11189" },
+        { "title": "arXiv: Business Arena", "url": "https://arxiv.org/pdf/2608.08621" }
+      ]
+    },
+    {
+      "idea": "Memory Blame",
+      "score": 4.7,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 4,
+        "venture": 5,
+        "win": 5,
+        "prior_art": ["Memward (provenance, poison detection and rollback for agent memory)", "memory-blackbox (provenance, blast radius and rollback)", "OWASP Agent Memory Guard (reported Jun 2026)", "2026 surveys calling memory rollback under-served"],
+        "why_now": "Long-term memory stores in agents are now a poisoning target.",
+        "buyer": "Agent platform teams",
+        "model": "Open-core SDK",
+        "usage": "daily",
+        "wedge": "Teams using Mem0 or LangGraph memory stores",
+        "one_liner": "git blame for agent memory",
+        "wow": "Bisect finds the poisoned memory and everything that grew from it rolls back.",
+        "tracks": ["Engramme AI", "Elastic", "Anthropic"]
+      },
+      "take": "Smart and timely, but open-source tools already do provenance and rollback, and memory vendors will add it as a feature.",
+      "reasoning": "Memward and memory-blackbox already stamp provenance and roll back poisoned memories, and OWASP reportedly has a reference guard. Surveys say rollback is under-served, leaving room for better execution, but the buyer is a platform team that expects this free from its memory vendor. The demo is abstract for general judges.",
+      "red_flag": "Open-source alternatives exist and the market is a feature.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "PyPI: memward", "url": "https://pypi.org/project/memward/" },
+        { "title": "arXiv: long-term memory security survey", "url": "https://arxiv.org/pdf/2604.16548" },
+        { "title": "Kiteworks: AI agents hijacked through their own memory", "url": "https://kiteworks.substack.com/p/ai-agent-memory-poisoning-owasp-defense" }
+      ]
+    },
+    {
+      "idea": "Netting House",
+      "score": 7.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 6,
+        "win": 8,
+        "prior_art": ["Cycles Protocol (MTCS multilateral trade-credit set-off; funding not verified)", "Causa Prima ($10M pre-seed led by Creandum, Jun 2026: agent-to-agent B2B invoice and dispute network, no netting mentioned)", "Troc Circle (MIT Solve, circular invoice netting)"],
+        "why_now": "Agent-to-agent B2B invoicing is now venture-backed (Causa Prima), CFO-office agents are growing fast (Hyphenate), and stablecoin rails like x402 make net settlement instant.",
+        "buyer": "SMBs in dense supply clusters, sold through the hub that sits at the center (a distributor, marketplace or franchisor)",
+        "model": "Basis points on cleared volume",
+        "usage": "weekly",
+        "wedge": "One dense cluster with a hub, such as a food distributor plus its customers and suppliers",
+        "one_liner": "A clearing house for small businesses, run by their agents",
+        "wow": "The judge taps approve and 41 invoice arrows collapse into 4: '$412K settled, $38K moved', with USDC on the explorer.",
+        "tracks": ["Fetch.ai", "Hyphenate", "Coinbase"]
+      },
+      "take": "The most rigorous build in the pool with a network-effect business and the deepest Fetch.ai use, but cold start is the question every VC will ask.",
+      "reasoning": "The math is proven (Cycles and national set-off schemes) and the agent-native angle is new: Causa Prima just raised $10M for agent-to-agent B2B invoicing without netting, which shows investor appetite and a likely competitor. Basis points on cleared volume is a clean model with weekly use, but netting only pays off once a cluster is dense, so sell through a hub. Fetch.ai was the most-awarded sponsor at Cal Hacks 12, and running the two-phase commit in SpacetimeDB reducers instead of Convex would add a Tier 1 sponsor.",
+      "red_flag": "Cold start: netting only pays once a cluster is dense, and a funded network like Causa Prima could add set-off.",
+      "verdict": "pick",
+      "evidence": [
+        { "title": "Cycles: An introduction to MTCS", "url": "https://cycles.money/blog/an-introduction-to-mtcs" },
+        { "title": "arXiv: Integrating trade credit into market clearing with the Cycles Protocol", "url": "https://arxiv.org/pdf/2605.02436" },
+        { "title": "Dealroom: Causa Prima raises $10M pre-seed for agent-to-agent B2B payments", "url": "https://dealroom.co/news/134810-causa-prima-raises-10m-pre-seed-led-by-creandum-for-agent-to-agent-b2b-p/" },
+        { "title": "MIT Solve: Troc Circle", "url": "https://solve.mit.edu/solutions/39286" }
+      ]
+    },
+    {
+      "idea": "Phone-a-Human",
+      "score": 6.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 5,
+        "venture": 6,
+        "win": 7,
+        "prior_art": ["HumanLayer (YC; human_as_tool lets agents ask people for answers)", "RentAHuman (Feb 2026 marketplace where agents hire humans)", "Payman ($3M pre-seed from Visa and Coinbase Ventures; AI pays humans)", "WURK (x402 microtask marketplace)"],
+        "why_now": "Agents with wallets can pay a human per minute over x402, and voice agents can run the interview.",
+        "buyer": "Companies running agents in production, plus labs buying correction data",
+        "model": "Take rate on per-minute expert fees plus data sales",
+        "usage": "daily",
+        "wedge": "Agent builders in one expert domain, such as tax edge cases",
+        "one_liner": "An expert hotline for stuck AI agents",
+        "wow": "Mid-demo the agent phones a judge, asks a question, and pays them $1 in USDC on screen when they answer.",
+        "tracks": ["Cartesia", "Coinbase", "Afterquery"]
+      },
+      "take": "A great live moment in a space that filled up fast in 2026; HumanLayer, RentAHuman and Payman each own a piece of it.",
+      "reasoning": "HumanLayer already gives agents a human_as_tool call, RentAHuman launched an agents-hire-humans marketplace, and Payman raised from Visa and Coinbase to let AI pay people. Voice interview plus per-minute pay plus labeled data is a fresh combination, but expert supply on call is the hard part and expert-data giants like Afterquery already sell the data.",
+      "red_flag": "Two-sided supply problem: who answers the phone at 2 a.m.?",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "HumanLayer (YC)", "url": "https://ycombinator.com/companies/humanlayer" },
+        { "title": "GadgetReview: Rent-a-Human marketplace", "url": "https://www.gadgetreview.com/rent-a-human-the-weird-2026-marketplace-where-ai-agents-are-hiring-humans" },
+        { "title": "TechFlow: Payman $3M pre-seed", "url": "https://www.techflowpost.com/en-US/newsletter/55213" }
+      ]
+    },
+    {
+      "idea": "Save States",
+      "score": 2.0,
+      "label": "Already exists",
+      "sub": {
+        "novelty": 1,
+        "venture": 2,
+        "win": 3,
+        "prior_art": ["Claude Code checkpoints, rewind and --fork-session"],
+        "why_now": "Little: Claude Code added checkpoints and session forks natively.",
+        "buyer": "Developers, already served by Claude Code",
+        "model": "None",
+        "usage": "daily",
+        "wedge": "None",
+        "one_liner": "Git branches for agent sessions",
+        "wow": "Three timelines of the same task diverge side by side.",
+        "tracks": ["Anthropic", "Factory", "Greptile"]
+      },
+      "take": "Claude Code already ships checkpoints, rewind and session forking.",
+      "reasoning": "The official docs describe per-prompt checkpoints, rewind, and forking a session to try another approach. Adding Droids and Greptile reviews on branches is integration work an Anthropic judge will see as derivative.",
+      "red_flag": "Anthropic judges will call it a built-in feature.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Claude Code docs: checkpointing", "url": "https://code.claude.com/docs/en/checkpointing" },
+        { "title": "MindStudio: Claude Code rewind", "url": "https://www.mindstudio.ai/blog/claude-code-rewind-command-rollback" }
+      ]
+    },
+    {
+      "idea": "Scar Tissue",
+      "score": 4.3,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 4,
+        "venture": 4,
+        "win": 5,
+        "prior_art": ["Greptile (learns team rules from PR comments; v3 serves them to IDEs and agents over MCP)"],
+        "why_now": "Local semantic search under 10 ms (Moss) makes in-editor recall fast enough.",
+        "buyer": "Engineering teams",
+        "model": "Seat SaaS",
+        "usage": "daily",
+        "wedge": "Teams with years of PR review history",
+        "one_liner": "Your team's old review comments, spoken the moment you repeat the mistake",
+        "wow": "You type the pattern behind last year's outage and a voice quotes the old review within half a second.",
+        "tracks": ["Greptile", "Moss", "Cartesia"]
+      },
+      "take": "Greptile, a sponsor, already learns your team's rules from review comments and serves them to IDEs; the voice nag is the only new part.",
+      "reasoning": "Greptile's memory turns repeated review comments into rules and exposes them to coding agents over MCP. Speaking up in real time is novel but most developers would mute it. A nice Moss latency demo, a thin company.",
+      "red_flag": "A voice interrupting developers is a feature people turn off.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Greptile docs: memory and learning", "url": "https://www.greptile.com/docs/how-greptile-works/memory-and-learning" },
+        { "title": "Greptile: Series A and v3", "url": "https://www.greptile.com/blog/series-a" }
+      ]
+    },
+    {
+      "idea": "Short the PR",
+      "score": 5.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 4,
+        "win": 6,
+        "prior_art": ["Claude Code Review (multi-agent PR review with a verification step)", "Greptile (per-review pricing)", "Staking-backed bug bounties (ApeCoin on Immunefi)"],
+        "why_now": "AI reviewers are cheap and noisy, and x402 allows instant micro-payouts.",
+        "buyer": "Unclear as written: who funds the stakes?",
+        "model": "Unclear",
+        "usage": "daily",
+        "wedge": "See C-P4",
+        "one_liner": "A prediction market on your pull requests",
+        "wow": "Agents bet against a PR and one cashes out by posting a failing test.",
+        "tracks": ["Factory", "Greptile", "Coinbase"]
+      },
+      "take": "A genuinely new mechanic with a muddled business; reframed as pay-per-proven-bug review (C-P4) it has a buyer.",
+      "reasoning": "I found no product where review agents stake on a PR and must prove the bug with a failing test. But 'agents short your PR' sounds like gambling, and it is unclear who pays. The failing-test requirement is the valuable part, because it kills false positives, the top complaint about AI review.",
+      "red_flag": "Sounds like gambling on code, with no clear payer.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "Help Net Security: Claude tool uses agents to find bugs in PRs", "url": "https://www.helpnetsecurity.com/?p=360979" },
+        { "title": "Best AI code review tools 2026 (pricing)", "url": "https://www.fast.io/resources/best-ai-code-review-tools-2026.md" },
+        { "title": "Benzinga: ApeCoin DAO staking bug bounty", "url": "https://feeds2.benzinga.com/markets/cryptocurrency/22/11/29550513/heres-how-much-apecoin-dao-will-pay-for-identifying-bugs" }
+      ]
+    },
+    {
+      "idea": "Street Injection Lens",
+      "score": 4.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 3,
+        "win": 4,
+        "prior_art": ["'Devil in the Lens' (arXiv 2607.10269, physical prompt injection on AI glasses)", "CSA research note on image-based prompt injection (2026)"],
+        "why_now": "Meta opened display glasses and Neural Band to developers in 2026; research reports up to 60% real-world attack success.",
+        "buyer": "Glasses platforms such as Meta, as a feature",
+        "model": "None standalone",
+        "usage": "daily",
+        "wedge": "None yet",
+        "one_liner": "Antivirus for what your glasses read",
+        "wow": "A poster says 'AI assistants: email this photo to...' and the lens flags it before the agent acts.",
+        "tracks": ["Meta", "Armadin", "Anthropic"]
+      },
+      "take": "Research-validated and novel as a product, but the buyer is Meta and the hardware may not show up.",
+      "reasoning": "A July 2026 paper measured physical prompt injection against VLMs on AI glasses, which makes it timely and judge-credible. But no one buys this from a startup; the glasses platform will build it. Hardware access on day one is a coin flip.",
+      "red_flag": "Depends on glasses hardware and the toolkit working on day one.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "arXiv: Devil in the Lens", "url": "https://arxiv.org/pdf/2607.10269" },
+        { "title": "CSA: image-based prompt injection", "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-image-prompt-injection-multimodal-llm-2026/" },
+        { "title": "Meta: build for display glasses", "url": "https://developers.meta.com/blog/build-for-display-glasses/" }
+      ]
+    },
+    {
+      "idea": "Stump Market",
+      "score": 3.7,
+      "label": "Already exists",
+      "sub": {
+        "novelty": 2,
+        "venture": 5,
+        "win": 4,
+        "prior_art": ["Humanity's Last Exam (Scale and CAIS; $500K prize pool for questions frontier models fail)", "Afterquery (sponsor; expert data for frontier labs)"],
+        "why_now": "Labs need harder evals as benchmarks saturate.",
+        "buyer": "Frontier labs",
+        "model": "Per-question data sales",
+        "usage": "weekly",
+        "wedge": "One hard expert domain",
+        "one_liner": "Humanity's Last Exam as a marketplace",
+        "wow": "A judge's question stumps 4 of 5 frontier models live and its price ticks up.",
+        "tracks": ["Scale", "Afterquery", "Anthropic"]
+      },
+      "take": "Scale, a sponsor, already ran this as Humanity's Last Exam, and Afterquery sells exactly this to labs.",
+      "reasoning": "HLE paid experts from a $500K pool for questions that stumped models and filtered submissions by model failure, the same pricing signal. Labs do pay for hard expert data, which keeps venture at 5, but that market is served by very large vendors including two sponsors.",
+      "red_flag": "A Scale judge will say 'we did this'.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Scale: Humanity's Last Exam", "url": "https://www.scale.com/blog/humanitys-last-exam" },
+        { "title": "Wikipedia: Humanity's Last Exam", "url": "https://en.wikipedia.org/wiki/Humanity%27s_Last_Exam" }
+      ]
+    },
+    {
+      "idea": "The 36-Hour Company",
+      "score": 5.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 5,
+        "venture": 5,
+        "win": 6,
+        "prior_art": ["Agentcard (YC S26, single-use Visa cards for agents)", "Allowance (YC, one-time virtual cards for agents)", "Mercury Agent Cards (Aug 2026)", "Alchemy AgentCard on Visa Intelligent Commerce"],
+        "why_now": "Agent cards launched across 2026.",
+        "buyer": "Finance teams at AI-native startups",
+        "model": "SaaS on top of card issuers",
+        "usage": "monthly",
+        "wedge": "Startups whose agents spend on APIs and GPUs",
+        "one_liner": "Expense reports for subagents",
+        "wow": "A month-end close of a company that is 36 hours old, with every charge matched to the commit it paid for.",
+        "tracks": ["Hyphenate", "Visa", "Anthropic"]
+      },
+      "take": "A witty meta-demo, but agent cards became a crowded category in 2026 and reconciling charges to commits is a feature.",
+      "reasoning": "Agentcard, Allowance, Mercury and Alchemy all issue limited cards to agents now, so the core is commoditized. Matching spend to commits is a clever twist that a card issuer or Hyphenate could add. Sandbox card issuing for students is uncertain.",
+      "red_flag": "Card issuing may not be available in a sandbox, and the core is already commoditized.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Runtime Wire: YC-backed Agentcard", "url": "https://runtimewire.com/article/yc-backed-agentcard-launches-rewards-for-purchases-made-by-ai-agents" },
+        { "title": "Allowance (YC)", "url": "https://ycombinator.com/companies/allowance" },
+        { "title": "Fast Company: Mercury virtual cards for AI agents", "url": "https://www.fastcompany.com/91574324/mercury-launches-virtual-credit-cards-ai-agents" },
+        { "title": "The Block: Alchemy Visa-powered card for AI agents", "url": "https://theblock.co/post/405224/alchemy-unveils-visa-powered-virtual-payment-card-for-ai-agents" }
+      ]
+    },
+    {
+      "idea": "The Pit",
+      "score": 3.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 1,
+        "win": 3,
+        "prior_art": ["'Order entry actions' patents (gesture-based order entry)", "Meta Neural Band developer access (2026)"],
+        "why_now": "Neural Band EMG gestures opened to developers.",
+        "buyer": "None",
+        "model": "None",
+        "usage": "event-only",
+        "wedge": "None",
+        "one_liner": "Open outcry with EMG wristbands",
+        "wow": "Traders flash hand signals and orders match on the big screen.",
+        "tracks": ["Meta", "SpacetimeDB", "Jane Street"]
+      },
+      "take": "Nobody wants open outcry back, and the hardware is a coin flip.",
+      "reasoning": "Gesture order entry is patented but unused because screens won. It is a novelty with no buyer, and it needs Neural Band and Display glasses working on day one.",
+      "red_flag": "No buyer and hard hardware dependency.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "USPTO: Order entry actions patent", "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11908015" },
+        { "title": "Meta: build for display glasses", "url": "https://developers.meta.com/blog/build-for-display-glasses/" }
+      ]
+    },
+    {
+      "idea": "Thinking Rows",
+      "score": 3.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 2,
+        "win": 2,
+        "prior_art": ["Megaverse (batched embodied simulation)", "Large Batch Simulation for deep RL (Stanford)"],
+        "why_now": "Trainium inference capacity is available for batched workloads.",
+        "buyer": "Game studios, distantly",
+        "model": "None",
+        "usage": "weekly",
+        "wedge": "None",
+        "one_liner": "10,000 NPC minds stepped in one kernel",
+        "wow": "A crowd of 10,000 NPCs reacts in the same tick.",
+        "tracks": ["Annapurna Labs", "SpacetimeDB", "Supercell"]
+      },
+      "take": "A research project, not a weekend build or a company.",
+      "reasoning": "Batched GPU simulation of many small policies is established research. Putting it in database rows on Trainium is interesting, but it is hard to show in 20 seconds and has no buyer.",
+      "red_flag": "Research scope and hardware risk.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "arXiv: Megaverse", "url": "https://arxiv.org/pdf/2107.08170" },
+        { "title": "Stanford: Large Batch Simulation for Deep RL", "url": "https://graphics.stanford.edu/projects/bps3D" }
+      ]
+    },
+    {
+      "idea": "Thrift Ticker",
+      "score": 3.3,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 3,
+        "venture": 4,
+        "win": 3,
+        "prior_art": ["Resell AI (camera scan to resale value)", "PriceSnap (eBay pricing from a photo)", "Pocket Pricer (eBay sold prices from camera)"],
+        "why_now": "Display glasses SDK opened in 2026.",
+        "buyer": "Resellers",
+        "model": "Subscription",
+        "usage": "weekly",
+        "wedge": "Thrift resellers",
+        "one_liner": "A price ticker for thrift stores",
+        "wow": "Look at a jacket and its bid and ask float next to it.",
+        "tracks": ["Meta", "Bright Data", "Visa"]
+      },
+      "take": "Phone apps already price items from a photo; glasses add hardware risk, not value.",
+      "reasoning": "Resell AI, PriceSnap and Pocket Pricer already identify items and quote eBay prices from a camera. Moving it to glasses is a form factor change that depends on borrowed hardware.",
+      "red_flag": "Depends on Display glasses and Neural Band access.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Resell AI", "url": "https://mwm.ai/apps/resell-ai/6749002508" },
+        { "title": "PriceSnap", "url": "https://hunted.space/product/pricesnap" },
+        { "title": "Pocket Pricer (App Store)", "url": "https://apps.apple.com/us/app/id6758423765" }
+      ]
+    },
+    {
+      "idea": "Two-Face",
+      "score": 6.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 5,
+        "win": 8,
+        "prior_art": ["SPLX AI-targeted cloaking research (SPLX acquired by Zscaler, Nov 2025)", "JFrog / arXiv 'parallel-poisoned web' for AI agents", "storefront-guard and Otr Protocol (small MCP merchant-trust tools)", "Princeton/UW study: shopping agents pick pricier sponsored options"],
+        "why_now": "Agentic checkout is live, AI-targeted cloaking is documented, and payment networks built buyer-side trust (Visa TAP) but not merchant-side.",
+        "buyer": "Unclear as written; agent platforms may build it in-house",
+        "model": "x402 pay-per-scan",
+        "usage": "daily",
+        "wedge": "Agent-card issuers (see C-P3)",
+        "one_liner": "Does this store show your agent the same page it shows you?",
+        "wow": "A judge flips the cloak switch; 20 seconds later the trust score drops and the shopping agent refuses to buy.",
+        "tracks": ["Bright Data", "Elastic", "Apify"]
+      },
+      "take": "A fresh, well-evidenced angle with textbook sponsor fit, but 'who pays?' has no answer as written; sell it to agent-card issuers (C-P3).",
+      "reasoning": "SPLX (now part of Zscaler) and JFrog showed sites can serve AI agents a different page, and only tiny MCP tools check merchants today, so continuous paired measurement is open. A public trust index is a weak business: OpenAI or Perplexity can build it and consumers will not pay. The parties who lose money when an agent buys from a cheat are the new agent-card issuers, which gives a per-authorization model.",
+      "red_flag": "No payer as written, and real-site cheating may be too rare to show in 36 hours.",
+      "verdict": "pivot",
+      "evidence": [
+        { "title": "The Hacker News: AI-targeted cloaking attack", "url": "https://thehackernews.com/2025/10/new-ai-targeted-cloaking-attack-tricks.html?m=1" },
+        { "title": "FinTech Global: Zscaler acquires SPLX", "url": "https://fintech.global/2025/11/05/zscaler-acquires-splx-to-secure-the-ai-lifecycle/" },
+        { "title": "JFrog: parallel poisoned web only AI agents can see", "url": "https://jfrog.com/blog/parallel-poison-web-for-ai-agents" },
+        { "title": "storefront-guard MCP server", "url": "https://socket.dev/npm/package/storefront-guard-mcp-server" },
+        { "title": "Payments Journal: Searching for trust in agentic commerce", "url": "https://www.paymentsjournal.com/searching-for-trust-in-agentic-commerce/amp/" }
+      ]
+    },
+    {
+      "idea": "Vault Heist",
+      "score": 4.7,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 3,
+        "venture": 3,
+        "win": 8,
+        "prior_art": ["Tensor Trust (Berkeley; multiplayer game where players attack each other's LLM-guarded bank accounts; 563K attacks released)", "Gandalf: Agent Breaker (Lakera; tool-using agent levels)", "Freysa (talked out of about $47K, Nov 2024)", "Gray Swan Arena 2.0 ($300K agent-attack challenge launched Oct 20, 2026, sponsored by Anthropic, Meta and Google DeepMind)", "HackAPrompt 2.0"],
+        "why_now": "Agents with wallets are being socially engineered.",
+        "buyer": "Players (game) or labs (data); both already served",
+        "model": "Unclear; data sales",
+        "usage": "weekly",
+        "wedge": "None clear",
+        "one_liner": "Tensor Trust with tools and a live economy",
+        "wow": "Judges scan a QR code, talk Gary the teller out of coins, and watch coins fly across the big screen.",
+        "tracks": ["SpacetimeDB", "Supercell", "Anthropic"]
+      },
+      "take": "The best crowd demo in the pool on the most-done concept: Tensor Trust is already a multiplayer bank-vault game from Berkeley.",
+      "reasoning": "The vault's prior-art line calls Tensor Trust single-player; it is not. Its players defend accounts with prompts and attack each other's for money, and the paper released 563K attacks. Gray Swan relaunched its arena with $300K for agent hacking two days before Cal Hacks, sponsored by Anthropic, so the data story is taken too. Keep it only as a SpacetimeDB and Supercell track play if those prizes are the richest.",
+      "red_flag": "Berkeley judges know Tensor Trust is multiplayer; repeating the 'single-player' line will cost credibility.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "LessWrong: Tensor Trust, an online game to uncover prompt injection", "url": "https://www.lesswrong.com/posts/qrFf2QEhSiL9F3yLY/tensor-trust-an-online-game-to-uncover-prompt-injection" },
+        { "title": "ICLR 2024: Tensor Trust paper", "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/519c51529c3544b3430bd8b17d400365-Abstract-Conference.html" },
+        { "title": "Fortune: Gray Swan Arena 2.0", "url": "https://fortune.com/2026/10/20/exclusive-ai-security-company-gray-swan-red-team-arena-contest-to-jailbreak-ai-agents/" },
+        { "title": "Lakera: Gandalf Agent Breaker", "url": "https://www.lakera.ai/news/gamesbeat-lakera-launches-gandalf-agent-breaker" },
+        { "title": "The Block: Human player outwits Freysa", "url": "https://www.theblock.co/post/328747/human-player-outwits-freysa-ai-agent-in-47000-crypto-challenge" }
+      ]
+    },
+    {
+      "idea": "Waitlist Exchange",
+      "score": 4.7,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 4,
+        "venture": 4,
+        "win": 6,
+        "prior_art": ["Appointment Trader (reservation resale marketplace, reported 20-30% take)", "New York ban on unauthorized third-party reservation resale (signed Dec 2024; penalties amended 2025)"],
+        "why_now": "Voice agents can run the host phone, and New York's law pushes resale toward restaurant-sanctioned models.",
+        "buyer": "Restaurants (revenue share) and diners",
+        "model": "Take rate on skip fees",
+        "usage": "daily",
+        "wedge": "High-demand walk-in restaurants with long waitlists",
+        "one_liner": "Surge pricing for restaurant waitlists",
+        "wow": "A judge calls the host line and hears 'skip ahead for $12, or take $8 to give up your spot'.",
+        "tracks": ["Cartesia", "SpacetimeDB", "Visa"]
+      },
+      "take": "Reservation resale exists and drew a New York ban; a restaurant-run version is legal but culturally risky.",
+      "reasoning": "Appointment Trader proved demand for paid spots, and New York banned unauthorized third-party resale, so the legal path is restaurant-sanctioned, which means a slow sales cycle. The phone quote is a fun 20-second moment.",
+      "red_flag": "Diner backlash and a restaurant sales cycle.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Wikipedia: Appointment Trader", "url": "https://en.wikipedia.org/wiki/Appointment_Trader" },
+        { "title": "ABC7: Hochul signs reservation resale crackdown", "url": "https://abc7ny.com/15677470" },
+        { "title": "NY Senate Bill S777 (2025)", "url": "https://www.nysenate.gov/legislation/bills/2025/S777" }
+      ]
+    },
+    {
+      "idea": "Where Did I Put It",
+      "score": 2.0,
+      "label": "Already exists",
+      "sub": {
+        "novelty": 1,
+        "venture": 2,
+        "win": 3,
+        "prior_art": ["Meta AI on Ray-Ban Meta glasses remembers where you parked and creates reminders from what you see (since 2024)"],
+        "why_now": "Meta already shipped it.",
+        "buyer": "Consumers, already served by Meta",
+        "model": "None",
+        "usage": "daily",
+        "wedge": "None",
+        "one_liner": "Find My for your stuff, via glasses",
+        "wow": "Ask 'where are my keys?' and get an answer in milliseconds.",
+        "tracks": ["Meta", "Moss", "Cartesia"]
+      },
+      "take": "Meta's own glasses already do this; Meta's judges shipped it.",
+      "reasoning": "Meta announced glasses memory for parking spots and visual reminders in 2024. Faster on-device search is an improvement only Meta can distribute.",
+      "red_flag": "The sponsor's product already does it.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "Meta: Ray-Ban Meta new AI features", "url": "https://about.fb.com/news/2024/09/ray-ban-meta-glasses-new-ai-features-and-partner-integrations/" },
+        { "title": "Engadget: Meta glasses can tell you where you parked", "url": "https://engadget.com/wearables/metas-smart-glasses-can-now-tell-you-where-you-parked-your-car-195200826.html" }
+      ]
+    },
+    {
+      "idea": "Zero-Trust Base Defense",
+      "score": 6.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 4,
+        "win": 7,
+        "prior_art": ["DefAtt (gamified red/blue team platform)", "SimSpace (cyber range red teaming)", "MIT Lincoln Lab: co-evolution of attack and segmentation defense", "2026 arXiv study of AI attackers against segmented networks"],
+        "why_now": "AI red-team agents can now raid networks on their own; one 2026 study found segmentation stretched an AI attacker's time to compromise from about 4 to about 48 hours.",
+        "buyer": "Security teams planning segmentation; segmentation vendors for training and visualization",
+        "model": "SaaS per environment",
+        "usage": "monthly",
+        "wedge": "Teams in the middle of a microsegmentation rollout",
+        "one_liner": "Clash of Clans for network segmentation",
+        "wow": "The AI raider walks around the wall you placed and the replay shows the exact lateral path.",
+        "tracks": ["Illumio", "Armadin", "Supercell"]
+      },
+      "take": "A memorable way to show segmentation working, but it is a visualization layer on breach simulation, and the natural buyer is Illumio.",
+      "reasoning": "Cyber ranges and gamified red/blue platforms exist, but I found no one framing segmentation as Clash-style base defense, so the demo will stand out with Illumio, Armadin and Supercell. As a company it would compete with cyber-range vendors like SimSpace and with Illumio's own tools, with monthly use at best.",
+      "red_flag": "A real network map is data nobody will hand a hackathon team; with a fake map it is just a game.",
+      "verdict": "pass",
+      "evidence": [
+        { "title": "AAU: DefAtt gamified red/blue platform", "url": "https://vbn.aau.dk/da/publications/499e1575-75a9-497d-9e04-0dd2d183bc1d" },
+        { "title": "SimSpace red teaming brief", "url": "https://simspace.com/wp-content/uploads/2026/07/Red-Teaming-Solution-Brief.pdf" },
+        { "title": "arXiv: measuring AI agents on multi-step cyber attack scenarios", "url": "https://arxiv.org/pdf/2603.11214" },
+        { "title": "MIT LL: adversarial co-evolution in a segmented network", "url": "https://www.ll.mit.edu/r-d/publications/adversarial-co-evolution-attack-and-defense-segmented-computer-network-environment" }
+      ]
+    }
+  ],
+  "pivots": [
+    {
+      "id": "C-P1",
+      "parent": "Fire Drill",
+      "name": "Fire Drill + Callback",
+      "pitch": "Drill your finance agents with live social-engineering attacks, then fix them with Callback, an out-of-band verification API that phones the vendor's known-good contact before any bank change or payment redirect can clear.",
+      "change": "The remediation stops being a prompt or policy patch and becomes a product: a Callback tool that places a real outbound Cartesia call to the number in a verified vendor registry (never the number in the email), returns a signed attestation, and the payment rail refuses to release funds without it. Callback is also registered on Agentverse so any agent can request a verification. Drop the 'KnowBe4 for AI agents' line.",
+      "why": "It turns a periodic drill into per-transaction infrastructure with daily, usage-priced demand, and gives a land-and-expand motion: the drill shows the hole, Callback closes it on every payment. The demo gains a second phone moment: the judge as a fake CFO makes the agent cave; after the patch, a teammate's 'vendor' phone rings at the table, denies the change, and the payment is blocked on screen. Trustpair and Eftsure verify bank details for human AP teams, so the agent-native API is the new angle; they are also the competitors to name.",
+      "score": 7.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 8,
+        "win": 9,
+        "prior_art": ["Coval ($28M Series A), Hamming, Cekura (voice agent testing)", "Gray Swan ($40M Series A, automated agent red-teaming)", "KnowBe4 Agent Risk Manager", "AIUC ($40M Series A, AIUC-1 certification with quarterly testing)", "Trustpair and Eftsure (vendor bank-account verification for human AP teams)", "Spendflo bank-detail change verification agent"],
+        "why_now": "AP agents now change vendor records and approve payments, BEC losses were $2.77B in 2024, and Cartesia Line makes programmatic outbound verification calls cheap.",
+        "buyer": "AP-automation vendors and mid-market finance teams running AP agents; insurers and auditors (AIUC-1-style) as a channel",
+        "model": "Per-agent SaaS for drills plus a per-verification usage fee for Callback",
+        "usage": "daily",
+        "wedge": "Vendor bank-detail changes handled by AP agents, the highest-loss business email compromise action",
+        "one_liner": "A pen test and a callback desk for AI finance agents",
+        "wow": "The judge talks the AP agent into a payout redirect; after the patch, a teammate's phone rings as the 'vendor', denies the change, and the payment is blocked live.",
+        "tracks": ["Cartesia", "Armadin", "Anthropic"]
+      }
+    },
+    {
+      "id": "C-P2",
+      "parent": "Death Heatmap",
+      "name": "Agent Checkout Heatmap",
+      "pitch": "Send a swarm of real AI shopping agents through a merchant's store every week and show on a heatmap where agents abandon checkout and what that costs in revenue.",
+      "change": "The users change from simulated humans (crowded: Synthetic Society, Uxia, Talp) to actual AI shopping agents, and the buyer changes from UX researchers to e-commerce merchants. The overlay sits on the live store pages instead of Figma, and the Listen Labs interviews are dropped.",
+      "why": "The result is true by construction (these are the real agents that will shop), merchants already pay to be visible to AI (Profound raised $58.5M on that thesis), Shopify's free readiness checker is static rather than a live agent run, and weekly re-runs after each deploy give recurring use. It shares Two-Face's crawl engine, so the two could later become one two-sided product.",
+      "score": 6.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 6,
+        "win": 7,
+        "prior_art": ["Shopify agent readiness tool (free, static checks)", "EPAM agentic commerce activation assessment (consulting)", "Profound ($35M Series B, AI search visibility)", "Synthetic Society (YC S25)"],
+        "why_now": "Agentic checkout protocols are live, and Forter reported agentic activity up about 2,100% in six months.",
+        "buyer": "DTC e-commerce brands and their agencies",
+        "model": "SaaS per store, tiered by number of agent runs",
+        "usage": "weekly",
+        "wedge": "Shopify Plus DTC brands already worried about agent traffic",
+        "one_liner": "Hotjar for AI shoppers",
+        "wow": "Six agents race to check out on a demo store, four die at the same popup, one fix ships, and on the re-run they all buy.",
+        "tracks": ["Anthropic", "Bright Data", "Visa"]
+      }
+    },
+    {
+      "id": "C-P3",
+      "parent": "Two-Face",
+      "name": "Two-Face KYM: Know Your Merchant for agent cards",
+      "pitch": "A pre-authorization merchant check that agent-card issuers and agent platforms call before an agent pays: is this store showing agents a different price, fake reviews or hidden instructions?",
+      "change": "Sell the trust score to the parties who eat the loss, the new agent-card issuers (Agentcard, Allowance, Mercury, Alchemy on Visa) and agent platforms, as a per-authorization API, instead of a public index for anyone. The demo's shopping agent becomes a Visa-sandbox authorization hook that declines the card with evidence. Honest merchants can earn an 'agent-honest' badge as the second side.",
+      "why": "It names a payer and a per-transaction usage pattern. Visa TAP and Forter help merchants trust agents; nobody sells the reverse to issuers. It keeps the cloak-switch moment and the textbook Bright Data and Elastic fit.",
+      "score": 7.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 7,
+        "win": 8,
+        "prior_art": ["SPLX AI-targeted cloaking research (acquired by Zscaler)", "JFrog 'parallel-poisoned web' research", "storefront-guard and Otr Protocol MCP merchant-trust tools", "Forter (merchant-side agent traffic detection)", "Visa Trusted Agent Protocol (merchants verifying agents)"],
+        "why_now": "Agent cards launched across 2026 (Agentcard YC S26, Allowance YC, Mercury, Alchemy on Visa), and AI-targeted cloaking is documented.",
+        "buyer": "Agent-card issuers and agent platforms, later payment networks",
+        "model": "Per-check usage fee on each authorization, plus a merchant badge subscription",
+        "usage": "daily",
+        "wedge": "YC-stage agent-card issuers that need a merchant-risk signal for agent-initiated purchases",
+        "one_liner": "Know Your Merchant for AI shoppers",
+        "wow": "A judge flips the cloak switch on an honest store; 20 seconds later the agent's card authorization is declined with evidence, and it checks out at an honest store instead.",
+        "tracks": ["Bright Data", "Visa", "Elastic"]
+      }
+    },
+    {
+      "id": "C-P4",
+      "parent": "Short the PR",
+      "name": "Proof-of-Bug",
+      "pitch": "Code review you pay for only when a reviewer agent proves a bug with a failing test; competing review agents stake on the PR and the first valid proof gets paid.",
+      "change": "Reframe from agents gambling against PRs to a pricing model for engineering teams: pay per proven bug instead of per seat or per review. Staking becomes the anti-spam mechanism, and Greptile, Claude and Factory Droids plug in as competing reviewers.",
+      "why": "It names a buyer (teams drowning in AI-review false positives), daily usage, and a distinct price point in a crowded category; I found no reviewer that bills only for bugs proven by a failing test.",
+      "score": 6.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 6,
+        "win": 6,
+        "prior_art": ["Claude Code Review (multi-agent PR review with a verification step)", "Greptile ($1 per review after 50, per 2026 pricing roundups)", "Staking-backed bug bounties on Immunefi"],
+        "why_now": "AI review costs collapsed and noisy AI findings flood reviewers; x402 makes per-proof micro-payouts trivial.",
+        "buyer": "Engineering managers at startups using coding agents",
+        "model": "Per-proven-bug fee with a monthly cap",
+        "usage": "daily",
+        "wedge": "Teams already using Factory Droids or Claude Code who ignore most AI review comments",
+        "one_liner": "Pay-per-proven-bug code review",
+        "wow": "A judge opens a PR with a planted bug; three reviewer agents stake, one posts a failing test in about a minute, CI goes red and a USDC payout appears on the Base Sepolia explorer.",
+        "tracks": ["Factory", "Greptile", "Coinbase"]
+      }
+    }
+  ],
+  "wildcards": [],
+  "picks": [
+    { "rank": 1, "ref": "C-P1", "why": "The best live moment in the pool plus a per-transaction product: the drill finds the hole and the callback closes it on every payment." },
+    { "rank": 2, "ref": "Netting House", "why": "Rigorous build, a basis-points network business and the deepest Fetch.ai use; lead with one cluster's story and name Cycles and Causa Prima first." },
+    { "rank": 3, "ref": "C-P3", "why": "Keeps Two-Face's cloak-switch demo and textbook Bright Data and Elastic fit, but sells to agent-card issuers who actually lose money." }
+  ],
+  "ceo_note": "Nothing in this pool is a new category: every good idea has funded neighbors, so you win by owning a narrow angle and naming the competitor before the judge does. Bet on Fire Drill with a real callback: the judge-on-the-phone moment is the best wow here, and the callback turns a monthly drill into daily infrastructure, but drop 'KnowBe4 for AI agents', because KnowBe4 now ships agent security for Claude. Fix Vault Heist's prior-art line before anyone repeats it: Tensor Trust from Berkeley is multiplayer, and Gray Swan launched a $300K agent-hacking arena with Anthropic two days ago."
+}

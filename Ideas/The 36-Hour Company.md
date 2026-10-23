@@ -21,5 +21,8 @@ Each Claude Code subagent gets a capped virtual card for API credits, GPUs and f
 > [!danger] Trap
 > Needs real virtual-card issuing in a sandbox, which may not be available to students.
 
+> [!abstract] Idea Council · #11 of 37 · council 5.4
+> Substance 4.5 · Impact 6.5 · Novelty & venture 5.3 (best version: pivot Spend Breaker). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

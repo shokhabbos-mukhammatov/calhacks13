@@ -21,5 +21,8 @@ A puzzle game where each level is a real NKI kernel to optimize, scored against 
 > [!danger] Trap
 > Needs reliable Trainium access for every player.
 
+> [!abstract] Idea Council · #25 of 37 · council 3.9
+> Substance 5.5 · Impact 3 · Novelty & venture 3.3 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

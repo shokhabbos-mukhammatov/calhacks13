@@ -18,5 +18,8 @@ An exchange where every tick is a game frame and each player's Claude-written bo
 **Angle:** [[Shared worlds on SpacetimeDB]]
 **Sponsors:** [[SpacetimeDB]], [[Annapurna Labs]], [[Jane Street]], [[Citadel]], [[D. E. Shaw]], [[Anthropic]]
 
+> [!abstract] Idea Council · #16 of 37 · council 4.7
+> Substance 6.5 · Impact 3 · Novelty & venture 4.7 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

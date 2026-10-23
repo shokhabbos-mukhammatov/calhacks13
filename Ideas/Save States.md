@@ -21,5 +21,8 @@ Quicksave and branch whole Claude Code sessions, let Droids explore alternate ti
 > [!danger] Trap
 > Claude Code already ships checkpoints and rewind, so it looks derivative.
 
+> [!abstract] Idea Council · #35 of 37 · council 2.5
+> Substance 3 · Impact 2.5 · Novelty & venture 2.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

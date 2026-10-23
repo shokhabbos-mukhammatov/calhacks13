@@ -21,5 +21,8 @@ Every NPC is a database row with a tiny recurrent "mind"; one batched Trainium k
 > [!danger] Trap
 > A research project, not a 36-hour build.
 
+> [!abstract] Idea Council · #27 of 37 · council 3.9
+> Substance 6 · Impact 2.5 · Novelty & venture 3.3 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

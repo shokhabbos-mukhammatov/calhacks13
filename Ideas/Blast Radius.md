@@ -18,5 +18,8 @@ A judge plants a prompt injection in a webpage; the room watches a zero-trust gr
 **Angle:** [[Attack your own agents]]
 **Sponsors:** [[Illumio]], [[Armadin]], [[Anthropic]], [[Elastic]]
 
+> [!abstract] Idea Council · #10 of 37 · council 5.7
+> Substance 5.5 · Impact 6.5 · Novelty & venture 5.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

@@ -82,5 +82,8 @@ Balance. If guards are nearly unbreakable in six turns, there are no heists, no 
 ## Why other teams won't build it
 The hard part is an authoritative real-time economy where an LLM tool call is the only way money moves, combined with incentives that turn play into diverse, ground-truth-labeled exploits. Berkeley judges may ask how it differs from Tensor Trust: multi-turn, tool-using agents under a live utility constraint, with patch pairs.
 
+> [!abstract] Idea Council · #6 of 37 · council 6.6
+> Substance 7 · Impact 5 · Novelty & venture 4.7 (best version: the original). Picked by A#4. See [[Council Verdict]].
+
 ## Team notes
 -

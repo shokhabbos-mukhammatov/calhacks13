@@ -21,5 +21,8 @@ Glasses overlay a live resale bid/ask on any object you look at; pinch to place 
 > [!danger] Trap
 > Depends on Display glasses and Neural Band access.
 
+> [!abstract] Idea Council · #32 of 37 · council 2.9
+> Substance 2.5 · Impact 3 · Novelty & venture 3.3 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

@@ -86,5 +86,8 @@ The closed loop has to look real. If the re-run passes only because the patch ma
 ## Why other teams won't build it
 The judge-visible hard parts are an attacker that adapts across voice, email and documents, and a fix that provably generalizes on held-out attacks, ending in a payment that is redirected and then blocked. Few teams will build both the attacker and the victim.
 
+> [!abstract] Idea Council · #2 of 37 · council 10.7
+> Substance 8 · Impact 8 · Novelty & venture 7.0 (best version: pivot Fire Drill: Proving Ground). Picked by A#1 via Fire Drill: Proving Ground, B#2 via Fire Drill + Callback, C#1 via Fire Drill + Callback. See [[Council Verdict]].
+
 ## Team notes
 -

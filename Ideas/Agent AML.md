@@ -18,5 +18,8 @@ A watchdog agent on Agentverse maps agent-to-agent payments as a live graph and 
 **Angle:** [[Trust rails for the agent economy]]
 **Sponsors:** [[Fetch.ai]], [[Coinbase]], [[MoonPay]], [[Elastic]]
 
+> [!abstract] Idea Council · #17 of 37 · council 4.6
+> Substance 5 · Impact 3 · Novelty & venture 5.7 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

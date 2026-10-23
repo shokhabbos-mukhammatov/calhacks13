@@ -18,5 +18,8 @@ An MMO where shopkeeper NPCs are Claude market makers quoting live bid/ask, mana
 **Angle:** [[Shared worlds on SpacetimeDB]]
 **Sponsors:** [[SpacetimeDB]], [[Supercell]], [[Anthropic]], [[Jane Street]]
 
+> [!abstract] Idea Council · #26 of 37 · council 3.9
+> Substance 4 · Impact 3.5 · Novelty & venture 4.3 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

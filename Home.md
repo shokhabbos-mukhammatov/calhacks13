@@ -8,6 +8,7 @@ tags: [index]
 Tracks not released yet. Researched Oct 11, 2026.
 
 ## Start here
+- [[Council Verdict]]: three agents (substance, impact, novelty and venture) scored all 37 ideas and their pivots. Dashboard: https://claude.ai/artifact/CaHbViV7tNGC1XhKS79YFS
 - [[Shortlist]]: the four worked-out ideas (★ [[Fire Drill]] is the top pick)
 - [[Prep Plan]]: access requests, roles, 36-hour clock
 - [[Cal Hacks 12 Lessons]]: what won last year

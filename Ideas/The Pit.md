@@ -21,5 +21,8 @@ Open-outcry trading revived: traders signal with Neural Band hand gestures on Ra
 > [!danger] Trap
 > Needs Neural Band and Display glasses on hand and working on day one.
 
+> [!abstract] Idea Council · #34 of 37 · council 2.6
+> Substance 3 · Impact 1.5 · Novelty & venture 3.3 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

@@ -18,5 +18,8 @@ A swarm of Claude computer-use "players" (grandma, power user, speedrunner) trie
 **Angle:** [[Humans as the eval engine]]
 **Sponsors:** [[Anthropic]], [[Figma]], [[Listen Labs]], [[Afterquery]]
 
+> [!abstract] Idea Council · #9 of 37 · council 5.9
+> Substance 5 · Impact 6.5 · Novelty & venture 6.3 (best version: pivot Agent Checkout Heatmap). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

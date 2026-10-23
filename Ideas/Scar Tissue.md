@@ -18,5 +18,8 @@ A silent coding sidekick that speaks up within half a second when you type a pat
 **Angle:** [[Dev tools with teeth]]
 **Sponsors:** [[Greptile]], [[Moss]], [[Cartesia]], [[Factory]]
 
+> [!abstract] Idea Council · #21 of 37 · council 4.3
+> Substance 4 · Impact 4.5 · Novelty & venture 4.3 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

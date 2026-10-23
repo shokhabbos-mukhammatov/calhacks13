@@ -21,5 +21,8 @@ Glasses log where you set things down; ask out loud and on-device search answers
 > [!danger] Trap
 > A common idea, and it depends on glasses hardware.
 
+> [!abstract] Idea Council · #33 of 37 · council 2.7
+> Substance 2 · Impact 4 · Novelty & venture 2.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

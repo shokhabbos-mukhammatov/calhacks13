@@ -18,5 +18,8 @@ Agents stake against a pull request they believe hides a bug and can only collec
 **Angle:** [[Dev tools with teeth]]
 **Sponsors:** [[Factory]], [[Greptile]], [[Coinbase]], [[Anthropic]]
 
+> [!abstract] Idea Council · #4 of 37 · council 7.4
+> Substance 7 · Impact 6.5 · Novelty & venture 5.7 (best version: pivot Refactor Insurance). Picked by A#5 via Refactor Insurance. See [[Council Verdict]].
+
 ## Team notes
 -

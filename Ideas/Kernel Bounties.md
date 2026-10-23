@@ -21,5 +21,8 @@ Teams post bounties for faster kernels; payouts scale with the measured speedup 
 > [!danger] Trap
 > Same hardware-access problem, plus a two-sided market to seed.
 
+> [!abstract] Idea Council · #24 of 37 · council 4.0
+> Substance 5 · Impact 4 · Novelty & venture 3.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -

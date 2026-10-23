@@ -18,5 +18,8 @@ Git blame for an agent's long-term memory: each belief keeps its source, so you 
 **Angle:** [[Attack your own agents]]
 **Sponsors:** [[Engramme AI]], [[Elastic]], [[Convex]], [[Anthropic]]
 
+> [!abstract] Idea Council · #5 of 37 · council 7.2
+> Substance 7.5 · Impact 6.5 · Novelty & venture 4.7 (best version: the original). Picked by A#3. See [[Council Verdict]].
+
 ## Team notes
 -

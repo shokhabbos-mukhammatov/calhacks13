@@ -18,5 +18,8 @@ Every purchase an agent makes sits in a short grace window and is announced by v
 **Angle:** [[Trust rails for the agent economy]]
 **Sponsors:** [[Visa]], [[Wajo AI]], [[Cartesia]], [[Coinbase]]
 
+> [!abstract] Idea Council · #20 of 37 · council 4.3
+> Substance 2.5 · Impact 5.5 · Novelty & venture 5.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
+
 ## Team notes
 -
