@@ -19,4 +19,4 @@ Clash-style base defense where your base is your real network map. Place segment
 **Sponsors:** [[Armadin]], [[Illumio]], [[Supercell]], [[SpacetimeDB]]
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. No real network to load and no posted prize behind it.

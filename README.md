@@ -31,3 +31,4 @@ Our prep vault for Cal Hacks 13 (Oct 23–25, 2026, Palace of Fine Arts, SF): sp
 
 ## Updates
 - **Oct 21:** added [[Prizes]] (all 66 posted prizes, rules, judging) and [[Recent Winners 2026]]; each sponsor note now ends with its posted prizes; corrected the deadline in [[Prep Plan]] (table by 8 AM, submit by 9 AM). `calhacks13-playbook.html` is still the Oct 11 snapshot.
+- **Oct 23:** added [[Two-Face Stress Test]], a critical review of [[Two-Face]] with a reshaped version, and [[Top Ideas Stress Test]], the same review for every idea scored 7.6+.

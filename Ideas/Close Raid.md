@@ -22,4 +22,4 @@ Month-end close as a co-op raid: unmatched transactions spawn as monsters in a s
 > Came up in 2 branches.
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. A game skin on bank reconciliation Hyphenate already sells.
