@@ -19,4 +19,4 @@ Experts submit questions; each question's price is how many frontier models fail
 **Sponsors:** [[Afterquery]], [[Scale]], [[Anthropic]], [[Coinbase]]
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. Humanity's Last Exam (Scale) already did this, and paying per model stumped pays for wrong questions.

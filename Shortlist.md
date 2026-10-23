@@ -27,4 +27,7 @@ The four ideas worked out in full: demo script, architecture, how to qualify per
 | [[Netting House]] | [[Hyphenate]], [[Fetch.ai]], [[Coinbase]] | OK; Visa's posted prize is about shopping, not B2B settlement |
 | [[Vault Heist]] | Its main targets ([[SpacetimeDB]], [[Supercell]], [[Scale]], [[Afterquery]]) have no posted prizes yet. Could still go for **Hacker's Choice** and **Most Creative** if the whole venue plays | Depends on opening-day announcements |
 
+## Stress tests (Oct 23)
+[[Top Ideas Stress Test]] and [[Two-Face Stress Test]] re-check every idea scored 7.6+ against prior art, real-world evidence, posted prizes and a team of two until Saturday evening. Result: keep ★ [[Fire Drill]] with changes; backups are a reshaped [[Two-Face]] and [[Netting House]].
+
 Back to [[Home]]

@@ -19,4 +19,4 @@ A honeypot for hostile AI agents: decoy MCP servers and Agentverse agents advert
 **Sponsors:** [[Armadin]], [[Illumio]], [[Elastic]], [[Fetch.ai]]
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. Almost no hostile AI agents in the wild (Palisade: 8 possible in 8.1M attempts). Its canary tools move into Fire Drill.
