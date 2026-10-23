@@ -1,0 +1,186 @@
+{
+  "agent": "A",
+  "candidates": [
+    {
+      "id": "INC1",
+      "score": 7.5,
+      "label": "Real system",
+      "sub": {
+        "components": "Victim AP agent on Claude Agent SDK with mock ledger tools (API/glue), tool-boundary provenance policy blocking payee or bank fields traced to untrusted text (original, but at risk of collapsing to a vendor-master equality check), adaptive multi-turn attacker (prompt plus loop; commodity), Cartesia Line callback agent to the number of record (API), held-out breach-versus-utility harness (original), Capital One Nessie payment (API), Elastic trace (API), scorecard (glue/UI)",
+        "hard_core": "Deterministic provenance enforcement on money-moving tool arguments, plus a measured breach-versus-utility table on held-out attacks.",
+        "ai_necessity": 7,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 6.5
+      },
+      "take": "Still a real system after the merge, but its deterministic core sits close to the classic control that Eftsure and Trustpair already sell to human AP desks: pay only the account of record and call back on any change.",
+      "reasoning": "The merge fixed my round-1 objection: enforcement no longer depends on wording, and the utility column proves the tool was not simply deleted. But true taint tracking through an LLM (CaMeL-style quarantined extraction) is unlikely in 36 hours, so the policy will most likely be 'the payee account must equal the vendor master, and master changes need a callback', which is one if-statement plus a voice API. Against a deterministic gate the adaptive attacker mostly confirms that the rule exists, and adaptive social-engineering drills against agents already ship in KnowBe4's Agent Risk Manager.",
+      "red_flag": "A judge asks 'isn't the fix one if-statement?', and the held-out PASS is true by construction unless the attacker is shown trying to launder bank details through a trusted channel.",
+      "evidence": [
+        { "title": "KnowBe4 Secures the Human and AI Workforce with Agent Risk Manager (adversarial simulation of agents)", "url": "https://www.knowbe4.com/press/knowbe4-secures-the-human-and-ai-workforce-with-agent-risk-manager" },
+        { "title": "Trustpair: Fraud Prevention API (bank account verification before payments are released)", "url": "https://trustpair.com/connect/api" },
+        { "title": "Eftsure FAQ (vendor bank-detail verification at onboarding, change and payment)", "url": "https://www.eftsure.com/faq/" },
+        { "title": "Defeating Prompt Injections by Design (CaMeL)", "url": "https://arxiv.org/pdf/2503.18813" }
+      ]
+    },
+    {
+      "id": "INC2",
+      "score": 7.5,
+      "label": "Real system",
+      "sub": {
+        "components": "Fetch.ai uAgents per company in one Bureau with Agentverse registration (API), Claude invoice extraction, AP-AR matching and dispute flagging (prompt), plain-English treasury policy compiled to solver constraints (prompt plus schema), OR-Tools max-circulation LP (original model on a library), invariant checker (original), two-phase commit with re-solve on reject (original), hash-chained audit log (original), x402 USDC settlement (API), Convex dashboard (glue/UI)",
+        "hard_core": "Optimal multilateral set-off as an integral max-circulation LP behind an invariant checker and an all-or-nothing commit.",
+        "ai_necessity": 5,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 6.5
+      },
+      "take": "Still the cleanest separation of LLM from money in the pool, but the math is published and the 'independent agents' are one program voting by rules.",
+      "reasoning": "Nothing that moves money is an LLM call, which survives every 'where does the AI touch the money?' question. I mark it half a point below round 1 because the stress test's finding holds: the clearing algorithm is Cycles' published MTCS and Slovenia's long-running practice, and 12 agents in one Bureau voting by policy rules are a single program playing 13 parts, so the two-phase commit is real code but not a real distributed problem. Claude's jobs (matching, disputes, policy compilation) are supporting, so 'what does Claude do that a script couldn't?' gets a modest answer.",
+      "red_flag": "Synthetic economy and co-located agents: the cycles exist because you generated them, and a one-cent mismatch or a stuck agent on venue Wi-Fi kills the closing visual.",
+      "evidence": [
+        { "title": "Cycles: An introduction to MTCS", "url": "https://cycles.money/blog/an-introduction-to-mtcs" },
+        { "title": "Cycles Protocol: A Peer-to-Peer Electronic Clearing System", "url": "https://arxiv.org/pdf/2507.22309" },
+        { "title": "MIT 14.129 (Spring 2025), lecture 6 on multilateral trade credit set-off", "url": "https://ocw.mit.edu/courses/14-129-blockchain-and-the-design-of-financial-systems-spring-2025/resources/mit14_129_s25_lec06_pdf/" }
+      ]
+    },
+    {
+      "id": "CH1",
+      "score": 8,
+      "label": "Real system",
+      "sub": {
+        "components": "Typed control DSL with about eight control types (original), Claude sentence-to-tree compiler that refuses vague sentences (prompt), template read-back into English (glue), blind pass/fail example generator in a separate Claude call (prompt), one-edit mutation enumerator over the compiled tree with surviving mutants turned into questions (original), historical-ledger replay (original), deterministic rule evaluator inside one Convex mutation (original logic; serializability is Convex's), release action that creates the Nessie bill only on 'cleared' (API/glue), 25-control benchmark table of wrong-meaning rules accepted with and without gates (original)",
+        "hard_core": "A verification pipeline for natural-language-to-rule compilation (blind examples plus mutation coverage of the compiled tree, each surviving mutant becoming a question to the author) in front of a deterministic gate that is the only path to the bank.",
+        "ai_necessity": 8,
+        "clone_time": "a week",
+        "staging_risk": "low",
+        "feasibility_36h": 7
+      },
+      "take": "The strongest substance in this round: Claude does the hard translation, and the team's own gates check Claude's output against independent evidence before any rule touches money.",
+      "reasoning": "Ramp's Policy Agent already reads plain-language policies, but it judges each expense with an LLM at runtime; Ledger CI compiles the sentence once into a typed, deterministic rule and proves the compile, which is a different and more auditable architecture. Blind example generation plus one-edit mutant coverage is a real verification method with research precedent (LLM-plus-solver auditing of requirements, round-trip mutation testing), but I found no AP product that does it. Nothing is staged: the judge writes the rule and the attacks, and the closing table measures wrong-meaning rules accepted with and without the gates.",
+      "red_flag": "The concurrency claim is Convex's serializable OCC, not the team's engineering, so do not pitch it as such; and one-edit mutants cannot catch a sentence compiled to the wrong control type, so the blind examples carry that risk live.",
+      "evidence": [
+        { "title": "Ramp: Policy Agent Overview (LLM reads a written policy and reviews each expense)", "url": "https://support.ramp.com/policy-agent-overview" },
+        { "title": "Neurosymbolic Auditing of Natural-Language Software Requirements", "url": "https://arxiv.org/pdf/2605.13817" },
+        { "title": "Round-Trip Mutation Testing: Translating Code to Natural Language Intent and back", "url": "https://arxiv.org/abs/2607.03223" },
+        { "title": "Convex docs: OCC and atomicity (serializable mutations, automatic retries)", "url": "https://docs.convex.dev/database/advanced/occ" },
+        { "title": "Corpay: AP automation fraud controls evaluation (split-invoice and bank-change tests)", "url": "https://www.corpay.com/resources/blog/ap-automation-fraud-controls-evaluation" }
+      ]
+    },
+    {
+      "id": "CH2",
+      "score": 6,
+      "label": "Real system",
+      "sub": {
+        "components": "Original record anchored to the debtor's PO and goods-receipt line (original schema), Claude AP agent acknowledging invoices against PO and receipt (prompt; a deterministic three-way match does this), per-anchor conservation invariant (original, small), compare-and-swap endorsement in a Convex mutation (glue on Convex transactions), device-signed endorsements and hash-chained log (original, standard), payee-less pay tool that reads the current controller (original, small), Nessie payout (API), factor phone pages (glue/UI), 500-variant double-pledge corpus versus baselines (original)",
+        "hard_core": "A control registry with a conservation invariant per acknowledged obligation and a pay tool with no payee argument: correct, but a handful of database constraints.",
+        "ai_necessity": 3,
+        "clone_time": "a day",
+        "staging_risk": "medium",
+        "feasibility_36h": 7
+      },
+      "take": "A sound protocol design with a real legal hook, but its engine is a few database constraints and its benchmark wins by construction.",
+      "reasoning": "The legal hook checks out: UCC 12-106 lets an account debtor discharge a controllable account by paying the person in control, and First Brands' executives are charged with submitting double-pledged invoices to factoring counterparties (I did not verify the claimed priority over a UCC-1 filing). But 'exactly one buyer wins' is Convex's transaction guarantee, and renumbered or split copies fail because the debtor acknowledged the PO line once, so beating document-level dedupe baselines on 500 variants is tautological: the baselines lack the debtor's confirmation, not the cleverness. Invoice registries are an established anti-fraud approach (ITFA recommends them; Invoice Check already runs one), and the Claude AP agent does what a three-way match does deterministically.",
+      "red_flag": "The AI is decorative, and the 500-variant table compares a system that has the debtor's confirmation with baselines that do not, which a finance judge will call apples to oranges.",
+      "evidence": [
+        { "title": "DOJ SDNY: First Brands executives charged with multibillion-dollar fraud (double-pledged invoices)", "url": "https://justice.gov/usao-sdny/pr/first-brands-executives-charged-multibillion-dollar-fraud" },
+        { "title": "New York UCC 12-106 (discharge by paying the controller)", "url": "https://www.nysenate.gov/legislation/laws/UCC/12-106" },
+        { "title": "GTR: Invoice registries key to fighting damaging trade finance fraud, ITFA says", "url": "https://www.gtreview.com/news/global/invoice-registries-key-to-fighting-damaging-trade-finance-fraud-itfa-says/" },
+        { "title": "GTR: Blockchain solution aims to stop trade invoice fraud (Invoice Check)", "url": "https://www.gtreview.com/news/asia/blockchain-solution-aims-to-stop-trade-invoice-fraud/" }
+      ]
+    },
+    {
+      "id": "CH3",
+      "score": 7,
+      "label": "Real system",
+      "sub": {
+        "components": "Pre-dial rules engine for consent, rolling 7-in-7 per debt, post-conversation lockout, 8am-9pm windows across zones implied by area code and ZIP, cease and bankruptcy flags (original but rules, already shipping in collections dialers), call-state machine with CEASE reachable from every state (original), template-only speech before right-party verification (original), number-provenance check on every sentence against the ledger and issued offers (original), typed offer() checked against creditor policy-as-code (original), streaming interposition between the LLM and Cartesia TTS (original, latency-sensitive), Cartesia Line call (API), CRS identity check (API), liability ledger from word timestamps (glue on API), adaptive attacker LLM over 200 text-mode calls (prompt plus harness)",
+        "hard_core": "A deterministic pre-speech gate: a call-state machine that allows only fixed templates before verification and only ledger-traced numbers and typed offers after it, interposed in a streaming LLM-to-TTS pipeline.",
+        "ai_necessity": 7,
+        "clone_time": "a week",
+        "staging_risk": "medium",
+        "feasibility_36h": 5.5
+      },
+      "take": "A real system with the right architecture (rules decide, the LLM only proposes words), but half of it is the frequency and curfew engine collections vendors already ship, and the original half is a latency-sensitive speech gate on a live phone line.",
+      "reasoning": "The regulatory premises check out: 12 CFR 1006.14(b)(2)(i) presumes harassment above seven calls in seven days per debt, and the FCC's February 2024 ruling treats AI voices as artificial under the TCPA. Pre-dial frequency and curfew controls are already in Gryphon and in collections voice vendors' orchestration, and Skit.ai markets real-time wrong-party detection and cease flags, so the original work narrows to the pre-verification template lock, number provenance and typed commitments. That core is genuine, but gating each sentence before TTS adds latency a judge will hear, and the 200-call attacker table is again your LLM against your own agent.",
+      "red_flag": "After verification a judge extracts a commitment with no number and no banned word ('I'll make sure that goes away'), which the gate cannot see; plus voice latency and CRS access risk in a two-person build.",
+      "evidence": [
+        { "title": "Seiright: Regulation F, AI voice debt collection, 7-in-7 and limited content (queue-time cap checks, fixed voicemail script)", "url": "https://seiright.com/blog/regulation-f-ai-voice-debt-collection-7-in-7-limited-content" },
+        { "title": "Skit.ai platform (claims real-time compliance logic, wrong-party detection, cease flags)", "url": "https://skit.ai/homepage-2026/" },
+        { "title": "Gryphon ONE Advanced Edition (frequency controls for collections, call curfews)", "url": "https://gryphon.ai/gryphon-one-advanced-edition" },
+        { "title": "Cooley: FCC says AI-generated robocalls are governed by the TCPA", "url": "https://cooley.com/news/insight/2024/2024-02-15-fcc-ai-generated-robocalls-illegal-under-the-tcpa" },
+        { "title": "Cartesia docs: What is Line? (custom reasoning in code via the Line SDK)", "url": "https://docs.cartesia.ai/line/introduction" }
+      ]
+    },
+    {
+      "id": "CH4",
+      "score": 4.5,
+      "label": "Thin glue",
+      "sub": {
+        "components": "Cartesia voice agent taking the quote (API), Claude structuring the spoken scope into line items and reading it back (prompt), call storage with word timestamps for the clip (API/glue), Claude invoice line extraction (prompt), line matcher diffing the invoice against the confirmed scope (original, small and fuzzy), Nessie partial release and hold (API), dispute draft (prompt), property-manager UI (glue/UI)",
+        "hard_core": "None beyond a two-way quote-to-invoice match, and both sides of the diff are Claude's structuring, so the 'deterministic' step inherits LLM error.",
+        "ai_necessity": 6,
+        "clone_time": "a day",
+        "staging_risk": "low",
+        "feasibility_36h": 8
+      },
+      "take": "A tidy demo of Cartesia plus Claude extraction plus a two-way match, which AP software has done against purchase orders for decades.",
+      "reasoning": "Matching invoice lines to an agreed quote and holding the variance is standard two- or three-way matching; the only new input is that the quote was spoken. Every hard step (turning '$200 all in' into a scope, deciding that a trip fee is unquoted work) is a prompt, so a judge asking how the diff is deterministic gets 'because Claude structured both sides'. Latchel is already demoing Smart Estimates and dispatch 'from intake to invoice', so the platform owners are moving onto this ground.",
+      "red_flag": "Clone time is a day, and the matcher is only as correct as Claude's structuring.",
+      "evidence": [
+        { "title": "Latchel Autopilot AI product launch (Smart Estimates, Automated Dispatch)", "url": "https://latchel.com/latchel-autopilot-ai-product-launch/" },
+        { "title": "Frontdesk: AI voice layer for Property Meld", "url": "https://www.myaifrontdesk.com/multifamily/property-meld-ai-integration" },
+        { "title": "Arahi: AI invoice processing for property management (matching against POs and receipts)", "url": "https://www.arahi.ai/ai-agent/property-management/invoice-processing" }
+      ]
+    },
+    {
+      "id": "CH5",
+      "score": 6.5,
+      "label": "Real system",
+      "sub": {
+        "components": "Claude reading the discount export or promo brief and writing a Z3 model (prompt/codegen), team-written encoding of stacking, tier, bundle, free-shipping and gift-card semantics (original), Z3 search for below-cost carts and code sequences (library), replay harness in the real test checkout via the storefront cart API (original), fix and re-run (glue), margin report (glue/UI)",
+        "hard_core": "SMT search over an encoding of the store's discount semantics, with every exploit confirmed by replay in the real checkout.",
+        "ai_necessity": 4,
+        "clone_time": "a week",
+        "staging_risk": "high",
+        "feasibility_36h": 6
+      },
+      "take": "A real solver with a real oracle, but the AI is optional and the store with the glitch is yours.",
+      "reasoning": "Searching discount combinations for below-cost carts and confirming each one by replay is genuine engineering, and I found pre-launch checklists and NewStore's cart promotions simulator but no tool that searches for exploits. Yet a discount export is already structured, so a team-written compiler beats Claude-written Z3, and with a handful of codes and SKUs a brute-force enumeration through the cart API answers 'why a solver?'. Soundness runs only one way: replay kills false alarms, but 'the solver finds nothing after the fix' proves nothing if the model diverges from the platform's real stacking rules.",
+      "red_flag": "Staged by construction: the misconfigured promotion is one you planted, and its only posted sponsor fit (Visa's shopping prize) is loose.",
+      "evidence": [
+        { "title": "GrowthSuite: Shopify discount combinations guide (stacking margin risk, manual pre-launch checklist)", "url": "https://www.growthsuite.net/resources/shopify-discount/discount-combinations-guide" },
+        { "title": "NewStore docs: Simulating promotions in a cart", "url": "https://docs.newstore.com/docs/simulating-promotions-in-a-cart" },
+        { "title": "Microsoft Research: Z3, an efficient SMT solver", "url": "https://www.microsoft.com/en-us/research/publication/z3-an-efficient-smt-solver/" }
+      ]
+    },
+    {
+      "id": "CH6",
+      "score": 8.5,
+      "label": "Real system",
+      "sub": {
+        "components": "Everything in CH1 (DSL, Claude compiler, blind examples, mutation gate, replay, Convex gate, Nessie release), provenance rule type tracking where bank details first appeared (original, small), Cartesia Line callback to the vendor's number of record on refusal (API), goal-directed hole finder over payment-action sequences against the deterministic suite (original if a bounded search, prompt if an LLM fishing), failing tests and suggested rules with holes per suite before and after tightening (original)",
+        "hard_core": "CH1's verified compiler and gate, plus a closed loop that searches for action sequences reaching a forbidden goal through the rule suite and turns each into a failing test.",
+        "ai_necessity": 8,
+        "clone_time": "a week",
+        "staging_risk": "low",
+        "feasibility_36h": 5
+      },
+      "take": "The deepest candidate in either round if finished: a verified rule compiler, a deterministic gate and a hole finder that measures the suite's completeness, with Fire Drill's phone call as the hook.",
+      "reasoning": "The hole finder is the right addition through my lens, a closed loop with measurement, but against a deterministic suite with a small action grammar (create vendor, change bank details, submit, approve, pay) it should be a bounded search with Claude only proposing goals; an LLM fishing against fixed rules invites 'why not BFS?'. The callback adds a sponsor API and a live moment, not depth. It is three projects for two people until Saturday evening, so it only works as a build order in which CH1 is complete first.",
+      "red_flag": "Scope: the compiler gates, the voice callback and the hole finder are each a full build; if CH1's gates are not done by Saturday evening, cut the hole finder, not the gates.",
+      "evidence": [
+        { "title": "Ramp: Policy Agent Overview", "url": "https://support.ramp.com/policy-agent-overview" },
+        { "title": "Defeating Prompt Injections by Design (CaMeL)", "url": "https://arxiv.org/pdf/2503.18813" },
+        { "title": "KnowBe4 Secures the Human and AI Workforce with Agent Risk Manager", "url": "https://www.knowbe4.com/press/knowbe4-secures-the-human-and-ai-workforce-with-agent-risk-manager" },
+        { "title": "Convex docs: OCC and atomicity", "url": "https://docs.convex.dev/database/advanced/occ" }
+      ]
+    }
+  ],
+  "picks": [
+    { "rank": 1, "ref": "CH1", "why": "The only candidate where Claude's hard job (sentence to control) is itself checked by an independent mechanism, the money decision is deterministic, and the judge supplies every input, so nothing on stage is staged." },
+    { "rank": 2, "ref": "CH6", "why": "Only as a build order: finish CH1 first, add the provenance rule and callback when the third teammate arrives, and build the hole finder as a bounded search last; the worst case is CH1." }
+  ],
+  "verdict_vs_leaders": "Yes: CH1 beats both leaders through my lens, because its core verifies Claude's output instead of trusting it, while Fire Drill's gate risks being one if-statement and Netting House's math is published. CH6 is deeper still but rests on scope; CH3 and CH5 are real systems that trail the leaders, and CH2 and CH4 trail further.",
+  "ceo_note": "Ledger CI is the first idea in either round that answers the Anthropic judge's 'how do you know Claude got it right?' with a mechanism instead of a promise, and it turns Fire Drill's best part (no money moves on untrusted bank details) into one rule type among many. Do not claim Convex's serializability as your engineering: your original work is the gates and the 25-control table, so build those before any voice. If you go with CH6, CH1 must be complete by Saturday evening, and the hole finder is the first thing to cut."
+}

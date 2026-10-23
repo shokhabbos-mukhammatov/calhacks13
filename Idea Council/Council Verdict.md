@@ -15,7 +15,10 @@ Three independent agents reviewed all 37 ideas on Oct 22, 2026, each through one
 Interactive dashboard: https://claude.ai/artifact/CaHbViV7tNGC1XhKS79YFS · Full table: [[Leaderboard]] · Rerun: `/idea-council`
 
 ## Bottom line (updated Oct 23 with the posted prizes)
-1. **Build [[Fire Drill]]**, in the merged version described below. The agents left [[Netting House]] (10.8) and Fire Drill (10.7) almost level, and they are the only ideas all three picked. The posted [[Prizes]] and our two-person schedule break the tie: see [[#Decision with the posted prizes]].
+> [!tip] Challenger round (Oct 23)
+> 40 new ideas were generated to beat the leaders, and the best six were scored by the same agents ([[Challenger Verdict]]). No standalone new idea beat Fire Drill. The top result is Fire Drill wrapped in a controls gate the judge can write rules for (council 10.0, against plain Fire Drill's 9.8). So build Fire Drill as a controls gate: one product with two judge moments. Netting House drops behind two new ideas.
+
+1. **Build [[Fire Drill]]**, in the merged version described below, packaged as a controls gate ([[Challenger Verdict]]). The agents left [[Netting House]] (10.8) and Fire Drill (10.7) almost level, and they are the only ideas all three picked. The posted [[Prizes]] and our two-person schedule break the tie: see [[#Decision with the posted prizes]].
 2. **Netting House is the fallback.** Switch only if Hyphenate's full track text at opening stresses treasury, cash or settlement.
 3. **[[Two-Face]]** (9.4), in its reshaped form, only if we decide to chase Visa and Apify instead of Hyphenate ([[Two-Face Stress Test]]).
 4. **24 of 37 ideas are safe to drop**: no agent picked them and all three passed.

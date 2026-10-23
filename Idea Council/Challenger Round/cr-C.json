@@ -1,0 +1,307 @@
+{
+  "agent": "C",
+  "candidates": [
+    {
+      "id": "INC1",
+      "score": 7.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 5,
+        "venture": 8,
+        "win": 9,
+        "prior_art": [
+          "Hamming Red Team (YC S24, $3.8M seed): hundreds of adaptive social-engineering calls against bank voice agents, failures turned into regression tests, shown at FinovateFall 2026",
+          "Trustpair (bank-detail validation, about $25M raised per CB Insights): acquired by Basware, announced Aug 2026, completed Oct 2026",
+          "Eftsure (know-your-payee checks before payment; small disclosed rounds in 2017 and 2019)",
+          "Spendflo bank-detail change verification agent (human callback on the known number)",
+          "KnowBe4 Agent Risk Manager",
+          "CaMeL (Google DeepMind and ETH Zurich): data-flow capability policies against prompt injection"
+        ],
+        "why_now": "AP agents now edit vendor records and release payments; IC3 counted about $2.77B in BEC losses in 2024; Basware bought Trustpair and pitched the deal as a fight against AI payment fraud; Cartesia Line makes automated outbound verification calls cheap.",
+        "buyer": "AP-automation vendors that embed agents, and mid-market finance teams running AP agents; auditors and insurers as a channel",
+        "model": "Per-verification fee on every payment or bank-detail change, plus per-agent SaaS for scheduled drills",
+        "usage": "daily",
+        "wedge": "Vendor bank-detail changes handled by AP agents at mid-market companies",
+        "one_liner": "A provenance firewall and callback desk for AI accounts-payable agents",
+        "wow": "A judge plays the CFO and pushes a redirect; the gate refuses because the new account came from an email, a second judge's phone rings as the vendor and denies it, and the Nessie payment stays blocked.",
+        "tracks": ["Hyphenate", "Cartesia", "Armadin"]
+      },
+      "take": "Still the best live moment and the clearest per-payment buyer, but the neighborhood filled in since round 1, so the pitch must name Hamming, Trustpair and CaMeL before a judge does.",
+      "reasoning": "Hamming now sells the adaptive-attacker half to banks (FinovateFall, September 2026), and Basware bought Trustpair, the bank-detail validation half, so the old 'drill plus callback' framing has owners on both sides. What is still open is the merged version's core: a deterministic provenance gate at the AP agent's tool boundary (CaMeL-style data-flow policy applied to payee details) plus an automated callback to the number of record, which I found no one selling as an agent-native API. The Basware deal shows strategic acquirers pay for payment-fraud verification, and per-payment checks make it daily infrastructure. It fits the richest posted pot (Hyphenate, $16K) plus Cartesia, Armadin, Nessie and Elastic.",
+      "red_flag": "If the pitch leads with red-teaming instead of the provenance gate and callback, it reads as a Hamming clone.",
+      "evidence": [
+        { "title": "Finovate: FinovateFall 2026, Hamming AI", "url": "https://finovate.com/videos/finovatefall-2026-hamming-ai/" },
+        { "title": "FinTech Futures: Hamming AI at FinovateFall 2026, agentic AI testing and red teaming for banks", "url": "https://www.fintechfutures.com/ai-in-fintech/video-hamming-ai-at-finovatefall-2026-agentic-ai-testing-and-red-teaming-for-banks" },
+        { "title": "ITPro: Basware to acquire Trustpair to strengthen payment fraud prevention", "url": "https://www.itpro.com/business/acquisition/basware-to-acquire-trustpair-to-strengthen-payment-fraud-prevention" },
+        { "title": "Procurement Magazine: Basware acquires Trustpair to fight AI payment fraud", "url": "https://procurementmag.com/news/basware-acquires-trustpair-to-fight-ai-payment-fraud" },
+        { "title": "CB Insights: Trustpair financials", "url": "https://www.cbinsights.com/company/trustpair/financials" },
+        { "title": "FinTech Futures: Eftsure secures additional $2.5m funding", "url": "https://www.fintechfutures.com/venture-capital-funding/fraud-fighting-platform-secures-additional-2-5m-funding" },
+        { "title": "Spendflo: AI bank detail change verification agent", "url": "https://www.spendflo.com/agents/ai-bank-detail-change-verification-agent" },
+        { "title": "Simon Willison: CaMeL offers a promising new direction for mitigating prompt injection", "url": "https://simonwillison.net/2025/Apr/11/camel/" },
+        { "title": "Nacha: IC3 finds almost $8.5B lost to BEC in three years", "url": "https://www.nacha.org/news/fbis-ic3-finds-almost-85-billion-lost-business-email-compromise-last-three-years" }
+      ]
+    },
+    {
+      "id": "INC2",
+      "score": 6.7,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 6,
+        "win": 7,
+        "prior_art": [
+          "Causa Prima ($10M pre-seed led by Creandum, June 2026): agent-to-agent B2B invoice, dispute and terms network; no netting announced",
+          "Cycles Protocol (Informal Systems, MTCS multilateral trade-credit set-off)",
+          "Sardex obligation-clearing study (Fleischman et al., 2020)",
+          "Byppay: clearing for invoice-backed SME trade networks (arXiv, June 2026)",
+          "Bocconi study of netting on 60,000+ e-invoicing firms"
+        ],
+        "why_now": "Agent-to-agent B2B invoicing is now venture-backed (Causa Prima) and CFO-office agents are spreading, so invoices arrive in machine-readable form that agents can vote on.",
+        "buyer": "SMB clusters sold through a hub: a general contractor, distributor or franchisor",
+        "model": "Basis points on cleared volume",
+        "usage": "weekly",
+        "wedge": "One construction project's contractor, subcontractors and suppliers",
+        "one_liner": "A clearing house for small businesses, run by their agents",
+        "wow": "The judge approves and 41 invoice arrows collapse into 4: '$412K settled, $38K moved'.",
+        "tracks": ["Hyphenate", "Fetch.ai", "Coinbase"]
+      },
+      "take": "Rigorous and finance-credible, but with Visa out and x402 a stretch, the posted-prize fit narrows to Hyphenate and Fetch.ai, and cold start is still the first VC question.",
+      "reasoning": "The math is old (Slovenia's set-off, Cycles) and the research is active (Byppay in June 2026, a Bocconi study on 60,000+ firms), so the novelty is the agent-native angle, which still holds. Causa Prima, founded by a Taulia co-founder, raised $10M in June to build the agent-to-agent invoice network that netting would sit on: proof of investor appetite and the most likely competitor. Basis points on cleared volume is a clean model, but value appears only once a cluster is dense. The collapse animation is a strong closer, yet judges mostly watch rather than take part, and the 12-agent commit is the most fragile demo in the round.",
+      "red_flag": "Cold start, plus Causa Prima already owns the agent-to-agent invoice network and could add set-off.",
+      "evidence": [
+        { "title": "Dealroom: Causa Prima raises $10M pre-seed led by Creandum for agent-to-agent B2B payments", "url": "https://dealroom.co/news/134810-causa-prima-raises-10m-pre-seed-led-by-creandum-for-agent-to-agent-b2b-p/" },
+        { "title": "Cycles: An introduction to MTCS", "url": "https://cycles.money/blog/an-introduction-to-mtcs" },
+        { "title": "Hugging Face Papers: Byppay clearing for invoice-backed trade networks", "url": "https://huggingface.co/papers/2606.26126" },
+        { "title": "Bocconi: netting study on an e-invoicing operator dataset", "url": "https://iris.unibocconi.it/handle/11565/4041737" },
+        { "title": "P2P Foundation: Liquidity-saving through obligation-clearing and mutual credit (Sardex)", "url": "https://wiki.p2pfoundation.net/Liquidity-Saving_through_Obligation-Clearing_and_Mutual_Credit" }
+      ]
+    },
+    {
+      "id": "CH1",
+      "score": 6.3,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 6,
+        "win": 7,
+        "prior_art": [
+          "Ramp Policy Agent (natural-language expense policy converted to a structured form and applied to every transaction with citations)",
+          "Xenett custom review points (rule-based scans of QuickBooks books across an accounting firm's clients)",
+          "Arden (YC Spring 2026, AI agents for SOX control testing)",
+          "Puzzle (accountant-set rules, agents flag items for sign-off before posting)"
+        ],
+        "why_now": "Agents now post entries and propose payments, so controls have to run before the write instead of at month-end review.",
+        "buyer": "Fractional CFOs and bookkeeping firms running AP for 10 to 50 clients",
+        "model": "Per entity per month",
+        "usage": "daily",
+        "wedge": "Fractional CFO firms whose clients let an AP agent propose bills",
+        "one_liner": "Unit tests for your books: controls that must pass before money moves",
+        "wow": "A judge types a control in their own words, answers one clarifying question, then tries to slip two $2,400 invoices past it and is refused with their own sentence quoted.",
+        "tracks": ["Hyphenate", "Convex", "Capital One Nessie"]
+      },
+      "take": "A defensible technique (verified natural-language controls on the write path) in a space where Ramp already applies plain-English policy and review tools already scan the books, so it is a strong Hyphenate entry more than a new company.",
+      "reasoning": "Ramp's Policy Agent already turns a written policy into a structured form and applies it to card spend, Xenett lets firms write rule-based review points across clients, and Arden tests SOX controls with agents. None of them advertise the gate itself: rules compiled into a typed language, checked against independent examples and one-edit mutants, and enforced before the write in one serializable transaction. The buyer is real but low-ACV, and the product only works if it owns the path to the bank, which Ramp, BILL and QuickBooks own today. Letting a judge write and then attack their own rule is participatory, but a rules engine is a quieter moment than a ringing phone.",
+      "red_flag": "Distribution: the gate must sit on the only path to the bank, and the payment rails already ship policy engines there.",
+      "evidence": [
+        { "title": "Ramp support: Policy Agent overview", "url": "https://support.ramp.com/policy-agent-overview" },
+        { "title": "CPA Practice Advisor: Ramp introduces AI agents suited for controllers", "url": "https://www.cpapracticeadvisor.com/2025/07/10/ramp-introduces-ai-agents-suited-for-controllers/164684/" },
+        { "title": "Xenett: accounting review automation", "url": "https://www.xenett.com/accounting-review-automation" },
+        { "title": "Y Combinator: Arden", "url": "https://ycombinator.com/companies/arden" },
+        { "title": "Puzzle: AI bookkeeping, automation vs judgment", "url": "https://puzzle.io/blog/ai-bookkeeping-automation-vs-judgment" }
+      ]
+    },
+    {
+      "id": "CH2",
+      "score": 7.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 7,
+        "win": 7,
+        "prior_art": [
+          "MonetaGo Secure Financing (hash-fingerprint registry against duplicate financing, with Swift)",
+          "Iridium Credit ($3M seed, Oct 2026: checks invoices and confirms them with debtors for lenders)",
+          "Kapwork Verify (invoice verification through vendor portals, launched Feb 2025)",
+          "PrimeRevenue (the supply-chain finance platform First Brands used, per the examiner)"
+        ],
+        "why_now": "First Brands (about $2.3B in factoring liabilities; executives charged in Jan 2026 with fabricating invoices and double- and triple-pledging), an April 2026 examiner's report that faults missing independent verification and points to direct buyer-to-financier payment, and UCC Article 12 coming into force (New York June 2026, Ohio Oct 2026).",
+        "buyer": "Factors and receivables financiers; debtors' AP teams get the gate free",
+        "model": "Fee per original minted or basis points on financed value",
+        "usage": "daily",
+        "wedge": "Mid-size factors that already phone debtors' AP desks to verify invoices before funding",
+        "one_liner": "A title registry for invoices, so no receivable can be sold twice",
+        "wow": "On a 3-2-1 count two judges buy the same invoice from their phones; exactly one wins, and every trick the other tries (renumber, split, fake notice of assignment) is refused with the invariant named.",
+        "tracks": ["Hyphenate", "Convex", "Capital One Nessie"]
+      },
+      "take": "The most novel candidate with the best why-now and a buyer who is scared right now, but the registry binds no one until debtors pay from it.",
+      "reasoning": "The legal hooks check out: UCC 12-106 lets an account debtor discharge by paying the current controller, and 9-326A gives a controlling secured party priority over one without control, though adoption varies by state. Existing fixes are fingerprint registries (MonetaGo) and verification services (Iridium Credit, which raised $3M this month to confirm invoices with debtors), and none of them anchor control to the debtor's own PO and receipt or give the AP agent a pay tool with no payee argument. That is exactly the safeguard the First Brands examiner pointed to, so a YC or a16z fintech partner would take the meeting. Two judges racing for one invoice is participatory, but non-finance judges need 20 seconds of setup on factoring.",
+      "red_flag": "Two-sided cold start: if debtors keep paying from their vendor master, the registry binds no one, and the race moment can read as a database demo.",
+      "evidence": [
+        { "title": "DOJ SDNY: First Brands executives charged in multibillion-dollar fraud", "url": "https://www.justice.gov/usao-sdny/pr/first-brands-executives-charged-multibillion-dollar-fraud" },
+        { "title": "GTR: Weaknesses in US factoring programmes critical to First Brands alleged fraud", "url": "https://www.gtreview.com/news/americas/weaknesses-in-us-factoring-programmes-critical-to-first-brands-alleged-fraud/" },
+        { "title": "ABA Business Law Today: First Brands, how to avoid being two-timed by your collateral", "url": "https://www.americanbar.org/groups/business_law/resources/business-law-today/2026-february/first-brands-avoid-being-two-timed-by-collateral/" },
+        { "title": "Business Wire: MonetaGo global solution to duplicate financing fraud", "url": "https://www.businesswire.com/news/home/20210912005030/en/MonetaGo-Provides-First-Ever-Global-Solution-to-Duplicate-Financing-Fraud-in-Trade-Finance" },
+        { "title": "GTR: Invoice registries key to fighting trade finance fraud, ITFA says", "url": "https://www.gtreview.com/news/global/invoice-registries-key-to-fighting-damaging-trade-finance-fraud-itfa-says/" },
+        { "title": "Dealroom: Iridium Credit raises $3M to help lenders verify unpaid invoices", "url": "https://dealroom.co/news/160636-iridium-credit-raises-3m-to-help-lenders-verify-unpaid-invoices/" },
+        { "title": "Finextra: Kapwork debuts to automate invoice factoring", "url": "https://finextra.com/pressarticle/104284/kapwork-debuts-to-automate-invoice-factoring" },
+        { "title": "NY Senate: UCC 12-106", "url": "https://www.nysenate.gov/legislation/laws/UCC/12-106" },
+        { "title": "NY Senate: UCC 9-326A", "url": "https://www.nysenate.gov/legislation/laws/UCC/9-326A" }
+      ]
+    },
+    {
+      "id": "CH3",
+      "score": 5.7,
+      "label": "Better execution",
+      "sub": {
+        "novelty": 4,
+        "venture": 6,
+        "win": 7,
+        "prior_art": [
+          "Salient (a16z-led Series A, $60M per its own site; AI voice servicing and collections for auto lenders)",
+          "Domu (YC S24, AI collection agents)",
+          "Prodigal ProAgent ($12M Series A; 'programmatically compliant' guardrails)",
+          "Skit.ai ($23M Series B; right-party contact and Mini-Miranda inside guardrails)",
+          "Sedric ($18.5M Series A; compliance monitoring for debt collection)",
+          "Hamming compliance reports for voice agents"
+        ],
+        "why_now": "Collection agencies are moving AI voice from pilots to production, and the FCC's Feb 2024 ruling treats AI voices as artificial under the TCPA, so every call needs provable consent and content controls.",
+        "buyer": "Compliance officers at collection agencies and debt buyers; AI-voice vendors that need evidence for bank due diligence",
+        "model": "Per gated call attempt",
+        "usage": "daily",
+        "wedge": "First-party lenders piloting AI collection calls who need audit evidence",
+        "one_liner": "A compliance firewall between a collections LLM and the phone line",
+        "wow": "A judge answers as the roommate and hears only a name and a callback number while the screen strikes through the sentence that would have disclosed the debt, with the citation.",
+        "tracks": ["Cartesia", "CRS Credit API", "Hyphenate"]
+      },
+      "take": "A good live phone moment in a crowded, funded category whose vendors already sell 'compliant by design', so a separate gate is better execution, not a new company.",
+      "reasoning": "Salient, Domu, Prodigal and Skit.ai all sell AI collection agents with compliance as the headline, and Sedric monitors collections compliance. Vendor playbooks already describe this exact design: identity verification before any disclosure, the 7-in-7 cap enforced in the dialer policy layer, and hard-coded Mini-Miranda audio. The rules themselves check out (12 CFR 1006.14 frequency presumptions; the FCC's 2024 AI-voice ruling), and a vendor-neutral gate sold for bank due diligence is a plausible wedge. But the posted prizes behind it are small (Cartesia $1.5K, CRS $500), and consumer debt collection sits awkwardly with Hyphenate's CFO-office track and with some judges.",
+      "red_flag": "Every funded AI collector already claims deterministic guardrails, so 'why would Salient's customers buy a second gate?' has no sharp answer.",
+      "evidence": [
+        { "title": "a16z: Investing in Salient", "url": "https://a16z.com/announcement/investing-in-salient/" },
+        { "title": "Salient: About", "url": "https://www.trysalient.com/about" },
+        { "title": "Y Combinator: Domu", "url": "https://www.ycombinator.com/companies/domu-technology-inc" },
+        { "title": "Prodigal: ProAgent", "url": "https://prodigaltech.com/proagent" },
+        { "title": "Retail Banker International: Prodigal $12M Series A", "url": "https://www.retailbankerinternational.com/?p=58363" },
+        { "title": "Signalbase: Skit.ai secures $23M Series B", "url": "https://www.trysignalbase.com/news/funding/funding-alert-skit.ai-secures-23-million-in-series-b-round-for-conversational-ai-advancements-in-accounts-receivables-industry" },
+        { "title": "FinTech Futures: Sedric AI secures $18.5m Series A", "url": "https://www.fintechfutures.com/regulations-compliance/llm-powered-compliance-platform-sedric-ai-secures-18-5m-series-a" },
+        { "title": "Moveo: Compliance by design, AI agents in debt collection", "url": "https://moveo.ai/blog/compliance-by-design-debt-collection-ai" },
+        { "title": "Seiright: Practical playbook to deploy voice AI agents for debt collection", "url": "https://blog.seiright.com/a-practical-playbook-to-deploy-voice-ai-agents-for-debt-collection-built-for-regulated-finance/" },
+        { "title": "eCFR: 12 CFR 1006.14", "url": "https://www.ecfr.gov/current/title-12/chapter-X/part-1006/subpart-B/section-1006.14" },
+        { "title": "Cooley: FCC says AI-generated robocalls are subject to the TCPA", "url": "https://www.cooley.com/news/insight/2024/2024-02-15-fcc-ai-generated-robocalls-illegal-under-the-tcpa" },
+        { "title": "Hamming: compliance", "url": "https://hamming.ai/product/compliance" }
+      ]
+    },
+    {
+      "id": "CH4",
+      "score": 6.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 5,
+        "win": 7,
+        "prior_art": [
+          "Vendoroo (AI maintenance coordinator with voice intake, multi-bid presentation and vendor payments)",
+          "Brickwise (YC, $3M+; AI property manager that chases contractors)",
+          "CentralComs (YC; agents that track maintenance calls and tickets)",
+          "Latchel (invoice auto-approval threshold)",
+          "Spendflo contract-to-invoice validation agent"
+        ],
+        "why_now": "Voice agents can now hold a natural quote conversation and timestamp every word, so the call itself can become the record an invoice is checked against.",
+        "buyer": "Property managers and small landlords",
+        "model": "Per door per month",
+        "usage": "weekly",
+        "wedge": "Single-family rental managers with a few hundred to a few thousand doors",
+        "one_liner": "Your contractor's phone quote, enforced on the invoice",
+        "wow": "A judge quotes '$200 all in' by phone; another submits a $285 invoice; $200 pays at once, $85 is held, and the screen plays the four-second clip.",
+        "tracks": ["Hyphenate", "Cartesia", "Capital One Nessie"]
+      },
+      "take": "The clearest one-sentence demo in the round, but it is a feature that AI maintenance coordinators like Vendoroo can add, in a market already full of YC entrants.",
+      "reasoning": "Vendoroo already runs voice intake, multi-bid approval and vendor payments; Brickwise and CentralComs chase contractors; Latchel auto-approves small invoices; Spendflo checks invoices against contract terms. I found no one who turns the spoken quote into the record the invoice is diffed against, so the angle is fresh. Property managers pay per door and jobs come weekly, but they would rather get this inside the coordinator they already use. The plumber-overbills moment ending with the clip of '$200 all in' is instantly understood, though Hyphenate judges may see it as small-business AP lite.",
+      "red_flag": "A feature of maintenance coordinators and property-management AP, not a standalone company.",
+      "evidence": [
+        { "title": "Vendoroo: SMB property managers", "url": "https://www.vendoroo.ai/smb" },
+        { "title": "Y Combinator: Brickwise", "url": "https://ycombinator.com/companies/brickwise" },
+        { "title": "Y Combinator: CentralComs", "url": "https://www.ycombinator.com/companies/centralcoms" },
+        { "title": "Latchel: Understanding the invoice auto-approval threshold", "url": "https://help.latchel.com/s/topic/0TO5e000000h9wqGAA/Understanding-the-Invoice-Auto-Approval-Threshold" },
+        { "title": "Spendflo: AI contract-to-invoice validation agent", "url": "https://www.spendflo.com/agents/ai-contract-to-invoice-validation-agent" }
+      ]
+    },
+    {
+      "id": "CH5",
+      "score": 6.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 7,
+        "venture": 4,
+        "win": 7,
+        "prior_art": [
+          "PromoProof (Shopify app launched Oct 2, 2026; checks each discount on a real cart, flags stacking conflicts; $19/month Pro)",
+          "Voucherify (stacking rules, budget caps, sandbox)",
+          "Talon.One (per-campaign budgets and rule logic)",
+          "Patent on compiling retail pricing rules into SMT constraints (US 2018/0300114)"
+        ],
+        "why_now": "LLMs can now turn a messy promotion setup into a solver model, and stacked-discount abuse spreads fast once a combination leaks.",
+        "buyer": "DTC merchants on Shopify Plus and their agencies",
+        "model": "Per-store subscription or per pre-launch scan",
+        "usage": "monthly",
+        "wedge": "Shopify Plus agencies launching Black Friday promotions for many brands",
+        "one_liner": "A fuzzer for your Black Friday discounts",
+        "wow": "A judge spends 60 seconds hunting the cheapest cart; the solver then replays a cheaper stack in the same checkout and shows the margin it would have leaked.",
+        "tracks": ["Visa", "Creao AI"]
+      },
+      "take": "A genuinely fresh technique with a fun judge challenge, but the nearest competitor charges $19 a month and the posted prizes behind it are thin.",
+      "reasoning": "I found no product that uses a solver to search promotion rules for below-cost carts before launch; the closest is PromoProof, launched three weeks ago, which checks live discounts on a real cart. Voucherify and Talon.One enforce caps and stacking inside their own engines, and a patent describes compiling pricing rules to SMT, so the idea has neighbors but no owner. Merchants run it per promotion and Shopify could build it natively, which caps venture. 'Beat the solver in 60 seconds' is a great participatory moment, but only Visa ($5K, shopping) and Creao ($3K cash) back it, with no Hyphenate fit.",
+      "red_flag": "Low willingness to pay and platform risk from Shopify's own discount engine.",
+      "evidence": [
+        { "title": "Shopify App Store: PromoProof Discount Monitor", "url": "https://apps.shopify.com/promoproof-1" },
+        { "title": "Voucherify docs: integration overview", "url": "https://docs.voucherify.io/get-started/integration-overview" },
+        { "title": "Talon.One docs: Understanding Talon.One", "url": "https://docs.talon.one/docs/product/understanding-talonone" },
+        { "title": "Justia: Generating and verifying instructions for a retail search appliance (SMT pricing rules)", "url": "https://patents.justia.com/patent/20180300114" },
+        { "title": "ReferralCandy: How to prevent coupon fraud in ecommerce", "url": "https://www.referralcandy.com/blog/how-to-prevent-coupon-fraud-in-ecommerce-protecting-your-profit-margins" }
+      ]
+    },
+    {
+      "id": "CH6",
+      "score": 7.0,
+      "label": "New angle",
+      "sub": {
+        "novelty": 6,
+        "venture": 7,
+        "win": 8,
+        "prior_art": [
+          "Ramp Policy Agent",
+          "Xenett custom review points",
+          "Arden (YC Spring 2026, SOX control testing)",
+          "Hamming Red Team (adaptive social-engineering calls against bank agents)",
+          "Trustpair (now Basware) and Spendflo bank-detail verification",
+          "CaMeL data-flow policies"
+        ],
+        "why_now": "Agents now write to the books and release payments, while payment-fraud verification is consolidating into AP suites (Basware and Trustpair), leaving the agent's own tool boundary unguarded.",
+        "buyer": "Finance teams and fractional CFOs whose AP agents propose payments",
+        "model": "Per entity per month plus per-verification callback fees",
+        "usage": "daily",
+        "wedge": "Mid-market AP teams adopting agents, starting with bank-detail-change controls",
+        "one_liner": "CI for finance controls, with a callback desk built in",
+        "wow": "A judge writes a control; minutes later their phone rings because an emailed bank change tripped it, and the hole finder shows the gaps it closed.",
+        "tracks": ["Hyphenate", "Cartesia", "Convex"]
+      },
+      "take": "The widest sponsor sweep in the round and a broader company than Fire Drill alone, but it is two products in one 3-minute pitch.",
+      "reasoning": "It keeps Fire Drill's open angle (provenance gate plus automated callback) and adds two things I found no one selling: natural-language controls validated before they go live, and an attacker that searches for payment sequences the rule suite misses. Together they make a credible 'controls layer on the only path to the bank' with daily use. Its prior art is the union of both parents, so the pitch must pick one headline. It can credibly touch Hyphenate, Cartesia, Armadin, Convex and Nessie, but three moments in three minutes dilute the one unforgettable moment.",
+      "red_flag": "Unfocused: a YC partner will ask whether it is for bookkeeping firms or AP teams with agents, and judges may remember neither moment if both are rushed.",
+      "evidence": [
+        { "title": "Ramp support: Policy Agent overview", "url": "https://support.ramp.com/policy-agent-overview" },
+        { "title": "Xenett: accounting review automation", "url": "https://www.xenett.com/accounting-review-automation" },
+        { "title": "Y Combinator: Arden", "url": "https://ycombinator.com/companies/arden" },
+        { "title": "Finovate: FinovateFall 2026, Hamming AI", "url": "https://finovate.com/videos/finovatefall-2026-hamming-ai/" },
+        { "title": "ITPro: Basware to acquire Trustpair", "url": "https://www.itpro.com/business/acquisition/basware-to-acquire-trustpair-to-strengthen-payment-fraud-prevention" },
+        { "title": "Simon Willison: CaMeL", "url": "https://simonwillison.net/2025/Apr/11/camel/" }
+      ]
+    }
+  ],
+  "picks": [
+    { "rank": 1, "ref": "INC1", "why": "Highest score through my lens: the best live moment, the richest posted pot and a per-payment product whose acquirer market Basware just proved; lead with the provenance gate and callback, not red-teaming." },
+    { "rank": 2, "ref": "CH2", "why": "The most novel candidate with the strongest why-now (First Brands charges, the examiner's report, UCC Article 12) and a buyer who is scared right now; the only challenger I would fund ahead of Netting House." }
+  ],
+  "verdict_vs_leaders": "No. Original Bill (CH2, 7.0) and Controls CI (CH6, 7.0) beat Netting House (6.7) through my lens, but no challenger beats Fire Drill (7.3).",
+  "ceo_note": "Stay on Fire Drill, but the ground moved since round 1: Hamming showed an adaptive bank red team at FinovateFall in September and Basware bought Trustpair, so open with the provenance gate plus callback and name both before a judge does. If you want a real alternative rather than another Fire Drill variant, Original Bill is the one a YC partner would lean in on: First Brands is the biggest receivables fraud in years, Iridium Credit raised $3M this month on a narrower version, and in states that adopted Article 12 the UCC already says paying the controller discharges the debt. Drop Reg F Gate; every funded AI collector already sells deterministic compliance."
+}

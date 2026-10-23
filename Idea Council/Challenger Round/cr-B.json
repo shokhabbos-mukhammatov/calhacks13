@@ -1,0 +1,230 @@
+{
+  "agent": "B",
+  "candidates": [
+    {
+      "id": "INC1",
+      "score": 8.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "An AP clerk or an AP agent gets a 'we changed banks' email, a poisoned invoice or an urgent 'CFO' call, updates the payee and wires the next payment to a fraudster.",
+        "status_quo": "Callback policies that people skip under deadline pressure or run against the phone number in the fraudulent email; bank-account validation networks (Trustpair, Eftsure) sold mainly to larger firms; awareness training. Trustpair's 2026 survey: only 32% of US companies validate vendor bank details continuously, 48% rely on manual checks and 13% have no validation at all.",
+        "solution": "A deterministic provenance rule at the payment tool boundary blocks any payee change that traces to untrusted text, a separate voice agent calls the vendor back on the number of record, and an adaptive attacker re-drills the control with held-out attacks.",
+        "optimizes": "Redirected-payment losses: FBI IC3 logged about $3.05B of BEC losses in 2025 across 24,768 complaints, roughly $123K per complaint; share of bank-detail changes verified out of band; breach rate versus utility on held-out attacks.",
+        "who": "AP teams and AP agents at mid-market and enterprise companies; AFP: 79% of organizations faced attempted or actual payments fraud in 2024 and 63% named BEC the top vector; Tipalti 2026: 46% now use AI tools or agents in AP.",
+        "frequency": "weekly",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Urgent",
+        "harm": "The attack library and synthetic CFO voice are dual-use for real voice phishing; the callback must never dial contact details supplied in the request; false blocks can delay legitimate vendor payments."
+      },
+      "take": "Still the best-aimed idea in the room: it blocks the single most expensive, best-documented payment fraud at the moment money would move.",
+      "reasoning": "BEC is about $3B a year in reported US losses alone, and Nacha's 2026 rules now require ACH originators to monitor for 'false pretenses' payments, which explicitly include vendor impersonation, so buyers have a compliance reason as well as a loss reason. The merged version fixes my round 1 objection by covering human AP desks through the callback, not only future AP agents. It stops short of 9 because Trustpair and Eftsure already sell bank-detail verification to larger firms, and I found no confirmed case yet of an AP agent being tricked into a redirect (practitioners are only now discussing the risk, e.g. an IOFM session this November).",
+      "red_flag": "Enterprise buyers already have Trustpair or Eftsure for the human desk; the agent-specific half still protects a mostly future victim.",
+      "evidence": [
+        { "title": "McDonald Hopkins: the FBI's 2025 IC3 report (BEC about $3.05B, 24,768 complaints)", "url": "https://www.mcdonaldhopkins.com/insights/news/the-sobering-truth-of-the-fbis-2025-internet-crime-complaint-center-report" },
+        { "title": "CyberScoop: FBI IC3 annual cybercrime report", "url": "https://cyberscoop.com/fbi-internet-crime-complaint-center-annual-cybercrime-report/" },
+        { "title": "AFP: 79% of organizations victims of attempted or actual payments fraud in 2024 (BEC top vector)", "url": "https://www.financialprofessionals.org/about/learn-more/press-releases/Details/survey-79-percent-of-organizations-were-victims-of-attempted-or-actual-payments-fraud-activity-in-2024" },
+        { "title": "Business Wire: Trustpair 2026 report (32% validate continuously, 13% no validation)", "url": "https://www.businesswire.com/news/home/20260126508647/en/AI-Fraud-Outpaces-Human-Defenses-as-71-of-U.S.-Companies-Report-Rise-in-Attacks-Trustpair-Report-Finds" },
+        { "title": "Eftsure: Nacha's 2026 fraud monitoring rules (false pretenses covers BEC and vendor impersonation)", "url": "https://www.eftsure.com/blog/industry-news/nachas-2026-fraud-monitoring-rules-what-every-finance-team-needs-to-know/" },
+        { "title": "Tipalti: 2026 Global Finance Outlook Index, AI adoption in AP", "url": "https://tipalti.com/press/2026-global-finance-outlook-index-ai-adoption/" },
+        { "title": "IOFM Fall 2026: Shielding the ledger in the age of agentic AI (AP fraud risk session)", "url": "https://events.iofm.com/conference-fall/session/shielding-the-ledger-in-the-age-of-agentic-ai-a-lifecycle-approach-to-assessing-ap-fraud-risk-session-description/" }
+      ]
+    },
+    {
+      "id": "INC2",
+      "score": 8,
+      "label": "Urgent",
+      "sub": {
+        "problem": "A tile subcontractor is owed $61K by a contractor and owes $48K to a supplier who is waiting on the contractor's sister company: everyone is solvent on paper and short of cash.",
+        "status_quo": "Chasing invoices, factoring, credit lines, paying late. QuickBooks 2025: 56% of US small businesses are owed money, about $17.5K each; the 2026 edition says 59% have invoices 30+ days overdue, up from 47%. Multilateral set-off exists only at national scale (Slovenia) or in early protocols (Cycles).",
+        "solution": "Firms' agents post reconciled invoices, a solver cancels circular debt, and only net amounts settle atomically from prefunded wallets.",
+        "optimizes": "Cash needed to settle mutual debts and days waiting to be paid; on Sardex network data, obligation clearing cut net internal debt by about 25% (about 50% combined with mutual credit).",
+        "who": "Millions of small businesses, but the benefit exists only inside dense trading clusters (a construction project, food distribution, a co-op).",
+        "frequency": "monthly",
+        "severity": "painkiller",
+        "scale": "Society",
+        "needed": "Urgent",
+        "harm": "Set-off with a near-insolvent member can prefer some creditors over others; the shared invoice graph exposes sensitive business relationships."
+      },
+      "take": "The biggest real-money pain in the pool, but the relief depends on a network density that no new entrant has.",
+      "reasoning": "Late payment is chronic and getting worse (59% of small businesses had invoices 30+ days overdue in 2026, up from 47%). The verified 25% figure is a reduction in net internal debt measured inside Sardex, a network whose firms already share a ledger; most late payment is one large customer paying slowly, not a cycle, and netting cannot touch that. I lower it from my round 1 score of 8.5 to 8: the problem is a 9, but the share of it this moves for a typical firm is smaller and depends on a whole cluster joining at once.",
+      "red_flag": "Cold start: one firm alone saves nothing, and the demo's 41-to-4 collapse comes from an economy we design.",
+      "evidence": [
+        { "title": "QuickBooks 2025 Small Business Late Payments Report", "url": "https://quickbooks.intuit.com/r/small-business-data/small-business-late-payments-report-2025/" },
+        { "title": "QuickBooks 2026 Small Business Late Payments Report", "url": "https://quickbooks.intuit.com/r/small-business-data/small-business-late-payments-report-2026/" },
+        { "title": "Fleischman, Dini and Littera (2020), Liquidity-Saving through Obligation-Clearing and Mutual Credit (LSE)", "url": "https://eprints.lse.ac.uk/107529/" },
+        { "title": "Cycles: An introduction to multilateral trade credit set-off", "url": "https://cycles.money/blog/an-introduction-to-mtcs" }
+      ]
+    },
+    {
+      "id": "CH1",
+      "score": 6.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "At a 20-person firm, the bookkeeper pays a duplicate invoice, splits a $5,000 bill into two $2,500 payments to dodge the owner's approval, or pays a vendor created last week, and nobody notices until year-end.",
+        "status_quo": "Approval rules inside BILL, Ramp or QuickBooks Online Advanced that cover only their own rails; after-the-fact ledger review (MindBridge) and annual reviews; at most small firms, no separation of duties. ACFE 2026: organizations under 100 employees have the highest median occupational fraud loss, about $126K.",
+        "solution": "The accountant writes controls as sentences, Claude compiles them into a small typed rule language with test gates, and every entry or payment must pass them in one transaction before it is recorded or released.",
+        "optimizes": "Occupational fraud and error losses at small firms (median about $126K per case; ACFE estimates 5% of revenue lost to fraud); duplicate and split payments caught before release; accountant hours on control testing.",
+        "who": "Fractional CFOs and bookkeeping firms (IBISWorld counts about 324K US payroll and bookkeeping businesses) serving millions of small businesses.",
+        "frequency": "daily",
+        "severity": "vitamin",
+        "scale": "Company",
+        "needed": "Urgent",
+        "harm": "A plain-English rule that compiles to a subtly wrong meaning gives false assurance; overly tight rules can stall payroll or vendor payments."
+      },
+      "take": "A real, costly gap at small firms, but a gate on the payment path only stops fraud that goes through the payment path.",
+      "reasoning": "The pain is documented: small organizations suffer the highest median fraud loss, and ACFE has found that more than half of cases trace to missing controls or management override. Running controls before release instead of auditing afterwards is the right shape, and daily use is a strength for the startup half of the mission. But the people behind the largest small-firm frauds (owners, managers, a trusted bookkeeper) usually also hold the bank login and can pay outside the gate, and BILL, Ramp and QuickBooks already offer threshold and approval rules, so the extra loss avoided is modest.",
+      "red_flag": "Bypass: the insider with bank-portal access pays outside the gate, which is where small-firm embezzlement actually happens.",
+      "evidence": [
+        { "title": "Porter Brown: ACFE 2026 Occupational Fraud report (small organizations median loss about $126K)", "url": "https://blog.portebrown.com/new-report-sheds-light-on-recent-fraud-trends" },
+        { "title": "ACFE: Occupational Fraud 2026, A Report to the Nations", "url": "https://www.acfe.com/report-to-the-nations.aspx" },
+        { "title": "Accounting Today: Organizations lose 5% to fraud each year", "url": "https://www.accountingtoday.com/news/organizations-lose-5-to-fraud-each-year" },
+        { "title": "CSH: Breaking down the ACFE's 2024 fraud report (over half of cases tied to missing controls or override)", "url": "https://cshco.com/insights/breaking-down-the-acfes-latest-fraud-report" },
+        { "title": "IBISWorld: Payroll and Bookkeeping Services in the US", "url": "https://www.ibisworld.com/united-states/market-size/payroll-bookkeeping-services/1397" }
+      ]
+    },
+    {
+      "id": "CH2",
+      "score": 7,
+      "label": "Urgent",
+      "sub": {
+        "problem": "A factor advances $400K against a supplier's invoices to a big retailer, not knowing the same invoices were already sold to two other funders or never existed; when the supplier collapses, all three find out at once.",
+        "status_quo": "Verification calls or emails to the debtor's AP desk, UCC-1 searches and notices of assignment; buyer-led supply chain finance platforms (C2FO, Taulia, PrimeRevenue) have the debtor confirm invoices, but seller-led factoring does not.",
+        "solution": "One registry record per receivable, minted only when the debtor's AP agent acknowledges it against its own PO and goods receipt, transferable only by signed endorsement, with the debtor's pay tool paying only the current controller.",
+        "optimizes": "Double-pledge and fake-receivable losses per financier (First Brands: about $2.3B of factoring liabilities under investigation; Jefferies' Point Bonita fund had $715M of exposure); verification cost per funded invoice.",
+        "who": "Factors, receivables financiers and trade-finance funds (a few thousand firms), and indirectly the small suppliers whose financing gets cheaper when fraud risk drops.",
+        "frequency": "daily",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Urgent",
+        "harm": "The registry exposes who owes whom across supply chains; a wrong record or a stolen endorsement key could send a debtor's payment to the wrong party, even though UCC 12-106 would discharge a debtor who paid the controller."
+      },
+      "take": "The First Brands hook is real and the fix fits the fraud, but the party who must join, the debtor, loses nothing today.",
+      "reasoning": "Verified: federal prosecutors allege First Brands employees 'routinely submitted fake invoices, fraudulently inflated invoices, and double-pledged invoices' and sold factors billions in receivables that did not exist (indictment unsealed January 29, 2026; unproven), and Tricolor executives have pleaded guilty to schemes that included double-pledging collateral. The legal claims also check out: UCC 12-106 lets a debtor discharge by paying the person in control, and 9-326A gives a secured party with control priority over one without it, though states are still adopting Article 12 (New York in 2026, Ohio effective October 6, 2026). The losses are enormous but concentrated in rare blowups at a small number of funders, and the registry binds only debtors who pay from it instead of from their vendor master.",
+      "red_flag": "Three-sided cold start: large debtors such as retailers bear no double-pledge loss and have little reason to route payments through a startup's registry.",
+      "evidence": [
+        { "title": "IRS Criminal Investigation: First Brands executives charged with multibillion-dollar fraud", "url": "https://www.irs.gov/compliance/criminal-investigation/first-brands-executives-charged-with-multibillion-dollar-fraud" },
+        { "title": "GTR: First Brands faces investigation into double financing of receivables, inventory", "url": "https://www.gtreview.com/news/americas/first-brands-faces-investigation-into-double-financing-of-receivables-inventory/" },
+        { "title": "GTR: Jefferies trade finance fund has a quarter of its assets linked to First Brands", "url": "https://www.gtreview.com/news/americas/jefferies-trade-finance-fund-has-a-quarter-of-its-assets-linked-to-first-brands/" },
+        { "title": "ABA Business Law Today: First Brands, how to avoid being two-timed by your collateral", "url": "https://www.americanbar.org/groups/business_law/resources/business-law-today/2026-february/first-brands-avoid-being-two-timed-by-collateral" },
+        { "title": "Transport Topics: Former Tricolor COO pleads guilty to fraud charges", "url": "https://www.ttnews.com/articles/ex-tricolor-coo-pleads-guilty" },
+        { "title": "New York UCC 12-106 (discharge by paying the person in control)", "url": "https://www.nysenate.gov/legislation/laws/UCC/12-106" },
+        { "title": "New York UCC 9-326A (priority of a secured party with control)", "url": "https://www.nysenate.gov/legislation/laws/UCC/9-326A" }
+      ]
+    },
+    {
+      "id": "CH3",
+      "score": 7,
+      "label": "Emerging",
+      "sub": {
+        "problem": "An AI voice agent calling about an overdue $1,240 reaches the debtor's roommate and says why it is calling, or promises a hardship settlement the creditor never approved.",
+        "status_quo": "Dialer compliance tools enforce call-frequency caps and time windows; AI-collection vendors (Domu, Salient, Skit.ai) say their systems are designed for FDCPA compliance; QA tools review calls afterwards. Nothing deterministic sits between the model's next sentence and the speaker.",
+        "solution": "A deterministic gate before every dial and every sentence: Reg F frequency and time-window checks, fixed templates until the right party is verified, and money or credit commitments allowed only as typed offers checked against creditor policy.",
+        "optimizes": "FDCPA and TCPA violations per 1,000 AI calls (TCPA statutory damages are $500 to $1,500 per call; FDCPA suits run about 350 to 500 a month); third-party disclosures; unauthorized commitments.",
+        "who": "Collection agencies, debt buyers and first-party creditors deploying AI voice, plus the consumers they call; the CFPB received about 207,800 debt-collection complaints in 2024.",
+        "frequency": "daily",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Emerging",
+        "harm": "Making AI collection compliant by construction helps it scale to thousands of simultaneous calls, which advocates warn increases pressure on people in debt; a rigid template wall can also block legitimate hardship help."
+      },
+      "take": "A genuine, high-frequency compliance pain in a market that already runs tens of millions of AI collection calls a month, with a clean deterministic answer.",
+      "reasoning": "The FCC confirmed in February 2024 that AI voices count as artificial under the TCPA, Reg F's 7-in-7 rule is as stated (a rebuttable presumption, not a hard cap), and WIRED reports AI collectors already handle tens of millions of calls a month (Domu alone reported 70 million connected calls in March 2026). A credit counselor quoted there names exactly the failure this gate blocks: a buggy agent disclosing a debt to the wrong person. I label it Emerging rather than Urgent because I found only one lawsuit alleging AI-driven collection violations (November 2025), and federal enforcement is shrinking (debt-collection actions fell from 16 in 2024 to 9 in 2025, six of them by the FTC).",
+      "red_flag": "Distaste and incentive: the buyer's goal is collecting more, and some judges will see a tool that helps AI collectors scale, not a consumer shield.",
+      "evidence": [
+        { "title": "Cooley: FCC rules AI-generated voices are artificial under the TCPA (February 2024)", "url": "https://cooley.com/news/insight/2024/2024-02-15-fcc-ai-generated-robocalls-illegal-under-the-tcpa" },
+        { "title": "CFPB: Regulation F, 12 CFR 1006.14 (call-frequency presumption)", "url": "https://www.consumerfinance.gov/rules-policy/regulations/1006/14/" },
+        { "title": "CFPB: FDCPA annual report 2025 (about 207,800 debt-collection complaints in 2024)", "url": "https://files.consumerfinance.gov/f/documents/cfpb_fdcpa-2025-annual-report_2025-11.pdf" },
+        { "title": "Troutman: October 2025 consumer litigation filings (WebRecon FDCPA counts)", "url": "https://www.consumerfinancialserviceslawmonitor.com/2025/12/october-2025-consumer-litigation-filings-another-mixed-bag-but-up-over-2024/" },
+        { "title": "accountsrecovery.net: WIRED spotlights how AI agents are reshaping collections", "url": "https://www.accountsrecovery.net/2026/05/27/wired-spotlights-how-ai-agents-are-reshaping-collections/" },
+        { "title": "accountsrecovery.net: Suit accuses creditor of using AI to allegedly violate TCPA, FDCPA", "url": "https://www.accountsrecovery.net/2025/11/18/suit-accuses-creditor-of-using-ai-to-allegedly-violate-tcpa-fdcpa/" },
+        { "title": "Goodwin: Debt collection and debt settlement, 2025 year in review", "url": "https://www.goodwinlaw.com/en/insights/publications/2026/03/insights-finance-cfs-yir-debt-collection-and-debt-settlement" }
+      ]
+    },
+    {
+      "id": "CH4",
+      "score": 5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A property manager's plumber quotes $200 all in on the phone, then invoices $285 with a trip fee, and the manager has nothing but memory to dispute it.",
+        "status_quo": "Work orders carry not-to-exceed (NTE) caps and written quotes in maintenance platforms (Property Meld, ServiceChannel, AppFolio); invoices above the cap need written approval; small landlords dispute by phone or just pay.",
+        "solution": "A voice agent turns the quote call into a confirmed line-item scope; a matcher diffs the invoice, pays what matches and holds the variance with the call clip as evidence.",
+        "optimizes": "Invoice overage per job (tens to low hundreds of dollars) and manager minutes per dispute; I found no reliable industry overbilling rate (the figures I found came from vendor blogs with unnamed sources).",
+        "who": "US property managers and small landlords, plus facilities teams; a large segment, but the stake per event is small.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Company",
+        "needed": "Nice to have",
+        "harm": "Recording contractor calls needs all-party consent in California and other states; holding payment can squeeze small contractors' cash flow."
+      },
+      "take": "A real, frequent irritation with small stakes per job, mostly handled already by not-to-exceed caps on work orders.",
+      "reasoning": "Invoice creep on maintenance jobs happens, and markup anecdotes exist (a UK letting agency was referred to Trading Standards over allegedly altered contractor invoices), but I found no credible measure of what it costs. The industry's existing control, an NTE cap that needs written approval to exceed, already does most of what the diff does, without voice. Turning a spoken scope into a binding line-item record is a nice improvement where the cap is loose.",
+      "red_flag": "The money at stake per job is small, and NTE caps already cover the common case.",
+      "evidence": [
+        { "title": "ServiceChannel: Understanding work order NTEs", "url": "https://servicechannel.atlassian.net/wiki/spaces/SCUCP/pages/622364017/Understanding+Work+Order+NTEs" },
+        { "title": "Property Meld: The Vendor Meld Experience (invoice submission and approval)", "url": "https://help.propertymeld.com/hc/en-us/articles/45762117134867-The-Vendor-Meld-Experience-English" },
+        { "title": "The Negotiator: Lettings agency probed after landlord complaints about incorrect invoices", "url": "https://thenegotiator.co.uk/news/lettings-agency-probed-after-landlord-complaints-about-incorrect-invoices/" }
+      ]
+    },
+    {
+      "id": "CH5",
+      "score": 5,
+      "label": "Nice to have",
+      "sub": {
+        "problem": "A DTC merchant launches a Black Friday sale whose codes, bundle discount and free-shipping threshold stack into carts sold below cost; a coupon forum finds it overnight, and the merchant eats the loss or cancels orders and angers customers.",
+        "status_quo": "Platform combination settings (Shopify discounts stack only when both sides allow it), promotion engines with budget caps (Talon.One, Voucherify), manual QA of a few carts, and after-the-fact abuse detection (Riskified, Signifyd); merchants cancel glitched orders, as Toys R Us did within about 12 hours.",
+        "solution": "Claude models the promotion rules as constraints, a Z3 solver searches for below-cost carts and code sequences, and only exploits that replay in the real test checkout count.",
+        "optimizes": "Margin leaked per promotion: incidents range from one Shopify merchant's $12K leaked code to Pinduoduo's tens of millions; policy abuse overall costs large retailers about 2.4% of revenue (PYMNTS and Forter), but most of that is multi-account and return abuse a solver cannot see.",
+        "who": "DTC merchants on Shopify Plus and their agencies; tens of thousands of stores.",
+        "frequency": "weekly",
+        "severity": "vitamin",
+        "scale": "Company",
+        "needed": "Nice to have",
+        "harm": "A tool that finds below-cost exploits is just as useful to coupon-abuse rings pointed at someone else's store."
+      },
+      "take": "A clever pre-launch check for a loss that is real but occasional, and often reversed by cancelling orders.",
+      "reasoning": "Glitch losses are documented (Toys R Us, Pinduoduo, leaked Shopify codes) and 73% of retailers report promo abuse, but most of that abuse is fake accounts and code sharing, which a configuration solver does not touch. Configuration bugs bite a merchant a few times a year at most, and the usual remedy (cancel and apologize) caps the loss. Good engineering for a modest problem.",
+      "red_flag": "It targets the minority of promo losses caused by misconfiguration, not the multi-account abuse behind the big numbers.",
+      "evidence": [
+        { "title": "FOX 4: Toys R Us fixes online coupon glitch, cancels orders", "url": "https://www.fox4news.com/news/toys-r-us-fixes-online-coupon-glitch-cancels-orders" },
+        { "title": "Sixth Tone: E-commerce app loses tens of millions from coupon glitches", "url": "https://www.sixthtone.com/news/1003483/e-commerce-app-loses-tens-of-millions-from-coupon-glitches" },
+        { "title": "GrowthSuite: Are your discount codes leaking and costing you money? ($12K leaked-code example)", "url": "https://www.growthsuite.net/blog/are-your-discount-codes-leaking-and-costing-you-money" },
+        { "title": "Crowdfund Insider: Riskified report on policy abuse (86% call promo abuse costs significant)", "url": "https://www.crowdfundinsider.com/2023/09/213017-online-retailers-are-losing-money-to-policy-abuse-riskified-report-claims/" },
+        { "title": "PYMNTS and Forter: policy abuse study (2.4% of revenue, 73% saw promo abuse)", "url": "https://www.pymnts.com/?p=1182596" }
+      ]
+    },
+    {
+      "id": "CH6",
+      "score": 8.5,
+      "label": "Urgent",
+      "sub": {
+        "problem": "A bookkeeping firm running AP for 30 small clients faces both halves of payment fraud: a vendor's 'new bank details' email from outside, and a split, duplicate or self-approved payment from inside.",
+        "status_quo": "Small firms rarely have Trustpair-style bank verification or separation of duties; callback policies get skipped; approval rules live inside individual payment tools; fraud is found at year-end or after the wire.",
+        "solution": "CH1's verified plain-English controls on the only path to the bank, plus a provenance rule whose refusal triggers Fire Drill's voice callback to the number of record, plus an adaptive attacker that searches for payment sequences the rule suite fails to stop.",
+        "optimizes": "Redirected-payment losses (about $123K per reported BEC complaint) plus internal fraud and error losses (ACFE 2026 small-firm median about $126K); holes per rule suite before and after tightening.",
+        "who": "Fractional CFOs and bookkeeping firms and the millions of small businesses they serve, the segment with the weakest controls and the highest relative losses; the same engine serves mid-market AP teams.",
+        "frequency": "daily",
+        "severity": "painkiller",
+        "scale": "Industry",
+        "needed": "Urgent",
+        "harm": "Dual-use attacker and synthetic voice, as in Fire Drill; a mis-compiled rule gives false assurance; false blocks delay payroll or vendor payments."
+      },
+      "take": "The widest impact in the round: it keeps Fire Drill's callback against the costliest fraud and points it at the small firms that have no protection today.",
+      "reasoning": "BEC and occupational fraud are the two best-documented payment losses, and small organizations sit at the worst end of both (the highest median occupational loss, and the least likely to buy enterprise bank verification). Running every payment through verified controls daily, with a callback for bank changes and an attacker that counts holes, gives a bookkeeping firm a recurring reason to use it. It ties Fire Drill rather than beating it because the gate still covers only payments routed through it, and the CH1 half adds less than the Fire Drill half.",
+      "red_flag": "If the build runs short and only the rule compiler ships, the impact falls to CH1's 6.5; the callback is the part that stops the expensive losses.",
+      "evidence": [
+        { "title": "McDonald Hopkins: the FBI's 2025 IC3 report (BEC about $3.05B, 24,768 complaints)", "url": "https://www.mcdonaldhopkins.com/insights/news/the-sobering-truth-of-the-fbis-2025-internet-crime-complaint-center-report" },
+        { "title": "Porter Brown: ACFE 2026 Occupational Fraud report (small organizations median loss about $126K)", "url": "https://blog.portebrown.com/new-report-sheds-light-on-recent-fraud-trends" },
+        { "title": "Business Wire: Trustpair 2026 report (32% validate continuously, 13% no validation)", "url": "https://www.businesswire.com/news/home/20260126508647/en/AI-Fraud-Outpaces-Human-Defenses-as-71-of-U.S.-Companies-Report-Rise-in-Attacks-Trustpair-Report-Finds" },
+        { "title": "Eftsure: Nacha's 2026 fraud monitoring rules", "url": "https://www.eftsure.com/blog/industry-news/nachas-2026-fraud-monitoring-rules-what-every-finance-team-needs-to-know/" },
+        { "title": "CSH: Breaking down the ACFE's 2024 fraud report (missing controls or override in over half of cases)", "url": "https://cshco.com/insights/breaking-down-the-acfes-latest-fraud-report" }
+      ]
+    }
+  ],
+  "picks": [
+    { "rank": 1, "ref": "CH6", "why": "Fights the same expensive, documented fraud as Fire Drill, aimed at the small firms that lose the most and have the fewest defenses, with daily use built in." },
+    { "rank": 2, "ref": "INC1", "why": "The focused version of the same impact case with less build risk; if CH6 cannot ship the callback, this is the one to build." }
+  ],
+  "verdict_vs_leaders": "Only CH6 reaches the top through my lens: it ties Fire Drill at 8.5 and beats Netting House (8) by adding small-firm internal controls to Fire Drill's callback. No standalone challenger beats either leader; Original Bill and Reg F Gate (7 each) target real, verified pain but for narrower buyers with harder adoption, and CH1, CH4 and CH5 address modest problems.",
+  "ceo_note": "The impact case is strongest for the Fire Drill family: $3.05B of reported BEC losses in 2025 (about $123K per complaint), and small firms lose the most to internal fraud (ACFE 2026 median about $126K). If you take CH6, the voice callback is not optional: CH1's rule compiler alone scores 6.5 from me, because the insider who embezzles usually has the bank login and pays around the gate. Original Bill's First Brands hook is verified (prosecutors allege fake and double-pledged invoices), but debtors have no reason to join, so do not switch to it for the story."
+}
