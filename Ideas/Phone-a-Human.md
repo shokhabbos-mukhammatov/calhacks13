@@ -19,4 +19,4 @@ When an agent gets stuck, it phones a paid expert, interviews them by voice, pay
 **Sponsors:** [[Afterquery]], [[Cartesia]], [[Coinbase]], [[Anthropic]]
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. HumanLayer and RentAHuman exist. Its phone moment moves into Fire Drill as the callback.
