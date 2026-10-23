@@ -21,3 +21,7 @@ Install Cursor; get a Grok API key.
 
 ## Ideas that hit this sponsor
 None directly. Bolt-on: Use Grok as a second model (e.g., the attacker or a judge model) in any idea.
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+- **[SpaceXAI] Make it Legendary with SpaceXAI** · non-cash: Custom Cursor Mechanical Keyboard
+See [[Prizes]].

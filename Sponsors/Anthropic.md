@@ -46,3 +46,8 @@ Winner: Elda AI. Claude was also in the 1st- and 3rd-overall stacks.
 - [[The Pit]] (score 5.8)
 - [[Kernel Swarm]] (score 5.7)
 - [[Kernel Bounties]] (score 5.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Anchor**.
+No prize posted on Devpost yet.
+See [[Prizes]].

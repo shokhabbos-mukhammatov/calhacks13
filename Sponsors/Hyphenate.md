@@ -24,3 +24,10 @@ Learn the vocabulary: 3-way match, bank rec, ASC 606, close, GL. Find a realisti
 - [[Fire Drill]] (score 8.0)
 - [[Close Raid]] (score 7.6)
 - [[The 36-Hour Company]] (score 7.2)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Anchor**.
+- **[Hyphenate] 1st Place The Hyphenated Enterprise: Autonomous Systems for Finance** · $8,000: Cash prizes of 8000$, 5000$, 3000$ for the top 3 teams and expedited interview process for top 5 teams
+- **[Hyphenate] 2nd Place The Hyphenated Enterprise: Autonomous Systems for Finance** · $5,000: Cash prizes of 8000$, 5000$, 3000$ for the top 3 teams and expedited interview process for top 5 teams
+- **[Hyphenate] 3rd Place The Hyphenated Enterprise: Autonomous Systems for Finance** · $3,000: Cash prizes of 8000$, 5000$, 3000$ for the top 3 teams and expedited interview process for top 5 teams
+See [[Prizes]].

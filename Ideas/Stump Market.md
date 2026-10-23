@@ -25,4 +25,4 @@ Experts submit questions; each question's price is how many frontier models fail
 > Substance 3 · Impact 5.5 · Novelty & venture 3.7 (best version: the original). Picked by no agent. See [[Council Verdict]].
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. Humanity's Last Exam (Scale) already did this, and paying per model stumped pays for wrong questions.

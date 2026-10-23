@@ -26,3 +26,8 @@ Install the Droid CLI; run it on a toy repo.
 - [[Scar Tissue]] (score 7.0)
 - [[Save States]] (score 6.3)
 - [[Kernel Swarm]] (score 5.7)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+- **[Factory] Best Use of the Factory Droid SDK** · $2,000: $2000 cash, Factory credits, and swag!
+See [[Prizes]].

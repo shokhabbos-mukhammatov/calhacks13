@@ -4,12 +4,15 @@ tags: [index]
 ---
 # Cal Hacks 13
 
-**Oct 23–25, 2026** · Palace of Fine Arts, SF · 36 hours · $100K+ prizes · team of three
-Tracks not released yet. Researched Oct 11, 2026.
+**Oct 23–25, 2026** · Palace of Fine Arts, SF · 36 hours · $126,988 in listed prizes · teams of 2–4
+Researched Oct 11, 2026. **Prizes, rules and judging criteria posted on Devpost; updated Oct 21:** see [[Prizes]].
+**Deadlines:** at your table by Sun 8 AM, submit by 9 AM, edits until 10 AM.
 
 ## Start here
 - [[Council Verdict]]: three agents (substance, impact, novelty and venture) scored all 37 ideas and their pivots. Dashboard: https://claude.ai/artifact/CaHbViV7tNGC1XhKS79YFS
 - [[Judge Verdict]]: the shortlist stress-tested from the judges' side, with prior art and killer questions
+- [[Prizes]]: all 66 prizes, rules and judging criteria (Oct 21)
+- [[Recent Winners 2026]]: what won at the Berkeley AI Hackathon, TreeHacks, LA Hacks, PennApps and Hack the North
 - [[Shortlist]]: the four worked-out ideas (★ [[Fire Drill]] is the top pick)
 - [[Prep Plan]]: access requests, roles, 36-hour clock
 - [[Cal Hacks 12 Lessons]]: what won last year
@@ -28,7 +31,7 @@ Tracks not released yet. Researched Oct 11, 2026.
 - [[Quant trading]] (3)
 - [[Investors & ecosystem]] (6)
 
-## Tier 1 sponsors
+## Tier 1 sponsors (our tiers; Devpost anchors are Annapurna Labs, Anthropic, Hyphenate, SpacetimeDB)
 - [[Anthropic]]
 - [[Annapurna Labs]]
 - [[SpacetimeDB]]

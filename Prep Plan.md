@@ -30,6 +30,16 @@ Ideation is allowed before the event; project code is not. Accounts, API keys, s
 - Bright Data or Apify via MCP from Claude
 - Delete the repos afterwards
 
+## Rules check (Devpost, Oct 21)
+- Teams of 2–4 required on Devpost (a Best Solo Hack prize also exists; confirm before going solo).
+- All work must be done during the hackathon.
+- Submission: image, GitHub repo, table number, locally saved demo video.
+- Full list in [[Prizes]].
+
+## Team notes (Oct 21)
+- Akmal is at SpartHill Hacks (SJSU) Fri–Sat until ~4 PM and plans to arrive ~6:30 PM Sat. Late check-in is not confirmed yet; email team@hackberkeley.org.
+- So the Friday start (idea pick, booth visits, skeleton) is on whoever is there Friday.
+
 ## Roles for three
 - **Agent / backend lead**: agent loop, tools, sponsor SDKs, data model
 - **Demo / frontend lead**: the screen judges see, the live moment, polish
@@ -43,8 +53,10 @@ Ideation is allowed before the event; project code is not. Accounts, API keys, s
 | Sat 2 am | End-to-end skeleton deployed |
 | Sat noon | Core demo path works; start second sponsor integration |
 | Sat 10 pm | Feature freeze |
-| Sun 4 am | Record demo video; README and Devpost |
-| Sun 9:30 am | Submission deadline (CH12); judging 10:30, closing 1 pm |
+| Sun 4 am | Record demo video (must be saved locally); README and Devpost |
+| Sun 8 am | **Be at your table** (CH13 rule) |
+| Sun 9 am | **Submission deadline** with teammates; table number locks |
+| Sun 10 am | Last edits to the submission; judging after (3-min pitch + 2-min Q&A) |
 
 ## Pitch checklist
 - [ ] Open with the live moment, not a problem slide

@@ -95,4 +95,4 @@ Most teams will build an agent that pays invoices. Netting needs a real optimiza
 > Substance 8 · Impact 8.5 · Novelty & venture 7.0 (best version: the original). Picked by A#2, B#1, C#2. See [[Council Verdict]].
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Backup for Hyphenate + Fetch.ai. Hook stat: obligation clearing cut a typical firm's cash needs ~25% (Sardex data). Have the net-settlement answer ready.

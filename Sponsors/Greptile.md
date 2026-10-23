@@ -22,3 +22,8 @@ Developer tooling and code-quality projects.
 - [[Scar Tissue]] (score 7.0)
 - [[Save States]] (score 6.3)
 - [[Kernel Swarm]] (score 5.7)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

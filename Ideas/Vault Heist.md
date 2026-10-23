@@ -89,4 +89,4 @@ The hard part is an authoritative real-time economy where an LLM tool call is th
 > Substance 7 · Impact 5 · Novelty & venture 4.7 (best version: the original). Picked by A#4. See [[Council Verdict]].
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Only if SpacetimeDB and Supercell post prizes at opening. Lead with how it differs from Tensor Trust (Berkeley).

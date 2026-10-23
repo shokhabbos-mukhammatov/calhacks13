@@ -20,3 +20,8 @@ Eval and data projects.
 - [[Stump Market]] (score 8.0)
 - [[Vault Heist]] (score 7.8)
 - [[Jailbreak Booth]] (score 6.7)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+No prize posted on Devpost yet.
+See [[Prizes]].

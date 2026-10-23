@@ -22,4 +22,4 @@ A honeypot for hostile AI agents: decoy MCP servers and Agentverse agents advert
 > Substance 4.5 · Impact 7.5 · Novelty & venture 4.3 (best version: pivot Tripwire). Picked by B#3 via Tripwire. See [[Council Verdict]].
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. Almost no hostile AI agents in the wild (Palisade: 8 possible in 8.1M attempts). Its canary tools move into Fire Drill.

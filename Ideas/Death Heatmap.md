@@ -22,4 +22,4 @@ A swarm of Claude computer-use "players" (grandma, power user, speedrunner) trie
 > Substance 5 · Impact 6.5 · Novelty & venture 6.3 (best version: pivot Agent Checkout Heatmap). Picked by no agent. See [[Council Verdict]].
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. Inspector placed at the Berkeley AI Hackathon this spring. Only worth it as a Figma play.

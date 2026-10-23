@@ -28,3 +28,8 @@ Free tier; deploy one Line agent you can phone.
 - [[Waitlist Exchange]] (score 6.3)
 - [[IRL Speedrun Splits]] (score 6.3)
 - [[Where Did I Put It]] (score 5.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+- **[Cartesia] Best Use of Cartesia** · $1,516: Meta glasses (still TBD)
+See [[Prizes]].

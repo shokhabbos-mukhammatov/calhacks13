@@ -22,3 +22,11 @@ Ask for sandbox credentials now; access is by request.
 ## Ideas that hit this sponsor
 - [[AgentFICO]] (score 7.5)
 - [[Agent Tanda]] (score 7.3)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+- **[CRS] Best Overall CRS Hack** · $1,000
+- **[CRS] Best Financial AI Agent** · $500
+- **[CRS] Best Identity / Fraud Innovation** · non-cash: An interview with the CRS team for our open forward-deployed engineer role, for each team member
+- **[CRS] Most Unexpected Use of CRS** · non-cash: An interview with the CRS team for our open forward-deployed engineer role, for each team member
+See [[Prizes]].

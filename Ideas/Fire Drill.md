@@ -93,4 +93,4 @@ The judge-visible hard parts are an attacker that adapts across voice, email and
 > Substance 8 · Impact 8 · Novelty & venture 7.0 (best version: pivot Fire Drill: Proving Ground). Picked by A#1 via Fire Drill: Proving Ground, B#2 via Fire Drill + Callback, C#1 via Fire Drill + Callback. See [[Council Verdict]].
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Pick it, with changes: make both outcomes of the judge's call a win, frame it for Hyphenate as controls testing, and add canary tools plus a real callback to the judge's phone.

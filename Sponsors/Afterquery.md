@@ -26,3 +26,8 @@ Read their VADER benchmark write-up.
 - [[Death Heatmap]] (score 7.6)
 - [[Jailbreak Booth]] (score 6.7)
 - [[Kernel Golf]] (score 6.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Silver**.
+No prize posted on Devpost yet.
+See [[Prizes]].

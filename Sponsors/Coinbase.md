@@ -30,3 +30,8 @@ CDP account; pay a testnet x402 endpoint once.
 - [[Short the PR]] (score 7.3)
 - [[Agent AML]] (score 7.0)
 - [[Kernel Bounties]] (score 5.5)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Bronze**.
+- **[Coinbase] Best Use of x402 by Coinbase** · $2,000: $500 USDC + recruiter call per team member per track, for each of the two tracks (up to $4000 total)
+See [[Prizes]].

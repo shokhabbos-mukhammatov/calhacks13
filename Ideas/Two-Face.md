@@ -92,4 +92,4 @@ It is a controlled experiment, not a scraper: isolating identity as the only var
 > Substance 6 · Impact 6.5 · Novelty & venture 6.7 (best version: the original). Picked by A#6 via Render-Parity Shield, B#5 via Parity Proxy, C#3 via Two-Face KYM: Know Your Merchant for agent cards. See [[Council Verdict]].
 
 ## Team notes
--
+- Oct 23: see [[Two-Face Stress Test]]. Short version: don't build it as written. A reshaped version that compares what the human sees with what the agent reads, checked at the moment of payment, fixes most of the problems.

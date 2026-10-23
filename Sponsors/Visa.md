@@ -31,3 +31,8 @@ Small prize ($200 gift cards). Winner: Kasha, a bill-splitting bot using Visa de
 - [[The 36-Hour Company]] (score 7.2)
 - [[Waitlist Exchange]] (score 6.3)
 - [[Thrift Ticker]] (score 5.8)
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+Devpost tier: **Golden Bear**.
+- **[Visa] Best use of Reimagining Shopping sponsored by Visa** · $5,000
+See [[Prizes]].

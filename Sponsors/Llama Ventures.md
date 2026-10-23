@@ -18,3 +18,7 @@ Startup-able teams and ideas.
 
 ## Ideas that hit this sponsor
 No tech to integrate. These sponsors judge startup potential.
+
+## Cal Hacks 13 prizes (Devpost, Oct 21)
+**Not listed among Devpost sponsors as of Oct 21.** May have dropped out.
+See [[Prizes]].

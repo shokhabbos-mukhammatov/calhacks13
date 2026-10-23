@@ -22,4 +22,4 @@ Clash-style base defense where your base is your real network map. Place segment
 > Substance 5 · Impact 4.5 · Novelty & venture 6.0 (best version: the original). Picked by no agent. See [[Council Verdict]].
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. No real network to load and no posted prize behind it.
