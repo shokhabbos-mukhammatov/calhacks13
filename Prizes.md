@@ -61,6 +61,8 @@ Source: the official *13.0 Hacker Guide* (PDF shared by the team, Oct 23). Where
 - Judging: **3-minute pitch + 2 minutes of questions**.
 
 ## Judging criteria (Cal Hacks prizes)
+**Opening ceremony (Fri Oct 23):** four criteria, each scored out of 5 stars: **Application**, **Functionality/Quality**, **Creativity** and **Technical Complexity**. Intentionality isn't on the slide, and functionality and quality are now one criterion. The Devpost wording below still explains each one.
+
 - **Application**: realistic real-world use; who it helps and why they'd use it.
 - **Intentionality**: intuitive experience, every design choice has a reason.
 - **Functionality**: smooth live demo, no major bugs, plus a clear video for sponsors judging asynchronously.
