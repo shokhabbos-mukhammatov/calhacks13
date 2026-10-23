@@ -11,6 +11,23 @@ Oct 23, before opening. Checks [[Fire Drill + Apify]] against Apify's docs, acco
 
 Build the reshaped version in [[#Reshaped Apify plan]]: two Actors of ours instead of four, and roughly 5 hours instead of 9. Add a third Actor only once the core loop works. [[Fire Drill]]'s own re-score (7.3) doesn't change. The reshaped add-on is a realistic shot at a Best use place and at Best Actor without endangering the [[Hyphenate]] demo.
 
+## Update: $200 of credit, beta access, and we grind
+Later on Oct 23: the team has $200 on Apify plus beta access, and can create, publish and connect Actors. This is a plan to grind on, not a reason to cut. That changes two concerns below, and this section replaces [[#Reshaped Apify plan]]:
+- **Cost (concern 5) is solved.** Even two Standby Actors kept warm all weekend (about $22–29) fit easily. Still set a max charge per run, so a looping drill can't burn the credit.
+- **Scope (concern 1) becomes an order, not a cut.** Build all four Actors. The only rule: every piece has a fallback, so the demo never depends on something unfinished.
+
+These still hold whatever the budget: commit-reveal (2), holding out a tactic family (3), an honest `vendor-verify` (4), Standby conversation state (5, now a design rule), logging the phone drill (6), the judge's number before the clock (7) and the video segment (8).
+
+### Build order
+1. **Fri night:** `attack-feed`. Hash the held-out split to GitHub the moment it finishes, before any patch.
+2. **Fri night to Sat morning:** `fire-drill` with its built-in demo mode. Demo mode is both the fallback and the one-click Store run.
+3. **Sat:** `ap-practice-target` as a Standby Actor. Make it stateless: every request carries the whole conversation, or state lives in a key-value store under a conversation ID. Never rely on a run's memory.
+4. **Sat afternoon:** `vendor-verify` as a Standby MCP server, with onboarding evidence for the number on file and RDAP domain age. Keep OFAC out of the live demo; if built, log it as a compliance flag only.
+5. **Sat night:** breach grid and schedules. Add the "Apify MCP" pack if time allows.
+6. **Sun morning:** publish all four to the Store.
+
+Fallbacks: demo mode if the practice target fails, the number on file if `vendor-verify` fails, and cached runs for everything shown on stage.
+
 ## Concerns, worst first
 
 ### 1. Too wide for two people
