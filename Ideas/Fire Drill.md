@@ -90,4 +90,4 @@ The judge-visible hard parts are an attacker that adapts across voice, email and
 ## Team notes
 - Oct 23: see [[Top Ideas Stress Test]]. Pick it, with changes: make both outcomes of the judge's call a win, frame it for Hyphenate as controls testing, and add canary tools plus a real callback to the judge's phone.
 - Oct 23: see [[Fire Drill + Apify]]. Adds Apify's prizes (Best use, $4.6K; Best Actor, $400) without changing the plan: drills run as an Actor, held-out attacks come from real fraud reports, and the callback number comes from an independent source.
-- Oct 23: see [[Fire Drill + Apify Stress Test]]. Build all four Apify Actors in its build order ($200 of credit covers it), each with a fallback. Hash the held-out attacks to GitHub before patching.
+- Oct 23: see [[Fire Drill + Apify Stress Test]]. Build all four Apify Actors in its build order ($200 of credit covers it), each with a fallback. Hash the held-out attacks to GitHub before patching. Methods (deterministic scoring, Wilson intervals, commit-reveal, the AgentDojo-backed least-privilege patch, parallel grid): [[Fire Drill + Apify Methods]].
