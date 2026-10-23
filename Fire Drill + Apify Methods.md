@@ -91,7 +91,11 @@ The fitted coefficients (as odds ratios) say how much each factor moves the brea
 
 ## Blocked on my end — please grab when you can
 I couldn't reach these from this environment (403 or login). They'd sharpen the plan:
-1. **Cal Hacks 13 Devpost prize pages** (https://cal-hacks-13-0.devpost.com), the exact text for **Apify** "Best use" and "Best Actor", and for **Hyphenate**, **Armadin**, **CRS**. Decides whether Apify wants a Store Actor, the MCP server, or pay-per-event specifically.
+1. ~~Cal Hacks 13 prize pages~~ **Done (Oct 23):** the Hacker Guide gave the Apify, Hyphenate, CRS, Cartesia, Factory, Anthropic and Microsoft criteria. See [[Prizes#Hacker Guide update (Oct 23)]]. Still missing:
+   - The **Hyphenate track doc** linked in the guide as "CalHacks_Hyphenate_Track" (the link target isn't in the PDF).
+   - **Armadin** and **Elastic** criteria ("coming soon" in the guide).
+   - The **CRS sandbox invite**: does it include *business* test identities for business credit and state filings? Sign up at calhacks.crscreditapi.com; the invite and Postman collection arrive by email.
+   - **Factory:** which models Droid can run, and whether Claude is one of them (ask at the Saturday workshop).
 2. **Apify's Cal Hacks booth answer:** what "best use" means to them, and whether beta features (yours) count.
 3. **Your Apify beta access:** what it actually unlocks (new MCP/agent features? higher limits?), so I can design around it.
 4. **AgentDojo appendix A** (attack/defense details) if you want the exact defense configs — the HTML body is enough for us, the appendix only adds polish.

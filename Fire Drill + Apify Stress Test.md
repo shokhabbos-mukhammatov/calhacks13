@@ -28,6 +28,8 @@ These still hold whatever the budget: commit-reveal (2), holding out a tactic fa
 
 Fallbacks: demo mode if the practice target fails, the number on file if `vendor-verify` fails, and cached runs for everything shown on stage.
 
+**Hacker Guide check (Oct 23):** Apify's text asks for "meaningful" use and an Actor built for this event, which the plan meets. CRS's sandbox offers business credit, state filings and its own OFAC check behind an MCP server, so `vendor-verify` calls CRS instead of our own OFAC match. The pitch is now **two minutes**, which makes concern 7 more pressing. Personal hotspots are banned, so fallbacks must be local recordings and caches.
+
 ## Concerns, worst first
 
 ### 1. Too wide for two people

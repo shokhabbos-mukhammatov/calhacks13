@@ -6,6 +6,53 @@ tags: [research, prizes]
 
 Source: https://cal-hacks-13-0.devpost.com · **66 prizes, $126,988 listed as cash** (Creao counts credits as cash, see below).
 
+## Hacker Guide update (Oct 23)
+Source: the official *13.0 Hacker Guide* (PDF shared by the team, Oct 23). Where it differs from the Devpost notes below, follow the guide and confirm in Slack (#0-ask-directors). The prize-amount column was cut off in our copy, so amounts stay as listed below.
+
+**Rules and logistics that changed**
+- Teams of **1–4** (Devpost said 2–4).
+- Submit on Devpost by **Sun 9:00 AM**; late projects aren't judged. Table numbers are assigned after 9 AM, and teams **move to their table by 10:30 AM**. (Devpost said "at your table by 8 AM"; confirm on Slack.)
+- Judges visit tables **10:30 AM–12:30 PM**. The **whole team must stay at the table** for the full window, or the project isn't judged.
+- Prepare a **two-minute pitch** plus answers. A **live demo is required**. Judged on impact, quality, technical complexity and creativity.
+- **All projects must be started during the event.** Submit a draft by Saturday night and keep editing.
+- **No personal hotspots or routers** at the venue, so a demo fallback can't rely on a phone hotspot.
+- Schedule: check-in Fri 1:30 PM, opening 4–6 PM; closing Sun 2–4 PM.
+- Cal Hacks general prizes now: First Overall (MacBook Air 13" M5), Second (Switch 2), Third (Google Intelligent Eyewear), Most Creative, **Most Technically Complex**, Best People-First, Best Planet-First, Best Hardware, Best Beginner, Best Solo, Hacker's Choice.
+
+**Track criteria for our targets**
+- **[[Apify]]:** "Top 5 projects using Apify, we also have a best actor award for building an actor for this event. Project must be using Apify in a meaningful way. We will judge the quality of the project as well as other criteria." $5,000 total.
+- **[[Hyphenate]], Autonomous Systems for Finance:** four questions.
+  1. *Is it real enough?* Realistic data, a messy problem, proof it works.
+  2. *Would you hire it?* For which seats, and would it earn them: limited access, a clean record of its work, knowing when to ask.
+  3. *Did we see something new?*
+  4. *The moment:* it catches what others missed, recovers from something going wrong, or defends a decision when questioned.
+
+  Bring a demo video that **opens with the moment**, a live demo (**judges may ask you to run a scenario of their own**), one line on the seats it fills, and proof it works: **what's real, what's simulated, and how you know**. The full track doc is linked in the guide as "CalHacks_Hyphenate_Track".
+- **[[CRS Credit API]]:** the only rule is meaningful use of the CRS sandbox, shown live. Judged on use of CRS (central, not bolted on), a working demo, usefulness and creativity. Prizes:
+  - Best Overall CRS Hack ($1,000).
+  - **Best Financial AI Agent ($500):** an AI agent doing real work with CRS data through the API or MCP server.
+  - Best Identity/Fraud Innovation and Most Unexpected Use (interviews).
+
+  The sandbox (calhacks.crscreditapi.com) has credit, identity verification, **business credit and state filings**, public records and **OFAC** checks. MCP server: `@crscreditapi/crs-calhacks-mcp-server`.
+- **[[Cartesia]]:** voice must be core, not a demo feature. Submit a working demo, a 2-minute demo-first presentation, a README (setup, Cartesia features, known limitations) and source access with no secrets in the repo. Scored 25% each: problem and originality, use of Cartesia, execution, and impact and responsibility (accessibility, privacy, responsible use). "We'll favor a strong working prototype over a large unfinished idea."
+- **[[Factory]], Droid SDK ($2,000):** Droid (TypeScript or Python SDK) must do real work in the running product, and the README must explain how.
+  - Scores well: it runs on a trigger you designed (an event, a schedule, a user action or another agent), with thoughtful control over what Droid can touch, and with visible plans, steps, diffs and results.
+  - Scores poorly: chatbot wrappers, slide-only demos, and demos where you can't tell what the agent did.
+- **[[Anthropic]]:**
+  1. A named community ("students" is too broad).
+  2. A real problem you've lived or heard first-hand.
+  3. It works: one thing done well and usable on Monday.
+  4. Thoughtful use of Claude, knowing where it could go wrong for users.
+- **[[Microsoft]], Built for the Real World:** a production-minded AI agent for finance, productivity, healthcare or another high-impact domain. Judged on customer understanding, measurable usefulness, path to production, responsible design and end-to-end functionality.
+- **[[Visa]]:** shopping. Innovation 25%, UX 25%, technical execution 20%, commerce impact 15%, trust and responsibility 15%.
+- **[[Capital One]] Nessie:** completeness, creativity, complexity.
+- **[[Meta]]:** human connection, essential and well-integrated AI, originality, working demo.
+- **Not posted yet ("coming soon"):** [[Armadin]], [[Elastic]], [[Convex]], [[Bright Data]].
+- **External docs only:** [[Coinbase]] x402, [[Creao AI]], [[Figma]], [[Fetch.ai]].
+- **Also posted:** Moss, SpaceXAI (must use Cursor plus Grok), Bitdeer, Notability, Mana.space, SpacetimeDB and Atlassian.
+
+**Saturday workshops:** Anthropic (Claude Code), Hyphenate ("Beyond Agentic Harnesses: Engineering the Autonomous Enterprise"), Factory (Droid SDK), Elastic (context engineering), Visa (AI and security in digital payments), and others. No Apify workshop is listed.
+
 ## Rules that change our plan
 - **Teams of 2 to 4** (Devpost setting), yet there is also a **Best Solo Hack** prize. Ask organizers before going solo.
 - Be at your table by **Sun Oct 25, 8 AM**. Submit by **9 AM** with your teammates. Edits allowed until **10 AM**, except the table number.

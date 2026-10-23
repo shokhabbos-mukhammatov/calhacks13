@@ -6,7 +6,7 @@ tags: [index]
 
 **Oct 23–25, 2026** · Palace of Fine Arts, SF · 36 hours · $126,988 in listed prizes · teams of 2–4
 Researched Oct 11, 2026. **Prizes, rules and judging criteria posted on Devpost; updated Oct 21:** see [[Prizes]].
-**Deadlines:** at your table by Sun 8 AM, submit by 9 AM, edits until 10 AM.
+**Deadlines (Hacker Guide, Oct 23):** submit by Sun 9 AM, then the whole team is at its assigned table by 10:30 AM. Judging runs 10:30 AM–12:30 PM with a 2-minute pitch and a live demo. See [[Prizes#Hacker Guide update (Oct 23)]].
 
 ## Start here
 - [[Prizes]]: all 66 prizes, rules and judging criteria (Oct 21)
