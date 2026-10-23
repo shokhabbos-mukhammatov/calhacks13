@@ -35,6 +35,8 @@ Fallbacks: demo mode if the practice target fails, the number on file if `vendor
 - Neither of us has shipped an Actor. Each `apify push` rebuilds the image on Apify, so debugging Standby and MCP in the cloud is slow.
 - **Fix:** keep `fire-drill` and `attack-feed`. Drop `ap-practice-target`; see concern 5. `vendor-verify` waits until the core loop passes end to end. Develop locally with `apify run` and push only working code.
 
+> Algorithms, formulas and architecture for every fix below are in [[Fire Drill + Apify Methods]].
+
 ### 2. "Trusted results" is a weak claim as written
 - Append-only datasets and timestamped runs don't stop us from re-running until the numbers look good or deleting a dataset. We also write the attacker, the target and the scorer. One judge question sinks it: "Couldn't you just re-run until it passed?"
 - **Fix: commit-reveal.** As soon as `attack-feed` finishes, hash the held-out split and commit the hash to GitHub, before Claude Code writes any patch. After the re-run, publish the split, so anyone can check the hash and GitHub's timestamp. Report every run, failures included, as counts ("beats 11 of 12"), not a best take. Combined with a Store listing anyone can run, that is verifiable. Append-only storage alone isn't.
