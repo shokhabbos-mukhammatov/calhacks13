@@ -87,4 +87,4 @@ The closed loop has to look real. If the re-run passes only because the patch ma
 The judge-visible hard parts are an attacker that adapts across voice, email and documents, and a fix that provably generalizes on held-out attacks, ending in a payment that is redirected and then blocked. Few teams will build both the attacker and the victim.
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Pick it, with changes: make both outcomes of the judge's call a win, frame it for Hyphenate as controls testing, and add canary tools plus a real callback to the judge's phone.

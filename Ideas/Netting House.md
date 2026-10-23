@@ -89,4 +89,4 @@ The jaw-drop needs about 12 independent agents to lock, vote, re-solve and commi
 Most teams will build an agent that pays invoices. Netting needs a real optimization model, an all-or-nothing commit across independent agents, and a demo that balances to the cent in front of finance judges.
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Backup for Hyphenate + Fetch.ai. Hook stat: obligation clearing cut a typical firm's cash needs ~25% (Sardex data). Have the net-settlement answer ready.

@@ -83,4 +83,4 @@ Balance. If guards are nearly unbreakable in six turns, there are no heists, no 
 The hard part is an authoritative real-time economy where an LLM tool call is the only way money moves, combined with incentives that turn play into diverse, ground-truth-labeled exploits. Berkeley judges may ask how it differs from Tensor Trust: multi-turn, tool-using agents under a live utility constraint, with patch pairs.
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Only if SpacetimeDB and Supercell post prizes at opening. Lead with how it differs from Tensor Trust (Berkeley).

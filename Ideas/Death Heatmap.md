@@ -19,4 +19,4 @@ A swarm of Claude computer-use "players" (grandma, power user, speedrunner) trie
 **Sponsors:** [[Anthropic]], [[Figma]], [[Listen Labs]], [[Afterquery]]
 
 ## Team notes
--
+- Oct 23: see [[Top Ideas Stress Test]]. Drop. Inspector placed at the Berkeley AI Hackathon this spring. Only worth it as a Figma play.
