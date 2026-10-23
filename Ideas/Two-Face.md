@@ -86,4 +86,4 @@ Real sites may show almost no identity-based differences within 36 hours, or too
 It is a controlled experiment, not a scraper: isolating identity as the only variable while filtering real-world noise, having Claude judge intent with evidence, and feeding the verdict into a live agent’s payment decision.
 
 ## Team notes
--
+- Oct 23: see [[Two-Face Stress Test]]. Short version: don't build it as written. A reshaped version that compares what the human sees with what the agent reads, checked at the moment of payment, fixes most of the problems.
