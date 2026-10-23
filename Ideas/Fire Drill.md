@@ -52,6 +52,7 @@ You build two things. First, a realistic but sandboxed accounts-payable agent (C
 | [[Visa]] | approve_payment runs through the agent-payment sandbox, so the redirect is concrete. |
 | [[Decagon]] / Wajo / Savvy | Swap the victim: a support agent tricked into account changes, a personal agent holding a virtual card, an advisor agent asked to move client money. |
 | [[Illumio]] | Present tool-permission fixes as zero-trust segmentation for agents. |
+| [[Apify]] | The drill runner is a published Actor on a schedule, Apify crawls real fraud reports into held-out attacks, and the patch verifies vendors from the public web. See [[Fire Drill + Apify]]. |
 | [[Afterquery]] / [[Scale]] | The drill library plus held-out variants is itself a labeled eval set. |
 | YC | Security-awareness training is a proven category for humans (KnowBe4); this is the same business for agents. |
 
@@ -88,3 +89,4 @@ The judge-visible hard parts are an attacker that adapts across voice, email and
 
 ## Team notes
 - Oct 23: see [[Top Ideas Stress Test]]. Pick it, with changes: make both outcomes of the judge's call a win, frame it for Hyphenate as controls testing, and add canary tools plus a real callback to the judge's phone.
+- Oct 23: see [[Fire Drill + Apify]]. Adds Apify's prizes (Best use, $4.6K; Best Actor, $400) without changing the plan: drills run as an Actor, held-out attacks come from real fraud reports, and the callback number comes from an independent source.

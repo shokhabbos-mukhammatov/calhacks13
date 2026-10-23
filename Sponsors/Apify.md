@@ -22,6 +22,7 @@ Free account; run one Actor through MCP.
 ## Ideas that hit this sponsor
 - [[Two-Face]] (score 8.0)
 - [[Cal Hacks Futures]] (score 7.1)
+- [[Fire Drill]] (score 8.0), added Oct 23: see [[Fire Drill + Apify]]
 
 ## Cal Hacks 13 prizes (Devpost, Oct 21)
 Devpost tier: **Silver**.
