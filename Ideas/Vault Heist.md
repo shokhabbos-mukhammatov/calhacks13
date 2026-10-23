@@ -18,6 +18,9 @@ A multiplayer game where each player's vault is guarded by a Claude agent they c
 **Angle:** [[Humans as the eval engine]]
 **Sponsors:** [[SpacetimeDB]], [[Supercell]], [[Anthropic]], [[Afterquery]], [[Scale]], [[Coinbase]]
 
+> [!info] Judge audit
+> Prior art, killer questions and fixes: [[Audit - Vault Heist]]
+
 ## Pitch line
 A multiplayer game where every vault is guarded by a Claude agent, and the other 2,000 hackers try to talk it out of its coins.
 

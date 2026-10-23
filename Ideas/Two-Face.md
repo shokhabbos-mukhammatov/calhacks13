@@ -18,6 +18,9 @@ Crawl storefronts with paired "human" and "AI shopper" sessions. Flag sites that
 **Angle:** [[Trust rails for the agent economy]]
 **Sponsors:** [[Bright Data]], [[Apify]], [[Visa]], [[Anthropic]], [[Elastic]], [[Coinbase]], [[Creao AI]], [[Y Combinator]]
 
+> [!info] Judge audit
+> Prior art, killer questions and fixes: [[Audit - Two-Face]]
+
 ## Pitch line
 Agents shop for us now. Two-Face checks whether a store shows your agent the same page it shows you.
 

@@ -18,6 +18,9 @@ Small businesses' agents post open invoices. A netting engine finds circular deb
 **Angle:** [[CFO office, made live]]
 **Sponsors:** [[Hyphenate]], [[Visa]], [[Fetch.ai]], [[Anthropic]], [[Coinbase]], [[Creao AI]], [[Y Combinator]]
 
+> [!info] Judge audit
+> Prior art, killer questions and fixes: [[Audit - Netting House]]
+
 ## Pitch line
 A clearing house for small businesses. Agents post invoices, a solver cancels circular debt, and only the net amounts move.
 

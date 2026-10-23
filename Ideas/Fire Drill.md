@@ -18,6 +18,9 @@ KnowBe4 for AI agents: scheduled fake "CFO" voice calls, vendor bank-change emai
 **Angle:** [[Attack your own agents]]
 **Sponsors:** [[Armadin]], [[Hyphenate]], [[Cartesia]], [[Anthropic]], [[Wajo AI]], [[Decagon]], [[Y Combinator]]
 
+> [!info] Judge audit
+> Prior art, killer questions and fixes: [[Audit - Fire Drill]]
+
 ## Pitch line
 KnowBe4 for AI agents. Attack your own finance agents on a schedule, show the exact turn they broke, patch them, and prove the patch holds.
 

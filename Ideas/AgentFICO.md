@@ -18,6 +18,9 @@ A credit bureau whose customers are AI agents. Payment history across Visa agent
 **Angle:** [[Trust rails for the agent economy]]
 **Sponsors:** [[CRS Credit API]], [[Visa]], [[Fetch.ai]], [[Coinbase]], [[Capital One]]
 
+> [!danger] Judge audit: prior art
+> Funded startups already do this: AgentScore (credit bureau for agents, watching x402 payments), Vouched (Know Your Agent, $17M Series A) and Alien. See [[Judge Verdict]].
+
 > [!warning] Note
 > Came up independently in 3 of 5 branches. That makes it the AI-obvious answer here, so expect other teams to pitch it.
 

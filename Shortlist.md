@@ -6,6 +6,8 @@ tags: [index]
 
 The four ideas worked out in full: demo script, architecture, how to qualify per sponsor, risks, and a 36-hour split.
 
+Judge stress test of all four: [[Judge Verdict]]
+
 - ★ [[Fire Drill]] · 8.0: KnowBe4 for AI agents. Attack your own finance agents on a schedule, show the exact turn they broke, patch them, and prove the patch holds.
 - [[Netting House]] · 8.3: A clearing house for small businesses. Agents post invoices, a solver cancels circular debt, and only the net amounts move.
 - [[Two-Face]] · 8.0: Agents shop for us now. Two-Face checks whether a store shows your agent the same page it shows you.
