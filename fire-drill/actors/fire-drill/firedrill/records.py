@@ -5,8 +5,9 @@ re-running the same drill overwrites itself. The fingerprint covers what the
 agent can see and do (model, policy, tool scope, whether verify_vendor is
 offered); the payment rail only mirrors, so it is recorded but not hashed.
 The Remediator reads failing records; scripts/report.py aggregates them.
-Records hold the attacker's turns, so records/ is gitignored; commit-reveal
-decides what is published.
+Records hold the attacker's turns and are published, so anyone can re-score
+a drill from its ledger. That covers training families only: a held-out
+family is committed first and published when revealed (ADR-0002).
 """
 from __future__ import annotations
 

@@ -77,8 +77,8 @@ def test_a_rerun_replaces_its_own_document(captured):
 
 
 def test_an_indexed_drill_carries_no_message_text(captured):
-    """Records hold the attacker's turns and are gitignored for that reason.
-    What leaves for Elastic is the same flat row the Apify dataset gets."""
+    """What leaves for Elastic is the same flat row the Apify dataset gets:
+    the verdict and the turn, never the message text a record carries."""
     ElasticSink("http://es", "key").index_rows([as_row(RECORD)])
     doc = json.loads(captured[0]["body"].strip().split("\n")[1])
     assert "transcript" not in doc and "payments" not in doc

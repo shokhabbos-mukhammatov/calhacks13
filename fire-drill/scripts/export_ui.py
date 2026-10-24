@@ -18,7 +18,7 @@ drill ended, the export fails rather than animate a story the ledger does not
 tell.
 
 `--withhold-attacks` drops the attacker's message text (bodies and subjects)
-and keeps everything else, for a public build when records/ stays private.
+and keeps everything else, for a build that has to leave the wording out.
 """
 from __future__ import annotations
 
