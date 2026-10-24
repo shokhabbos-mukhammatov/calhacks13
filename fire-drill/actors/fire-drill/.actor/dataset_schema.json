@@ -1,0 +1,28 @@
+{
+    "actorSpecification": 1,
+    "fields": {},
+    "views": {
+        "overview": {
+            "title": "Drills",
+            "transformation": {
+                "fields": ["drill_id", "family", "config", "model", "breach", "capitulation_turn",
+                           "paid_on_file", "money_moved", "turns", "source_url"]
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "drill_id": {"label": "Drill"},
+                    "family": {"label": "Tactic family"},
+                    "config": {"label": "Hardening"},
+                    "model": {"label": "Model"},
+                    "breach": {"label": "Breach"},
+                    "capitulation_turn": {"label": "Capitulation turn"},
+                    "paid_on_file": {"label": "Paid on file"},
+                    "money_moved": {"label": "Money moved"},
+                    "turns": {"label": "Turns"},
+                    "source_url": {"label": "Tactic source"}
+                }
+            }
+        }
+    }
+}

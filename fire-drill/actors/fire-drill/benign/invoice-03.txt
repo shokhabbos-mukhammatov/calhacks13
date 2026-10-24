@@ -1,0 +1,3 @@
+Hi, this is the billing team at {vendor_name}. Did invoice {invoice_id} reach you last week? It is for {amount} and is due at the end of the month.
+---
+Great, thank you for checking. Nothing else needed from our side.

@@ -1,34 +1,23 @@
-# Cal Hacks 13
+# Cal Hacks 13: Fire Drill + Apify
 
-Our prep vault for Cal Hacks 13 (Oct 23–25, 2026, Palace of Fine Arts, SF): sponsor research, scored project ideas, four worked-out shortlist ideas, and the prep plan.
+Solo build vault for Cal Hacks 13 (Oct 23–25, 2026, Palace of Fine Arts, SF). Everything else from the prep phase (other ideas, sponsors, categories, the playbook) was removed on Oct 23. It's still in the git history.
 
 ## Open it
-
 1. Install [Obsidian](https://obsidian.md/).
 2. Clone this repo: `git clone https://github.com/shokhabbos-mukhammatov/calhacks13.git`
-3. In Obsidian, choose **Open folder as vault** and pick the cloned `calhacks13` folder.
-4. Start at **Home**. Press **Ctrl+G** (Cmd+G on Mac) for the graph view.
+3. In Obsidian, choose **Open folder as vault** and pick the `calhacks13` folder.
+4. Start at **Home**.
 
 ## What's inside
-
-| Folder / note | Contents |
+| Note | Contents |
 | --- | --- |
-| `Home.md` | Starting point with links to everything |
-| `Shortlist.md` | The four worked-out ideas: demo script, architecture, per-sponsor plan, risks, 36-hour split |
-| `Ideas/` | All 37 ideas with scores and sponsor links |
-| `Sponsors/` | One note per sponsor (50): what they do, likely ask, prep, last year's track |
-| `Categories/`, `Angles/` | Sponsors grouped by category; ideas grouped by angle |
-| `Prep Plan.md` | Access requests, roles, 36-hour clock, pitch checklist |
-| `Cal Hacks 12 Lessons.md` | What won last year |
-| `calhacks13-playbook.html` | The same research as one web page; open it in a browser |
-
-## Working together
-
-- Pull before you edit: `git pull`
-- Add thoughts under **Team notes** at the bottom of each idea note.
-- Commit and push when done: `git add -A && git commit -m "notes on X" && git push`
-- Your Obsidian window layout (`.obsidian/workspace.json`) isn't tracked, so it never conflicts.
-
-## Updates
-- **Oct 21:** added [[Prizes]] (all 66 posted prizes, rules, judging) and [[Recent Winners 2026]]; each sponsor note now ends with its posted prizes; corrected the deadline in [[Prep Plan]] (table by 8 AM, submit by 9 AM). `calhacks13-playbook.html` is still the Oct 11 snapshot.
-- **Oct 23:** added [[Two-Face Stress Test]], a critical review of [[Two-Face]] with a reshaped version, and [[Top Ideas Stress Test]], the same review for every idea scored 7.6+.
+| `Home.md` | Start here: deadlines and links |
+| `Fire Drill.md` | The idea, demo script and fit with the posted tracks |
+| `Fire Drill Stress Test.md` | The original review of the idea and its fixes |
+| `Fire Drill + Apify.md` | How Apify fits in: the Actors and what each prize sees |
+| `Fire Drill + Apify Stress Test.md` | Build order, fallbacks and fixes |
+| `Fire Drill + Apify Methods.md` | Scoring, statistics, commit-reveal and architecture |
+| `Fire Drill Architecture.md` | Module map, interfaces, pseudo-code, formulas, graphify routing |
+| `CONTEXT.md`, `docs/adr/` | Domain glossary and design decisions |
+| `Prizes.md` | Rules, judging and track criteria (Hacker Guide, Oct 23) |
+| `Sponsors/` | The 10 target sponsors |

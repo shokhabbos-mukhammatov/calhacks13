@@ -1,0 +1,66 @@
+.ledger {
+  position: sticky; top: 84px; align-self: start;
+  background: var(--console); color: var(--console-ink);
+  border: 2px solid var(--ink); padding: 0 0 18px; overflow: hidden;
+  font-size: 14px;
+}
+.ledger__hazard { height: 8px; opacity: 0; transition: opacity 0.3s var(--ease) }
+.ledger--breach .ledger__hazard { opacity: 1 }
+.ledger--breach { animation: jolt 0.42s var(--ease) 1 }
+@keyframes jolt { 0%, 100% { transform: none } 25% { transform: translateX(-4px) } 60% { transform: translateX(3px) } }
+@media (prefers-reduced-motion: reduce) { .ledger--breach { animation: none } }
+
+.ledger__head { display: flex; align-items: baseline; gap: 12px; padding: 16px 20px 12px; border-bottom: 1px solid var(--console-rule) }
+.ledger__title { font: 800 26px/1 var(--font-sign); text-transform: uppercase; letter-spacing: 0.03em }
+.ledger__org { font: 400 12px/1.2 var(--font-mono); color: var(--console-muted) }
+
+.ledger__rows { margin: 0; padding: 12px 20px; border-bottom: 1px solid var(--console-rule) }
+.ledger__rows > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; padding: 3px 0 }
+.ledger__rows dt, .ledger__label {
+  font: 500 11px/1.6 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--console-muted);
+}
+.ledger__rows dd { margin: 0; font-family: var(--font-mono); font-size: 13px }
+
+.ledger__block { padding: 12px 20px; border-bottom: 1px solid var(--console-rule) }
+.ledger__label { display: block; margin-bottom: 6px }
+.ledger__none { font: 400 13px/1.4 var(--font-mono); color: var(--console-muted) }
+.ledger__acct { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; perspective: 400px }
+.ledger__acct-no { font: 500 24px/1.1 var(--font-mono); display: inline-block; color: var(--console-ink) }
+.ledger__acct-no.is-bad { color: var(--console-red) }
+
+.lchip {
+  font: 600 10.5px/1 var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 4px 6px; border: 1.5px solid currentColor; white-space: nowrap;
+}
+.lchip--ok { color: var(--console-green) }
+.lchip--bad { color: var(--console-red) }
+
+.ledger__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px }
+.ledger__list li { display: flex; flex-wrap: wrap; gap: 4px 12px; font: 400 13px/1.4 var(--font-mono) }
+.pay--bad { color: var(--console-red) }
+.t-ok { color: var(--console-green) }
+.t-bad { color: var(--console-red) }
+.t-dim { color: var(--console-muted) }
+
+.ledger__verdict { padding: 14px 20px 4px }
+.lamps { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 7px }
+.lamp { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; align-items: center; gap: 10px; font-size: 13.5px; color: var(--console-muted) }
+.lamp i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--console-muted) }
+.lamp b { font: 600 11px/1 var(--font-mono); letter-spacing: 0.06em }
+.lamp--bad { color: var(--console-ink) }
+.lamp--bad i { background: var(--console-red); border-color: var(--console-red); box-shadow: 0 0 10px var(--console-red) }
+.lamp--bad b { color: var(--console-red) }
+.lamp--ok { color: var(--console-ink) }
+.lamp--ok i { background: var(--console-green); border-color: var(--console-green) }
+.lamp--ok b { color: var(--console-green) }
+.ledger__predicate { display: block; font-size: 12px; color: var(--console-muted); border-top: 1px dashed var(--console-rule); padding-top: 10px }
+
+/* The verdict lands like a rubber stamp on the panel: the one flourish on the
+   page that is allowed to be theatrical, because it is the result. */
+.stamp {
+  margin: 14px 20px 0; padding: 10px 14px; text-align: center;
+  font: 800 30px/1 var(--font-sign); text-transform: uppercase; letter-spacing: 0.04em;
+  border: 3px solid currentColor;
+}
+.stamp--breach { color: var(--console-red) }
+.stamp--held { color: var(--console-green) }

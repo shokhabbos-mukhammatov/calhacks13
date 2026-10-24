@@ -1,0 +1,59 @@
+.redact { border: 2px solid var(--ink); background: var(--paper-2); padding: clamp(18px, 2.5vw, 28px); margin-bottom: clamp(56px, 7vw, 88px) }
+.redact__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; margin-bottom: 14px }
+.redact__head .eyebrow { color: var(--ink-2) }
+.redact__h { font-size: 30px; margin: 6px 0 0 }
+.redact__rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px }
+.redact__row { display: grid; grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr); align-items: center }
+.redact__cell { display: block; font-size: 13px; padding: 10px 12px; background: var(--paper); border: 1px solid var(--rule); overflow-wrap: anywhere; line-height: 1.5 }
+.redact__cell b { font-weight: 600 }
+.redact__arrow { text-align: center; font: 600 18px/1 var(--font-mono); color: var(--signal) }
+mark.raw { background: var(--signal-soft); color: var(--signal); padding: 0 3px; font-weight: 500 }
+.role { display: inline-block; background: var(--ink); color: var(--paper); padding: 0 5px; font-family: var(--font-mono); font-size: 0.95em }
+.redact__foot { display: flex; gap: 24px; align-items: flex-end; justify-content: space-between; margin-top: 18px; flex-wrap: wrap }
+.redact__foot p { margin: 0; max-width: 72ch; color: var(--ink-2); font-size: 15px }
+.redact__foot b { color: var(--ink) }
+@media (max-width: 800px) {
+  .redact__head { grid-template-columns: minmax(0, 1fr); gap: 0 }
+  .redact__head > div:last-child { display: none }
+  .redact__row { grid-template-columns: minmax(0, 1fr) }
+  .redact__arrow { transform: rotate(90deg); padding: 2px 0 }
+}
+
+.fix__h { font-size: clamp(30px, 3.4vw, 44px); margin: 0 0 20px }
+
+.matrix-wrap { margin-bottom: 40px; overflow-x: auto }
+.matrix { border-collapse: collapse; width: 100%; min-width: 560px; border: 2px solid var(--ink) }
+.matrix th, .matrix td { padding: 11px 14px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: middle }
+.matrix thead th { background: var(--ink); color: var(--paper); font: 700 18px/1.1 var(--font-sign); text-transform: uppercase; letter-spacing: 0.02em }
+.matrix__sub { display: block; font: 400 11px/1.3 var(--font-mono); text-transform: none; color: var(--console-muted); letter-spacing: 0 }
+.matrix tbody th { font-weight: 400 }
+.matrix tbody th code { font-size: 13px }
+.matrix__canary { margin-left: 8px; font: 500 10px/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-2); border: 1px dashed var(--ink-2); padding: 2px 4px }
+.matrix td.is-changed { background: color-mix(in srgb, var(--amber) 16%, transparent) }
+.matrix__result th, .matrix__result td { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 600 }
+.matrix__result td b { color: var(--safe); font-size: 18px }
+
+.sc { font: 600 11px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 7px; border: 1.5px solid currentColor; white-space: nowrap }
+.sc--allowed { color: var(--ink-2); border-color: var(--rule) }
+.sc--gated { color: var(--ink); background: var(--amber); border-color: var(--ink) }
+.sc--denied { color: var(--paper); background: var(--ink); border-color: var(--ink) }
+
+.policies { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-bottom: clamp(56px, 7vw, 88px) }
+@media (max-width: 860px) { .policies { grid-template-columns: minmax(0, 1fr) } }
+.policy { border-top: 4px solid var(--ink); padding-top: 14px }
+.policy h4 { font-size: 26px; margin: 6px 0 12px }
+.policy__why { margin: 0 0 14px; padding-left: 20px; display: grid; gap: 10px; font-size: 14.5px; color: var(--ink-2); line-height: 1.55 }
+.policy details summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 8px 0 }
+.policy__text { white-space: pre-wrap; font: 400 12.5px/1.6 var(--font-mono); background: var(--paper-2); padding: 14px; border: 1px solid var(--rule); max-height: 360px; overflow: auto }
+
+.gate { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: center; background: var(--ink); color: var(--paper); padding: clamp(22px, 3vw, 36px); border-left: 10px solid var(--amber) }
+.gate__h { font-size: clamp(32px, 3.4vw, 44px); margin: 0 0 14px }
+.gate__copy p { color: var(--console-muted); font-size: 15.5px; margin: 0 0 14px }
+.gate__copy b { color: var(--paper) }
+.gate__copy code { color: var(--amber) }
+.gate__stat { font-size: 17px !important }
+.gate__stat b { color: var(--console-green); font: 800 34px/1 var(--font-sign) }
+.gate .btn { border-color: var(--paper); color: var(--paper) }
+.gate .btn:hover { background: var(--paper); color: var(--ink) }
+.gate__code { margin: 0; font: 400 12.5px/1.65 var(--font-mono); color: var(--console-ink); background: var(--console-2); padding: 18px; overflow-x: auto; border: 1px solid var(--console-rule) }
+@media (max-width: 900px) { .gate { grid-template-columns: minmax(0, 1fr) } }

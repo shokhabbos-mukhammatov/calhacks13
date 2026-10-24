@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "firedrill"
+version = "0.1.0"
+description = "Fire Drill: a controls-testing harness for your own accounts-payable AI agent"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=2.3",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+# Only the Apify Actors need the platform SDK; the core runs without it.
+actors = ["apify>=4.1,<5"]
+
+[tool.setuptools]
+# Just the package: scripts/, actors/ and tests/ are run from the checkout.
+packages = ["firedrill"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
