@@ -94,7 +94,7 @@ I couldn't reach these from this environment (403 or login). They'd sharpen the 
 1. ~~Cal Hacks 13 prize pages~~ **Done (Oct 23):** the Hacker Guide gave the Apify, Hyphenate, CRS, Cartesia, Factory, Anthropic and Microsoft criteria. See [[Prizes#Hacker Guide update (Oct 23)]]. Still missing:
    - The **Hyphenate track doc** linked in the guide as "CalHacks_Hyphenate_Track" (the link target isn't in the PDF).
    - **Armadin** and **Elastic** criteria ("coming soon" in the guide).
-   - The **CRS sandbox invite**: does it include *business* test identities for business credit and state filings? Sign up at calhacks.crscreditapi.com; the invite and Postman collection arrive by email.
+   - The **CRS sandbox invite**: does it include *business* test identities for business credit and state filings? Sign up at calhacks.crscreditapi.com; the invite and Postman collection arrive by email. **Answered (Oct 24):** no. The spec lists consumer products only; Vendor Verify uses Fraud Finder on the sender address instead (see [[Fire Drill Architecture]] §9).
    - **Factory:** which models Droid can run, and whether Claude is one of them (ask at the Saturday workshop).
 2. **Apify's Cal Hacks booth answer:** what "best use" means to them, and whether beta features (yours) count.
 3. **Your Apify beta access:** what it actually unlocks (new MCP/agent features? higher limits?), so I can design around it.
