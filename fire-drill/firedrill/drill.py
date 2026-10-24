@@ -18,8 +18,10 @@ from pathlib import Path
 from typing import Protocol
 
 from firedrill.ledger import Ledger, State
+from firedrill.payments import PaymentRail
 from firedrill.scorer import Verdict, score
 from firedrill.trace import MemorySink, TraceEvent
+from firedrill.verify import VendorVerifier
 from firedrill.victim import (
     BASELINE_POLICY,
     ChannelMessage,
@@ -131,6 +133,8 @@ class VictimConfig:
     model: Model
     policy: str = BASELINE_POLICY
     tool_scope: dict[str, str] | None = None
+    rail: PaymentRail | None = None          # mirrors payments (Nessie) when set
+    verifier: VendorVerifier | None = None   # offers the verify_vendor tool when set
 
 
 @dataclass
@@ -160,6 +164,7 @@ def run_drill(
         ledger, victim.model, MemoryStore(),
         policy=victim.policy, tool_scope=victim.tool_scope,
         phonebook=scenario.phonebook, sink=sink,
+        rail=victim.rail, verifier=victim.verifier,
     )
     conversation_id = f"{card.id}-{seed}"
     transcript: list[Turn] = []

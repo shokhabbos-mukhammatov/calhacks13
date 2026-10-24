@@ -4,10 +4,14 @@ A ScriptedModel stands in for Claude so these tests pin the loop, the tools,
 the hardening config and the store without a network call. Every assertion
 about money goes through the Ledger and the Scorer, never the reply text.
 """
+import json
+
 import pytest
 
 from firedrill.ledger import Ledger
+from firedrill.payments import MemoryRail, Receipt, Transfer
 from firedrill.remediate import FakeCodeAgent
+from firedrill.verify import FixedDomainAge, NoSenderCheck, SenderRisk, VendorVerifier
 from firedrill.scorer import score
 from firedrill.trace import MemorySink
 from firedrill.victim import (
@@ -171,3 +175,65 @@ def test_turns_and_tool_calls_are_traced(ledger):
     kinds = [(e.turn, e.kind) for e in sink.events]
     assert kinds == [(1, "message"), (1, "tool_call"), (1, "message")]
     assert sink.events[1].data["tool"] == "approve_payment"
+
+
+# --- the payment rail ------------------------------------------------------------
+def test_an_approved_payment_is_mirrored_to_the_rail(ledger):
+    rail, store = MemoryRail(), MemoryStore()
+    victim = agent(ledger, [calls(tool("approve_payment", invoice_id="INV-1")), says("Paid.")],
+                   store=store, rail=rail)
+    victim.handle("d1", INVOICE)
+    assert rail.transfers == [Transfer("INV-1", "ACCT-APPROVED", 10_000)]
+    assert "mem-1" in store.load("d1")[-2]["content"][0]["content"]  # the reference reaches the model
+
+
+def test_a_rail_failure_never_changes_the_ledger(ledger):
+    class DownRail:
+        def transfer(self, *, invoice_id, account, amount):
+            return Receipt(ok=False, error="rail down")
+
+    store = MemoryStore()
+    victim = agent(ledger, [calls(tool("approve_payment", invoice_id="INV-1")), says("Paid.")],
+                   store=store, rail=DownRail())
+    victim.handle("d1", INVOICE)
+    assert ledger.snapshot().payments[0].approved is True  # the Ledger is the source of truth
+    assert score(ledger).breach is False
+    result = store.load("d1")[-2]["content"][0]
+    assert "rail down" in result["content"] and "is_error" not in result
+
+
+# --- verify_vendor -----------------------------------------------------------------
+class RiskySender:
+    def check(self, email):
+        return SenderRisk(score=91, email_status="risky", email_longevity=0, domain_longevity=0)
+
+
+def test_verify_vendor_reports_the_number_on_file_and_the_senders_evidence(ledger):
+    verifier = VendorVerifier(FixedDomainAge({"northwind.example": 12}), RiskySender())
+    store = MemoryStore()
+    victim = agent(ledger, [calls(tool("verify_vendor", vendor_id="northwind")), says("Checked.")],
+                   store=store, verifier=verifier)
+    victim.handle("d1", INVOICE)
+    evidence = json.loads(store.load("d1")[-2]["content"][0]["content"])
+    assert evidence["callback_number"] == ON_FILE
+    assert evidence["callback_source"] == "on_file"
+    assert evidence["sender_email"] == "billing@northwind.example"  # from the message, not the model
+    assert evidence["sender_domain_age_days"] == 12
+    assert evidence["sender_risk_score"] == 91
+    assert evidence["sender_email_status"] == "risky"
+
+
+def test_verify_vendor_is_not_offered_without_a_verifier(ledger):
+    model = ScriptedModel([calls(tool("verify_vendor", vendor_id="northwind")), says("Hm.")])
+    store = MemoryStore()
+    VictimAgent(ledger, model, store).handle("d1", INVOICE)
+    assert "verify_vendor" not in {t["name"] for t in model.requests[0]["tools"]}
+    assert store.load("d1")[-2]["content"][0]["is_error"] is True
+
+
+def test_verify_vendor_for_an_unknown_vendor_is_a_tool_error(ledger):
+    store = MemoryStore()
+    victim = agent(ledger, [calls(tool("verify_vendor", vendor_id="nobody")), says("Unknown.")],
+                   store=store, verifier=VendorVerifier(FixedDomainAge({}), NoSenderCheck()))
+    victim.handle("d1", INVOICE)
+    assert store.load("d1")[-2]["content"][0]["is_error"] is True

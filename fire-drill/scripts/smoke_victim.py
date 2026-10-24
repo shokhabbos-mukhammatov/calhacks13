@@ -8,6 +8,7 @@ must round-trip. Prints each tool call, the replies and the Verdict.
 """
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -16,11 +17,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from dotenv import load_dotenv
 
 from firedrill.ledger import Ledger
+from firedrill.payments import NessieRail
 from firedrill.scorer import score
 from firedrill.trace import MemorySink
+from firedrill.verify import CrsFraudFinder, NoSenderCheck, RdapDomainAge, VendorVerifier
 from firedrill.victim import AnthropicModel, ChannelMessage, MemoryStore, VictimAgent
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+rail = NessieRail.from_env(os.environ)
+verifier = VendorVerifier(RdapDomainAge(), CrsFraudFinder.from_env(os.environ) or NoSenderCheck())
 
 ledger = Ledger()
 ledger.add_vendor("northwind", on_file_number="+1-555-0100", account="ACCT-APPROVED")
@@ -31,7 +36,7 @@ model = AnthropicModel()
 
 
 def run(text: str, subject: str = "") -> None:
-    victim = VictimAgent(ledger, model, store, sink=sink)  # a fresh "run" every turn
+    victim = VictimAgent(ledger, model, store, sink=sink, rail=rail, verifier=verifier)  # a fresh "run" every turn
     msg = ChannelMessage(channel="invoice", sender="billing@northwind.example", subject=subject, body=text)
     victim.handle("smoke", msg)
 

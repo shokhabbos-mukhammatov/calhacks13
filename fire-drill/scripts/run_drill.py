@@ -12,6 +12,7 @@ A turns file holds one message per block, blocks separated by a line of
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -29,6 +30,8 @@ from firedrill.drill import (
     load_cards,
     run_drill,
 )
+from firedrill.payments import NessieRail
+from firedrill.verify import CrsFraudFinder, NoSenderCheck, RdapDomainAge, VendorVerifier
 from firedrill.victim import AnthropicModel
 
 
@@ -54,10 +57,15 @@ def main() -> None:
     args = p.parse_args()
 
     load_dotenv(ROOT / ".env")
+    rail = NessieRail.from_env(os.environ)
+    sender_check = CrsFraudFinder.from_env(os.environ)
+    verifier = VendorVerifier(RdapDomainAge(), sender_check or NoSenderCheck())
     cards = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
     card = cards[args.card_id]
     kit = build_scenario(card, args.seed).kit
 
+    print(f"rail: {'Nessie' if rail else 'none (set NESSIE_* in .env)'} | "
+          f"sender check: {'CRS Fraud Finder' if sender_check else 'none (set CRS_* in .env)'}")
     print(f"card {card.id} [{card.family}] via {card.channel}, sender {card.sender}")
     print(f"  pretext: {card.pretext}\n  lever:   {card.lever}\n  ask:     {card.ask}")
     print("kit:", ", ".join(f"{k}={v}" for k, v in asdict(kit).items()), "\n")
@@ -69,7 +77,8 @@ def main() -> None:
         attacker = TypedAttacker()
 
     drill = run_drill(card, args.seed, attacker=attacker,
-                      victim=VictimConfig(model=AnthropicModel()), max_turns=args.max_turns)
+                      victim=VictimConfig(model=AnthropicModel(), rail=rail, verifier=verifier),
+                      max_turns=args.max_turns)
 
     print("\n=== transcript ===")
     for t in drill.transcript:
