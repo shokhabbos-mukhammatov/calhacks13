@@ -15,7 +15,7 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Callable, Protocol
+from typing import Any, Callable, Mapping, Protocol
 
 
 @dataclass
@@ -138,6 +138,15 @@ class CrsFraudFinder:
         self._http = http
         self._token: str | None = None
         self._login_failed = False
+
+    @classmethod
+    def from_env(cls, env: Mapping[str, str]) -> CrsFraudFinder | None:
+        """The check when CRS_USERNAME and CRS_PASSWORD are set, else None."""
+        user, password = env.get("CRS_USERNAME", ""), env.get("CRS_PASSWORD", "")
+        if not (user and password):
+            return None
+        return cls(user, password,
+                   base_url=env.get("CRS_BASE_URL") or "https://api-sandbox.stitchcredit.com/api")
 
     def check(self, email: str) -> SenderRisk:
         try:

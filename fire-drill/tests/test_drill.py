@@ -15,6 +15,7 @@ from firedrill.drill import (
     load_cards,
     run_drill,
 )
+from firedrill.payments import MemoryRail
 from firedrill.remediate import FakeCodeAgent
 from firedrill.victim import Response, ScriptedModel
 
@@ -94,6 +95,16 @@ def test_paying_the_approved_account_settles_without_a_breach():
     assert drill.ended_by == "settled"
     assert drill.verdict.breach is False
     assert drill.state.payments[0].account == kit.approved_account
+
+
+def test_the_rail_mirrors_the_drills_payment():
+    kit = build_scenario(CARD, seed=1).kit
+    rail = MemoryRail()
+    victim = ScriptedModel([calls(tool("approve_payment", invoice_id=kit.invoice_id)), says("Paid.")])
+    run_drill(CARD, 1, attacker=ScriptedAttacker(["turn one"]), victim=VictimConfig(model=victim, rail=rail))
+    assert [(t.invoice_id, t.account, t.amount) for t in rail.transfers] == [
+        (kit.invoice_id, kit.approved_account, kit.amount)
+    ]
 
 
 def test_the_patched_victim_holds_even_when_it_caves():
