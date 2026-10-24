@@ -205,6 +205,11 @@ Keep the code and the vault separate, and let graphify publish a live knowledge 
 Why it helps: solo, the graph is a navigable map of the agent, tools, scorer and Actors; in the pitch, "every module, auto-mapped" is a cheap **Technical Complexity** and **Intentionality** signal, and it routes straight into the vault the judges can be shown.
 
 ## 8. Build order (maps to the tickets)
+
+Status as of Sat 24 Oct, kept in [[Fire Drill Status]]: 1, 2, 3, 5, 6, 7 and 9
+are done; 4 went further than planned (Clopper-Pearson, Fisher's exact test,
+the (U, S) pair, a concurrent grid with alpha-spent stopping); 8 has the voice
+Channel live on a phone number but no Scorecard UI yet.
 1. Ledger + deterministic Scorer (the trust core; everything asserts through it).
 2. Victim Agent with tools over the Ledger; one Channel (invoice).
 3. Attack Driver + one Tactic Family end to end → first Verdict.

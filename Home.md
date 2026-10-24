@@ -8,6 +8,7 @@ tags: [index]
 **Deadlines (Hacker Guide):** submit on Devpost by Sun 9 AM, then be at your assigned table by 10:30 AM. Judging runs 10:30 AM–12:30 PM: a 2-minute pitch plus a live demo. Personal hotspots are banned. See [[Prizes#Hacker Guide update (Oct 23)]].
 
 ## The project
+- **[[Fire Drill Status]]: what is built, what is live, what is left — read this first**
 - [[Fire Drill]]: the idea, demo script and fit with the posted tracks
 - [[Fire Drill Stress Test]]: the original review and its fixes
 - [[Fire Drill + Apify]]: the Apify plan

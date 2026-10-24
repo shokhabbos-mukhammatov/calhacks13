@@ -52,7 +52,16 @@ The Tactic Families withheld from Remediation and used only in the re-run. Prove
 The matrix of Drills across models × hardening levels × Tactic Families, run to measure breach rates before and after a Patch.
 
 **Scorecard**:
-The headline pair (U, S): benign Utility and Security = 1 − attack success rate, before and after.
+The headline pair (U, S): benign Utility and Security = 1 − attack success rate, before and after. Read together: an agent that refuses everything scores a perfect S and is worthless.
+
+**Look**:
+One batch of drills in a Breach Grid cell. The looks are fixed in advance and the confidence level is split across them, so stopping early cannot inflate the error rate.
+
+**Hardening Level**:
+What a grid cell varies: `baseline` (no controls), `baseline+verify`, `patch:<name>` (a Patch the Remediator wrote), or `scope:<name>` (that Patch's tool scope with its policy dropped, so the code gate is tested rather than the agent's willingness).
+
+**Relay**:
+The voice Channel's front end. A phone call is transcribed and handed to the same Victim Agent a text Drill uses, so voice is a Channel and not a second agent.
 
 **Vendor Verification**:
 Independent evidence about a vendor gathered outside the request: callback number on file, sender-domain age, and the fraud risk and age of the sender's email address (CRS Fraud Finder). Backs the callback Control.
