@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "crs-calhacks": {
+      "command": "npx",
+      "args": ["-y", "@crscreditapi/crs-calhacks-mcp-server@latest"],
+      "env": {
+        "CRS_USERNAME": "${CRS_USERNAME}",
+        "CRS_PASSWORD": "${CRS_PASSWORD}"
+      }
+    }
+  }
+}

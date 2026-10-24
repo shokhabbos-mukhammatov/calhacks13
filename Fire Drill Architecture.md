@@ -224,7 +224,7 @@ Every sponsor plugs in as an **adapter behind a port** with an in-memory fallbac
 | LLM for agent and drill driver | — | [[Anthropic]] Claude (plain `anthropic` SDK, tool loop) | A |
 | Remediation `CodeAgent` | `FakeCodeAgent` | Claude Code (headless) · [[Factory]] Droid SDK | A / B |
 | Corpus + runner + verify Actors | local functions | [[Apify]] Actors, Standby | A |
-| `BusinessCheck` | `NoBusinessCheck` | [[CRS Credit API]] via MCP | A |
+| `BusinessCheck` | `NoBusinessCheck` | [[CRS Credit API]] sandbox API: Fraud Finder (requester email/phone) + reverse lookup of the callback number | A |
 | `DomainAge` | `FixedDomainAge` | RDAP (real, keyless) | done |
 | `PaymentRail` | `MemoryRail` | [[Capital One]] Nessie | A |
 | `TraceSink` | `MemorySink` | [[Elastic]] Agent Builder · Apify dataset | B |
