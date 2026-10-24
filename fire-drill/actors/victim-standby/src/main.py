@@ -42,7 +42,7 @@ CARDS = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
 _store = None
 
 
-async def store():
+async def open_store():
     """The drills' storage, shared across runs.
 
     A run's default key-value store belongs to that run alone, so a drill
@@ -74,7 +74,7 @@ async def start_drill(body: dict) -> tuple[int, dict]:
     conversation_id = f"{card_id}-s{seed}-{config_name}".replace(":", "-")
 
     scenario = build_scenario(card, seed)
-    kvs = await store()
+    kvs = await open_store()
     await kvs.set_value(world_key(conversation_id), {
         "card_id": card_id, "seed": seed, "config": config_name, "model": model_id,
         "ledger": scenario.ledger.to_dict(),
@@ -85,7 +85,7 @@ async def start_drill(body: dict) -> tuple[int, dict]:
 
 
 async def handle_message(conversation_id: str, body: dict) -> tuple[int, dict]:
-    kvs = await store()
+    kvs = await open_store()
     world = await kvs.get_value(world_key(conversation_id))
     if world is None:
         return 404, {"error": f"no drill {conversation_id!r}; POST /drill first"}
@@ -121,7 +121,7 @@ async def handle_message(conversation_id: str, body: dict) -> tuple[int, dict]:
 
 
 async def drill_verdict(conversation_id: str) -> tuple[int, dict]:
-    kvs = await store()
+    kvs = await open_store()
     world = await kvs.get_value(world_key(conversation_id))
     if world is None:
         return 404, {"error": f"no drill {conversation_id!r}"}
