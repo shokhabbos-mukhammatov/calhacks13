@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT))
 
 from dotenv import load_dotenv
 
+from firedrill.console import use_utf8
 from firedrill.drill import (
     BENIGN_CARD,
     CARDS_DIR,
@@ -61,6 +62,7 @@ def turns_for(card_id: str | None, seed: int) -> list[str] | None:
 
 
 def main() -> None:
+    use_utf8()
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--cards", nargs="*", default=[], help="card ids; needs turns/<card>.txt")
     p.add_argument("--benign", action="store_true", help="also run the honest invoice pack")

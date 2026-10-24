@@ -4,6 +4,7 @@ written by a person: the text-channel version of the judge-on-the-phone demo.
     .venv/Scripts/python scripts/run_drill.py vmt-01 --seed 1                                   # type each turn
     .venv/Scripts/python scripts/run_drill.py vmt-01 --seed 1 --turns turns/vmt-01.txt --dry-run # check a turns file
     .venv/Scripts/python scripts/run_drill.py vmt-01 --seed 1 --turns turns/vmt-01.txt --save    # run and record
+    .venv/Scripts/python scripts/run_drill.py vmt-02 --seed 1 --config baseline --replay          # no model call
     .venv/Scripts/python scripts/run_drill.py --benign --turns benign/invoice-01.txt --seed 1 --save
     .venv/Scripts/python scripts/run_drill.py vmt-01 --seed 1 --turns turns/vmt-01.txt --config patched --model claude-haiku-5-5 --save
 
@@ -18,6 +19,8 @@ A turns file holds one message per block, blocks separated by a line of
 --dry-run prints the kit and the filled turns without calling the model.
 --save writes the drill to records/ for the Remediator and scripts/report.py.
 --benign runs honest turns against the built-in benign card (utility).
+--replay re-prints a drill already in records/ without a key, a model call or
+a network: the rehearsal path, and what to run if the venue wifi dies.
 """
 from __future__ import annotations
 
@@ -32,6 +35,7 @@ sys.path.insert(0, str(ROOT))
 
 from dotenv import load_dotenv
 
+from firedrill.console import use_utf8
 from firedrill.drill import (
     BENIGN_CARD,
     CARDS_DIR,
@@ -43,7 +47,7 @@ from firedrill.drill import (
     run_drill,
 )
 from firedrill.payments import NessieRail
-from firedrill.records import save_drill
+from firedrill.records import drill_to_record, find_records, save_drill
 from firedrill.verify import CrsFraudFinder, NoSenderCheck, RdapDomainAge, VendorVerifier
 from firedrill.victim import AnthropicModel
 
@@ -66,7 +70,31 @@ def read_turns(path: Path, kit) -> list[str]:
     return [b.strip().format(**asdict(kit)) for b in blocks if b.strip()]
 
 
+def print_drill(record: dict) -> None:
+    """A drill, printed from its record.
+
+    One printer, whether the drill just ran or was saved hours ago: a replay
+    that reconstructed the output by some other route could disagree with the
+    live run, and the whole point of a replay is that it cannot."""
+    print("\n=== transcript ===")
+    for t in record["transcript"]:
+        print(f"\n--- turn {t['turn']} attacker ({t['sender']}) ---\n{t['body']}")
+        for call in record["tool_calls"]:
+            if call["turn"] == t["turn"]:
+                flag = " [error]" if call["error"] else ""
+                print(f"    tool {call['tool']}({call['input']}){flag} -> {call['result']}")
+        print(f"--- turn {t['turn']} agent ---\n{t['reply']}")
+    v = record["verdict"]
+    print(f"\nVERDICT: breach={v['breach']} oob={v['oob']} canary={v['canary']} "
+          f"cap_turn={record['cap_turn']} paid_on_file={record['paid_on_file']} "
+          f"ended_by={record['ended_by']}")
+    print("payments:", [(p["invoice_id"], p["account"],
+                         "approved" if p["approved"] else "UNAPPROVED")
+                        for p in record["payments"]])
+
+
 def main() -> None:
+    use_utf8()
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("card_id", nargs="?", help="a card id from cards/*.json (omit with --benign)")
     p.add_argument("--benign", action="store_true", help="honest turns against the built-in benign card")
@@ -77,6 +105,8 @@ def main() -> None:
                    help=f"hardening level: {', '.join(CONFIGS)}, or patch:<name> from patches/ (default: baseline)")
     p.add_argument("--model", default="claude-opus-5-5", help="victim model id (default: claude-opus-5-5)")
     p.add_argument("--dry-run", action="store_true", help="print the kit and filled turns; no model calls")
+    p.add_argument("--replay", action="store_true",
+                   help="re-print a drill already in records/; no key, no model call, no network")
     p.add_argument("--save", action="store_true", help="write the drill to records/")
     args = p.parse_args()
 
@@ -105,6 +135,21 @@ def main() -> None:
         print("dry run: no model calls made")
         return
 
+    # The rehearsal path, and the one to reach for if the venue network dies.
+    # It runs before anything loads a key, so it cannot fail for want of one.
+    if args.replay:
+        found = find_records(card.id, args.seed, args.config)
+        if not found:
+            p.error(f"no saved drill for card {card.id}, seed {args.seed}, config "
+                    f"{args.config!r}. Run it once with --save, or see what is already "
+                    f"recorded with: scripts/scorecard.py --open")
+        record = found[0]
+        print(f"REPLAY of {record['card']['id']}-s{record['seed']} [{record['config']['name']} "
+              f"on {record['config']['model']}] recorded {record['saved_at']}")
+        print("no model call, no network: this is the drill exactly as it ran.")
+        print_drill(record)
+        return
+
     load_dotenv(ROOT / ".env")
     rail = NessieRail.from_env(os.environ)
     sender_check = CrsFraudFinder.from_env(os.environ)
@@ -122,19 +167,7 @@ def main() -> None:
     attacker = ScriptedAttacker(read_turns(args.turns, kit)) if args.turns else TypedAttacker()
     drill = run_drill(card, args.seed, attacker=attacker, victim=config, max_turns=args.max_turns)
 
-    print("\n=== transcript ===")
-    for t in drill.transcript:
-        print(f"\n--- turn {t.turn} attacker ({t.message.sender}) ---\n{t.message.body}")
-        for e in drill.events:
-            if e.turn == t.turn and e.kind == "tool_call":
-                flag = " [error]" if e.data["error"] else ""
-                print(f"    tool {e.data['tool']}({e.data['input']}){flag} -> {e.data['result']}")
-        print(f"--- turn {t.turn} agent ---\n{t.reply}")
-    v = drill.verdict
-    print(f"\nVERDICT: breach={v.breach} oob={v.oob} canary={v.canary} cap_turn={drill.cap_turn} "
-          f"paid_on_file={drill.paid_on_file} ended_by={drill.ended_by}")
-    print("payments:", [(pm.invoice_id, pm.account, "approved" if pm.approved else "UNAPPROVED")
-                        for pm in drill.state.payments])
+    print_drill(drill_to_record(drill, config))
     if args.save:
         print("saved:", save_drill(drill, config))
 

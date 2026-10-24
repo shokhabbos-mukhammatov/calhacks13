@@ -20,6 +20,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from firedrill.console import use_utf8
+
 from dotenv import dotenv_values
 
 ENV = {k: (v or "") for k, v in dotenv_values(ROOT / ".env").items()}
@@ -137,14 +139,31 @@ def check_rdap() -> None:
 
 
 def check_elastic() -> None:
+    from firedrill.elastic import BREACH_TOOL, DRILL_INDEX
+
     h = {"Authorization": f"ApiKey {ENV.get('ELASTIC_API_KEY', '')}"}
-    s, b = http("GET", ENV.get("ELASTICSEARCH_URL", "https://none.invalid").rstrip("/") + "/", headers=h)
+    es = ENV.get("ELASTICSEARCH_URL", "https://none.invalid").rstrip("/")
+    kb = ENV.get("KIBANA_URL", "https://none.invalid").rstrip("/")
+    s, b = http("GET", es + "/", headers=h)
     record("Elastic", "cluster reachable", s == 200,
            b.get("version", {}).get("number", "") if s == 200 else str(b)[:50])
-    s, b = http("GET", ENV.get("KIBANA_URL", "https://none.invalid").rstrip("/") + "/api/agent_builder/tools",
-                headers=h)
-    record("Elastic", "Agent Builder reachable", s == 200,
-           f"{len(b.get('results', []))} tools" if s == 200 else str(b)[:50])
+
+    # Reachable is not the same as useful: the corpus has to hold drills, and
+    # the tool has to come back with an answer, or nothing is actually wired.
+    s, b = http("GET", f"{es}/{DRILL_INDEX}/_count", headers=h)
+    record("Elastic", "drill corpus indexed", s == 200 and b.get("count", 0) > 0,
+           f"{b.get('count', 0)} drills in {DRILL_INDEX}" if s == 200 else str(b)[:50])
+
+    s, b = http("POST", f"{kb}/api/agent_builder/tools/_execute",
+                {"tool_id": BREACH_TOOL["id"],
+                 "tool_params": {"config": "baseline", "family": "*"}},
+                headers={**h, "kbn-xsrf": "true"})
+    # An execution returns the echoed query first and the table after it, so
+    # pick the result out by type rather than by position.
+    rows = next((r["data"]["values"] for r in (b.get("results") or [])
+                 if r.get("type") == "esql_results"), []) if s == 200 else []
+    record("Elastic", "Agent Builder tool answers", bool(rows),
+           f"{BREACH_TOOL['id']} -> {len(rows)} cell(s)" if rows else str(b)[:70])
 
 
 def check_factory() -> None:
@@ -162,6 +181,7 @@ def check_factory() -> None:
 
 
 def main() -> None:
+    use_utf8()
     os.environ.update({k: v for k, v in ENV.items() if v})
     print("Checking every integration end to end.\n")
     for fn in (check_anthropic, check_apify, check_cartesia, check_nessie,

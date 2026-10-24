@@ -63,7 +63,41 @@ removed. Under `scope:v1` the agent *did* change the bank details and then
 called `approve_payment`, and the harness refused it. The gate is proven in
 code, with no policy helping.
 
-92 drills are recorded. 151 tests pass.
+92 drills are recorded. 176 tests pass.
+
+### The scorecard page
+
+```powershell
+.\.venv\Scripts\python.exe scripts\scorecard.py --open
+```
+
+One self-contained HTML page: the (U, S) pair before and after hardening as a
+forest plot, every attack drill as its own cell, the generalization gap, and
+the full drill log. The Actor writes the same bytes to `REPORT.html`, so the
+page a judge opens at the table and the page a stranger finds on Apify cannot
+disagree.
+
+Four constraints shaped it, and each is visible in the result:
+
+- **No network.** Personal hotspots are banned at the venue, so there is no
+  webfont, no CDN and no icon set - system sans and inline SVG. A test asserts
+  the page holds no outside reference at all.
+- **No JavaScript.** It has to render inside Apify's sandboxed key-value
+  viewer and survive print-to-PDF, so the hover layer is SVG `<title>` and the
+  table view is `<details>`. There is nothing that can fail to load.
+- **Never a rate without n.** A heatmap of breach rates hides the sample size
+  the rate depends on, so the grid is a *unit chart*: one cell per drill,
+  countable, with a wider gap at each **look** the sequential test was allowed
+  to stop on. A row ending on a gap was decided; a shorter row simply has
+  fewer drills behind it, which is why its interval is wider.
+- **The claim is the interval, so plot the interval.** The headline is not a
+  number, it is "these two intervals do not overlap" - a forest plot, the form
+  a trial report uses for exactly this comparison, not a KPI tile.
+
+Colour is reserved: the page is ink on paper, and the only hue in the data
+layer is on a cell where money moved. Nothing is encoded by hue alone - a
+breach cell also carries the turn the agent capitulated, both states are named
+in the legend, and every value is in the table view.
 
 ---
 
@@ -118,7 +152,15 @@ honest invoice pack, and no attack text.
 
 # breach and utility rates per model, hardening level and family
 .\.venv\Scripts\python.exe scripts\report.py
+
+# re-print a drill already recorded: no key, no model call, no network
+.\.venv\Scripts\python.exe scripts\run_drill.py vmt-02 --seed 1 --config baseline --replay
 ```
+
+`--replay` is the rehearsal path. Records are content-addressed and the
+replay prints through the same printer a live run uses, so what it shows is
+the drill exactly as it ran. If the venue network dies at 10:30, the demo is
+still a demo.
 
 Hardening levels, passed as `--config`:
 
@@ -247,10 +289,10 @@ before `apify push`; `tests/test_actors_in_sync.py` fails if a copy drifts.
 | **CRS Credit API** | Fraud Finder scores the sender's address inside Vendor Verify | Working |
 | **Factory** | Droid wrote `patches/v1-droid.json` from the failing drills | Working |
 | **RDAP** | Sender-domain age, real and keyless | Working |
-| **Elastic** | Cluster and Agent Builder reachable | **Not wired into the product** |
+| **Elastic** | The drill corpus, and an Agent Builder tool that queries it | Working |
 
 `scripts/check_integrations.py` exercises each of these for real and prints a
-pass/fail line. It currently reports 19 of 19.
+pass/fail line. It currently reports 20 of 20.
 
 **Every sponsor sits behind a port with an in-memory fallback**, so the core
 demo runs offline and any one of them can be dropped without breaking it.
@@ -322,10 +364,11 @@ here can be recomputed from `records/`.
 
 ```
 firedrill/        ledger, scorer, victim agent, drill loop, remediation,
-                  commit-reveal, vendor verify, payment rail, Apify adapters
-tests/            151 tests, all offline
-scripts/          run_drill, grid, report, remediate, nessie_seed,
-                  sync_actors, check_integrations, smoke_victim
+                  commit-reveal, vendor verify, payment rail, statistics, the
+                  scorecard renderer, Apify and Elastic adapters
+tests/            176 tests, all offline
+scripts/          run_drill, grid, report, scorecard, remediate, elastic_index,
+                  keep_warm, nessie_seed, sync_actors, check_integrations
 cards/            tactic cards, each citing a public fraud report
 benign/           honest invoice packs, for the usefulness half of the score
 patches/          structural patches written by Claude Code and by Droid

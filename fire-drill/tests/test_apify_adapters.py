@@ -160,7 +160,7 @@ def test_a_dataset_row_holds_no_message_text():
     assert ATTACKER_TEXT not in json.dumps(drill_row(drill, config))
 
 
-def test_the_html_report_counts_breaches_and_links_the_source():
+def test_the_html_report_leads_with_the_result_and_links_the_source():
     drill, config, _ = breaching_drill()
     row = drill_row(drill, config)
     page = report_html([row, {**row, "drill_id": "benign-s1", "family": "benign", "breach": False,
@@ -169,13 +169,25 @@ def test_the_html_report_counts_breaches_and_links_the_source():
     import re
 
     text = re.sub(r"<[^>]+>", "", page)
-    assert "2 drills" in text and "1 breach(es) in 1 attack drills" in text
-    assert "1/1 honest invoices still paid" in text
+    assert "2 drills" in text
+    assert "1 of 1" in text                       # the finding, in the units of the claim
     assert 'href="https://example.org/report"' in page
-    assert "BREACH" in page and "vmt-01-s1" in page
+    assert "vmt-01-s1" in page
 
 
 def test_the_html_report_escapes_its_values():
     drill, config, _ = breaching_drill()
     row = {**drill_row(drill, config), "drill_id": "<script>alert(1)</script>"}
     assert "<script>" not in report_html([row])
+
+
+def test_the_html_report_asks_for_nothing_over_the_network():
+    """Personal hotspots are banned at the venue, so the artefact has to paint
+    from a file, from a key-value store and on paper without fetching
+    anything. A reference to an outside host would only fail where it
+    matters."""
+    drill, config, _ = breaching_drill()
+    page = report_html([drill_row(drill, config)])
+    body = page.replace('href="https://example.org/report"', "")   # the tactic source citation
+    for forbidden in ("<script", "http://", "https://", "@import", "url(", "<iframe", "<link"):
+        assert forbidden not in body, forbidden
