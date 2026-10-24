@@ -28,9 +28,19 @@ drills, six per cell:
 | `patch:v1` — written by Claude Code | **0 of 6** | 3 of 3 |
 | `patch:v1-droid` — written by Factory Droid | **0 of 6** | 3 of 3 |
 
-Security up, usefulness unchanged. Read the intervals, not the rates: 0 of 6
-is consistent with a true breach rate up to 39%, which is why
-`scripts/report.py` prints a Wilson 95% interval beside every number.
+As the headline pair, where `U` is benign tasks completed and `S = 1 − ASR`:
+
+```
+baseline → patch:v1     U 1.00 → 1.00     S 0.33 → 1.00
+```
+
+Security up, usefulness unchanged. Both halves matter: an agent that refuses
+everything scores a perfect `S` and is worthless.
+
+Read the intervals, not the rates. 0 of 6 is consistent with a true breach
+rate up to 39%, so `scripts/report.py` prints a 95% interval beside every
+number — Wilson by default, or `--interval clopper-pearson` for the exact,
+conservative one — and says plainly when two intervals still overlap.
 
 Two code agents, given the same failures, chose different structural fixes.
 Claude Code kept the bank-change tool and gated `approve_payment` behind a
