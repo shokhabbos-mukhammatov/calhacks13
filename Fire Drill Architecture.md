@@ -30,7 +30,7 @@ Each box is a deep module: a lot of behaviour behind a small interface. Arrows a
                    tool calls      │          │ verify
              ┌────────────────────▼──┐   ┌────▼───────────────┐
              │   Ledger (world +     │   │  Vendor Verify      │
-             │   deterministic score)│   │ (CRS MCP + RDAP)    │
+             │   deterministic score)│   │ (CRS + RDAP)        │
              └───────────────────────┘   └─────────────────────┘
                         ▲
             score(txn)  │   every Drill, Verdict, grid cell →
@@ -69,7 +69,7 @@ Remediator                           # code-agent port (ADR-0004)
 
 VendorVerify                         # vendor-verify Standby Actor
   verify(vendor_ref, request) -> Evidence{callback_number, domain_age_days,
-                                          business_ok, sanctions_hit, source_urls}
+                                          sender_risk_score, sender_email_status, sender_email_longevity, source_urls}
 ```
 
 The **deletion test**: delete the Ledger and the Verdict becomes an argument across every Drill; delete the Scorer and scoring logic scatters into the UI. Both earn their keep. The Attack Corpus is one adapter today, so its seam is hypothetical; keep it a plain function until a second source type justifies a port.
@@ -210,7 +210,7 @@ Why it helps: solo, the graph is a navigable map of the agent, tools, scorer and
 3. Attack Driver + one Tactic Family end to end → first Verdict.
 4. Eval Harness: ASR + Wilson, then the parallel grid.
 5. Remediator through the code-agent port; held-out re-run + commit-reveal.
-6. Vendor Verify (CRS MCP + RDAP); wire into the callback Control.
+6. Vendor Verify (CRS Fraud Finder + RDAP); wire into the callback Control.
 7. attack-feed Actor; fire-drill Actor; publish.
 8. Scorecard UI; voice Channel (Cartesia) last.
 9. graphify route into the vault; link from [[Home]].
@@ -224,13 +224,15 @@ Every sponsor plugs in as an **adapter behind a port** with an in-memory fallbac
 | LLM for agent and drill driver | — | [[Anthropic]] Claude (plain `anthropic` SDK, tool loop) | A |
 | Remediation `CodeAgent` | `FakeCodeAgent` | Claude Code (headless) · [[Factory]] Droid SDK | A / B |
 | Corpus + runner + verify Actors | local functions | [[Apify]] Actors, Standby | A |
-| `BusinessCheck` | `NoBusinessCheck` | [[CRS Credit API]] via MCP | A |
+| `SenderCheck` | `NoSenderCheck` | [[CRS Credit API]] Fraud Finder: sender-address fraud risk and age | done |
 | `DomainAge` | `FixedDomainAge` | RDAP (real, keyless) | done |
-| `PaymentRail` | `MemoryRail` | [[Capital One]] Nessie | A |
+| `PaymentRail` | `MemoryRail` | [[Capital One]] Nessie: a transfer on the AP account plus a deposit on the payee's account (records only; this Nessie does not move balances) | done |
 | `TraceSink` | `MemorySink` | [[Elastic]] Agent Builder · Apify dataset | B |
 | Voice channel | text channel | [[Cartesia]] Line | B |
 
 Framing only (no code): [[Hyphenate]] (audit report, real-vs-simulated panel, judge-typed scenario, seats line), [[Armadin]], [[Microsoft]], and Cal Hacks' Most Technically Complex, Best Solo Hack and Most Creative.
+
+CRS note (Oct 24): the CalHacks sandbox exposes consumer products only (credit reports, identity verification, criminal and eviction records, contact append, Fraud Finder, bankruptcies/liens/judgments), so there is no business-credit or state-filings call to back a `BusinessCheck`. Vendor Verify uses Fraud Finder on the sender's email address instead: a 0–100 fraud risk score plus how long the address and its domain have been seen. For a vendor-mailbox takeover that signal reads clean, which is the point: only the callback catches it.
 
 SDK default: the plain `anthropic` SDK with a hand-built tool loop, light enough for an Apify Standby Actor. Claude Code does remediation. This is easy to reverse, so there's no ADR.
 

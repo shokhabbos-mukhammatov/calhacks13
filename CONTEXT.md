@@ -55,4 +55,4 @@ The matrix of Drills across models × hardening levels × Tactic Families, run t
 The headline pair (U, S): benign Utility and Security = 1 − attack success rate, before and after.
 
 **Vendor Verification**:
-Independent evidence about a vendor gathered outside the request: callback number on file, sender-domain age, business identity and sanctions. Backs the callback Control.
+Independent evidence about a vendor gathered outside the request: callback number on file, sender-domain age, and the fraud risk and age of the sender's email address (CRS Fraud Finder). Backs the callback Control.
