@@ -7,6 +7,7 @@ import json
 
 from firedrill.apify_adapters import (
     PrefetchedStore,
+    call_key,
     conversation_key,
     drill_row,
     report_html,
@@ -82,6 +83,14 @@ def test_keys_are_safe_for_the_platform():
     assert world_key("vmt-01-s1") == "world-vmt-01-s1"
     # Apify allows only letters, digits and ! - _ . ' ( ) in a key.
     assert conversation_key("a/b c:d#e") == "conversation-a-b-c-d-e"
+
+
+def test_a_call_maps_to_its_drill():
+    """A voice turn carries the call id, and the server maps it to a drill;
+    the caller never has to carry a drill id it could not have on turn one."""
+    assert call_key("conv_abc123") == "call-conv_abc123"
+    assert call_key("conv/with spaces") == "call-conv-with-spaces"
+    assert call_key("a") != conversation_key("a")
 
 
 # --- the conversation store ----------------------------------------------------
