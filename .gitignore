@@ -26,3 +26,8 @@ fire-drill/turns/
 
 # drill records hold the attacker turns; commit-reveal decides what is published
 fire-drill/records/
+
+# commit-reveal: the commitment is public, the salts and the reveal (which
+# holds the drills themselves) are published only when you choose to
+fire-drill/commitments/*.salts.json
+fire-drill/commitments/*.reveal.json
