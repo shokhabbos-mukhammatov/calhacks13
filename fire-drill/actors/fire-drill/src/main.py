@@ -120,12 +120,21 @@ async def main() -> None:
             CrsFraudFinder.from_env(os.environ) or NoSenderCheck(),
         )
         rows: list[dict] = []
+        budget_reached = False
 
         async def record(row: dict) -> None:
+            """Write one drill and charge for it. A user can cap what a single
+            run may charge; past that cap the platform stops paying while the
+            run keeps costing, so stop drilling rather than work for free."""
+            nonlocal budget_reached
             rows.append(row)
             await Actor.push_data(row)
             try:
-                await Actor.charge("drill-completed")
+                charge = await Actor.charge("drill-completed")
+                if charge.event_charge_limit_reached:
+                    budget_reached = True
+                    Actor.log.warning("this run has reached its maximum charge; stopping after "
+                                      "%d drill(s). Raise it to drill more.", len(rows))
             except Exception as e:   # unpriced local run, or no pay-per-event set up
                 Actor.log.debug("not charging drill-completed: %r", e)
             Actor.log.info("%s [%s] breach=%s paid_on_file=%s",
@@ -134,7 +143,11 @@ async def main() -> None:
         if target != "local":
             remote = RemoteTarget(target, actor_input.get("target_token") or os.environ.get("APIFY_TOKEN"))
             for card_id in card_ids or sorted(turns):
+                if budget_reached:
+                    break
                 for seed in seeds:
+                    if budget_reached:
+                        break
                     pack = turns.get(card_id)
                     if not pack:
                         Actor.log.warning("no turns for card %s; skipping", card_id)
@@ -143,7 +156,11 @@ async def main() -> None:
                         remote.drill, card_id, seed, config_name, model, pack, max_turns))
         else:
             for card_id in card_ids or sorted(turns) or ["__benign__"]:
+                if budget_reached:
+                    break
                 for seed in seeds:
+                    if budget_reached:
+                        break
                     if card_id == "__benign__":
                         card = BENIGN_CARD
                         packs = sorted(BENIGN_DIR.glob("*.txt"))
