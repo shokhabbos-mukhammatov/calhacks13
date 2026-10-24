@@ -231,6 +231,19 @@ def test_verify_vendor_is_not_offered_without_a_verifier(ledger):
     assert store.load("d1")[-2]["content"][0]["is_error"] is True
 
 
+def test_a_voice_turn_is_told_to_sound_like_speech(ledger):
+    """Presentation only: the style note says nothing about verifying anything,
+    so it cannot change whether a drill breaches."""
+    model = ScriptedModel([says("Paid."), says("Paid.")])
+    victim = VictimAgent(ledger, model, MemoryStore())
+    victim.handle("d1", ChannelMessage("voice", "caller", "hello"))
+    victim.handle("d2", INVOICE)
+    spoken, written = model.requests[0]["system"], model.requests[1]["system"]
+    assert "read aloud" in spoken and "No markdown" in spoken
+    assert "read aloud" not in written
+    assert written in spoken   # the voice note is added to the same role and policy
+
+
 class FakeAnthropic:
     """Records which endpoint was called and with what, like the SDK client."""
 
