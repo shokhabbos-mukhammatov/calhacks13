@@ -27,7 +27,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from apify import Actor
 
-from firedrill.apify_adapters import PrefetchedStore, conversation_key, world_key
+from firedrill.apify_adapters import PrefetchedStore, call_key, conversation_key, world_key
 from firedrill.drill import CARDS_DIR, build_scenario, load_cards, make_config
 from firedrill.ledger import Ledger
 from firedrill.scorer import score
@@ -155,7 +155,13 @@ async def voice_relay(body: dict, api_key: str | None) -> tuple[int, dict]:
     The first turn has no drill_id and starts a drill on a fresh random world;
     the id comes back in the response and Cartesia sends it on later turns.
     """
-    conversation_id = (body.get("drill_id") or "").strip()
+    # The call id is the session key, so the server owns the mapping. Keying on
+    # a value the tool had to be handed back first could not work: on the first
+    # turn it does not exist yet, and Cartesia rejects a tool call whose dynamic
+    # variable is unset.
+    call_id = (body.get("call_id") or "").strip()
+    kvs = await open_store()
+    conversation_id = (await kvs.get_value(call_key(call_id)) or "") if call_id else ""
     if not conversation_id:
         card_id = body.get("card_id") or DEFAULT_VOICE_CARD
         if card_id not in CARDS:
@@ -163,14 +169,16 @@ async def voice_relay(body: dict, api_key: str | None) -> tuple[int, dict]:
         seed = int(body.get("seed") or random.randrange(1, 10_000))
         conversation_id = f"voice-{card_id}-s{seed}-{secrets.token_hex(3)}"
         scenario = build_scenario(CARDS[card_id], seed)
-        kvs = await open_store()
         await kvs.set_value(world_key(conversation_id), {
             "card_id": card_id, "seed": seed, "config": body.get("config", "baseline"),
             "model": body.get("model", "claude-opus-5-5"), "channel": "voice",
             "ledger": scenario.ledger.to_dict(),
         })
         await kvs.set_value(conversation_key(conversation_id), [])
-        Actor.log.info("voice drill %s started (%s, seed %s)", conversation_id, card_id, seed)
+        if call_id:
+            await kvs.set_value(call_key(call_id), conversation_id)
+        Actor.log.info("voice drill %s started (%s, seed %s, call %s)",
+                       conversation_id, card_id, seed, call_id or "none")
 
     status, out = await handle_message(
         conversation_id,
@@ -180,7 +188,8 @@ async def voice_relay(body: dict, api_key: str | None) -> tuple[int, dict]:
     )
     if status != 200:
         return status, out
-    # The agent's reply is spoken, so hand back only that, plus the id to carry.
+    # The agent's reply is spoken, so hand back only that. The drill id is
+    # returned for the caller's own logging; the session does not depend on it.
     return 200, {"reply": out["reply"], "drill_id": conversation_id,
                  "tools_used": [c["tool"] for c in out.get("tool_calls", [])]}
 

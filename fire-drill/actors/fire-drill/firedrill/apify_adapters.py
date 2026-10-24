@@ -30,6 +30,15 @@ def world_key(conversation_id: str) -> str:
     return f"world-{_UNSAFE.sub('-', conversation_id)}"
 
 
+def call_key(call_id: str) -> str:
+    """Which drill a phone call belongs to.
+
+    A voice turn carries the telephony provider's call id, and the server
+    maps it to a drill. The caller is not asked to carry a drill id: on the
+    first turn it would not exist yet."""
+    return f"call-{_UNSAFE.sub('-', call_id)}"
+
+
 @dataclass
 class PrefetchedStore:
     """A ConversationStore over messages already fetched from a key-value
