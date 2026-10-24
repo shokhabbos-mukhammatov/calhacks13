@@ -23,3 +23,6 @@ venv/
 
 # attack turn files stay local (no payloads in the repo)
 fire-drill/turns/
+
+# drill records hold the attacker turns; commit-reveal decides what is published
+fire-drill/records/

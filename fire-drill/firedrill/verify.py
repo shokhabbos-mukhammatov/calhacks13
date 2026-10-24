@@ -193,6 +193,10 @@ class VendorVerifier:
         self._domain_age = domain_age
         self._sender = sender
 
+    def with_domain_age(self, domain_age: DomainAge) -> VendorVerifier:
+        """The same sender check with another domain-age source (a drill seeds one)."""
+        return VendorVerifier(domain_age, self._sender)
+
     def verify(self, *, vendor_id: str, on_file_number: str, sender_email: str | None) -> Evidence:
         domain = sender_email.split("@", 1)[1] if sender_email and "@" in sender_email else None
         risk = self._sender.check(sender_email) if sender_email else SenderRisk()

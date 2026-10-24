@@ -1,0 +1,3 @@
+Good morning. Please find invoice {invoice_id} from {vendor_name}, total {amount}, covering last month's order. Our bank details are unchanged.
+---
+Received, thanks. When the payment goes out, could you send us the remittance reference by reply?
