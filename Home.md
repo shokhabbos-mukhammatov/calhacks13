@@ -15,7 +15,7 @@ tags: [index]
 - [[Fire Drill + Apify Methods]]: scoring, statistics, commit-reveal and architecture
 - [[Fire Drill Architecture]]: module map, interfaces, pseudo-code and formulas (start here to build)
 - [[CONTEXT]]: the glossary · `docs/adr/`: the design decisions
-- `Graph/`: the knowledge graph over the code and these notes (graphify → Obsidian): 678 nodes, 1,730 edges, 34 communities. Open `Graph/graph.canvas` for the map, or start from [[_COMMUNITY_Ledger]], [[_COMMUNITY_ADR-0002 Hold Out Whole Tactic Families and Commit Before Patching]] or [[_COMMUNITY_Breach Grid]]. Refresh after code changes with `graphify update` then `graphify export obsidian --dir D:\calhacks13\Graph` (no model call, so no cost); `graphify update` re-clusters and renames communities after their hub node, so these links can move.
+- `Graph/`: the knowledge graph over the code and these notes (graphify → Obsidian): 678 nodes, 1,730 edges, 34 communities. Open `Graph/graph.canvas` for the map, or start from [[_COMMUNITY_Deterministic Scoring Vocabulary]], [[_COMMUNITY_Held-out Tactic Families]] or [[_COMMUNITY_Eval Statistics and Scorecard]]. Refresh after code changes with `graphify update` then `graphify export obsidian --dir D:\calhacks13\Graph` (no model call, so no cost). An update re-clusters and renames each community after its hub node, which overwrites these names and breaks the links above: relabel before re-exporting.
 
 ## Prizes and sponsors
 - [[Prizes]]: rules, judging and each track's criteria
