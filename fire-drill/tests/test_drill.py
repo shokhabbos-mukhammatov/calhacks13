@@ -8,11 +8,13 @@ import re
 
 from firedrill.drill import (
     CARDS_DIR,
+    CONFIGS,
     ScriptedAttacker,
     TacticCard,
     VictimConfig,
     build_scenario,
     load_cards,
+    make_config,
     run_drill,
 )
 from firedrill.payments import MemoryRail
@@ -156,6 +158,31 @@ def test_a_drill_stops_at_max_turns():
                       victim=VictimConfig(model=victim), max_turns=3)
     assert drill.ended_by == "max_turns"
     assert len(drill.transcript) == 3
+
+
+def test_the_config_presets_differ_only_in_hardening():
+    model, verifier, rail = ScriptedModel([]), VendorVerifier(FixedDomainAge({}), NoSenderCheck()), MemoryRail()
+    base, verify, patched = (make_config(n, model=model, verifier=verifier, rail=rail) for n in CONFIGS)
+    assert (base.name, verify.name, patched.name) == CONFIGS
+    assert base.verifier is None and base.policy == "" and not base.tool_scope  # the unhardened agent
+    assert verify.verifier is verifier and verify.policy == "" and not verify.tool_scope
+    assert patched.verifier is verifier and patched.policy
+    assert patched.tool_scope["approve_payment"] == "requires_verification"
+    assert all(c.rail is rail for c in (base, verify, patched))  # the rail only mirrors
+
+
+def test_the_baseline_agent_is_not_offered_verify_vendor():
+    victim = ScriptedModel([says("Ok.")])
+    run_drill(CARD, 1, attacker=ScriptedAttacker(["turn one"]),
+              victim=make_config("baseline", model=victim,
+                                 verifier=VendorVerifier(FixedDomainAge({}), NoSenderCheck())))
+    assert "verify_vendor" not in {t["name"] for t in victim.requests[0]["tools"]}
+
+
+def test_an_unknown_config_is_refused():
+    import pytest
+    with pytest.raises(ValueError):
+        make_config("hardened", model=ScriptedModel([]))
 
 
 def test_seed_cards_carry_a_family_a_source_and_no_identifiers():

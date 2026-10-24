@@ -231,6 +231,55 @@ def test_verify_vendor_is_not_offered_without_a_verifier(ledger):
     assert store.load("d1")[-2]["content"][0]["is_error"] is True
 
 
+class FakeAnthropic:
+    """Records which endpoint was called and with what, like the SDK client."""
+
+    def __init__(self):
+        from types import SimpleNamespace
+
+        self.calls = []
+        outer = self
+
+        class _Messages:
+            def __init__(self, kind):
+                self.kind = kind
+
+            def create(self, **kw):
+                outer.calls.append((self.kind, kw))
+                block = SimpleNamespace(to_dict=lambda **_: {"type": "text", "text": "ok"})
+                return SimpleNamespace(stop_reason="end_turn", model=kw["model"], content=[block])
+
+        self.messages = _Messages("plain")
+        self.beta = SimpleNamespace(messages=_Messages("beta"))
+
+
+def _sent(model_id):
+    from firedrill.victim import AnthropicModel
+
+    client = FakeAnthropic()
+    AnthropicModel(model_id, client=client).respond(system="s", messages=[], tools=[])
+    [(kind, kw)] = client.calls
+    return kind, kw
+
+
+def test_opus_gets_refusal_fallbacks_and_effort():
+    kind, kw = _sent("claude-opus-5-5")
+    assert kind == "beta" and kw["fallbacks"] == "default"
+    assert kw["betas"] == ["server-side-fallback-2026-07-01"]
+    assert kw["output_config"] == {"effort": "medium"}
+
+
+def test_haiku_5_5_gets_effort_but_no_fallbacks():
+    kind, kw = _sent("claude-haiku-5-5")
+    assert kind == "plain" and "fallbacks" not in kw
+    assert kw["output_config"] == {"effort": "medium"}
+
+
+def test_haiku_4_5_gets_neither():
+    kind, kw = _sent("claude-haiku-4-5")
+    assert kind == "plain" and "fallbacks" not in kw and "output_config" not in kw
+
+
 def test_verify_vendor_for_an_unknown_vendor_is_a_tool_error(ledger):
     store = MemoryStore()
     victim = agent(ledger, [calls(tool("verify_vendor", vendor_id="nobody")), says("Unknown.")],

@@ -5,6 +5,11 @@ written by a person: the text-channel version of the judge-on-the-phone demo.
     .venv/Scripts/python scripts/run_drill.py vmt-01 --seed 1 --turns turns/vmt-01.txt --dry-run # check a turns file
     .venv/Scripts/python scripts/run_drill.py vmt-01 --seed 1 --turns turns/vmt-01.txt --save    # run and record
     .venv/Scripts/python scripts/run_drill.py --benign --turns benign/invoice-01.txt --seed 1 --save
+    .venv/Scripts/python scripts/run_drill.py vmt-01 --seed 1 --turns turns/vmt-01.txt --config patched --model claude-haiku-5-5 --save
+
+--config picks the hardening level: baseline (default; no policy, no
+verify_vendor), baseline+verify (verify_vendor offered), or patched
+(FakeCodeAgent's patch plus verify_vendor). --model picks the victim model.
 
 Typing: end a message with an empty line; an empty message ends the drill.
 A turns file holds one message per block, blocks separated by a line of
@@ -30,10 +35,11 @@ from dotenv import load_dotenv
 from firedrill.drill import (
     BENIGN_CARD,
     CARDS_DIR,
+    CONFIGS,
     ScriptedAttacker,
-    VictimConfig,
     build_scenario,
     load_cards,
+    make_config,
     run_drill,
 )
 from firedrill.payments import NessieRail
@@ -67,6 +73,8 @@ def main() -> None:
     p.add_argument("--seed", type=int, default=1)
     p.add_argument("--turns", type=Path, help="file of attacker turns separated by '---' lines")
     p.add_argument("--max-turns", type=int, default=6)
+    p.add_argument("--config", choices=CONFIGS, default="baseline", help="hardening level (default: baseline)")
+    p.add_argument("--model", default="claude-opus-5-5", help="victim model id (default: claude-opus-5-5)")
     p.add_argument("--dry-run", action="store_true", help="print the kit and filled turns; no model calls")
     p.add_argument("--save", action="store_true", help="write the drill to records/")
     args = p.parse_args()
@@ -100,11 +108,14 @@ def main() -> None:
     rail = NessieRail.from_env(os.environ)
     sender_check = CrsFraudFinder.from_env(os.environ)
     verifier = VendorVerifier(RdapDomainAge(), sender_check or NoSenderCheck())
-    print(f"rail: {'Nessie' if rail else 'none (set NESSIE_* in .env)'} | "
-          f"sender check: {'CRS Fraud Finder' if sender_check else 'none (set CRS_* in .env)'}")
+    config = make_config(args.config, model=AnthropicModel(args.model), verifier=verifier, rail=rail)
+    verify_note = "off"
+    if config.verifier:
+        verify_note = "on (CRS Fraud Finder)" if sender_check else "on (no sender check; set CRS_* in .env)"
+    print(f"config: {config.name} | model: {args.model} | verify_vendor: {verify_note} | "
+          f"rail: {'Nessie' if rail else 'none (set NESSIE_* in .env)'}")
 
     attacker = ScriptedAttacker(read_turns(args.turns, kit)) if args.turns else TypedAttacker()
-    config = VictimConfig(model=AnthropicModel(), name="baseline", rail=rail, verifier=verifier)
     drill = run_drill(card, args.seed, attacker=attacker, victim=config, max_turns=args.max_turns)
 
     print("\n=== transcript ===")

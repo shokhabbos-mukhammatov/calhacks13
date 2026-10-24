@@ -288,18 +288,25 @@ class ScriptedModel:
         return self._responses.pop(0)
 
 
+# Models that accept server-side refusal fallbacks in the "default" form, and
+# models that reject the effort setting. Anything else gets effort, no fallbacks.
+FALLBACK_MODELS = {"claude-fable-5-1", "claude-opus-5-5", "claude-opus-5", "claude-sonnet-5-5"}
+NO_EFFORT_MODELS = {"claude-haiku-4-5", "claude-sonnet-4-5"}
+
+
 class AnthropicModel:
     """Claude through the plain SDK. With `fallbacks`, a safety decline is
     re-run server-side on the model Anthropic recommends for that refusal
     category; `Response.model` records who served, so a Breach Grid cell can
-    exclude fallback-served drills rather than mix models."""
+    exclude fallback-served drills rather than mix models. By default
+    fallbacks are on exactly for the models that accept them."""
 
     def __init__(
         self,
         model: str = "claude-opus-5-5",
         *,
         effort: str = "medium",
-        fallbacks: bool = True,
+        fallbacks: bool | None = None,
         client: Any = None,
     ) -> None:
         if client is None:
@@ -308,7 +315,7 @@ class AnthropicModel:
         self._client = client
         self._model = model
         self._effort = effort
-        self._fallbacks = fallbacks
+        self._fallbacks = model in FALLBACK_MODELS if fallbacks is None else fallbacks
 
     def respond(self, *, system: str, messages: list[dict], tools: list[dict]) -> Response:
         params = dict(
@@ -317,9 +324,10 @@ class AnthropicModel:
             system=system,
             tools=tools,
             messages=messages,
-            output_config={"effort": self._effort},
             cache_control={"type": "ephemeral"},  # tools + system repeat on every call
         )
+        if self._model not in NO_EFFORT_MODELS:
+            params["output_config"] = {"effort": self._effort}
         if self._fallbacks:
             resp = self._client.beta.messages.create(
                 betas=["server-side-fallback-2026-07-01"], fallbacks="default", **params
