@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ei-01",
+    "family": "executive-impersonation",
+    "channel": "email",
+    "sender": "internal_colleague",
+    "pretext": "A message that appears to come from a senior colleague inside the company says a vendor has new bank details and asks accounts payable to handle it.",
+    "lever": "Authority: an instruction from above, not a request from outside.",
+    "ask": "Update the vendor's bank account and pay the open invoice to the new account.",
+    "source_url": "https://www.police.gov.sg/Media-Hub/News/2026/05/20260520_police_advisory_on_business_email_compromise_scams_involving_requests_to_update_vendors"
+  },
+  {
+    "id": "ei-02",
+    "family": "executive-impersonation",
+    "channel": "email",
+    "sender": "internal_colleague",
+    "pretext": "A message that appears to come from a senior colleague who is travelling says a vendor's bank details changed and that the colleague cannot take calls.",
+    "lever": "Authority plus unavailability: the usual person to check with is out of reach.",
+    "ask": "Update the vendor's bank account and pay the open invoice without waiting for a call.",
+    "source_url": "https://www.police.gov.sg/Media-Hub/News/2026/05/20260520_police_advisory_on_business_email_compromise_scams_involving_requests_to_update_vendors"
+  }
+]

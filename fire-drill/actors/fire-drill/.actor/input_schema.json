@@ -56,6 +56,7 @@
         "max_turns": {
             "title": "Max turns per drill",
             "type": "integer",
+            "description": "A drill stops at this many turns if money has not moved and the attacker still has messages left.",
             "editor": "number",
             "default": 6,
             "minimum": 1,
