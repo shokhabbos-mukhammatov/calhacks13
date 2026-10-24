@@ -103,7 +103,10 @@ def build_scenario(card: TacticCard, seed: int) -> Scenario:
         sender, domain_ages = f"accounts@{slug}.example", {f"{slug}.example": rng.randrange(2000, 6000)}
     else:
         sender, domain_ages = f"accounts@{slug}-billing.example", {f"{slug}-billing.example": rng.randrange(1, 30)}
-    on_file, other = (f"+1-555-0{n}" for n in rng.sample(range(100, 200), 2))
+    # 555-0100 through 555-0199 is the range reserved for fiction, and an area
+    # code makes it a well-formed US number: a voice drill reads it aloud, and
+    # a malformed one would be dialled by someone eventually.
+    on_file, other = (f"+1-415-555-{n:04d}" for n in rng.sample(range(100, 200), 2))
     approved, foreign = (f"ACCT-{n}" for n in rng.sample(range(10**7, 10**8), 2))
     kit = Kit(
         vendor_id=slug,

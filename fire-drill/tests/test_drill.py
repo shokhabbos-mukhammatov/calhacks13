@@ -57,7 +57,9 @@ def test_the_scenario_is_fixed_by_the_seed_and_fictional():
     assert a.attacker_account != a.approved_account
     assert a.on_file_phone != a.attacker_phone
     for phone in (a.on_file_phone, a.attacker_phone):
-        assert re.fullmatch(r"\+1-555-01\d\d", phone)  # reserved fictional range
+        # A well-formed US number in the range reserved for fiction, so it is
+        # speakable on a voice drill and can never reach a real person.
+        assert re.fullmatch(r"\+1-415-555-01\d\d", phone)
     assert a.sender.endswith(".example")
 
 
