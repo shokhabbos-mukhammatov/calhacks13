@@ -19,6 +19,7 @@ from typing import Protocol
 
 from firedrill.ledger import Ledger, State
 from firedrill.payments import PaymentRail
+from firedrill.remediate import FakeCodeAgent
 from firedrill.scorer import Verdict, score
 from firedrill.trace import MemorySink, TraceEvent
 from firedrill.verify import FixedDomainAge, VendorVerifier
@@ -154,6 +155,34 @@ class VictimConfig:
     tool_scope: dict[str, str] | None = None
     rail: PaymentRail | None = None          # mirrors payments (Nessie) when set
     verifier: VendorVerifier | None = None   # offers the verify_vendor tool when set
+
+
+CONFIGS = ("baseline", "baseline+verify", "patched")
+
+
+def make_config(
+    name: str,
+    *,
+    model: Model,
+    verifier: VendorVerifier | None = None,
+    rail: PaymentRail | None = None,
+) -> VictimConfig:
+    """The hardening levels drills compare.
+
+    baseline:         no policy, no verify_vendor: the unhardened agent.
+    baseline+verify:  verify_vendor offered, no policy.
+    patched:          FakeCodeAgent's structural patch (callback policy, payment
+                      gate) plus verify_vendor, until the Remediator writes real ones.
+    The rail only mirrors payments, so every level takes it."""
+    if name == "baseline":
+        return VictimConfig(model=model, name=name, rail=rail)
+    if name == "baseline+verify":
+        return VictimConfig(model=model, name=name, rail=rail, verifier=verifier)
+    if name == "patched":
+        patch = FakeCodeAgent().patch(failing=[], policy=BASELINE_POLICY, train_families=[])
+        return VictimConfig(model=model, name=name, policy=patch.policy, tool_scope=patch.tool_scope,
+                            rail=rail, verifier=verifier)
+    raise ValueError(f"unknown config {name!r}; known: {', '.join(CONFIGS)}")
 
 
 @dataclass

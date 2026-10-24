@@ -1,9 +1,12 @@
 """Drill records: one JSON file per drill under records/.
 
 The file is named by card, seed and a fingerprint of the victim config, so
-re-running the same drill overwrites itself. The Remediator reads failing
-records; scripts/report.py aggregates them. Records hold the attacker's
-turns, so records/ is gitignored; commit-reveal decides what is published.
+re-running the same drill overwrites itself. The fingerprint covers what the
+agent can see and do (model, policy, tool scope, whether verify_vendor is
+offered); the payment rail only mirrors, so it is recorded but not hashed.
+The Remediator reads failing records; scripts/report.py aggregates them.
+Records hold the attacker's turns, so records/ is gitignored; commit-reveal
+decides what is published.
 """
 from __future__ import annotations
 
@@ -23,12 +26,22 @@ def model_id(model: Any) -> str:
     return getattr(model, "_model", None) or type(model).__name__
 
 
-def config_fingerprint(config: VictimConfig) -> str:
-    key = json.dumps({
-        "name": config.name, "model": model_id(config.model), "policy": config.policy,
+def config_summary(config: VictimConfig) -> dict:
+    return {
+        "name": config.name,
+        "model": model_id(config.model),
+        "policy": config.policy,
         "tool_scope": config.tool_scope or {},
-    }, sort_keys=True)
-    return hashlib.sha256(key.encode()).hexdigest()
+        "verify_vendor": config.verifier is not None,
+    }
+
+
+def fingerprint_of(summary: dict) -> str:
+    return hashlib.sha256(json.dumps(summary, sort_keys=True).encode()).hexdigest()
+
+
+def config_fingerprint(config: VictimConfig) -> str:
+    return fingerprint_of(config_summary(config))
 
 
 def drill_to_record(drill: Drill, config: VictimConfig) -> dict:
@@ -36,8 +49,9 @@ def drill_to_record(drill: Drill, config: VictimConfig) -> dict:
         "card": asdict(drill.card),
         "seed": drill.seed,
         "config": {
-            "name": config.name, "model": model_id(config.model), "policy": config.policy,
-            "tool_scope": config.tool_scope or {}, "fingerprint": config_fingerprint(config),
+            **config_summary(config),
+            "rail": type(config.rail).__name__ if config.rail else None,
+            "fingerprint": config_fingerprint(config),
         },
         "kit": asdict(drill.kit),
         "transcript": [
@@ -57,8 +71,12 @@ def drill_to_record(drill: Drill, config: VictimConfig) -> dict:
     }
 
 
+def record_name(card_id: str, seed: int, fingerprint: str) -> str:
+    return f"{card_id}-s{seed}-{fingerprint[:8]}.json"
+
+
 def record_path(drill: Drill, config: VictimConfig, directory: Path = RECORDS_DIR) -> Path:
-    return directory / f"{drill.card.id}-s{drill.seed}-{config_fingerprint(config)[:8]}.json"
+    return directory / record_name(drill.card.id, drill.seed, config_fingerprint(config))
 
 
 def save_drill(drill: Drill, config: VictimConfig, directory: Path = RECORDS_DIR) -> Path:

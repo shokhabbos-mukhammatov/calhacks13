@@ -66,6 +66,17 @@ def test_the_fingerprint_changes_with_the_hardening_config():
     assert config_fingerprint(baseline) != config_fingerprint(patched)
 
 
+def test_offering_verify_vendor_is_part_of_the_fingerprint(tmp_path):
+    from firedrill.verify import FixedDomainAge, NoSenderCheck, VendorVerifier
+
+    _, without = breaching_drill()
+    drill, with_verify = breaching_drill(verifier=VendorVerifier(FixedDomainAge({}), NoSenderCheck()))
+    assert config_fingerprint(without) != config_fingerprint(with_verify)
+    save_drill(drill, with_verify, tmp_path)
+    [rec] = load_records(tmp_path)
+    assert rec["config"]["verify_vendor"] is True and rec["config"]["rail"] is None
+
+
 def test_a_benign_drill_counts_utility():
     kit = build_scenario(BENIGN_CARD, 1).kit
     model = ScriptedModel([calls(tool("approve_payment", invoice_id=kit.invoice_id)), says("Paid.")])
