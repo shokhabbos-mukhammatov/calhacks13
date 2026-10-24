@@ -1,0 +1,48 @@
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 100;
+  background: var(--ink); color: var(--paper); padding: 10px 14px;
+}
+.skip:focus { top: 12px }
+
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav__inner { display: flex; align-items: center; gap: 24px; height: 64px }
+.nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex: none }
+.nav__mark {
+  display: grid; place-items: center; width: 30px; height: 30px;
+  background: var(--signal); color: var(--paper); font: 800 20px/1 var(--font-sign);
+}
+.nav__word { font-size: 24px; letter-spacing: 0.02em }
+
+.nav__links { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0 }
+.nav__links a {
+  display: flex; align-items: baseline; gap: 6px;
+  padding: 8px 10px; font-size: 13.5px; font-weight: 500; color: var(--ink-2);
+  text-decoration: none; border-bottom: 2px solid transparent; white-space: nowrap;
+}
+.nav__links a:hover { color: var(--ink) }
+.nav__links a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--signal) }
+.nav__no { font: 500 11px/1 var(--font-mono); color: var(--muted) }
+
+.nav__live {
+  margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none;
+  padding: 8px 14px; background: var(--ink); color: var(--paper);
+  font: 600 14px/1 var(--font-text); text-decoration: none; border-radius: var(--radius);
+}
+.nav__live:hover { background: var(--signal) }
+.nav__live-label { font: 500 11px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--console-muted) }
+.nav__live:hover .nav__live-label { color: var(--paper) }
+.nav__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--console-red); animation: pulse 1.8s var(--ease) infinite }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgb(255 107 94 / 0.7) }
+  70% { box-shadow: 0 0 0 9px rgb(255 107 94 / 0) }
+  100% { box-shadow: 0 0 0 0 rgb(255 107 94 / 0) }
+}
+@media (prefers-reduced-motion: reduce) { .nav__dot { animation: none } }
+
+@media (max-width: 1120px) { .nav__links { display: none } }
+@media (max-width: 480px) { .nav__live-label { display: none } .nav__word { font-size: 20px } }

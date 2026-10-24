@@ -1,0 +1,53 @@
+/* The map takes the full measure and the detail sits beneath it as a band:
+   beside it, the map shrank below its own legible width and had to scroll. */
+.arch { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; margin-bottom: 48px }
+.arch__map { border: 2px solid var(--ink); background: var(--paper); overflow-x: auto }
+.arch__map svg { display: block; width: 100%; min-width: 820px; height: auto }
+
+.arch__band { font: 600 11px var(--font-mono); letter-spacing: 0.08em; fill: var(--muted) }
+.arch__edge { fill: none; stroke-width: 2 }
+.arch__edge--core { stroke: var(--ink) }
+.arch__edge--adapter { stroke: var(--ink-2); stroke-dasharray: 5 4; stroke-width: 1.5 }
+.arch__edge--loop { stroke: var(--ink-2) }
+.arch__edge--evidence { stroke: var(--ink-2); stroke-width: 1.5 }
+.arch__arrowhead { fill: var(--ink) }
+.arch__edgelabel { font: 500 11px var(--font-mono); fill: var(--ink-2) }
+
+.pkt { pointer-events: none }
+.pkt--attack { fill: var(--signal) }
+.pkt--fix { fill: var(--ink) }
+
+.arch__node { cursor: pointer; outline: none }
+.arch__node rect:first-child { stroke-width: 2; transition: stroke 0.15s, fill 0.15s }
+.arch__node--core rect:first-child { fill: var(--paper); stroke: var(--ink) }
+.arch__node--adapter rect:first-child { fill: var(--paper-2); stroke: var(--ink-2); stroke-dasharray: 5 3; stroke-width: 1.5 }
+.arch__node--loop rect:first-child { fill: var(--paper); stroke: var(--ink) }
+.arch__node--evidence rect:first-child { fill: var(--ink); stroke: var(--ink) }
+.arch__label { font: 700 17px var(--font-sign); letter-spacing: 0.02em; fill: var(--ink); pointer-events: none }
+.arch__sub { font: 400 11px var(--font-mono); fill: var(--ink-2); pointer-events: none }
+.arch__node--evidence .arch__label { fill: var(--paper) }
+.arch__node--evidence .arch__sub { fill: var(--console-muted) }
+.arch__spon { fill: var(--amber); stroke: none }
+.arch__node:hover rect:first-child, .arch__node:focus-visible rect:first-child { stroke: var(--signal); stroke-width: 3 }
+.arch__node.is-sel rect:first-child { stroke: var(--signal); stroke-width: 3.5; stroke-dasharray: none }
+
+.arch__detail {
+  display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr) minmax(0, 300px); gap: 28px; align-items: start;
+  border: 2px solid var(--ink); border-top: 0; border-left: 8px solid var(--signal); padding: 18px 22px; background: var(--paper-2);
+}
+.arch__detail .eyebrow { display: block }
+@media (max-width: 900px) { .arch__detail { grid-template-columns: minmax(0, 1fr); gap: 8px } }
+.arch__h { font-size: 36px; margin: 6px 0 0 }
+.arch__detail p { margin: 0; font-size: 15px; color: var(--ink-2); text-wrap: pretty }
+.arch__detail dl { margin: 0; display: grid; gap: 8px }
+.arch__detail dt { font: 500 11px var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted) }
+.arch__detail dd { margin: 2px 0 0; font-size: 14px; overflow-wrap: anywhere }
+
+.adrs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--ink) }
+@media (max-width: 900px) { .adrs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) } }
+@media (max-width: 560px) { .adrs { grid-template-columns: minmax(0, 1fr) } }
+.adrs li { padding: 16px 18px 16px 0 }
+.adrs li + li { padding-left: 18px; border-left: 1px solid var(--rule) }
+.adrs__id { font: 500 11px var(--font-mono); color: var(--signal) }
+.adrs h4 { font-size: 22px; margin: 6px 0 6px }
+.adrs p { margin: 0; font-size: 14px; color: var(--ink-2) }
