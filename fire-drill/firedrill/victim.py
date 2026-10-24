@@ -308,10 +308,13 @@ class AnthropicModel:
         effort: str = "medium",
         fallbacks: bool | None = None,
         client: Any = None,
+        api_key: str | None = None,
     ) -> None:
         if client is None:
             import anthropic  # deferred so the offline core never needs the SDK
-            client = anthropic.Anthropic()
+            # An explicit key lets a caller pay for its own model calls, which
+            # is how a published Actor avoids spending its owner's credit.
+            client = anthropic.Anthropic(api_key=api_key) if api_key else anthropic.Anthropic()
         self._client = client
         self._model = model
         self._effort = effort

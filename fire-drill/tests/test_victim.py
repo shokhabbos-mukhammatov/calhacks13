@@ -275,6 +275,27 @@ def test_haiku_5_5_gets_effort_but_no_fallbacks():
     assert kw["output_config"] == {"effort": "medium"}
 
 
+def test_an_explicit_key_is_passed_to_the_sdk(monkeypatch):
+    """A published Actor lets its caller pay for its own model calls, so the
+    key must reach the client rather than fall back to the environment."""
+    import sys
+    import types
+
+    from firedrill.victim import AnthropicModel
+
+    seen = {}
+    fake = types.ModuleType("anthropic")
+    fake.Anthropic = lambda **kw: seen.update(kw) or FakeAnthropic()
+    monkeypatch.setitem(sys.modules, "anthropic", fake)
+
+    AnthropicModel("claude-haiku-5-5", api_key="sk-caller")
+    assert seen == {"api_key": "sk-caller"}
+
+    seen.clear()
+    AnthropicModel("claude-haiku-5-5")        # no key: the SDK reads the environment
+    assert seen == {}
+
+
 def test_haiku_4_5_gets_neither():
     kind, kw = _sent("claude-haiku-4-5")
     assert kind == "plain" and "fallbacks" not in kw and "output_config" not in kw

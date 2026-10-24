@@ -84,7 +84,7 @@ async def start_drill(body: dict) -> tuple[int, dict]:
     return 200, {"conversation_id": conversation_id, "card": asdict(card), "kit": asdict(scenario.kit)}
 
 
-async def handle_message(conversation_id: str, body: dict) -> tuple[int, dict]:
+async def handle_message(conversation_id: str, body: dict, api_key: str | None) -> tuple[int, dict]:
     kvs = await open_store()
     world = await kvs.get_value(world_key(conversation_id))
     if world is None:
@@ -96,8 +96,11 @@ async def handle_message(conversation_id: str, body: dict) -> tuple[int, dict]:
     store = PrefetchedStore(messages=await kvs.get_value(conversation_key(conversation_id)) or [])
     sink = MemorySink()
 
-    config = make_config(world["config"], model=AnthropicModel(world["model"]),
-                         verifier=VendorVerifier(RdapDomainAge(), NoSenderCheck()))
+    # The key arrives per request and is never written anywhere: a caller
+    # pays for its own model calls, so a public target cannot spend its
+    # owner's credit. Falls back to the Actor's own key when one is set.
+    config = make_config(world["config"], verifier=VendorVerifier(RdapDomainAge(), NoSenderCheck()),
+                         model=AnthropicModel(world["model"], api_key=api_key))
     verifier = config.verifier.with_domain_age(_fixed(scenario.domain_ages)) if config.verifier else None
     agent = VictimAgent(ledger, config.model, store, policy=config.policy,
                         tool_scope=config.tool_scope, phonebook=scenario.phonebook,
@@ -146,7 +149,7 @@ def _fixed(table: dict[str, int]):
 ROUTES = re.compile(r"^/drill/(?P<id>[^/]+)/(?P<action>message|verdict)$")
 
 
-async def route(method: str, path: str, body: dict) -> tuple[int, dict]:
+async def route(method: str, path: str, body: dict, api_key: str | None = None) -> tuple[int, dict]:
     if path in ("/", "") and method == "GET":
         return 200, {
             "actor": "ap-practice-target",
@@ -159,7 +162,7 @@ async def route(method: str, path: str, body: dict) -> tuple[int, dict]:
         return await start_drill(body)
     match = ROUTES.match(path)
     if match and match["action"] == "message" and method == "POST":
-        return await handle_message(match["id"], body)
+        return await handle_message(match["id"], body, api_key)
     if match and match["action"] == "verdict" and method == "GET":
         return await drill_verdict(match["id"])
     return 404, {"error": f"no route for {method} {path}"}
@@ -191,7 +194,8 @@ def make_handler(loop: asyncio.AbstractEventLoop) -> type[BaseHTTPRequestHandler
                 return self._send(400, {"error": "body is not JSON"})
             path = self.path.split("?", 1)[0].rstrip("/") or "/"
             try:
-                future = asyncio.run_coroutine_threadsafe(route(method, path, body), loop)
+                key = self.headers.get("x-anthropic-api-key")
+                future = asyncio.run_coroutine_threadsafe(route(method, path, body, key), loop)
                 status, payload = future.result(timeout=TURN_TIMEOUT)
             except Exception as e:  # never take the server down over one request
                 Actor.log.exception("request failed: %s %s", method, path)
@@ -213,7 +217,8 @@ def make_handler(loop: asyncio.AbstractEventLoop) -> type[BaseHTTPRequestHandler
 async def main() -> None:
     async with Actor:
         if not os.environ.get("ANTHROPIC_API_KEY"):
-            Actor.log.warning("ANTHROPIC_API_KEY is not set; drills will fail on the first turn")
+            Actor.log.warning("ANTHROPIC_API_KEY is not set; a turn then needs the caller to "
+                              "send its own key in the x-anthropic-api-key header")
         port = Actor.configuration.web_server_port
         server = HTTPServer(("", port), make_handler(asyncio.get_running_loop()))
         threading.Thread(target=server.serve_forever, daemon=True).start()

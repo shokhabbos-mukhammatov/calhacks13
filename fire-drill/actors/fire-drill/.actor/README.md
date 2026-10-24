@@ -27,6 +27,7 @@ whole test.
 | Field | What it does |
 | --- | --- |
 | `target` | `local` runs the sandboxed agent inside this Actor. Otherwise the Standby URL of an `ap-practice-target` Actor. |
+| `anthropic_api_key` | Your own key, used only when `target` is `local`, because the agent then runs here and its model calls bill to it. Drilling a Standby target does not need it: the target makes the calls. |
 | `target_token` | Apify token for that URL. Defaults to the run's own token, which may be scoped under limited permissions. |
 | `cards` | Tactic card ids to drill, for example `vmt-01`. |
 | `turns` | `{"vmt-01": ["first message", "second message"]}`. Placeholders such as `{invoice_id}`, `{amount}` and `{attacker_account}` are filled in per seed. |
@@ -67,8 +68,9 @@ Priced per event: **`drill-completed`**, charged once per drill that runs to
 a verdict and reaches the dataset. A drill is several model calls against the
 target, so cost scales with drills rather than with run time.
 
-Model calls bill to whoever owns the target agent's API key, not to Apify
-credit.
+Model calls are separate and bill to whoever supplied the Anthropic key, not
+to Apify credit. A local drill uses the key you pass in; a remote drill uses
+the target's.
 
 ## Reading the result
 

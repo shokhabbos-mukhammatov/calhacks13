@@ -63,13 +63,21 @@ each. One turn, one call.
 hardened configs an independent `verify_vendor` check is also offered, and
 payment can be gated on a confirmed callback.
 
-## Setup
+## The model key
 
-Set `ANTHROPIC_API_KEY` as a secret environment variable on this Actor. It is
-the agent's own model key: `POST /drill` works without it, but the first
-message turn will not.
+The agent is a model, so a turn costs model tokens. Send your own key with
+each message and you pay for your own drills:
 
-Model calls bill to that key, not to Apify credit.
+```
+x-anthropic-api-key: sk-ant-...
+```
+
+The key is used for that request only and is never stored, logged or written
+to the key-value store. If the Actor's owner has set `ANTHROPIC_API_KEY` on
+it, that is used when you send no header.
+
+`POST /drill` and `GET /drill/<id>/verdict` need no key; only a turn does.
+Model calls bill to whoever's key was used, not to Apify credit.
 
 ## Limitations
 

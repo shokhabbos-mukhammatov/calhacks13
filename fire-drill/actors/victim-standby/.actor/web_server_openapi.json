@@ -113,6 +113,13 @@
                         "required": true,
                         "schema": {"type": "string"},
                         "description": "From POST /drill"
+                    },
+                    {
+                        "name": "x-anthropic-api-key",
+                        "in": "header",
+                        "required": false,
+                        "schema": {"type": "string"},
+                        "description": "Your own Anthropic key, so you pay for your own drill. Used for this request only and never stored. Falls back to the key set on the Actor, if any."
                     }
                 ],
                 "requestBody": {

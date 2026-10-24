@@ -10,6 +10,13 @@
             "editor": "textfield",
             "default": "local"
         },
+        "anthropic_api_key": {
+            "title": "Your Anthropic API key",
+            "type": "string",
+            "description": "Needed only when target is \"local\", because the agent then runs inside this Actor and its model calls bill to this key. Leave empty to use the key set on the Actor, if any. When drilling a Standby target, the target makes the model calls and this is not used.",
+            "editor": "textfield",
+            "isSecret": true
+        },
         "target_token": {
             "title": "Target API token",
             "type": "string",
