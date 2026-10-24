@@ -173,18 +173,27 @@ def make_config(
     baseline+verify:  verify_vendor offered, no policy.
     patched:          FakeCodeAgent's structural patch (callback policy, payment gate).
     patch:<name>:     a PatchDiff the Remediator wrote, from patches/<name>.json.
+    scope:<name>:     the same patch's tool scope with its policy dropped, so the
+                      code-level gate is exercised instead of the agent being
+                      talked out of trying. Separates "the model was persuaded"
+                      from "the harness refused".
     The rail only mirrors payments, so every level takes it."""
     if name == "baseline":
         return VictimConfig(model=model, name=name, rail=rail)
     if name == "baseline+verify":
         return VictimConfig(model=model, name=name, rail=rail, verifier=verifier)
+    policy_too = True
     if name == "patched":
         patch = FakeCodeAgent().patch(failing=[], policy=BASELINE_POLICY, train_families=[])
-    elif name.startswith("patch:"):
-        patch = PatchDiff.load(name.split(":", 1)[1])
+    elif name.startswith(("patch:", "scope:")):
+        kind, patch_name = name.split(":", 1)
+        patch = PatchDiff.load(patch_name)
+        policy_too = kind == "patch"
     else:
-        raise ValueError(f"unknown config {name!r}; known: {', '.join(CONFIGS)}, patch:<name>")
-    return VictimConfig(model=model, name=name, policy=patch.policy, tool_scope=patch.tool_scope,
+        raise ValueError(f"unknown config {name!r}; known: {', '.join(CONFIGS)}, "
+                         "patch:<name>, scope:<name>")
+    return VictimConfig(model=model, name=name, tool_scope=patch.tool_scope,
+                        policy=patch.policy if policy_too else BASELINE_POLICY,
                         rail=rail, verifier=verifier)
 
 

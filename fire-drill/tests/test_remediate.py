@@ -184,6 +184,18 @@ def test_a_saved_patch_loads_as_a_config(tmp_path, monkeypatch):
     assert config.tool_scope["approve_payment"] == "requires_verification"
 
 
+def test_scope_applies_the_tool_gate_without_the_policy(tmp_path, monkeypatch):
+    import firedrill.remediate as remediate
+
+    monkeypatch.setattr(remediate, "PATCHES_DIR", tmp_path)
+    PatchDiff(policy="Call back first.", tool_scope={"approve_payment": "requires_verification"},
+              tests="").save("v1", tmp_path)
+    scope_only = make_config("scope:v1", model=ScriptedModel([]))
+    assert scope_only.policy == ""                                   # the model is not told
+    assert scope_only.tool_scope == {"approve_payment": "requires_verification"}  # the gate still fires
+    assert scope_only.name == "scope:v1"
+
+
 def test_a_missing_patch_names_what_exists(tmp_path, monkeypatch):
     import firedrill.remediate as remediate
 
