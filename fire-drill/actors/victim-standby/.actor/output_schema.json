@@ -1,0 +1,19 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "AP Practice Target output",
+    "description": "This Actor answers over HTTP rather than producing a dataset: a run's result is the verdict returned by GET /drill/<id>/verdict. Drill state is kept in a shared key-value store so any run can serve any turn.",
+    "properties": {
+        "drills": {
+            "type": "string",
+            "title": "Drill state",
+            "description": "The conversation and ledger of every drill, keyed conversation-<id> and world-<id>. The ledger is what the verdict is read from.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/keys"
+        },
+        "endpoint": {
+            "type": "string",
+            "title": "Standby endpoint",
+            "description": "The URL to drill. POST /drill to start one, POST /drill/<id>/message to play a turn, GET /drill/<id>/verdict to read the result.",
+            "template": "{{run.containerUrl}}"
+        }
+    }
+}
