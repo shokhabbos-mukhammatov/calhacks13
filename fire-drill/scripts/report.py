@@ -20,12 +20,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from firedrill.console import use_utf8
 from firedrill.records import RECORDS_DIR, load_records
 from firedrill.scorecard import configs_in, generalization, grid, scorecard
 from firedrill.stats import INTERVALS, fisher_exact
 
 
 def main() -> None:
+    use_utf8()
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--interval", choices=sorted(INTERVALS), default="wilson",
                    help="wilson (default) or clopper-pearson, which is exact and wider")

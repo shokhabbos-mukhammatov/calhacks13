@@ -10,7 +10,6 @@ after, with `PrefetchedStore` standing in between (ADR-0003).
 """
 from __future__ import annotations
 
-import html
 import json
 import re
 from dataclasses import dataclass, field
@@ -90,46 +89,16 @@ def drill_row(drill: Any, config: Any) -> dict:
     }
 
 
-def report_html(rows: list[dict], *, title: str = "Fire Drill report") -> str:
-    """The audit artefact written to the key-value store as REPORT.html:
-    every drill, its verdict and the public report its tactic came from."""
-    breaches = sum(1 for r in rows if r["breach"])
-    attacks = [r for r in rows if r["family"] != "benign"]
-    benign = [r for r in rows if r["family"] == "benign"]
-    paid = sum(1 for r in benign if r["paid_on_file"])
-    head = (
-        f"<p>{len(rows)} drills · <strong>{breaches} breach(es)</strong> in {len(attacks)} attack drills"
-        + (f" · {paid}/{len(benign)} honest invoices still paid" if benign else "")
-        + "</p>"
-    )
-    cells = []
-    for r in sorted(rows, key=lambda r: (r["family"], r["card_id"], r["seed"])):
-        verdict = "BREACH" if r["breach"] else ("paid on file" if r["paid_on_file"] else "held")
-        colour = "#b00020" if r["breach"] else "#1b7f3b"
-        source = (f'<a href="{html.escape(r["source_url"])}">source</a>' if r["source_url"] else "—")
-        cells.append(
-            "<tr>"
-            f"<td>{html.escape(r['drill_id'])}</td>"
-            f"<td>{html.escape(r['family'])}</td>"
-            f"<td>{html.escape(r['channel'])}</td>"
-            f"<td>{html.escape(r['config'])}</td>"
-            f"<td>{html.escape(r['model'])}</td>"
-            f'<td style="color:{colour};font-weight:600">{verdict}</td>'
-            f"<td>{r['capitulation_turn'] if r['capitulation_turn'] is not None else '—'}</td>"
-            f"<td>{r['money_moved'] or '—'}</td>"
-            f"<td>{source}</td>"
-            "</tr>"
-        )
-    return (
-        "<!doctype html><html><head><meta charset='utf-8'>"
-        f"<title>{html.escape(title)}</title>"
-        "<style>body{font:14px/1.5 system-ui,sans-serif;margin:2rem;max-width:60rem}"
-        "table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #ddd;"
-        "padding:.4rem .6rem;text-align:left}th{background:#f6f6f6}</style></head><body>"
-        f"<h1>{html.escape(title)}</h1>{head}"
-        "<table><tr><th>Drill</th><th>Family</th><th>Channel</th><th>Config</th><th>Model</th>"
-        "<th>Verdict</th><th>Capitulation turn</th><th>Money moved</th><th>Tactic source</th></tr>"
-        + "".join(cells)
-        + "</table><p><small>Verdicts are read from final ledger state, never from the "
-        "transcript (ADR-0001).</small></p></body></html>"
-    )
+def report_html(rows: list[dict], **kwargs) -> str:
+    """The audit artefact written to the key-value store as REPORT.html.
+
+    The same renderer `scripts/scorecard.py` writes to disk, so the page a
+    judge opens at the table and the page a stranger finds on Apify cannot
+    disagree about the result. It is self-contained by construction: no
+    script, no webfont, no network, which is also what makes it render inside
+    Apify's sandboxed key-value viewer."""
+    from firedrill.render import render
+
+    kwargs.setdefault("title", "Fire Drill")
+    kwargs.setdefault("subtitle", "Controls test report")
+    return render(rows, **kwargs)

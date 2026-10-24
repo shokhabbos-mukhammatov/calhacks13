@@ -29,6 +29,12 @@ fire-drill/turns/
 # drill records hold the attacker turns; commit-reveal decides what is published
 fire-drill/records/
 
+# the scorecard page is rendered from records/, which is not versioned either.
+# A committed copy would go stale and disagree with the live one, which is the
+# exact failure the single shared renderer exists to prevent: regenerate it
+# with scripts/scorecard.py.
+fire-drill/scorecard.html
+
 # commit-reveal: the commitment is public, the salts and the reveal (which
 # holds the drills themselves) are published only when you choose to
 fire-drill/commitments/*.salts.json

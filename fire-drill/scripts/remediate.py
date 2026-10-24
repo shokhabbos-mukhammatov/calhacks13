@@ -31,6 +31,7 @@ sys.path.insert(0, str(ROOT))
 
 from dotenv import load_dotenv
 
+from firedrill.console import use_utf8
 from firedrill.commit import commit, verify
 from firedrill.failures import as_json, failing
 from firedrill.records import RECORDS_DIR, load_records
@@ -61,6 +62,7 @@ def do_reveal(name: str) -> None:
 
 
 def main() -> None:
+    use_utf8()
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--hold-out", action="append", default=[], metavar="FAMILY",
                    help="a tactic family the patch never sees (repeatable)")

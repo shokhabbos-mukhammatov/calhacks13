@@ -90,3 +90,23 @@ def load_records(directory: Path = RECORDS_DIR) -> list[dict]:
     if not directory.exists():
         return []
     return [json.loads(p.read_text(encoding="utf-8")) for p in sorted(directory.glob("*.json"))]
+
+
+def find_records(
+    card_id: str | None = None,
+    seed: int | None = None,
+    config: str | None = None,
+    directory: Path = RECORDS_DIR,
+) -> list[dict]:
+    """Saved drills matching a card, seed and hardening level, newest first.
+
+    `record_path` names a file by the config's *fingerprint*, which a replay
+    does not have: it is asking for "the drill I ran", not for a particular
+    build of the agent. So the lookup is by the three things a person would
+    say out loud, and the newest match wins.
+    """
+    out = [r for r in load_records(directory)
+           if (card_id is None or r["card"]["id"] == card_id)
+           and (seed is None or r["seed"] == seed)
+           and (config is None or r["config"]["name"] == config)]
+    return sorted(out, key=lambda r: r.get("saved_at", ""), reverse=True)
