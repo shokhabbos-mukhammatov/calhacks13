@@ -1,0 +1,56 @@
+.res__top { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(24px, 4vw, 56px); margin-bottom: clamp(56px, 7vw, 96px) }
+@media (max-width: 960px) { .res__top { grid-template-columns: minmax(0, 1fr) } }
+.res__toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px }
+
+.forest { width: 100%; height: auto; display: block; overflow: visible }
+.forest__grid { stroke: var(--rule); stroke-width: 1 }
+.forest__tick { font: 500 12px var(--font-mono); fill: var(--muted) }
+.forest__group { font: 700 12px var(--font-mono); letter-spacing: 0.06em; fill: var(--ink-2) }
+.forest__label { font: 500 14px var(--font-mono); fill: var(--ink) }
+.forest__whisker { stroke: var(--ink-2); stroke-width: 3; stroke-linecap: round }
+.forest__whisker.is-after { stroke: var(--ink) }
+.forest__dot { fill: var(--paper); stroke: var(--ink); stroke-width: 3 }
+.forest__dot.is-after { fill: var(--ink) }
+.forest__val { font: 600 15px var(--font-mono); fill: var(--ink) }
+.forest__ci { font: 400 13px var(--font-mono); fill: var(--ink-2) }
+.forest__gap { fill: color-mix(in srgb, var(--safe) 14%, transparent); stroke: var(--safe); stroke-width: 1.5; stroke-dasharray: 4 3 }
+.forest__gaplabel { font: 700 11px var(--font-mono); letter-spacing: 0.08em; fill: var(--safe) }
+
+.res__stats { display: grid; align-content: start; gap: 0; border-top: 2px solid var(--ink) }
+.res__stat { display: grid; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--rule) }
+.res__big { font: 800 40px/1 var(--font-sign) }
+.res__small { font-size: 14px; color: var(--ink-2); line-height: 1.5 }
+
+.insight { margin-bottom: clamp(56px, 7vw, 96px) }
+.insight__h { font-size: clamp(30px, 3.6vw, 48px); margin: 0 0 22px; max-width: 22ch }
+.insight__pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 2px solid var(--ink); margin-bottom: 18px }
+.insight__card { padding: 20px 22px; display: grid; gap: 8px; align-content: start }
+.insight__card + .insight__card { border-left: 2px solid var(--ink) }
+.insight__lever { margin: 0; font-size: 14.5px; color: var(--ink-2); min-height: 3em }
+.insight__lever b { color: var(--ink) }
+.insight__big { font: 800 64px/0.9 var(--font-sign) }
+.insight__sub { font: 500 12px var(--font-mono); color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px }
+@media (max-width: 700px) { .insight__pair { grid-template-columns: minmax(0, 1fr) } .insight__card + .insight__card { border-left: 0; border-top: 2px solid var(--ink) } }
+
+.units { display: flex; flex-wrap: wrap; gap: 4px; align-items: center }
+.unit {
+  width: 20px; height: 20px; display: grid; place-items: center; flex: none;
+  border: 1.5px solid var(--ink-2); background: var(--paper);
+  font: 600 11px/1 var(--font-mono); color: #fff;
+}
+.unit--breach { background: var(--signal); border-color: var(--signal) }
+.unit--look { margin-left: 8px }
+.units--dim { opacity: 0.55 }
+
+.res__h { font-size: clamp(30px, 3.4vw, 44px); margin: 0 0 10px }
+.bgrid { margin-top: 18px; border-top: 2px solid var(--ink); overflow-x: auto }
+.bgrid__head, .bgrid__row {
+  display: grid; grid-template-columns: 96px 130px 70px minmax(330px, 1fr) 80px 120px; gap: 14px; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--rule); min-width: 860px;
+}
+.bgrid__head { font: 500 11px var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted) }
+.bgrid__row .mono { font-size: 13px }
+.bgrid__row.is-small { color: var(--ink-2) }
+.bgrid__k { font: 500 13px var(--font-mono) }
+.bgrid__k b { font-size: 15px }
+.bgrid__ci { font: 400 12.5px var(--font-mono); color: var(--ink-2) }

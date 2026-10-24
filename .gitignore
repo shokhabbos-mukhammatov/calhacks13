@@ -46,3 +46,10 @@ fire-drill/commitments/*.reveal.json
 fire-drill/actors/*/storage/
 fire-drill/actors/*/*.log
 fire-drill/actors/*/*.err
+
+# the frontend: dependencies and the build are regenerated; the data file is
+# exported from records/ by scripts/export_ui.py and follows records/ in
+# whether it is published
+fire-drill/ui/node_modules/
+fire-drill/ui/dist/
+fire-drill/ui/src/data/fire-drill.json

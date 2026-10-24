@@ -99,6 +99,41 @@ layer is on a cell where money moved. Nothing is encoded by hue alone - a
 breach cell also carries the turn the agent capitulated, both states are named
 in the legend, and every value is in the table view.
 
+### The frontend
+
+```powershell
+Set-Location ui
+npm install
+npm run data       # export records/ to ui/src/data/fire-drill.json
+npm run dev        # http://localhost:5173
+npm run build      # dist/index.html: one self-contained file
+```
+
+`npm run build` writes **one HTML file** with the scripts, styles, fonts and
+drill data all inlined. It opens straight from disk with no server and no
+network, because personal hotspots are banned at the venue. It has been
+rendered from `file://` in Edge to check.
+
+Seven sections, in the order of the argument:
+
+| | |
+| --- | --- |
+| **How it works** | The loop: drill, break, fix, re-run |
+| **Watch a drill** | A recorded drill replayed one tool call at a time beside the live ledger. The same vendor and invoice under three agents: no controls (breach on turn 1), patched (held), and gate only (the policy deleted, and the code refuses the payment) |
+| **The fix** | What the coding agent is shown, animated from concrete values to roles; Claude Code's and Droid's patches side by side |
+| **Does it hold** | A forest plot with a Wilson / Clopper–Pearson toggle, Fisher's test, `vmt-01` against `vmt-02`, and the full breach grid |
+| **The math** | An interval lab and an optional-stopping simulator, then every formula the harness uses |
+| **The system** | The architecture as a live map of ports and adapters, with the four ADRs |
+| **Try it live** | The phone line, the judge card, the Actors, the Elastic tool, every sponsor |
+
+Every ledger state in the replay comes from the real `Ledger`:
+`scripts/export_ui.py` re-applies each drill's tool calls and refuses to build
+if a replay ends anywhere the recorded drill did not. The interval lab is the
+only place the frontend computes statistics itself, and
+`scripts/check_ui_stats.py` holds its port to the Python one.
+`export_ui.py --withhold-attacks` drops the attacker's message text, for a
+public build while `records/` stays private.
+
 ---
 
 ## Setup
@@ -368,7 +403,9 @@ firedrill/        ledger, scorer, victim agent, drill loop, remediation,
                   scorecard renderer, Apify and Elastic adapters
 tests/            178 tests, all offline
 scripts/          run_drill, grid, report, scorecard, remediate, elastic_index,
-                  keep_warm, nessie_seed, sync_actors, check_integrations
+                  export_ui, check_ui_stats, keep_warm, nessie_seed,
+                  sync_actors, check_integrations
+ui/               the frontend: Vite + React, built to one offline HTML file
 cards/            tactic cards, each citing a public fraud report
 benign/           honest invoice packs, for the usefulness half of the score
 patches/          structural patches written by Claude Code and by Droid

@@ -94,6 +94,11 @@ Build order from [[Fire Drill Architecture]]: **1, 2, 3, 5, 6, 7, 9 complete**,
 
 ## What is left
 
+**The frontend** (`fire-drill/ui/`) replaces the scorecard page as the thing
+to show. `npm run data` then `npm run build` gives one offline HTML file
+(about 1.2 MB). Its data file is generated from `records/` and is gitignored
+until the decision on publishing `records/` is made.
+
 **Mine** — all done: the scorecard page, the replay and keep-warm, Elastic,
 and the design audit. Both review collections are installed as marketplaces
 (`interfaces` from jakubkrehel/skills, `designer-skills`); their rubrics live
