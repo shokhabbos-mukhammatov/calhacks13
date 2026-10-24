@@ -11,3 +11,12 @@ graphify-out/cache/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Python (fire-drill)
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.env

@@ -1,0 +1,9 @@
+[project]
+name = "firedrill"
+version = "0.1.0"
+description = "Fire Drill: a controls-testing harness for your own accounts-payable AI agent"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
