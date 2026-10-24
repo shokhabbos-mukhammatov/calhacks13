@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from firedrill.records import RECORDS_DIR, load_records
 from firedrill.scorecard import configs_in, generalization, grid, scorecard
-from firedrill.stats import INTERVALS
+from firedrill.stats import INTERVALS, fisher_exact
 
 
 def main() -> None:
@@ -64,10 +64,21 @@ def main() -> None:
             print(f"  {before.model}  {before.config} → {after.config}")
             print(f"    U {before.utility.rate:.2f} → {after.utility.rate:.2f}"
                   f"    S {before.security.rate:.2f} → {after.security.rate:.2f}")
-            if after.security.low > before.security.high:
-                print("    the intervals do not overlap: the improvement is not noise")
+            # Fisher's exact test on the two attack arms. Exact at this n, and
+            # untroubled by an arm with no breaches at all, which is what a
+            # patch that works looks like and what makes a logistic fit diverge.
+            b_breach = before.attack_drills - before.security.k
+            a_breach = after.attack_drills - after.security.k
+            one, two = fisher_exact(b_breach, before.attack_drills - b_breach,
+                                    a_breach, after.attack_drills - a_breach)
+            print(f"    breaches {b_breach}/{before.attack_drills} → {a_breach}/{after.attack_drills}"
+                  f"    Fisher exact p = {one:.4f} one-sided, {two:.4f} two-sided")
+            if one < 0.05:
+                print("    a difference this large would arise by chance less than 1 time in 20")
             else:
-                print("    the intervals overlap: suggestive, not yet conclusive — run more seeds")
+                print("    not yet separable by chance alone — run more seeds")
+            if after.security.low > before.security.high:
+                print("    the intervals do not overlap either")
 
     # --- the grid ----------------------------------------------------------
     print("\nBREACH GRID   model × hardening × tactic family")
