@@ -18,7 +18,9 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import random
 import re
+import secrets
 import threading
 from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -36,6 +38,7 @@ from firedrill.victim import AnthropicModel, ChannelMessage, VictimAgent
 READINESS_HEADER = "x-apify-container-server-readiness-probe"
 TURN_TIMEOUT = 300  # seconds for one agent turn, including its model calls
 STORE_NAME = "fire-drill-worlds"
+DEFAULT_VOICE_CARD = "vmt-01"  # the world a phone call starts in
 
 CARDS = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
 
@@ -107,7 +110,7 @@ async def handle_message(conversation_id: str, body: dict, api_key: str | None) 
                         sink=sink, verifier=verifier)
 
     message = ChannelMessage(
-        channel=card.channel,
+        channel=world.get("channel") or card.channel,
         sender=body.get("sender") or scenario.kit.sender,
         subject=body.get("subject") or f"Invoice {scenario.kit.invoice_id}",
         body=body.get("body", ""),
@@ -140,6 +143,48 @@ async def drill_verdict(conversation_id: str) -> tuple[int, dict]:
     }
 
 
+async def voice_relay(body: dict, api_key: str | None) -> tuple[int, dict]:
+    """One turn of a phone call, relayed to the same Victim Agent a text drill
+    uses (ADR: one Victim Agent, several Channels).
+
+    The caller speaks, Cartesia transcribes, this plays the turn against the
+    Ledger and returns what the agent says back. The verdict still comes from
+    ledger state afterwards, so a smooth-talking caller cannot talk the scorer
+    out of a FAIL.
+
+    The first turn has no drill_id and starts a drill on a fresh random world;
+    the id comes back in the response and Cartesia sends it on later turns.
+    """
+    conversation_id = (body.get("drill_id") or "").strip()
+    if not conversation_id:
+        card_id = body.get("card_id") or DEFAULT_VOICE_CARD
+        if card_id not in CARDS:
+            return 400, {"error": f"unknown card {card_id!r}", "known": sorted(CARDS)}
+        seed = int(body.get("seed") or random.randrange(1, 10_000))
+        conversation_id = f"voice-{card_id}-s{seed}-{secrets.token_hex(3)}"
+        scenario = build_scenario(CARDS[card_id], seed)
+        kvs = await open_store()
+        await kvs.set_value(world_key(conversation_id), {
+            "card_id": card_id, "seed": seed, "config": body.get("config", "baseline"),
+            "model": body.get("model", "claude-opus-5-5"), "channel": "voice",
+            "ledger": scenario.ledger.to_dict(),
+        })
+        await kvs.set_value(conversation_key(conversation_id), [])
+        Actor.log.info("voice drill %s started (%s, seed %s)", conversation_id, card_id, seed)
+
+    status, out = await handle_message(
+        conversation_id,
+        {"body": body.get("message", ""), "sender": body.get("caller_id") or "caller on the phone",
+         "subject": "Phone call"},
+        api_key,
+    )
+    if status != 200:
+        return status, out
+    # The agent's reply is spoken, so hand back only that, plus the id to carry.
+    return 200, {"reply": out["reply"], "drill_id": conversation_id,
+                 "tools_used": [c["tool"] for c in out.get("tool_calls", [])]}
+
+
 def _fixed(table: dict[str, int]):
     from firedrill.verify import FixedDomainAge
 
@@ -156,10 +201,13 @@ async def route(method: str, path: str, body: dict, api_key: str | None = None) 
             "what": "A sandboxed accounts-payable agent to run manipulation drills against. "
                     "Every verdict is read from ledger state, never from the transcript.",
             "cards": sorted(CARDS),
-            "endpoints": ["POST /drill", "POST /drill/<id>/message", "GET /drill/<id>/verdict"],
+            "endpoints": ["POST /drill", "POST /drill/<id>/message", "GET /drill/<id>/verdict",
+                          "POST /voice/relay"],
         }
     if path == "/drill" and method == "POST":
         return await start_drill(body)
+    if path == "/voice/relay" and method == "POST":
+        return await voice_relay(body, api_key)
     match = ROUTES.match(path)
     if match and match["action"] == "message" and method == "POST":
         return await handle_message(match["id"], body, api_key)
