@@ -73,7 +73,8 @@ def main() -> None:
     p.add_argument("--seed", type=int, default=1)
     p.add_argument("--turns", type=Path, help="file of attacker turns separated by '---' lines")
     p.add_argument("--max-turns", type=int, default=6)
-    p.add_argument("--config", choices=CONFIGS, default="baseline", help="hardening level (default: baseline)")
+    p.add_argument("--config", default="baseline",
+                   help=f"hardening level: {', '.join(CONFIGS)}, or patch:<name> from patches/ (default: baseline)")
     p.add_argument("--model", default="claude-opus-5-5", help="victim model id (default: claude-opus-5-5)")
     p.add_argument("--dry-run", action="store_true", help="print the kit and filled turns; no model calls")
     p.add_argument("--save", action="store_true", help="write the drill to records/")
@@ -108,7 +109,10 @@ def main() -> None:
     rail = NessieRail.from_env(os.environ)
     sender_check = CrsFraudFinder.from_env(os.environ)
     verifier = VendorVerifier(RdapDomainAge(), sender_check or NoSenderCheck())
-    config = make_config(args.config, model=AnthropicModel(args.model), verifier=verifier, rail=rail)
+    try:
+        config = make_config(args.config, model=AnthropicModel(args.model), verifier=verifier, rail=rail)
+    except (ValueError, FileNotFoundError) as e:
+        p.error(str(e))
     verify_note = "off"
     if config.verifier:
         verify_note = "on (CRS Fraud Finder)" if sender_check else "on (no sender check; set CRS_* in .env)"
