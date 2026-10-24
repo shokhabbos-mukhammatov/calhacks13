@@ -10,6 +10,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+# Only the Apify Actors need the platform SDK; the core runs without it.
+actors = ["apify>=4.1,<5"]
 
 [tool.pytest.ini_options]
 addopts = "-q"

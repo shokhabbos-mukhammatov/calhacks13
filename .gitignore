@@ -33,3 +33,11 @@ fire-drill/records/
 # holds the drills themselves) are published only when you choose to
 fire-drill/commitments/*.salts.json
 fire-drill/commitments/*.reveal.json
+
+# the package is copied into each Actor by scripts/sync_actors.py before a
+# push; one source of truth stays in fire-drill/
+fire-drill/actors/*/firedrill/
+fire-drill/actors/*/cards/
+fire-drill/actors/*/benign/
+fire-drill/actors/*/patches/
+fire-drill/actors/*/storage/

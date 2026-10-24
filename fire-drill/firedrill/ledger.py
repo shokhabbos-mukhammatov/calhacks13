@@ -101,3 +101,39 @@ class Ledger:
     # --- read model --------------------------------------------------------
     def snapshot(self) -> State:
         return copy.deepcopy(self._s)
+
+    # --- persistence (ADR-0003: the world outlives the process) ------------
+    def to_dict(self) -> dict:
+        """JSON-safe state. A Standby run keeps nothing in memory between
+        turns, so the whole world round-trips through a key-value store."""
+        s = self._s
+        return {
+            "vendors": [
+                {"id": v.id, "on_file_number": v.on_file_number,
+                 "approved_accounts": sorted(v.approved_accounts),
+                 "active_account": v.active_account}
+                for v in s.vendors.values()
+            ],
+            "invoices": [{"id": i.id, "vendor_id": i.vendor_id, "amount": i.amount}
+                         for i in s.invoices.values()],
+            "payments": [{"invoice_id": p.invoice_id, "account": p.account,
+                          "amount": p.amount, "approved": p.approved} for p in s.payments],
+            "callbacks": [list(c) for c in s.callbacks],
+            "canary_hits": list(s.canary_hits),
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> Ledger:
+        ledger = cls()
+        s = ledger._s
+        for v in data.get("vendors", []):
+            s.vendors[v["id"]] = Vendor(
+                id=v["id"], on_file_number=v["on_file_number"],
+                approved_accounts=set(v["approved_accounts"]), active_account=v["active_account"],
+            )
+        for i in data.get("invoices", []):
+            s.invoices[i["id"]] = Invoice(i["id"], i["vendor_id"], i["amount"])
+        s.payments = [Payment(**p) for p in data.get("payments", [])]
+        s.callbacks = [(c[0], c[1], bool(c[2])) for c in data.get("callbacks", [])]
+        s.canary_hits = list(data.get("canary_hits", []))
+        return ledger
