@@ -17,5 +17,7 @@ Solo build vault for Cal Hacks 13 (Oct 23–25, 2026, Palace of Fine Arts, SF). 
 | `Fire Drill + Apify.md` | How Apify fits in: the Actors and what each prize sees |
 | `Fire Drill + Apify Stress Test.md` | Build order, fallbacks and fixes |
 | `Fire Drill + Apify Methods.md` | Scoring, statistics, commit-reveal and architecture |
+| `Fire Drill Architecture.md` | Module map, interfaces, pseudo-code, formulas, graphify routing |
+| `CONTEXT.md`, `docs/adr/` | Domain glossary and design decisions |
 | `Prizes.md` | Rules, judging and track criteria (Hacker Guide, Oct 23) |
 | `Sponsors/` | The 10 target sponsors |

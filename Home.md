@@ -13,6 +13,9 @@ tags: [index]
 - [[Fire Drill + Apify]]: the Apify plan
 - [[Fire Drill + Apify Stress Test]]: build order and fixes
 - [[Fire Drill + Apify Methods]]: scoring, statistics, commit-reveal and architecture
+- [[Fire Drill Architecture]]: module map, interfaces, pseudo-code and formulas (start here to build)
+- [[CONTEXT]]: the glossary · `docs/adr/`: the design decisions
+- `Graph/`: the code knowledge graph (graphify → Obsidian), once the code repo exists
 
 ## Prizes and sponsors
 - [[Prizes]]: rules, judging and each track's criteria
