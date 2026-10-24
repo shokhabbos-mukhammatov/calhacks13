@@ -215,4 +215,25 @@ Why it helps: solo, the graph is a navigable map of the agent, tools, scorer and
 8. Scorecard UI; voice Channel (Cartesia) last.
 9. graphify route into the vault; link from [[Home]].
 
+## 9. Sponsor ports (cover as many as possible, safely)
+Every sponsor plugs in as an **adapter behind a port** with an in-memory fallback, so adding one never risks the core demo and any one can be dropped. Two adapters per port (fake + sponsor) make each seam real.
+
+| Port | Fallback adapter | Sponsor adapter | Tier |
+| --- | --- | --- | --- |
+| LLM for agent and drill driver | — | [[Anthropic]] Claude (plain `anthropic` SDK, tool loop) | A |
+| Remediation `CodeAgent` | `FakeCodeAgent` | Claude Code (headless) · [[Factory]] Droid SDK | A / B |
+| Corpus + runner + verify Actors | local functions | [[Apify]] Actors, Standby | A |
+| `BusinessCheck` | `NoBusinessCheck` | [[CRS Credit API]] via MCP | A |
+| `DomainAge` | `FixedDomainAge` | RDAP (real, keyless) | done |
+| `PaymentRail` | `MemoryRail` | [[Capital One]] Nessie | A |
+| `TraceSink` | `MemorySink` | [[Elastic]] Agent Builder · Apify dataset | B |
+| Voice channel | text channel | [[Cartesia]] Line | B |
+| Live scorecard backend | local JSON | Convex *or* SpacetimeDB (pick one at the booths) | C |
+| Pay-per-drill | none | Coinbase x402 via Apify pay-per-event | C |
+| Second model in the grid | Claude only | Bitdeer Model Studio | C |
+
+Framing only (no code): [[Hyphenate]] (audit report, real-vs-simulated panel, judge-typed scenario, seats line), [[Armadin]], [[Microsoft]], and Cal Hacks' Most Technically Complex, Best Solo Hack and Most Creative.
+
+SDK default: the plain `anthropic` SDK with a hand-built tool loop, light enough for an Apify Standby Actor. Claude Code does remediation. This is easy to reverse, so there's no ADR.
+
 Back to [[Home]] · [[Fire Drill]] · [[Fire Drill + Apify]] · [[Fire Drill + Apify Methods]]
