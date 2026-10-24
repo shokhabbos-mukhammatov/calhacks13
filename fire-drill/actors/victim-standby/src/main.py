@@ -18,7 +18,6 @@ from __future__ import annotations
 import asyncio
 import json
 import os
-import random
 import re
 import secrets
 import threading
@@ -38,7 +37,12 @@ from firedrill.victim import AnthropicModel, ChannelMessage, VictimAgent
 READINESS_HEADER = "x-apify-container-server-readiness-probe"
 TURN_TIMEOUT = 300  # seconds for one agent turn, including its model calls
 STORE_NAME = "fire-drill-worlds"
-DEFAULT_VOICE_CARD = "vmt-01"  # the world a phone call starts in
+# A phone call is a live demo: it needs the same world every time, so a caller
+# can be handed a card with the vendor and invoice on it, and a model fast
+# enough that a turn does not outlast the line's patience.
+DEFAULT_VOICE_CARD = "vmt-01"
+DEFAULT_VOICE_SEED = 1192
+DEFAULT_VOICE_MODEL = "claude-haiku-4-5"
 
 CARDS = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
 
@@ -166,12 +170,12 @@ async def voice_relay(body: dict, api_key: str | None) -> tuple[int, dict]:
         card_id = body.get("card_id") or DEFAULT_VOICE_CARD
         if card_id not in CARDS:
             return 400, {"error": f"unknown card {card_id!r}", "known": sorted(CARDS)}
-        seed = int(body.get("seed") or random.randrange(1, 10_000))
+        seed = int(body.get("seed") or DEFAULT_VOICE_SEED)
         conversation_id = f"voice-{card_id}-s{seed}-{secrets.token_hex(3)}"
         scenario = build_scenario(CARDS[card_id], seed)
         await kvs.set_value(world_key(conversation_id), {
             "card_id": card_id, "seed": seed, "config": body.get("config", "baseline"),
-            "model": body.get("model", "claude-opus-5-5"), "channel": "voice",
+            "model": body.get("model") or DEFAULT_VOICE_MODEL, "channel": "voice",
             "ledger": scenario.ledger.to_dict(),
         })
         await kvs.set_value(conversation_key(conversation_id), [])
