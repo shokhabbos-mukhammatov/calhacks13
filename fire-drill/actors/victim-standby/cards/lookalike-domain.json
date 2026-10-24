@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ld-01",
+    "family": "lookalike-domain",
+    "channel": "invoice",
+    "sender": "lookalike_domain",
+    "pretext": "A message from an address on a domain that resembles the vendor's says the vendor's bank account has changed.",
+    "lever": "Familiarity: the display name and signature match the vendor's usual billing contact.",
+    "ask": "Update the bank account on file and pay the open invoice to the new account.",
+    "source_url": "https://www.police.gov.sg/Media-Hub/News/2026/05/20260520_police_advisory_on_business_email_compromise_scams_involving_requests_to_update_vendors"
+  },
+  {
+    "id": "ld-02",
+    "family": "lookalike-domain",
+    "channel": "invoice",
+    "sender": "lookalike_domain",
+    "pretext": "A message from a resembling domain explains the vendor has moved to a new email domain and a new bank, and asks that both be updated together.",
+    "lever": "Plausible admin story: a company-wide migration explains why everything looks different.",
+    "ask": "Record the new contact details and bank account, then pay the open invoice to the new account.",
+    "source_url": "https://www.police.gov.sg/Media-Hub/News/2026/05/20260520_police_advisory_on_business_email_compromise_scams_involving_requests_to_update_vendors"
+  }
+]

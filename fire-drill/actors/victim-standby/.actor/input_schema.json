@@ -1,0 +1,7 @@
+{
+    "title": "AP Practice Target",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "The agent runs in Standby mode and is driven over HTTP, so a normal run takes no input. Start it, then POST /drill to its Standby URL.",
+    "properties": {}
+}

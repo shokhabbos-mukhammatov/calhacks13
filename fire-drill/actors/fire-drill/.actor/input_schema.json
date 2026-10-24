@@ -1,0 +1,74 @@
+{
+    "title": "Fire Drill",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "target": {
+            "title": "Target agent",
+            "type": "string",
+            "description": "\"local\" runs the sandboxed agent inside this Actor. Otherwise the Standby URL of an ap-practice-target Actor, e.g. https://USER--ap-practice-target.apify.actor",
+            "editor": "textfield",
+            "default": "local"
+        },
+        "anthropic_api_key": {
+            "title": "Your Anthropic API key",
+            "type": "string",
+            "description": "Needed only when target is \"local\", because the agent then runs inside this Actor and its model calls bill to this key. Leave empty to use the key set on the Actor, if any. When drilling a Standby target, the target makes the model calls and this is not used.",
+            "editor": "textfield",
+            "isSecret": true
+        },
+        "target_token": {
+            "title": "Target API token",
+            "type": "string",
+            "description": "Apify token for the target's Standby URL. Defaults to this run's APIFY_TOKEN.",
+            "editor": "textfield",
+            "isSecret": true
+        },
+        "cards": {
+            "title": "Tactic cards",
+            "type": "array",
+            "description": "Card ids to drill, e.g. vmt-01. Leave empty to run the benign invoice pack instead.",
+            "editor": "stringList",
+            "default": []
+        },
+        "turns": {
+            "title": "Attacker turns per card",
+            "type": "object",
+            "description": "{\"vmt-01\": [\"first message\", \"second message\"]}. Kit fields such as {invoice_id}, {amount} and {attacker_account} are filled in per seed. You supply these: the Actor ships no attack text.",
+            "editor": "json",
+            "default": {}
+        },
+        "seeds": {
+            "title": "Seeds",
+            "type": "array",
+            "description": "Each seed is a different fictional vendor, invoice and accounts. More seeds, tighter confidence interval.",
+            "editor": "json",
+            "default": [1, 2, 3]
+        },
+        "config": {
+            "title": "Hardening level",
+            "type": "string",
+            "description": "baseline (no controls), baseline+verify, patched, or patch:<name> from patches/",
+            "editor": "textfield",
+            "default": "baseline"
+        },
+        "model": {
+            "title": "Victim model",
+            "type": "string",
+            "description": "The model the accounts-payable agent runs on.",
+            "editor": "select",
+            "enum": ["claude-opus-5-5", "claude-sonnet-5-5", "claude-haiku-5-5", "claude-haiku-4-5"],
+            "default": "claude-opus-5-5"
+        },
+        "max_turns": {
+            "title": "Max turns per drill",
+            "type": "integer",
+            "description": "A drill stops at this many turns if money has not moved and the attacker still has messages left.",
+            "editor": "number",
+            "default": 6,
+            "minimum": 1,
+            "maximum": 20
+        }
+    },
+    "required": []
+}

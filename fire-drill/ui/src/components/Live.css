@@ -1,0 +1,38 @@
+.live { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(24px, 4vw, 56px); align-items: start; margin-bottom: clamp(48px, 6vw, 72px) }
+@media (max-width: 900px) { .live { grid-template-columns: minmax(0, 1fr) } }
+/* A phone number broken across lines is a number nobody can dial. */
+.live__number { display: block; white-space: nowrap; font-size: clamp(44px, 5.8vw, 84px); color: var(--signal); text-decoration: none; margin: 10px 0 18px; line-height: 0.9 }
+.live__number:hover { color: var(--ink) }
+.live__phone p { margin: 0; font-size: 17px; color: var(--ink-2); max-width: 46ch }
+
+/* An index card, because that is what a judge is handed at the table. */
+.judge { background: #fffdf7; border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); transform: rotate(0.6deg) }
+.judge__head { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; border-bottom: 2px solid var(--ink); font-size: 26px }
+.judge__tag { width: 70px; height: 14px }
+.judge__rows { margin: 0; padding: 8px 18px }
+.judge__rows > div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px dashed var(--rule) }
+.judge__rows dt { font: 500 11.5px/1.4 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2) }
+.judge__rows dd { margin: 0; font: 600 17px/1.3 var(--font-mono) }
+.judge__what { margin: 0; padding: 12px 18px 18px; font-size: 14.5px; color: var(--ink-2); line-height: 1.55 }
+.judge__what b { color: var(--ink) }
+@media (max-width: 520px) { .judge__rows > div { grid-template-columns: minmax(0, 1fr); gap: 2px } }
+
+.tiles { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 0; border: 2px solid var(--ink); margin-bottom: clamp(48px, 6vw, 72px) }
+@media (max-width: 1000px) { .tiles { grid-template-columns: 1fr 1fr } .tile--code { grid-column: 1 / -1; border-left: 0 !important; border-top: 2px solid var(--ink) } }
+@media (max-width: 600px) { .tiles { grid-template-columns: minmax(0, 1fr) } .tile + .tile { border-left: 0 !important; border-top: 2px solid var(--ink) } }
+.tile { display: grid; gap: 8px; align-content: start; padding: 18px 20px; text-decoration: none; color: var(--ink); min-width: 0 }
+.tile + .tile { border-left: 2px solid var(--ink) }
+a.tile:hover { background: var(--ink); color: var(--paper) }
+a.tile:hover .eyebrow { color: var(--console-muted) }
+.tile__name { font-size: 30px }
+.tile__go { font-size: 14px; font-weight: 600; margin-top: 6px }
+.tile__ask { font-size: 17px; font-weight: 600 }
+.tile--code pre { margin: 0; font: 400 12px/1.6 var(--font-mono); background: var(--console); color: var(--console-ink); padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere }
+
+.live__h { font-size: clamp(28px, 3vw, 40px); margin: 0 0 16px }
+.sponsors { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink) }
+.sponsors li { display: grid; grid-template-columns: 170px minmax(0, 1fr) minmax(0, 300px); gap: 20px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--rule) }
+.sponsors__name { font-size: 24px }
+.sponsors__role { font-size: 15px; color: var(--ink-2) }
+.sponsors__where { font-size: 12.5px; color: var(--ink); overflow-wrap: anywhere }
+@media (max-width: 800px) { .sponsors li { grid-template-columns: minmax(0, 1fr); gap: 4px } }

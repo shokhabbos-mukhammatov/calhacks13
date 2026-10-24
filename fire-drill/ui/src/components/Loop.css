@@ -1,0 +1,36 @@
+.loop { position: relative }
+.loop__rail { position: relative; height: 18px; margin-bottom: 18px; border-bottom: 2px solid var(--ink) }
+.loop__token { position: absolute; bottom: -10px; width: 18px; height: 18px; background: var(--signal) }
+
+.loop__stages {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
+  border-left: 1px solid var(--rule);
+}
+.stage {
+  padding: 22px 22px 26px; border-right: 1px solid var(--rule);
+  transition: background 0.35s var(--ease); outline-offset: -3px;
+}
+.stage--on { background: var(--paper-2) }
+.stage__no { font: 500 12px/1 var(--font-mono); color: var(--muted) }
+.stage--on .stage__no { color: var(--ink-2) }
+.stage__key { font-size: clamp(36px, 4vw, 52px); margin: 10px 0 14px; transition: color 0.35s var(--ease) }
+.stage--on .stage__key { color: var(--signal) }
+.stage__what { margin: 0 0 18px; font-size: 15px; line-height: 1.55; color: var(--ink-2); text-wrap: pretty }
+.stage__parts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px }
+.stage__parts li { font: 500 11.5px/1 var(--font-mono); padding: 6px 8px; border: 1px solid var(--ink-2); color: var(--ink) }
+
+.loop__return { display: flex; gap: 18px; align-items: flex-start; margin-top: 28px; max-width: 76ch }
+.loop__return-line {
+  flex: none; width: 46px; height: 26px; margin-top: 2px;
+  border: 2px solid var(--ink); border-top: 0; border-right: 0;
+}
+.loop__return p { margin: 0; color: var(--ink-2); font-size: 15px }
+.loop__return b { color: var(--ink) }
+.loop__return em { font-style: normal; text-decoration: underline; text-decoration-color: var(--signal) }
+
+@media (max-width: 900px) {
+  .loop__rail { display: none }
+  .loop__stages { grid-template-columns: minmax(0, 1fr); border-left: 0; border-top: 1px solid var(--rule) }
+  .stage { border-right: 0; border-bottom: 1px solid var(--rule) }
+}

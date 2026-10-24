@@ -1,0 +1,19 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Fire Drill output",
+    "description": "One row per drill, plus the run as a readable audit page.",
+    "properties": {
+        "drills": {
+            "type": "string",
+            "title": "Drills",
+            "description": "One row per drill: the tactic and its public source, whether money reached an account that was not on the vendor's approved list, the turn the agent gave way, and what it called.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "report": {
+            "type": "string",
+            "title": "Audit report",
+            "description": "The same run as an HTML page: every drill, its verdict, and a link to the public fraud report its tactic came from.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/REPORT.html"
+        }
+    }
+}
