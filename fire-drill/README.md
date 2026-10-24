@@ -132,7 +132,7 @@ if a replay ends anywhere the recorded drill did not. The interval lab is the
 only place the frontend computes statistics itself, and
 `scripts/check_ui_stats.py` holds its port to the Python one.
 `export_ui.py --withhold-attacks` drops the attacker's message text, for a
-public build while `records/` stays private.
+build that has to leave the wording out.
 
 ---
 
@@ -360,9 +360,13 @@ here can be recomputed from `records/`.
   `555-0100`–`555-0199`, reserved for fiction; domains end in `.example`.
   Nothing here can reach a real person or business.
 - No real payment rail. Nessie is Capital One's sandbox and records only.
-- **Attacker wording is not in this repository.** Cards describe a tactic and
-  cite its public source; the messages are written locally and `turns/` and
-  `records/` are gitignored.
+- **The drills are published, attacker wording included.** `records/` holds
+  every drill so anyone can re-score it from its ledger instead of trusting
+  the numbers. The wording is the textbook business-email-compromise pretext
+  from the public reports each card cites, aimed at invented vendors. Only the
+  training family is published this way: a held-out family is committed as a
+  salted Merkle root first and revealed after the re-run (ADR-0002). The turn
+  templates in `turns/` stay local.
 - The code agent is shown actions, never message text, which also keeps attack
   wording out of anything sent to a model.
 - No secrets in the repository. `.env` is ignored and a published Actor takes
@@ -411,7 +415,7 @@ benign/           honest invoice packs, for the usefulness half of the score
 patches/          structural patches written by Claude Code and by Droid
 actors/           the two Apify Actors
 turns/            your attacker turns (gitignored)
-records/          one JSON per drill (gitignored)
+records/          one JSON per drill, published so any verdict can be re-checked
 docs/adr/         the four decisions this design rests on
 ```
 

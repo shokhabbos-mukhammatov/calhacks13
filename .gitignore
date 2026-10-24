@@ -23,11 +23,14 @@ venv/
 *.egg-info/
 .env
 
-# attack turn files stay local (no payloads in the repo)
+# the attacker turn templates stay local; the drills they produced are
+# published in fire-drill/records/ (see below)
 fire-drill/turns/
 
-# drill records hold the attacker turns; commit-reveal decides what is published
-fire-drill/records/
+# fire-drill/records/ is published, attacker turns included, so anyone can
+# re-score a drill from its ledger. Only the training family is in there:
+# held-out families go through commit-reveal (ADR-0002) and are published
+# only when revealed, never before the patch they test.
 
 # the scorecard page is rendered from records/, which is not versioned either.
 # A committed copy would go stale and disagree with the live one, which is the
@@ -47,9 +50,7 @@ fire-drill/actors/*/storage/
 fire-drill/actors/*/*.log
 fire-drill/actors/*/*.err
 
-# the frontend: dependencies and the build are regenerated; the data file is
-# exported from records/ by scripts/export_ui.py and follows records/ in
-# whether it is published
+# the frontend: dependencies and the build are regenerated. Its data file,
+# ui/src/data/fire-drill.json, is exported from records/ and published with it.
 fire-drill/ui/node_modules/
 fire-drill/ui/dist/
-fire-drill/ui/src/data/fire-drill.json
