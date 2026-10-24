@@ -15,7 +15,7 @@ tags: [index]
 - [[Fire Drill + Apify Methods]]: scoring, statistics, commit-reveal and architecture
 - [[Fire Drill Architecture]]: module map, interfaces, pseudo-code and formulas (start here to build)
 - [[CONTEXT]]: the glossary · `docs/adr/`: the design decisions
-- `Graph/`: the code knowledge graph (graphify → Obsidian), once the code repo exists
+- `Graph/`: the knowledge graph over the code and these notes (graphify → Obsidian): 678 nodes, 1,691 edges, 33 communities. Open `Graph/graph.canvas` for the map, or start from [[_COMMUNITY_Core Drill Vocabulary]], [[_COMMUNITY_Held-out Tactic Families]] or [[_COMMUNITY_Eval Statistics and Scorecard]]. Rebuild with `/graphify . --update --obsidian --obsidian-dir D:\calhacks13\Graph`.
 
 ## Prizes and sponsors
 - [[Prizes]]: rules, judging and each track's criteria

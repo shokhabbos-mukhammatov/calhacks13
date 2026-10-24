@@ -4,8 +4,10 @@
 .obsidian/cache
 .trash/
 
-# graphify build cache (regenerate with /graphify)
-graphify-out/cache/
+# graphify output and the Obsidian vault it exports: both are generated from
+# the code and notes, so regenerate them with /graphify instead of versioning
+graphify-out/
+Graph/
 
 # OS files
 .DS_Store
