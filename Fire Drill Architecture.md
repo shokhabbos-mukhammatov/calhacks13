@@ -215,7 +215,8 @@ Why it helps: solo, the graph is a navigable map of the agent, tools, scorer and
 8. Scorecard UI; voice Channel (Cartesia) last.
 9. graphify route into the vault; link from [[Home]].
 
-## 9. Sponsor ports (cover as many as possible, safely)
+## 9. Sponsor ports (all ten target sponsors)
+Scope is fixed to these ten: [[Anthropic]], [[Hyphenate]], [[Apify]], [[CRS Credit API]], [[Capital One]], [[Cartesia]], [[Factory]], [[Elastic]], [[Armadin]] and [[Microsoft]]. No other sponsors are added.
 Every sponsor plugs in as an **adapter behind a port** with an in-memory fallback, so adding one never risks the core demo and any one can be dropped. Two adapters per port (fake + sponsor) make each seam real.
 
 | Port | Fallback adapter | Sponsor adapter | Tier |
@@ -228,9 +229,6 @@ Every sponsor plugs in as an **adapter behind a port** with an in-memory fallbac
 | `PaymentRail` | `MemoryRail` | [[Capital One]] Nessie | A |
 | `TraceSink` | `MemorySink` | [[Elastic]] Agent Builder · Apify dataset | B |
 | Voice channel | text channel | [[Cartesia]] Line | B |
-| Live scorecard backend | local JSON | Convex *or* SpacetimeDB (pick one at the booths) | C |
-| Pay-per-drill | none | Coinbase x402 via Apify pay-per-event | C |
-| Second model in the grid | Claude only | Bitdeer Model Studio | C |
 
 Framing only (no code): [[Hyphenate]] (audit report, real-vs-simulated panel, judge-typed scenario, seats line), [[Armadin]], [[Microsoft]], and Cal Hacks' Most Technically Complex, Best Solo Hack and Most Creative.
 
