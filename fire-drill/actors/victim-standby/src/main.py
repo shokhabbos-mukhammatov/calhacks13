@@ -35,8 +35,33 @@ from firedrill.victim import AnthropicModel, ChannelMessage, VictimAgent
 
 READINESS_HEADER = "x-apify-container-server-readiness-probe"
 TURN_TIMEOUT = 300  # seconds for one agent turn, including its model calls
+STORE_NAME = "fire-drill-worlds"
 
 CARDS = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
+
+_store = None
+
+
+async def store():
+    """The drills' storage, shared across runs.
+
+    A run's default key-value store belongs to that run alone, so a drill
+    started on one Standby container would vanish when the platform scaled or
+    restarted it. A named store is the whole point of ADR-0003: state lives
+    outside the process, and any run can serve any turn. If the account's
+    permissions refuse a named store we fall back to the default one and say
+    so, because a drill inside a single run still works."""
+    global _store
+    if _store is None:
+        try:
+            _store = await Actor.open_key_value_store(name=STORE_NAME)
+            Actor.log.info("using the shared key-value store %r", STORE_NAME)
+        except Exception as e:
+            Actor.log.warning(
+                "could not open the shared store %r (%r); falling back to this run's own "
+                "store, so a drill will not outlive this container", STORE_NAME, e)
+            _store = await Actor.open_key_value_store()
+    return _store
 
 
 # --- one turn, start to finish ------------------------------------------------
@@ -49,7 +74,7 @@ async def start_drill(body: dict) -> tuple[int, dict]:
     conversation_id = f"{card_id}-s{seed}-{config_name}".replace(":", "-")
 
     scenario = build_scenario(card, seed)
-    kvs = await Actor.open_key_value_store()
+    kvs = await store()
     await kvs.set_value(world_key(conversation_id), {
         "card_id": card_id, "seed": seed, "config": config_name, "model": model_id,
         "ledger": scenario.ledger.to_dict(),
@@ -60,7 +85,7 @@ async def start_drill(body: dict) -> tuple[int, dict]:
 
 
 async def handle_message(conversation_id: str, body: dict) -> tuple[int, dict]:
-    kvs = await Actor.open_key_value_store()
+    kvs = await store()
     world = await kvs.get_value(world_key(conversation_id))
     if world is None:
         return 404, {"error": f"no drill {conversation_id!r}; POST /drill first"}
@@ -96,7 +121,7 @@ async def handle_message(conversation_id: str, body: dict) -> tuple[int, dict]:
 
 
 async def drill_verdict(conversation_id: str) -> tuple[int, dict]:
-    kvs = await Actor.open_key_value_store()
+    kvs = await store()
     world = await kvs.get_value(world_key(conversation_id))
     if world is None:
         return 404, {"error": f"no drill {conversation_id!r}"}
