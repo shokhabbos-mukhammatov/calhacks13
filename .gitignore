@@ -20,3 +20,6 @@ __pycache__/
 venv/
 *.egg-info/
 .env
+
+# attack turn files stay local (no payloads in the repo)
+fire-drill/turns/
