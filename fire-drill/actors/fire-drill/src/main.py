@@ -110,6 +110,15 @@ async def main() -> None:
         max_turns = int(actor_input.get("max_turns") or 6)
         turns: dict[str, list[str]] = actor_input.get("turns") or {}
         card_ids = actor_input.get("cards") or []
+        # A local drill runs the agent in this Actor, so its model calls bill
+        # to whoever supplied this key. Falling back to the Actor's own key
+        # would make strangers' runs spend the owner's credit.
+        api_key = actor_input.get("anthropic_api_key") or os.environ.get("ANTHROPIC_API_KEY")
+        if target == "local" and not api_key:
+            Actor.log.error("a local drill needs an Anthropic key: pass anthropic_api_key, or "
+                            "set target to the URL of an ap-practice-target Actor, which brings "
+                            "its own.")
+            return
 
         if not card_ids and not turns:
             Actor.log.info("No attack turns given: running the benign invoice pack, which "
@@ -179,7 +188,8 @@ async def main() -> None:
                     else:
                         Actor.log.warning("unknown card %s; known: %s", card_id, ", ".join(sorted(CARDS)))
                         continue
-                    config = make_config(config_name, model=AnthropicModel(model), verifier=verifier)
+                    config = make_config(config_name, verifier=verifier,
+                                         model=AnthropicModel(model, api_key=api_key))
                     drill = await asyncio.to_thread(
                         run_drill, card, seed,
                         attacker=ScriptedAttacker(messages), victim=config, max_turns=max_turns)
