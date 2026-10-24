@@ -107,25 +107,32 @@ def _num(x: float) -> str:
 # and a `data-theme` stamp, because a host viewer may set either.
 
 CSS = """
+/* `--mark` is a chart series colour and `--link` is a text colour: measured
+   against the surface they sit on, the series blue reaches only 4.30:1 as
+   light-mode body text. Keeping them apart is the same reason the palette
+   ships a separate darker green for success text. `--cell-edge` is the
+   held-drill outline, a data mark rather than chrome, so it takes a token
+   that stays countable (3.50:1 light, 4.85:1 dark) instead of the 1.48:1
+   hairline the rules use. */
 :root {
   color-scheme: light;
   --surface: #fcfcfb;  --ink: #0b0b0b;    --ink-2: #52514e;  --muted: #898781;
-  --rule: #e1e0d9;     --axis: #c3c2b7;   --wash: #f0efec;
-  --mark: #2a78d6;     --critical: #d03b3b; --good: #0ca30c;
+  --rule: #e1e0d9;     --axis: #c3c2b7;   --wash: #f0efec;   --cell-edge: #898781;
+  --mark: #2a78d6;     --link: #1c5cab;   --critical: #d03b3b; --good: #0ca30c;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --surface: #1a1a19; --ink: #f0efec;   --ink-2: #c3c2b7;  --muted: #898781;
-    --rule: #2c2c2a;    --axis: #383835;  --wash: #262624;
-    --mark: #3987e5;
+    --rule: #2c2c2a;    --axis: #383835;  --wash: #262624;   --cell-edge: #898781;
+    --mark: #3987e5;    --link: #6da7ec;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --surface: #1a1a19; --ink: #f0efec;   --ink-2: #c3c2b7;  --muted: #898781;
-  --rule: #2c2c2a;    --axis: #383835;  --wash: #262624;
-  --mark: #3987e5;
+  --rule: #2c2c2a;    --axis: #383835;  --wash: #262624;   --cell-edge: #898781;
+  --mark: #3987e5;    --link: #6da7ec;
 }
 * { box-sizing: border-box }
 body {
@@ -146,20 +153,26 @@ main { max-width: 54rem; margin: 0 auto; padding: 3.5rem 1.25rem 5rem }
 header { padding-bottom: 1.5rem }
 h1 { font-size: 15px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
      margin: 0 0 .9rem; color: var(--ink) }
+/* The deck is prose, so its figures stay proportional: tabular-nums gives
+   every digit the width of a zero, which reads loose inside a sentence. */
 .deck { font-size: 20px; line-height: 1.45; font-weight: 400; margin: 0;
-        max-width: 42rem; color: var(--ink) }
-.deck strong { font-weight: 600; font-variant-numeric: tabular-nums }
+        max-width: 42rem; color: var(--ink); text-wrap: balance }
+.deck strong { font-weight: 600 }
 .meta { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; margin: 1.4rem 0 0;
         padding: 0; list-style: none }
-.meta li { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums }
+/* Secondary ink, not muted: the run's model and interval are facts a reader
+   needs, and muted measures 3.50:1 here. */
+.meta li { font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums }
 
 section { border-top: 1px solid var(--rule); padding: 1.9rem 0 0; margin: 1.9rem 0 0 }
 section > .label { margin-bottom: 1.2rem }
 figure { margin: 0 }
 svg { display: block; width: 100%; max-width: 100%; height: auto }
+/* Capped in `ch` so the measure lands at 60-75 characters whatever the font
+   resolves to. At 40rem this text ran near 100 characters a line. */
 figcaption, .note { font-size: 12.5px; line-height: 1.5; color: var(--ink-2);
-                    margin: .9rem 0 0; max-width: 40rem }
-.note--quiet { color: var(--muted) }
+                    margin: .9rem 0 0; max-width: 70ch; text-wrap: pretty }
+.note--quiet { color: var(--ink-2) }
 
 /* A legend is always present, so identity never rests on colour. */
 .legend { display: flex; flex-wrap: wrap; gap: .35rem 1.25rem; margin: .9rem 0 0;
@@ -167,13 +180,23 @@ figcaption, .note { font-size: 12.5px; line-height: 1.5; color: var(--ink-2);
 .legend li { display: flex; align-items: center; gap: .45rem }
 .key { width: 13px; height: 13px; flex: none }
 .key--breach { background: var(--critical) }
-.key--held { border: 1px solid var(--axis) }
+.key--held { border: 1px solid var(--cell-edge) }
+/* Shown only where the chart has to scroll, so the cue appears exactly when
+   there is something off-screen to find. Scoped past `.legend li`, which
+   would otherwise out-specify a bare class and show the cue everywhere. */
+.legend .only-narrow { display: none }
 .key--after { border-radius: 50%; background: var(--mark) }
 .key--before { border-radius: 50%; border: 2px solid var(--mark); background: var(--surface) }
 
 details { margin: 0 }
-summary { font-size: 13px; color: var(--ink-2); cursor: pointer; padding: .2rem 0 }
+/* A control styled like the text beside it does not read as a control, and a
+   13px line is under the 24px hit target. The hairline box fixes both. */
+summary { font-size: 13px; color: var(--ink-2); cursor: pointer;
+          padding: .55rem .75rem; border: 1px solid var(--rule);
+          display: block; width: fit-content; max-width: 100% }
+summary:hover { background: var(--wash); color: var(--ink) }
 summary::marker { color: var(--muted) }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px }
 table { border-collapse: collapse; width: 100%; margin: 1.1rem 0 0; font-size: 12.5px }
 th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .07em;
      text-transform: uppercase; color: var(--muted); padding: 0 .7rem .5rem 0;
@@ -182,9 +205,15 @@ td { padding: .42rem .7rem .42rem 0; border-bottom: 1px solid var(--rule);
      font-variant-numeric: tabular-nums; vertical-align: top }
 td:first-child { font-weight: 500 }
 tbody tr:hover td { background: var(--wash) }
-.breach { color: var(--critical); font-weight: 600 }
-.held { color: var(--ink-2) }
-a { color: var(--mark) }
+/* The verdict is carried by a swatch beside the word, not by colouring the
+   word: critical as text measures 3.62:1 on the dark surface, and identity
+   belongs on the mark rather than the label. */
+.verdict { display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap }
+.verdict::before { content: ""; width: 9px; height: 9px; flex: none }
+.verdict--breach { font-weight: 600 }
+.verdict--breach::before { background: var(--critical) }
+.verdict--held::before { border: 1px solid var(--cell-edge) }
+a { color: var(--link) }
 a:hover { text-decoration-thickness: 2px }
 
 /* A chart wide enough to label honestly cannot also shrink to a phone: at
@@ -196,15 +225,19 @@ a:hover { text-decoration-thickness: 2px }
   main { padding: 2.25rem 1rem 3rem }
   .deck { font-size: 17px }
   .scroller svg { min-width: 640px }
+  .legend .only-narrow { display: flex }
 }
-/* The artefact is a document, so it has to print like one. */
+/* The artefact is a document, so it has to print like one. A closed
+   `<details>` prints closed and no stylesheet can open it, so print hides
+   the control on an open one and leaves a closed one alone rather than
+   pretending the log is there. */
 @media print {
   :root { color-scheme: light;
     --surface: #fff; --ink: #000; --ink-2: #333; --muted: #555;
-    --rule: #ddd; --axis: #999; --wash: #f2f2f2; --mark: #1c5cab }
+    --rule: #ddd; --axis: #999; --wash: #f2f2f2;
+    --cell-edge: #666; --mark: #1c5cab; --link: #1c5cab }
   main { max-width: none; padding: 0 }
-  details { display: block }
-  details > summary { display: none }
+  details[open] > summary { display: none }
   section { break-inside: avoid }
 }
 """
@@ -385,7 +418,7 @@ def _units(strips: list[Strip], look: int = 6, show_model: bool = False) -> str:
                 verdict = f"breach at turn {turn}" if turn is not None else "breach"
             else:
                 box = (f'<rect x="{x:.1f}" y="{mid + 4}" width="{_CELL}" height="{_CELL}" '
-                       f'fill="var(--surface)" stroke="var(--axis)" stroke-width="1"/>')
+                       f'fill="var(--surface)" stroke="var(--cell-edge)" stroke-width="1"/>')
                 digit, verdict = "", "held"
             out.append(f'<g><title>{_e(strip.card_id)} seed {seed} · {_e(strip.config)} on '
                        f'{_e(strip.model)} · {verdict}</title>{box}{digit}</g>')
@@ -442,7 +475,7 @@ def _finding(rows: list[dict], pairs: list[tuple]) -> str:
         f"With <strong>{_e(after.config)}</strong> applied, <strong>{a_breach} of "
         f"{after.attack_drills}</strong> attack drills ended with money moved to an account the "
         f"attacker supplied, against <strong>{b_breach} of {before.attack_drills}</strong> at "
-        f"<strong>{_e(before.config)}</strong> — Fisher's exact test puts a difference this "
+        f"<strong>{_e(before.config)}</strong> — Fisher’s exact test puts a difference this "
         f"large at <strong>{p}</strong> one-sided.")
     if before.benign_drills and after.benign_drills:
         sentence += (f" Honest invoices kept being paid either way: U "
@@ -499,7 +532,9 @@ def render(
     legend = ('<ul class="legend">'
               '<li><span class="key key--before"></span>before hardening</li>'
               '<li><span class="key key--after"></span>after hardening</li>'
-              '<li>whisker: 95% interval</li></ul>') if pairs else ""
+              '<li>whisker: 95% interval</li>'
+              '<li class="only-narrow">scroll the chart sideways to see the whole axis</li>'
+              "</ul>") if pairs else ""
     others = [c for _, c in cards if pairs and c not in (pairs[0][0].config, pairs[0][1].config)]
     rest = (" The pair plotted is the one with the most drills behind it; the other "
             f"{len(others)} hardening levels in this run are in the grid below."
@@ -509,7 +544,7 @@ def render(
         + _forest(blocks) + "</div>" + legend
         + '<figcaption>Read U and S together. An agent that refuses every invoice scores a '
           'perfect S and is worthless, which is why the headline is a pair and not a number. '
-          'Rank by an interval\'s lower bound, never by the rate: six drills with no breach is '
+          'Rank by an interval’s lower bound, never by the rate: six drills with no breach is '
           'still consistent with a true breach rate near 40%.' + rest
         + "</figcaption></figure></section>")
 
@@ -531,9 +566,10 @@ def render(
             '<section><p class="label">Every attack drill</p><figure><div class="scroller">'
             + _units(strips, look, show_model=len(models) > 1) + "</div>"
             + '<ul class="legend">'
-              '<li><span class="key key--breach"></span>money moved to the attacker\'s account '
-              '(the digit is the turn the agent capitulated)</li>'
-              '<li><span class="key key--held"></span>held</li></ul>'
+              '<li><span class="key key--breach"></span>money moved to the attacker’s '
+              'account (the digit is the turn the agent capitulated)</li>'
+              '<li><span class="key key--held"></span>held</li>'
+              '<li class="only-narrow">scroll the chart sideways to see every drill</li></ul>'
             + '<figcaption>One cell per drill, not one cell per rate: a rate is only worth as '
               'much as the n underneath it, so here the n is countable. The wider gap every '
               f'{look} drills is a <em>look</em> — a point at which the sequential test is '
@@ -604,12 +640,13 @@ def _table(rows: list[dict]) -> str:
     for r in sorted(rows, key=lambda r: (r["family"] == BENIGN, r["family"], r["card_id"],
                                          r["config"], r.get("seed") or 0)):
         if r["breach"]:
-            verdict = '<span class="breach">breach</span>'
+            verdict = '<span class="verdict verdict--breach">breach</span>'
         elif r["family"] == BENIGN:
-            verdict = ('<span class="held">paid on file</span>' if r["paid_on_file"]
-                       else '<span class="breach">not paid</span>')
+            verdict = ('<span class="verdict verdict--held">paid on file</span>'
+                       if r["paid_on_file"]
+                       else '<span class="verdict verdict--breach">not paid</span>')
         else:
-            verdict = '<span class="held">held</span>'
+            verdict = '<span class="verdict verdict--held">held</span>'
         source = (f'<a href="{_e(r["source_url"])}">report</a>' if r.get("source_url") else "—")
         turn = r.get("capitulation_turn")
         out.append("<tr>"

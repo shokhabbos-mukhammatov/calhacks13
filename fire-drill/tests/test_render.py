@@ -155,3 +155,20 @@ def test_a_saved_record_and_a_live_row_describe_the_same_drill():
         assert back[key] == record[key], key
     assert as_row(record)["money_moved"] == 100
     assert as_row(record)["tool_calls"] == ["t1:approve_payment"]
+
+
+def test_the_table_verdict_is_a_swatch_beside_the_word_not_coloured_text():
+    """`critical` as body text measures 3.62:1 on the dark surface, under the
+    4.5:1 body-text floor, and identity belongs on the mark rather than on the
+    label. The swatch carries the colour; the word stays in ink."""
+    page = render(arm("baseline", 1, 2))
+    assert 'class="verdict verdict--breach">breach' in page
+    assert 'class="verdict verdict--held">held' in page
+    assert "color: var(--critical)" not in page
+
+
+def test_prose_uses_typographic_apostrophes():
+    page = render(arm("baseline", 1, 2) + arm("patch:v1", 0, 2))
+    body = page[page.index("<body>"):]
+    assert "’" in body
+    assert "Fisher's" not in body

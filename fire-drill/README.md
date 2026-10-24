@@ -63,7 +63,7 @@ removed. Under `scope:v1` the agent *did* change the bank details and then
 called `approve_payment`, and the harness refused it. The gate is proven in
 code, with no policy helping.
 
-92 drills are recorded. 176 tests pass.
+92 drills are recorded. 178 tests pass.
 
 ### The scorecard page
 
@@ -366,7 +366,7 @@ here can be recomputed from `records/`.
 firedrill/        ledger, scorer, victim agent, drill loop, remediation,
                   commit-reveal, vendor verify, payment rail, statistics, the
                   scorecard renderer, Apify and Elastic adapters
-tests/            176 tests, all offline
+tests/            178 tests, all offline
 scripts/          run_drill, grid, report, scorecard, remediate, elastic_index,
                   keep_warm, nessie_seed, sync_actors, check_integrations
 cards/            tactic cards, each citing a public fraud report

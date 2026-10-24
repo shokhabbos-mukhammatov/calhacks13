@@ -23,7 +23,7 @@ breaches 13/24 → 0/24   Fisher exact p = 0.0000   intervals do not overlap
   The attack is not the bank-change request; it is the fake callback.
 - `scope:v1` proves the gate fires in code with the policy removed: the agent
   changed the bank details, called `approve_payment`, and the harness refused.
-- 92 drills recorded, 176 tests, on branch `ccr-b6ca9179-lsr7pr`.
+- 92 drills recorded, 178 tests, on branch `ccr-b6ca9179-lsr7pr`.
 
 ## Live things
 
@@ -94,10 +94,15 @@ Build order from [[Fire Drill Architecture]]: **1, 2, 3, 5, 6, 7, 9 complete**,
 
 ## What is left
 
-**Mine** — the three I was carrying are all done: the scorecard page, the
-replay and keep-warm, and Elastic. What remains is a design audit of the
-scorecard page against `jakubkrehel/skills` and `Owl-Listener/designer-skills`,
-neither of which is installed yet.
+**Mine** — all done: the scorecard page, the replay and keep-warm, Elastic,
+and the design audit. Both review collections are installed as marketplaces
+(`interfaces` from jakubkrehel/skills, `designer-skills`); their rubrics live
+in `~/.claude/plugins/marketplaces/` and can be read directly without a
+session restart. The audit found and fixed eleven things, the measured ones
+being: breach text at 3.62:1 on the dark surface (now a swatch beside ink
+text), link blue at 4.30:1 on the light surface (now its own `--link` token),
+held drill cells at 1.48:1 in dark (now countable), and a prose measure near
+100 characters (now capped in `ch`).
 
 **Yours**
 
@@ -130,7 +135,7 @@ answers the same question exactly. Say that if asked; it is the better answer.
 
 ```powershell
 Set-Location D:\calhacks13\fire-drill
-.\.venv\Scripts\python.exe -m pytest                      # 176 tests, all offline
+.\.venv\Scripts\python.exe -m pytest                      # 178 tests, all offline
 .\.venv\Scripts\python.exe scripts\scorecard.py --open    # the page a judge reads
 .\.venv\Scripts\python.exe scripts\report.py              # the same numbers, in the terminal
 .\.venv\Scripts\python.exe scripts\check_integrations.py  # every sponsor, 20/20
