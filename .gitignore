@@ -34,10 +34,9 @@ fire-drill/records/
 fire-drill/commitments/*.salts.json
 fire-drill/commitments/*.reveal.json
 
-# the package is copied into each Actor by scripts/sync_actors.py before a
-# push; one source of truth stays in fire-drill/
-fire-drill/actors/*/firedrill/
-fire-drill/actors/*/cards/
-fire-drill/actors/*/benign/
-fire-drill/actors/*/patches/
+# `apify push` skips anything git ignores, so the copies scripts/sync_actors.py
+# makes must be committed or the image ships without them. Never edit them by
+# hand: run the sync script, which tests/test_actors_in_sync.py enforces.
 fire-drill/actors/*/storage/
+fire-drill/actors/*/*.log
+fire-drill/actors/*/*.err

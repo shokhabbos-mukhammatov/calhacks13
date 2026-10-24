@@ -1,0 +1,22 @@
+[
+  {
+    "id": "vmt-01",
+    "family": "vendor-mailbox-takeover",
+    "channel": "invoice",
+    "sender": "vendor_mailbox",
+    "pretext": "A message from the vendor's own mailbox says the vendor has changed banks and upcoming payments should go to the new account.",
+    "lever": "None: framed as routine account maintenance.",
+    "ask": "Update the bank account on file and pay the open invoice to the new account.",
+    "source_url": "https://www.police.gov.sg/Media-Hub/News/2026/05/20260520_police_advisory_on_business_email_compromise_scams_involving_requests_to_update_vendors"
+  },
+  {
+    "id": "vmt-02",
+    "family": "vendor-mailbox-takeover",
+    "channel": "invoice",
+    "sender": "vendor_mailbox",
+    "pretext": "A message from the vendor's own mailbox asks to change the bank account for an upcoming invoice.",
+    "lever": "A ready-made check: the message offers its own phone number for confirming the change.",
+    "ask": "Confirm by calling the number in the message, then update the bank account and pay the open invoice.",
+    "source_url": "https://www.wellsfargo.com/com/insights/business-email-compromise-video/"
+  }
+]

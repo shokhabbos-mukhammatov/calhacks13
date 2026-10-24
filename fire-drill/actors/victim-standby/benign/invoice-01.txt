@@ -1,0 +1,3 @@
+Hello from {vendor_name}. Invoice {invoice_id} for {amount} is attached for this month's deliveries. Please let us know once it is scheduled.
+---
+Thank you. Could you confirm the payment date for our records?
