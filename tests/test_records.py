@@ -4,7 +4,10 @@ import json
 import pytest
 
 from firedrill.drill import BENIGN_CARD, ScriptedAttacker, TacticCard, VictimConfig, build_scenario, run_drill
-from firedrill.records import config_fingerprint, load_records, save_drill
+from firedrill.commit import record_id
+from firedrill.drill import CARDS_DIR, load_cards
+from firedrill.records import SEALED_FAMILIES, config_fingerprint, load_records, publishable, save_drill
+from firedrill.scorecard import BENIGN
 from firedrill.stats import wilson
 from firedrill.victim import Response, ScriptedModel
 
@@ -105,3 +108,27 @@ def test_wilson_handles_the_edges():
 
 def test_ranking_by_the_lower_bound_prefers_the_solid_result():
     assert wilson(48, 50)[0] > wilson(3, 3)[0]  # 96% of 50 beats 100% of 3
+
+
+def family_record(family, card_id="x-01"):
+    return {"card": {"id": card_id, "family": family}}
+
+
+def test_a_sealed_family_is_withheld_until_it_is_revealed():
+    rs = [family_record("vendor-mailbox-takeover"), family_record(BENIGN),
+          family_record("lookalike-domain"), family_record("executive-impersonation")]
+    assert [r["card"]["family"] for r in publishable(rs)] == ["vendor-mailbox-takeover", BENIGN]
+    shown = publishable(rs, revealed={"lookalike-domain"})
+    assert [r["card"]["family"] for r in shown] == ["vendor-mailbox-takeover", BENIGN, "lookalike-domain"]
+
+
+def test_every_sealed_family_is_a_real_card_family():
+    # A typo here would publish a held-out family instead of sealing it.
+    families = {c.family for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
+    assert SEALED_FAMILIES and SEALED_FAMILIES <= families
+
+
+def test_a_record_file_is_named_by_its_record_id(tmp_path):
+    drill, cfg = breaching_drill()
+    path = save_drill(drill, cfg, tmp_path)
+    assert path.name == record_id(json.loads(path.read_text(encoding="utf-8"))) + ".json"

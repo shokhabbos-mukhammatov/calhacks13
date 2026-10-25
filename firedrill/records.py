@@ -7,7 +7,8 @@ offered); the payment rail only mirrors, so it is recorded but not hashed.
 The Remediator reads failing records; scripts/report.py aggregates them.
 Records hold the attacker's turns and are published, so anyone can re-score
 a drill from its ledger. That covers training families only: a held-out
-family is committed first and published when revealed (ADR-0002).
+family is committed first and published when revealed (ADR-0002), so
+everything that publishes records goes through `publishable`.
 """
 from __future__ import annotations
 
@@ -21,6 +22,15 @@ from typing import Any
 from firedrill.drill import Drill, VictimConfig
 
 RECORDS_DIR = Path(__file__).resolve().parents[1] / "records"
+
+# Held out from Remediation and sealed until revealed. Their record files are
+# git-ignored as well; this is the same rule for anything that renders them.
+SEALED_FAMILIES = frozenset({"lookalike-domain", "executive-impersonation"})
+
+
+def publishable(records: list[dict], revealed: set[str] | frozenset[str] = frozenset()) -> list[dict]:
+    sealed = SEALED_FAMILIES - set(revealed)
+    return [r for r in records if r["card"]["family"] not in sealed]
 
 
 def model_id(model: Any) -> str:

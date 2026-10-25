@@ -69,7 +69,7 @@ model's opinion.
 - **It closes the loop.** It names the turn the agent gave in, hands the failure to a coding agent as actions and roles rather than the attacker's words, checks the patch by replaying the failures through the real ledger, and re-runs with intervals and Fisher's exact test.
 - **It is a drill for an employee, not QA for a product.** Closer to a phishing simulation for the AP clerk than to a test of how the agent sounds.
 
-One claim from the original pitch is not earned yet: that a patch holds on attacks it has never seen. The held-out families are committed by Merkle root ([ADR-0002](docs/adr/0002-held-out-by-tactic-family.md)) but have no attacker turns yet, so that comparison is untested, and the results page says so.
+One claim from the original pitch is not earned yet: that a patch holds on attacks it has never seen. The protocol for it is built: held-out drills are committed as a salted Merkle root before the patch they test, and published only after ([ADR-0002](docs/adr/0002-held-out-by-tactic-family.md)). But no held-out family has attacker turns yet, so nothing has been committed and the comparison is untested, and the results page says so.
 
 ## How it works
 
