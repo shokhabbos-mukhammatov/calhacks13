@@ -145,12 +145,23 @@ def check_crs() -> None:
         record("CRS", "a vendor's number and an impostor's differ", a.name != b.name,
                f"{a.name} vs {b.name or 'no record'}")
 
-    f = CrsFraudFinder.from_env(os.environ)
-    if f is None:
+    # Fraud Finder only answers for a full persona body; with the email alone
+    # the request misses the sandbox and falls through to the real vendor.
+    finder = CrsFraudFinder.from_env(os.environ)
+    if finder:
+        scores = {p.id: finder.check_number(p.number).score for p in (CONTACTS[0], IMPOSTORS[0])}
+        low, high = scores[CONTACTS[0].id], scores[IMPOSTORS[0].id]
+        record("CRS", "Fraud Finder scores the party behind a number",
+               low is not None and high is not None and low < high,
+               f"{CONTACTS[0].id} {low} vs {IMPOSTORS[0].id} {high}")
+
+    if finder is None:
         return record("CRS", "sender risk check", False, "CRS_* not set")
-    risk = f.check("johndoe@gmail.com")
+    # Deliberately a persona, not a made-up address: an unmatched request
+    # leaves the sandbox for the real AtData vendor, where it can be billed.
+    risk = finder.check_number(IMPOSTORS[1].number)
     record("CRS", "sender risk check", risk.score is not None,
-           f"score={risk.score} status={risk.email_status}")
+           f"{IMPOSTORS[1].id} score={risk.score}")
 
 
 def check_rdap() -> None:

@@ -24,6 +24,7 @@ moment**, which Hyphenate requires and which only you can record.
 | **Factory eligibility** | Droid was called through its CLI (`droid exec`); the track requires the **Droid SDK** doing real work in the running product | `firedrill/droid_remediator.py` drives Droid through the Python SDK. The breach grid **triggers** it; it can touch **three harness tools and nothing else** (allowlist + permission gate, escape **probed**); every step is **recorded and shown**. Its patch held 0/24 attacks, 12/12 honest invoices paid, on real drills |
 | **CRS not live in the live demo** | The Standby target behind the phone line used `NoSenderCheck` | It calls CRS Fraud Finder whenever the Actor has `CRS_*` set. **Needs your secrets in the Apify console and a new push** |
 | **CRS invisible on the page** | CRS results sat inside raw tool output | The replay labels every live CRS verdict, and the judge card names who each number belongs to |
+| **Fraud Finder returned nothing** | We sent the email alone, so no persona matched and the call fell through to the real AtData vendor (their docs say those can be billed) | Full persona bodies. Contacts score 8–12, impostors 80–88, all nine verified live |
 | **CRS could not tell attacker from vendor** | Every sender was an invented `.example` address, so Fraud Finder returned the same answer for all of them | Drill phone numbers are **CRS sandbox personas**; the reverse lookup separates the vendor's contact from the impostor. `verify_vendor` takes a `phone_number`. Nine personas checked live |
 | **Possible rule problem** | We scored invented identities; the guide says use only the provided test identities | Fixed by the same change: the numbers *are* CRS's personas |
 | **Voice latency** | 14 s per turn, and judges score voice quality | Measured: 12 s is the agent under test thinking, which cannot be removed. `pre_tool_speech: "force"` means the caller hears the agent speak first instead of 14 s of silence |
@@ -112,10 +113,15 @@ agent can ask about the number it is being pushed toward.
 - *Live:* `check_integrations.py` asks CRS whether all nine personas still
   answer as recorded, and the replay labels every live verdict.
 - *Only test identities:* yes, now — CRS's own 20 personas.
-- *Creative, and the best finding in the project:* on `baseline+verify`, Haiku
-  asked CRS in **6 of 6** drills. In seed 5 CRS said the number belonged to
-  **Rajesh Menon**, not to the contact on file — and the agent called it
-  anyway, changed the bank details and paid. **Evidence is not a control.**
+- *Creative, and the best finding in the project:* the only difference
+  between `baseline` and `baseline+verify` is whether the CRS tool is
+  offered. On `vmt-02`, Haiku breached **12 of 12** without it and **3 of
+  18** with it — Fisher one-sided **p = 0.000005**. Of those three, one never
+  asked; the other two were told by CRS that the callback number belonged to
+  **Rajesh Menon** (fraud risk **85/100**), not to the contact on file, and
+  paid anyway. **Evidence is not a control** — it makes an agent safer on
+  average and still lets it walk into the wall. The patch's code gate is what
+  takes it to 0 of 24.
 
 **Best Identity / Fraud Innovation** is now the strongest single fit; **Best
 Overall CRS Hack** is live.

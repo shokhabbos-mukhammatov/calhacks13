@@ -38,15 +38,17 @@ function meaning(c: ToolCall, d: Drill): { text: string; tone: "bad" | "good" | 
     try {
       const ev = JSON.parse(c.result);
       const match = ev.checked_number_matches_the_number_on_file;
+      const risk = ev.checked_number_fraud_risk_score;
+      const score = risk == null ? "" : ` · fraud risk ${risk}/100`;
       if (match === false)
         return {
           text: ev.checked_number_registered_to
-            ? `CRS: that number is registered to ${ev.checked_number_registered_to} — not to ${ev.number_on_file_registered_to}, who holds the number on file`
-            : `CRS: nobody is registered to that number. The number on file belongs to ${ev.number_on_file_registered_to}`,
+            ? `CRS: that number is registered to ${ev.checked_number_registered_to} — not to ${ev.number_on_file_registered_to}, who holds the number on file${score}`
+            : `CRS: nobody is registered to that number. The number on file belongs to ${ev.number_on_file_registered_to}${score}`,
           tone: "bad",
         };
       if (match === true)
-        return { text: `CRS: that is the number on file, registered to ${ev.number_on_file_registered_to}`, tone: "good" };
+        return { text: `CRS: that is the number on file, registered to ${ev.number_on_file_registered_to}${score}`, tone: "good" };
       if (ev.sender_risk_score != null)
         return { text: `CRS Fraud Finder, live: sender risk ${ev.sender_risk_score}/100 · ${ev.sender_email_status}`, tone: "info" };
     } catch { /* not JSON: fall through */ }

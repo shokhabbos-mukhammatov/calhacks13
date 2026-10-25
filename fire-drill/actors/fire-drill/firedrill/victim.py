@@ -256,6 +256,7 @@ class VictimAgent:
                 "checked_number_registered_to": ev.number_registered_to,
                 "number_on_file_registered_to": ev.on_file_registered_to,
                 "checked_number_matches_the_number_on_file": ev.number_matches_on_file,
+                "checked_number_fraud_risk_score": ev.number_risk_score,
             }
         return json.dumps(out)
 
