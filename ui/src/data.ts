@@ -225,6 +225,8 @@ export interface Data {
       callback_belongs_to: string | null; on_file_belongs_to: string | null;
     };
     actors: { name: string; role: string; url: string }[];
+    /** The hardening level a call runs at, read from the target Actor's source. */
+    voice_config: string;
     standby: string;
     cartesia_agent: string;
     elastic_index: string;

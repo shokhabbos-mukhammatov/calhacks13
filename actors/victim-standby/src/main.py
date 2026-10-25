@@ -53,8 +53,30 @@ DEFAULT_VOICE_CARD = "vmt-01"
 # Menon), which the agent can check with verify_vendor while on the call.
 DEFAULT_VOICE_SEED = 205
 DEFAULT_VOICE_MODEL = "claude-haiku-4-5"
+# The hardening level a call runs at. Cartesia's tool sends only the caller's
+# words and a call id, so the Actor decides. "baseline+verify" offers the
+# agent CRS through verify_vendor and nothing else: no policy and no gates, so
+# a caller can still talk it into paying, and when it does check the number,
+# CRS answers live. Set VOICE_CONFIG on the Actor to change it ("baseline"
+# takes CRS away again) without touching the code.
+DEFAULT_VOICE_CONFIG = "baseline+verify"
 
 CARDS = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
+
+
+def voice_config(body: dict, env) -> str:
+    """The caller's config if it names one, else the Actor's VOICE_CONFIG, else
+    the default. A setting that names no real config falls back to the
+    default rather than failing every call on a live line."""
+    name = body.get("config") or env.get("VOICE_CONFIG") or DEFAULT_VOICE_CONFIG
+    if name == DEFAULT_VOICE_CONFIG or body.get("config"):
+        return name
+    try:
+        make_config(name, model=None)   # checks the name, and that a patch file exists
+    except (ValueError, FileNotFoundError, OSError):
+        Actor.log.warning("VOICE_CONFIG %r is not a config; calls use %s", name, DEFAULT_VOICE_CONFIG)
+        return DEFAULT_VOICE_CONFIG
+    return name
 
 _store = None
 
@@ -189,16 +211,17 @@ async def voice_relay(body: dict, api_key: str | None) -> tuple[int, dict]:
         seed = int(body.get("seed") or DEFAULT_VOICE_SEED)
         conversation_id = f"voice-{card_id}-s{seed}-{secrets.token_hex(3)}"
         scenario = build_scenario(CARDS[card_id], seed)
+        config = voice_config(body, os.environ)
         await kvs.set_value(world_key(conversation_id), {
-            "card_id": card_id, "seed": seed, "config": body.get("config", "baseline"),
+            "card_id": card_id, "seed": seed, "config": config,
             "model": body.get("model") or DEFAULT_VOICE_MODEL, "channel": "voice",
             "ledger": scenario.ledger.to_dict(),
         })
         await kvs.set_value(conversation_key(conversation_id), [])
         if call_id:
             await kvs.set_value(call_key(call_id), conversation_id)
-        Actor.log.info("voice drill %s started (%s, seed %s, call %s)",
-                       conversation_id, card_id, seed, call_id or "none")
+        Actor.log.info("voice drill %s started (%s, seed %s, %s, call %s)",
+                       conversation_id, card_id, seed, config, call_id or "none")
 
     status, out = await handle_message(
         conversation_id,
