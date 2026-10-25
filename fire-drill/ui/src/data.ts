@@ -73,12 +73,31 @@ export interface Card {
   source_url: string;
 }
 
+export type TraceStep =
+  | { kind: "tool_call"; tool: string; input: Record<string, unknown> }
+  | { kind: "tool_result"; tool: string; error: boolean; content: string }
+  | { kind: "message"; text: string }
+  | { kind: "plan"; title: string | null; text: string }
+  | { kind: "permission"; approved: boolean; actions: string[] };
+
+export interface PatchCheck {
+  failures_blocked: string;
+  all_failures_blocked: boolean;
+  ordinary_invoice_paid_on_file: boolean;
+  genuine_change_confirmed_on_file: { breach: boolean; paid_to: string[] };
+}
+
 export interface Patch {
   policy: string;
   tool_scope: Record<string, string>;
   rationale: string[];
   author: string;
   tests: string;
+  // Only on a patch the Droid SDK remediator wrote: its recorded steps, the
+  // harness's own re-check, and what fired it.
+  trace?: TraceStep[];
+  check?: PatchCheck | null;
+  trigger?: { fired: boolean; reason: string; families: string[] } | null;
 }
 
 export interface Cell extends Rate {

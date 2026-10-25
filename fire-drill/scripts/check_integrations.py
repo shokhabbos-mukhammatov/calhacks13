@@ -175,9 +175,20 @@ def check_factory() -> None:
         record("Factory", "droid CLI present", v.returncode == 0, v.stdout.strip()[:20])
     except Exception as e:
         record("Factory", "droid CLI present", False, repr(e)[:60])
-    patches = sorted((ROOT / "patches").glob("*.json"))
-    authors = {json.loads(p.read_text(encoding="utf-8")).get("author") for p in patches}
-    record("Factory", "droid wrote a patch", "droid" in authors, ", ".join(sorted(a for a in authors if a)))
+    try:
+        import droid_sdk
+        record("Factory", "Droid SDK installed", True, f"droid-sdk {droid_sdk.PACKAGE_VERSION}")
+    except ImportError as e:
+        record("Factory", "Droid SDK installed", False, repr(e)[:60])
+    # The product's path: a patch the SDK remediator wrote on a trigger, with
+    # its recorded steps, that the harness re-checked as blocking every failure.
+    sdk = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "patches").glob("*.json"))]
+    sdk = [p for p in sdk if p.get("author") == "droid-sdk"]
+    best = max(sdk, key=lambda p: len(p.get("trace") or []), default=None)
+    ok = bool(best and best.get("trace") and (best.get("check") or {}).get("all_failures_blocked")
+              and (best.get("trigger") or {}).get("fired"))
+    record("Factory", "SDK patch: triggered, traced, re-checked", ok,
+           f"{len(best['trace'])} steps, {best['check']['failures_blocked']}" if ok else "none yet")
 
 
 def main() -> None:

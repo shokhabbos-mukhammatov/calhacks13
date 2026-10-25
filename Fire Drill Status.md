@@ -23,7 +23,8 @@ breaches 13/24 → 0/24   Fisher exact p = 0.0000   intervals do not overlap
   The attack is not the bank-change request; it is the fake callback.
 - `scope:v1` proves the gate fires in code with the policy removed: the agent
   changed the bank details, called `approve_payment`, and the harness refused.
-- 92 drills recorded, 178 tests, on branch `ccr-b6ca9179-lsr7pr`.
+- 128 drills recorded, 190 tests, on branch `ccr-b6ca9179-lsr7pr`.
+- **Droid SDK remediator** (`scripts/autofix.py`): the grid triggers Droid, which can use only three harness tools; its patch `v2-droid` held 0/24 attacks and paid 12/12 honest invoices. See [[Prize Fit Audit]].
 
 ## Live things
 

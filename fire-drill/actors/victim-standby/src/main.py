@@ -31,7 +31,7 @@ from firedrill.drill import CARDS_DIR, build_scenario, load_cards, make_config
 from firedrill.ledger import Ledger
 from firedrill.scorer import score
 from firedrill.trace import MemorySink
-from firedrill.verify import NoSenderCheck, RdapDomainAge, VendorVerifier
+from firedrill.verify import CrsFraudFinder, NoSenderCheck, RdapDomainAge, VendorVerifier
 from firedrill.victim import AnthropicModel, ChannelMessage, VictimAgent
 
 READINESS_HEADER = "x-apify-container-server-readiness-probe"
@@ -106,7 +106,11 @@ async def handle_message(conversation_id: str, body: dict, api_key: str | None) 
     # The key arrives per request and is never written anywhere: a caller
     # pays for its own model calls, so a public target cannot spend its
     # owner's credit. Falls back to the Actor's own key when one is set.
-    config = make_config(world["config"], verifier=VendorVerifier(RdapDomainAge(), NoSenderCheck()),
+    # CRS Fraud Finder runs live whenever the Actor has CRS_* credentials set,
+    # so a drill on a hardened config calls the CRS sandbox during the demo
+    # itself; without them the check reports "unknown", never a guess.
+    sender_check = CrsFraudFinder.from_env(os.environ) or NoSenderCheck()
+    config = make_config(world["config"], verifier=VendorVerifier(RdapDomainAge(), sender_check),
                          model=AnthropicModel(world["model"], api_key=api_key))
     verifier = config.verifier.with_domain_age(_fixed(scenario.domain_ages)) if config.verifier else None
     agent = VictimAgent(ledger, config.model, store, policy=config.policy,

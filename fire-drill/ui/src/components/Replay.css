@@ -80,6 +80,7 @@
 .tc__means--bad { background: var(--signal); color: #fff }
 .tc__means--good { background: var(--safe); color: #fff }
 .tc__means--gate { background: var(--amber); color: var(--ink); border: 1.5px solid var(--ink) }
+.tc__means--info { background: var(--paper); color: var(--ink); border: 1.5px solid var(--ink) }
 .ev--refused { border: 2px solid var(--ink); background: var(--paper); box-shadow: inset 6px 0 0 var(--amber) }
 
 .replay__foot { margin-top: 18px }

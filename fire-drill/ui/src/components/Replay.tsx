@@ -30,8 +30,17 @@ function eventsOf(d: Drill): Event[] {
 }
 
 /** What a tool call meant, said in the ledger's terms rather than the model's. */
-function meaning(c: ToolCall, d: Drill): { text: string; tone: "bad" | "good" | "gate" } | null {
+function meaning(c: ToolCall, d: Drill): { text: string; tone: "bad" | "good" | "gate" | "info" } | null {
   if (c.error) return { text: "Refused by a gate in code — nothing changed", tone: "gate" };
+  if (c.tool === "verify_vendor" && c.result) {
+    // CRS is called live against the sandbox; the domain age comes from the
+    // scenario, because the vendors and their .example domains are invented.
+    try {
+      const ev = JSON.parse(c.result);
+      if (ev.sender_risk_score != null)
+        return { text: `CRS Fraud Finder, live: sender risk ${ev.sender_risk_score}/100 · ${ev.sender_email_status}`, tone: "info" };
+    } catch { /* not JSON: fall through */ }
+  }
   if (c.tool === "change_vendor_bank_details")
     return c.input.new_account === d.kit.approved_account
       ? null
