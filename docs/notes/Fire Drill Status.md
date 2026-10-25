@@ -110,7 +110,7 @@ Build order from [[Fire Drill Architecture]]: **1, 2, 3, 5, 6, 7, 9 complete**,
 
 ## What is left
 
-**The frontend** (`fire-drill/ui/`) replaces the scorecard page as the thing
+**The frontend** (`ui/`) replaces the scorecard page as the thing
 to show. `npm run data` then `npm run build` gives one offline HTML file
 (about 1.2 MB). `records/` and the frontend's data file are **published** in
 the repo (decided 24 Oct), training family only; held-out families still go

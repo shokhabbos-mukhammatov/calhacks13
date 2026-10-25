@@ -16,7 +16,7 @@ tags: [index]
 - [[Fire Drill + Apify Stress Test]]: build order and fixes
 - [[Fire Drill + Apify Methods]]: scoring, statistics, commit-reveal and architecture
 - [[Fire Drill Architecture]]: module map, interfaces, pseudo-code and formulas (start here to build)
-- [[CONTEXT]]: the glossary · `docs/adr/`: the design decisions
+- [[CONTEXT]]: the glossary · `docs/adr/`: the design decisions · `README.md` at the repository root: the project itself
 - `Graph/`: the knowledge graph over the code and these notes (graphify → Obsidian): 678 nodes, 1,730 edges, 34 communities. Open `Graph/graph.canvas` for the map, or start from [[_COMMUNITY_Deterministic Scoring Vocabulary]], [[_COMMUNITY_Held-out Tactic Families]] or [[_COMMUNITY_Eval Statistics and Scorecard]]. Refresh after code changes with `graphify update` then `graphify export obsidian --dir D:\calhacks13\Graph` (no model call, so no cost). An update re-clusters and renames each community after its hub node, which overwrites these names and breaks the links above: relabel before re-exporting.
 
 ## Prizes and sponsors
