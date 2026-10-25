@@ -54,7 +54,7 @@ from firedrill.verify import (
     RdapDomainAge,
     VendorVerifier,
 )
-from firedrill.victim import AnthropicModel
+from firedrill.openai_compat import model_for
 
 CARDS = {c.id: c for p in CARDS_DIR.glob("*.json") for c in load_cards(p)}
 TURNS = ROOT / "turns"
@@ -97,7 +97,7 @@ def play(card_id: str, seed: int, config: str, model: str, *, blurb: str = "",
         CrsFraudFinder.from_env(os.environ) or NoSenderCheck(),
         CrsReverseLookup.from_env(os.environ) or NoPhoneOwner(),
     )
-    victim = make_config(config, model=AnthropicModel(model), verifier=verifier, rail=rail)
+    victim = make_config(config, model=model_for(model), verifier=verifier, rail=rail)
     scenario = build_scenario(card, seed)
 
     console = LiveConsole()   # run_drill attaches the ledger it scores
@@ -163,7 +163,8 @@ def main() -> None:
     # the agent calls that number anyway, and under scope:v1 the code refuses.
     p.add_argument("--seed", type=int, default=1)
     p.add_argument("--config", help="a hardening level, instead of the three acts")
-    p.add_argument("--model", default="claude-haiku-4-5")
+    p.add_argument("--model", default="claude-haiku-4-5",
+                   help="a Claude name, or provider/model: openai/..., deepseek/..., openrouter/...")
     p.add_argument("--save", action="store_true", help="record the drill to records/")
     p.add_argument("--replay", action="store_true",
                    help="print a recorded drill: no model call, no network")

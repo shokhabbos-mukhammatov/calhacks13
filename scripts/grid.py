@@ -49,7 +49,7 @@ from firedrill.verify import (
     RdapDomainAge,
     VendorVerifier,
 )
-from firedrill.victim import AnthropicModel
+from firedrill.openai_compat import model_for
 
 CARDS = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
 BENIGN_DIR, TURNS_DIR = ROOT / "benign", ROOT / "turns"
@@ -73,7 +73,8 @@ def main() -> None:
     p.add_argument("--cards", nargs="*", default=[], help="card ids; needs turns/<card>.txt")
     p.add_argument("--benign", action="store_true", help="also run the honest invoice pack")
     p.add_argument("--configs", nargs="*", default=["baseline"], help="hardening levels")
-    p.add_argument("--models", nargs="*", default=["claude-haiku-4-5"])
+    p.add_argument("--models", nargs="*", default=["claude-haiku-4-5"],
+                   help="Claude by name, or provider/model: openai/..., deepseek/..., openrouter/...")
     p.add_argument("--look", type=int, default=6, help="drills per look (default 6)")
     p.add_argument("--max-n", type=int, default=24, help="most drills per cell (default 24)")
     p.add_argument("--width", type=float, default=0.45, help="stop when the adjusted interval is this narrow")
@@ -116,7 +117,7 @@ def main() -> None:
     def run_one(spec: CellSpec, seed: int):
         card = CARDS[spec.card_id] if spec.card_id else BENIGN_CARD
         messages = turns_for(spec.card_id, seed)
-        config = make_config(spec.config, model=AnthropicModel(spec.model),
+        config = make_config(spec.config, model=model_for(spec.model),
                              verifier=verifier, rail=rail)
         drill = run_drill(card, seed, attacker=ScriptedAttacker(messages), victim=config)
         save_drill(drill, config)
