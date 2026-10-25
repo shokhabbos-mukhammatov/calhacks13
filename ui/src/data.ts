@@ -170,14 +170,20 @@ export interface Measures {
   /** The attacker's account still on the vendor record when the drill ended. */
   record_poisoned: number;
   median_turn: number | null;
+  /** Payments the code gate refused: the control in code doing the work. */
+  gate_refused: number;
   honest_paid: number;
   honest_n: number;
+  /** Honest invoices left unpaid because the agent never found the vendor. */
+  honest_stuck: number;
 }
 
 export interface Contrast {
   model: string;
   training: { families: string[]; arms: Measures[] };
   heldout: { families: string[]; arms: Measures[] }[];
+  /** The same patches, unchanged, on other models that break at baseline. */
+  providers: { model: string; families: string[]; arms: Measures[] }[];
 }
 
 export interface FailureStep {
@@ -247,7 +253,10 @@ export const scorecardFor = (model: string, config: string) =>
 export const findDrill = (label: string, config: string, model?: string) =>
   data.drills.find((d) => d.label === label && d.config === config && (!model || d.model === model));
 
-export const shortModel = (m: string) => (m.startsWith("claude-") ? m.slice(7) : m);
+export const shortModel = (m: string) => (m.startsWith("claude-") ? m.slice(7) : m.replace(/^[^/]+\//, ""));
+
+/** Who made a model: the provider prefix, or Anthropic for a plain Claude name. */
+export const providerOf = (m: string) => (m.includes("/") ? m.split("/")[0] : "anthropic");
 
 export const AUTHORS: Record<string, string> = {
   "claude-code": "Claude Code",

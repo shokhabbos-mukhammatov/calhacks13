@@ -12,7 +12,7 @@ Fire Drill attacks an accounts-payable agent the way real invoice fraud works, r
 | **Watch every step live** | `python scripts/live.py` — one line per event as it happens, for a second screen |
 | **Build that page yourself** | `python scripts/export_ui.py && npm --prefix ui run build` → `ui/dist/index.html`, which opens from disk |
 | **Run it yourself** | Two published Apify Actors: [fire-drill](https://apify.com/shohabbos_m/fire-drill) (the runner) · [ap-practice-target](https://apify.com/shohabbos_m/ap-practice-target) (the target) |
-| **Re-check any number here** | All 434 drills are in `records/`, with the ledger each verdict was read from. `scripts/verify_reveal.py v3` checks the held-out result against its commitment, offline |
+| **Re-check any number here** | All 656 drills are in `records/`, with the ledger each verdict was read from. `scripts/verify_reveal.py v3` checks the held-out result against its commitment, offline |
 
 ![The results page: an AI agent paid a fraudster in 13 of 24 drills, 0 of 24 after the fix, Fisher p = 1.3 × 10⁻⁵, $393,200 sent to attackers](docs/images/hero.png)
 
@@ -82,7 +82,7 @@ flowchart TD
 
     subgraph DRILL["One drill"]
         DRIVER["Attack driver<br/>your attacker turns, per seed"] --> CH["Channel<br/>invoice · email · live phone call"]
-        CH --> AGENT["Victim agent · Claude<br/>7 tools, one of them a canary"]
+        CH --> AGENT["Victim agent · Claude or any<br/>OpenAI-compatible model<br/>7 tools, one of them a canary"]
         AGENT -- "every tool call" --> LEDGER[("Ledger<br/>vendors, approved accounts,<br/>callbacks, payments")]
         AGENT -. "asks for evidence" .-> EV["CRS reverse lookup + Fraud Finder<br/>RDAP domain age"]
         LEDGER -. "mirrors approved payments" .-> NESSIE["Capital One Nessie"]
@@ -157,7 +157,7 @@ flowchart TD
 
 | | |
 |---|---|
-| **Anthropic** | Claude is the agent under test — a hand-built tool loop with seven tools, prompt caching and server-side refusal fallbacks. Claude Code is one of the two remediation adapters |
+| **Anthropic** | Claude is the agent under test — a hand-built tool loop with seven tools, prompt caching and server-side refusal fallbacks. Claude Code is one of the two remediation adapters. The same loop also runs OpenAI, DeepSeek and OpenRouter models through one adapter (`firedrill/openai_compat.py`), so a drill measures whichever model you ship |
 | **Factory** | Droid, through the **Droid SDK**, is the remediation engine at run time: the breach grid triggers it, it can touch three harness tools and nothing else, and it checks its own patch before handing it back |
 | **CRS Credit API** | Answers the question a callback rests on. The reverse lookup says who holds a number; Fraud Finder scores that party. Vendor's contact 8–12, impostor 80–88 |
 | **Cartesia** | The voice channel: a Managed Agent on a real phone number relaying each caller turn into the same agent and ledger a text drill uses |
@@ -244,7 +244,7 @@ up because the record is read from the ledger, replayed through the real
 
 ![Before and after on the results page: paid the attacker 13 of 24 to 0, $393,200 to $0, the number on file rung 11 of 24 to every time, and the attacker's account left on the vendor record 21 of 24, then 6 of 24 under v1 and 0 of 48 under v3](docs/images/beforeafter.png)
 
-434 drills are recorded. 221 tests pass.
+656 drills are recorded. 238 tests pass.
 
 ### On attacks it never saw
 
@@ -300,26 +300,60 @@ the wording, not proof that it covers every attack.
 
 ![The breach grid: every model, hardening level and tactic card as a cell of unit squares, one square per drill, with a 95% interval under each](docs/images/results.png)
 
-### The same attack, three agents
+### The same attack, five agents, three providers
 
-Identical cards, identical seeds, no controls on any of them — only the model
+Identical cards, identical seeds, no controls on any of them; only the model
 differs:
 
-| At `baseline`, attack drills | Breached | 95% interval |
-| --- | --- | --- |
-| Claude Haiku 4.5 | **13 of 24** | 0.35 – 0.72 |
-| Claude Sonnet 4.5 | 0 of 24 | 0.00 – 0.14 |
-| Claude Haiku 5.5 | 0 of 24 | 0.00 – 0.14 |
+| At `baseline`, attack drills | Breached | 95% interval | Called the attacker's number |
+| --- | --- | --- | --- |
+| Claude Haiku 4.5 | **13 of 24** | 0.35 – 0.72 | 12 of 24 |
+| OpenAI GPT-4.1-mini | **15 of 30** | 0.33 – 0.67 | 15 of 30 |
+| DeepSeek Flash | 0 of 24 | 0.00 – 0.14 | 0 of 24 |
+| Claude Sonnet 4.5 | 0 of 24 | 0.00 – 0.14 | 0 of 24 |
+| Claude Haiku 5.5 | 0 of 24 | 0.00 – 0.14 | 0 of 24 |
 
-One pays the fraudster and the others do not. **That is the argument for a
-harness.** Whether your agent falls for this is a property of your agent, and
-the only way to know is to run the drill — on the model you actually ship, and
+Two pay the fraudster and three do not, and the two fail the same way: when
+the message offers its own number to confirm the bank change on, they call it,
+hear yes, and pay. Claude Haiku 4.5 did that in 12 of 12 drills on that card,
+GPT-4.1-mini in 15 of 18. DeepSeek Flash called the number on file in all 24,
+and paid the real vendor in 14 of them. **That is the argument for a harness.** Whether your
+agent falls for this is a property of your agent, whoever made the model, and
+the only way to know is to run the drill on the model you actually ship, and
 again after every change to it.
 
-Haiku 4.5 is the agent every other number here is measured on, because it is
-the one that fails. A newer model refusing this attack today is not a control:
-nothing enforces it, and nothing proves the next prompt or the next model keeps
-refusing. The gate in the patch holds regardless.
+Haiku 4.5 is the agent the headline is measured on, the first that fell for
+it. A newer model refusing this attack today is not a control: nothing
+enforces it, and nothing proves the next prompt or the next model keeps
+refusing.
+
+### The same patches on another provider's model
+
+Claude Code and Factory Droid wrote their patches from Claude's failures. Run
+unchanged on GPT-4.1-mini, at 24 drills a card fixed in advance:
+
+| GPT-4.1-mini, training attacks | No controls | Claude Code's `v1` | Droid's `v3` |
+| --- | --- | --- | --- |
+| Paid the attacker | **15 of 30** | **0 of 48** | **0 of 48** |
+| Money sent to the attacker | $467,900 | $0 | $0 |
+| Left the attacker's account on the vendor record | 15 of 30 | 20 of 48 | 0 of 48 |
+| **Payment refused by the code gate** | 0 | **9** | 0 |
+| Honest invoices still paid | 14 of 24 | 16 of 24 | 10 of 24 |
+
+Both hold: Fisher's exact test p = 3.6 × 10⁻⁸ for each. **On GPT, `v1` held
+because of the code, not the words.** The agent still changed the bank details
+to the attacker's account in 20 drills and asked to pay; the gate refused the
+payment 9 times. It is the first time a gate has fired under a full patch: in
+273 drills across seven full-patch arms on Claude, none did, and only
+`scope:v1`, with the policy deleted, ever reached it. `v3` held
+the way it did on Claude: the agent never touched the bank details.
+
+Honest invoices need reading with care. Every one GPT-4.1-mini left unpaid, in
+every column, was a vendor it never found: it looks vendors up by company name
+instead of the id the invoice gives it, fails, and asks the sender instead of
+retrying. That habit is there before any patch, and the differences between
+the columns are within noise (Fisher p = 0.77 and 0.39). Claude paid all 97
+honest invoices it was given.
 
 ### The live console
 
@@ -703,8 +737,16 @@ here can be recomputed from `records/`.
   turns, so a second held-out test is still to run, and both results are on
   one model.
 - **The code-level gates are under-tested.** Under a full patch the agent
-  never attempted the blocked action, so only `scope:v1` has actually fired a
-  gate. The same is true of `patch:v3` on the held-out family.
+  never attempted the blocked action, so on Claude only `scope:v1` has
+  actually fired a gate. The same is true of `patch:v3` on the held-out family.
+  On GPT-4.1-mini, `patch:v1`'s gate did fire, 9 times.
+- **Other providers' usefulness is understated by one tool.** `lookup_vendor`
+  takes only the short vendor id the invoice gives. GPT-4.1-mini often searches
+  by company name instead, fails and asks the sender, so it leaves honest
+  invoices unpaid at baseline too (14 of 24). A lookup that also accepted names
+  would change the harness, so the drills would need re-running to compare.
+- **Cross-provider results are on the training family only.** The held-out
+  test ran on Claude Haiku 4.5.
 - **A bank change is never gated itself.** `requires_verification` is enforced
   where money moves, in `approve_payment`; a bank change moves no money, so it
   is allowed through. Both code agents set that scope on
