@@ -4,10 +4,11 @@
     .venv\\Scripts\\python.exe scripts\\elastic_index.py --ask "config=baseline"
     .venv\\Scripts\\python.exe scripts\\elastic_index.py --no-tool
 
-Records hold the attacker's turns, so they are gitignored; what goes to
-Elastic is the flat drill row — tactic, hardening level, verdict, the turn the
-agent capitulated — and never a message body. Commit-reveal decides what is
-published; this is the same line the Apify dataset draws.
+What goes to Elastic is the flat drill row — tactic, hardening level,
+verdict, the turn the agent capitulated — and never a message body. Only
+published drills go: a held-out family stays out until its reveal exists
+(ADR-0002), by the same `publishable` rule the results page uses, so an index
+can never get ahead of commit-reveal.
 
 The tool registered here is `fire_drill_breaches`: a fixed ES|QL query over
 the corpus, with the hardening level and tactic family as parameters, so an
@@ -29,7 +30,8 @@ from dotenv import load_dotenv
 
 from firedrill.console import use_utf8
 from firedrill.elastic import BREACH_TOOL, AgentBuilder, ElasticSink
-from firedrill.records import RECORDS_DIR, load_records
+from firedrill.commit import revealed_families
+from firedrill.records import RECORDS_DIR, load_records, publishable
 from firedrill.render import as_row
 
 
@@ -48,7 +50,10 @@ def main() -> None:
     if not sink:
         sys.exit("no ELASTICSEARCH_URL / ELASTIC_API_KEY in .env")
 
-    records = load_records(args.records)
+    on_disk = load_records(args.records)
+    records = publishable(on_disk, revealed_families())
+    if len(records) < len(on_disk):
+        print(f"withheld {len(on_disk) - len(records)} sealed drills until revealed")
     if not records:
         sys.exit(f"no records in {args.records}")
 
