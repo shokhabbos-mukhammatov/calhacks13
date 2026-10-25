@@ -1,6 +1,6 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
-import { BENIGN, data, shortModel } from "../data";
+import { BENIGN, data, providerOf, shortModel } from "../data";
 import { fmt, wilson } from "../lib/stats";
 import "./ModelSpread.css";
 
@@ -29,22 +29,33 @@ export default function ModelSpread() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-15%" });
   if (rows.length < 2) return null;
-  const worst = rows[0];
+  const breaking = rows.filter((r) => r.k > 0);
+  const providers = new Set(rows.map((r) => providerOf(r.model))).size;
+  // Several providers on one list: full model ids, so no name is ambiguous.
+  const label = (m: string) => (providers > 1 ? m : shortModel(m));
+  const h = data.headline;
+  const others = breaking.filter((r) => r.model !== h?.model);
+  const crossProvider = data.contrast?.providers[0];
 
   return (
     <div className="spread" ref={ref}>
       {/* Counted, not typed: a model with too few drills is filtered out above. */}
-      <h3 className="sign spread__h">The same attack, {WORDS[rows.length] ?? rows.length} agents</h3>
+      <h3 className="sign spread__h">
+        The same attack, {WORDS[rows.length] ?? rows.length} agents
+        {providers > 1 && <>, {WORDS[providers] ?? providers} providers</>}
+      </h3>
       <p className="spread__lede">
-        Identical cards, identical seeds, no controls on any of them — only the model differs.
-        One of them pays the fraudster and the others do not. This is the reason a harness has
-        to exist: the answer is a property of <em>your</em> agent, and the only way to know it is
-        to run the drill.
+        Identical cards, identical seeds, no controls on any of them; only the model differs.{" "}
+        {breaking.length === 1
+          ? <>One of them pays the fraudster and the others do not.</>
+          : <>{breaking.map((r) => label(r.model)).join(" and ")} pay the fraudster; the others do not.</>}{" "}
+        This is the reason a harness has to exist: the answer is a property of <em>your</em> agent, and
+        the only way to know it is to run the drill.
       </p>
       <ul className="spread__rows">
         {rows.map((r, i) => (
           <li key={r.model} className={r.k ? "is-breaching" : ""}>
-            <span className="spread__model mono">{shortModel(r.model)}</span>
+            <span className="spread__model mono">{label(r.model)}</span>
             <span className="spread__bar">
               <motion.span
                 className="spread__fill"
@@ -62,13 +73,18 @@ export default function ModelSpread() {
           </li>
         ))}
       </ul>
-      <p className="note">
-        {shortModel(worst.model)} is the agent every other number on this page is measured on,
-        because it is the one that fails. A newer or larger model refusing this attack today is
-        not a control — nothing enforces it, nothing proves the next prompt or the next model
-        keeps refusing, and the drills above show the same model giving in 13 times out of 24.
-        The gate in the patch is what holds regardless.
-      </p>
+      {h && (
+        <p className="note">
+          The headline numbers are measured on {label(h.model)}, the first agent that fell for it. A model
+          refusing this attack today is not a control: nothing enforces it, and nothing proves the next
+          prompt or the next model keeps refusing. These drills show {label(h.model)} giving in{" "}
+          {h.before_breaches} times out of {h.before_n}
+          {others.map((r) => <span key={r.model}>, and {label(r.model)} {r.k} of {r.n}</span>)}. The gate in the
+          patch is what holds regardless
+          {crossProvider ? <>: the table above, on {shortModel(crossProvider.model)}, shows it holding on another
+            provider’s model.</> : <>.</>}
+        </p>
+      )}
     </div>
   );
 }
