@@ -1,0 +1,66 @@
+# Publishes the results page to GitHub Pages so a judge can open it from a link.
+#
+# The build is Node-only on purpose. `npm run data` regenerates
+# ui/src/data/fire-drill.json by replaying records/ through the real Ledger,
+# but that script is Windows-pathed and needs the Python environment, so the
+# data file is committed instead and this workflow only renders it. The
+# consequence is deliberate: the page Pages serves is built from exactly the
+# JSON in the repository, which is the same file the tests and
+# scripts/check_ui_stats.py verify. Re-export locally when records/ changes.
+name: results page
+
+on:
+  push:
+    branches: [main]
+    paths: ["ui/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: ui/package-lock.json
+      - run: npm ci
+        working-directory: ui
+      - run: npx tsc --noEmit
+        working-directory: ui
+      - run: npm run build
+        working-directory: ui
+      # vite-plugin-singlefile inlines everything, so dist/ is one HTML file.
+      # Fail loudly rather than deploying a page that lost its assets.
+      - name: Check the build is one self-contained file
+        working-directory: ui
+        run: |
+          test -f dist/index.html || { echo "no dist/index.html"; exit 1; }
+          if ls dist | grep -qv '^index.html$'; then
+            echo "dist/ has more than index.html:"; ls -la dist; exit 1
+          fi
+          grep -q '<script' dist/index.html || { echo "no inlined script"; exit 1; }
+          echo "dist/index.html $(wc -c < dist/index.html) bytes, self-contained"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ui/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
