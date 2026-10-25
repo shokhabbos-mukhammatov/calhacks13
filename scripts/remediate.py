@@ -60,9 +60,9 @@ def do_reveal(name: str) -> None:
                       encoding="utf-8")
     print(f"root recomputes: {'MATCHES' if ok else 'DOES NOT MATCH'}")
     print(f"wrote {reveal} ({len(held)} of {commitment['count']} committed drills found).")
-    print("Publishing it is your call: it holds the drills themselves. To publish, commit it and")
-    print("force-add the sealed records, which .gitignore keeps out until now:")
-    print("  git add commitments/ ; git add -f records/ld-*.json records/ei-*.json")
+    print("Publishing it is your call: it holds the drills themselves. .gitignore keeps the reveal")
+    print("and the sealed records out until you do, so publishing is a deliberate force-add:")
+    print(f"  git add -f {reveal.relative_to(ROOT).as_posix()} records/ld-*.json records/ei-*.json")
     sys.exit(0 if ok else 1)
 
 

@@ -33,6 +33,13 @@ def publishable(records: list[dict], revealed: set[str] | frozenset[str] = froze
     return [r for r in records if r["card"]["family"] not in sealed]
 
 
+def training(records: list[dict]) -> list[dict]:
+    """The families Remediation learned from. A revealed held-out family is
+    published, but it is still held out: it is reported beside these numbers,
+    never pooled into them."""
+    return [r for r in records if r["card"]["family"] not in SEALED_FAMILIES]
+
+
 def model_id(model: Any) -> str:
     return getattr(model, "_model", None) or type(model).__name__
 

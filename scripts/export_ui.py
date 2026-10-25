@@ -19,6 +19,11 @@ tell.
 
 `--withhold-attacks` drops the attacker's message text (bodies and subjects)
 and keeps everything else, for a build that has to leave the wording out.
+
+Held-out families are kept apart. Everything the page already showed is the
+**training** families only, so a reveal adds a result rather than quietly
+pooling into the headline. A revealed family goes in `heldout`, one entry per
+reveal file, with the commitment it was checked against (ADR-0002).
 """
 from __future__ import annotations
 
@@ -38,8 +43,8 @@ from firedrill.drill import CARDS_DIR, build_scenario, load_cards
 from firedrill.elastic import BREACH_TOOL, DRILL_INDEX
 from firedrill.failures import summarize
 from firedrill.ledger import Ledger
-from firedrill.commit import revealed_families
-from firedrill.records import RECORDS_DIR, SEALED_FAMILIES, load_records, publishable
+from firedrill.commit import COMMITMENTS_DIR, covered, revealed_families, verify
+from firedrill.records import RECORDS_DIR, SEALED_FAMILIES, load_records, publishable, training
 from firedrill.scorecard import BENIGN, configs_in, grid, scorecard
 from firedrill.scorer import score
 from firedrill.stats import clopper_pearson, fisher_exact, wilson
@@ -109,6 +114,93 @@ def flipped(r: dict) -> dict:
     return {"k": k, "n": n, "rate": (k / n) if n else None,
             "wilson": [1 - r["wilson"][1], 1 - r["wilson"][0]],
             "cp": [1 - r["cp"][1], 1 - r["cp"][0]]}
+
+
+def cell_of(rs: list[dict], model: str, config: str, card_id: str, family: str) -> dict:
+    """One grid cell: the drills of one card under one model and hardening level."""
+    cell = rate(sum(r["verdict"]["breach"] for r in rs), len(rs))
+    cell.update({"model": model, "config": config, "card_id": card_id, "family": family,
+                 "drills": [{"seed": r["seed"], "breach": r["verdict"]["breach"],
+                             "cap_turn": r["cap_turn"]}
+                            for r in sorted(rs, key=lambda r: r["seed"])]})
+    return cell
+
+
+def first_commit(path: Path) -> dict | None:
+    """The commit that first added a file: when a commitment became public."""
+    try:
+        out = subprocess.run(["git", "-C", str(ROOT), "log", "--diff-filter=A", "--format=%H%x09%cI",
+                              "--", str(path.relative_to(ROOT))],
+                             capture_output=True, text=True, timeout=5).stdout.strip().splitlines()
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if not out:
+        return None
+    sha, when = out[-1].split("\t")
+    return {"sha": sha, "committed_at": when}
+
+
+def behaviour(rs: list[dict]) -> dict:
+    """What the agent did, beyond the verdict: which number it rang, and
+    whether it tried to change the bank details at all."""
+    called_attacker = sum(1 for r in rs for c in r["tool_calls"] if c["tool"] == "call_vendor"
+                          and c["input"].get("phone_number") == r["kit"]["attacker_phone"])
+    called_on_file = sum(1 for r in rs for c in r["tool_calls"] if c["tool"] == "call_vendor"
+                         and c["input"].get("phone_number") == r["kit"]["on_file_phone"])
+    tried_change = sum(1 for r in rs for c in r["tool_calls"] if c["tool"] == "change_vendor_bank_details")
+    return {"drills": len(rs), "called_attacker": called_attacker,
+            "called_on_file": called_on_file, "tried_bank_change": tried_change}
+
+
+def held_out_results(records: list[dict], train: list[dict], repo: str) -> list[dict]:
+    """One entry per reveal: the committed drills before the patch, the same
+    family under it, and the training family under it for the gap."""
+    out = []
+    for path in sorted(COMMITMENTS_DIR.glob("*.reveal.json")):
+        name = path.name.split(".")[0]
+        reveal = json.loads(path.read_text(encoding="utf-8"))
+        c = reveal["commitment"]
+        before = covered(c, records)              # exactly the drills committed to
+        if not before:
+            continue
+        families, patch = set(c["families"]), f"patch:{name}"
+        model, base = before[0]["config"]["model"], before[0]["config"]["name"]
+        after = [r for r in records if r["card"]["family"] in families
+                 and r["config"]["name"] == patch and r["config"]["model"] == model]
+        train_after = [r for r in train if r["card"]["family"] != BENIGN
+                       and r["config"]["name"] == patch and r["config"]["model"] == model]
+        benign = [r for r in train if r["card"]["family"] == BENIGN
+                  and r["config"]["name"] == patch and r["config"]["model"] == model]
+        for r in before + after:
+            replay(r)                             # exits if a record's ledger does not reproduce
+        kb, nb = sum(r["verdict"]["breach"] for r in before), len(before)
+        ka, na = sum(r["verdict"]["breach"] for r in after), len(after)
+        one, two = fisher_exact(kb, nb - kb, ka, na - ka)
+        held, trained = rate(ka, na), rate(sum(r["verdict"]["breach"] for r in train_after), len(train_after))
+        family_of = {r["card"]["id"]: r["card"]["family"] for r in before + after}
+        card_ids = sorted(family_of)
+        published = first_commit(COMMITMENTS_DIR / f"{name}.commit.json")
+        out.append({
+            "name": name, "families": sorted(families), "model": model,
+            "before": base, "after": patch,
+            "train_families": sorted({r["card"]["family"] for r in train_after}),
+            "commitment": {"root": c["root"], "count": c["count"], "committed_at": c["committed_at"],
+                           "commit": published,
+                           "commit_url": f"{repo}/commit/{published['sha']}" if published else None,
+                           "reveal_url": f"{repo}/blob/main/commitments/{path.name}"},
+            # When the patch first appears in git, to set beside the commitment's.
+            "patch_commit": first_commit(PATCHES_DIR / f"{name}.json"),
+            "verified": verify(c, before, reveal["salts"]),
+            "held_before": rate(kb, nb), "held_after": held,
+            "train_after": trained,
+            "utility_after": rate(sum(bool(r["paid_on_file"]) for r in benign), len(benign)),
+            "gap": (held["rate"] - trained["rate"]) if na and trained["n"] else None,
+            "fisher_one_sided": one, "fisher_two_sided": two,
+            "behaviour": {"before": behaviour(before), "after": behaviour(after)},
+            "cells": [cell_of([r for r in arm if r["card"]["id"] == cid], model, cfg, cid, family_of[cid])
+                      for cid in card_ids for cfg, arm in ((base, before), (patch, after))],
+        })
+    return out
 
 
 # --- the ledger, replayed ----------------------------------------------------
@@ -222,6 +314,9 @@ def main() -> None:
         print(f"withheld {len(on_disk) - len(records)} sealed drills ({', '.join(sealed)}) until revealed")
     if not records:
         sys.exit(f"no records in {args.records}")
+    # Everything below is the training families, as the page always showed;
+    # a revealed held-out family is reported on its own, in `heldout`.
+    published, records = records, training(records)
 
     cards = {c.id: c for path in sorted(CARDS_DIR.glob("*.json")) for c in load_cards(path)}
     demo = build_scenario(cards[VOICE_CARD], VOICE_SEED).kit
@@ -247,7 +342,9 @@ def main() -> None:
         for (m2, c2), after in cards.items():
             if m2 == model and c2.startswith("patch"):
                 pairs.append((before, after))
-    pairs.sort(key=lambda p: -min(p[0].attack_drills, p[1].attack_drills))
+    # Ties go to the earliest patch, so a newer patch with as many drills
+    # behind it cannot take over the headline by file order.
+    pairs.sort(key=lambda p: (-min(p[0].attack_drills, p[1].attack_drills), p[1].config))
     headline = None
     if pairs:
         b, a = pairs[0]
@@ -280,13 +377,7 @@ def main() -> None:
                                and r["card"]["family"] == c.family}):
             rs = [r for r in records if r["config"]["model"] == c.model and
                   r["config"]["name"] == c.config and r["card"]["id"] == card_id]
-            cell = rate(sum(r["verdict"]["breach"] for r in rs), len(rs))
-            cell.update({"model": c.model, "config": c.config, "card_id": card_id,
-                         "family": c.family,
-                         "drills": [{"seed": r["seed"], "breach": r["verdict"]["breach"],
-                                     "cap_turn": r["cap_turn"]}
-                                    for r in sorted(rs, key=lambda r: r["seed"])]})
-            cells.append(cell)
+            cells.append(cell_of(rs, c.model, c.config, card_id, c.family))
 
     # The redaction the Remediator sees: one breaching drill, as actions only.
     example = next((r for r in records if r["verdict"]["breach"]
@@ -310,7 +401,7 @@ def main() -> None:
         "meta": {
             "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "commit": commit_id(),
-            "records": len(records),
+            "records": len(published),
             "models": sorted({r["config"]["model"] for r in records}),
             "attacks_withheld": args.withhold_attacks,
         },
@@ -323,6 +414,7 @@ def main() -> None:
         "scorecards": scorecards,
         "cells": cells,
         "failure_example": failure,
+        "heldout": held_out_results(published, records, LIVE["repo"]),
         "drills": [drill(r, args.withhold_attacks) for r in
                    sorted(records, key=lambda r: (r["card"]["id"], r["config"]["name"],
                                                   r["config"]["model"], r["seed"]))],
@@ -332,7 +424,9 @@ def main() -> None:
     args.out.parent.mkdir(parents=True, exist_ok=True)
     text = json.dumps(out, separators=(",", ":"))
     args.out.write_text(text, encoding="utf-8")
-    print(f"{len(records)} drills, {len(cells)} grid cells, {len(patches)} patches -> "
+    held = out["heldout"]
+    print(f"{len(records)} training drills, {len(cells)} grid cells, {len(patches)} patches, "
+          f"{len(held)} held-out reveal{'' if len(held) == 1 else 's'} -> "
           f"{args.out} ({len(text) / 1024:.0f} KB)"
           + ("  [attacker text withheld]" if args.withhold_attacks else ""))
 

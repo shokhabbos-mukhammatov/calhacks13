@@ -6,7 +6,7 @@ import pytest
 from firedrill.drill import BENIGN_CARD, ScriptedAttacker, TacticCard, VictimConfig, build_scenario, run_drill
 from firedrill.commit import record_id
 from firedrill.drill import CARDS_DIR, load_cards
-from firedrill.records import SEALED_FAMILIES, config_fingerprint, load_records, publishable, save_drill
+from firedrill.records import SEALED_FAMILIES, config_fingerprint, load_records, publishable, save_drill, training
 from firedrill.scorecard import BENIGN
 from firedrill.stats import wilson
 from firedrill.victim import Response, ScriptedModel
@@ -132,3 +132,12 @@ def test_a_record_file_is_named_by_its_record_id(tmp_path):
     drill, cfg = breaching_drill()
     path = save_drill(drill, cfg, tmp_path)
     assert path.name == record_id(json.loads(path.read_text(encoding="utf-8"))) + ".json"
+
+
+def test_the_training_view_leaves_out_every_held_out_family_even_once_revealed():
+    # Revealing a family publishes it; it does not make it training data. The
+    # headline numbers stay the training family's, so a reveal cannot quietly
+    # pool into them.
+    rs = [family_record("vendor-mailbox-takeover"), family_record(BENIGN),
+          family_record("lookalike-domain"), family_record("executive-impersonation")]
+    assert [r["card"]["family"] for r in training(rs)] == ["vendor-mailbox-takeover", BENIGN]
