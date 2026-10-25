@@ -15,7 +15,7 @@ tags: [audit, history]
 > - **No LLM in scoring at all**, not even to label *why*. The verdict is a predicate over ledger state ([ADR-0001](../adr/0001-deterministic-ledger-scoring.md)).
 > - **Claude is not the attacker.** The harness ships tactic cards; a person writes the attacker's turns.
 > - **The three-model table exists**: Haiku 4.5 breaks 13 of 24 at baseline, Sonnet 4.5 and Haiku 5.5 0 of 24.
-> - **The held-out variants do not yet.** No held-out family has turn files, so nothing has been committed and the generalization claim is untested.
+> - **The held-out test ran, on 25 Oct.** `lookalike-domain` was committed by hash before `patch:v3` existed: the unpatched agent paid 23 of 24 times, the patched one 0 of 48. One family and one model, not the five variants this audit asked for.
 > - **The Fetch.ai bolt-on was not built.**
 >
 > The judge panel and verdict it links to stayed on the `idea-council` branch, with the rest of the 37-idea council.

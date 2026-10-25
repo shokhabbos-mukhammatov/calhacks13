@@ -12,7 +12,7 @@ Fire Drill attacks an accounts-payable agent the way real invoice fraud works, r
 | **Watch every step live** | `python scripts/live.py` — one line per event as it happens, for a second screen |
 | **Build that page yourself** | `python scripts/export_ui.py && npm --prefix ui run build` → `ui/dist/index.html`, which opens from disk |
 | **Run it yourself** | Two published Apify Actors: [fire-drill](https://apify.com/shohabbos_m/fire-drill) (the runner) · [ap-practice-target](https://apify.com/shohabbos_m/ap-practice-target) (the target) |
-| **Re-check any number here** | All 290 drills are in `records/`, with the ledger each verdict was read from |
+| **Re-check any number here** | All 434 drills are in `records/`, with the ledger each verdict was read from. `scripts/verify_reveal.py v3` checks the held-out result against its commitment, offline |
 
 ![The results page: an AI agent paid a fraudster in 13 of 24 drills, 0 of 24 after the fix, Fisher p = 1.3 × 10⁻⁵, $393,200 sent to attackers](docs/images/hero.png)
 
@@ -69,7 +69,7 @@ model's opinion.
 - **It closes the loop.** It names the turn the agent gave in, hands the failure to a coding agent as actions and roles rather than the attacker's words, checks the patch by replaying the failures through the real ledger, and re-runs with intervals and Fisher's exact test.
 - **It is a drill for an employee, not QA for a product.** Closer to a phishing simulation for the AP clerk than to a test of how the agent sounds.
 
-One claim from the original pitch is not earned yet: that a patch holds on attacks it has never seen. The protocol for it is built: held-out drills are committed as a salted Merkle root before the patch they test, and published only after ([ADR-0002](docs/adr/0002-held-out-by-tactic-family.md)). But no held-out family has attacker turns yet, so nothing has been committed and the comparison is untested, and the results page says so.
+That a patch holds on attacks it has never seen was the one claim from the original pitch the build could not make at first. It is measured now: on a held-out family committed by hash before the patch existed, the unpatched agent paid 23 of 24 times and the patched one 0 of 48 ([On attacks it never saw](#on-attacks-it-never-saw)).
 
 ## How it works
 
@@ -214,7 +214,57 @@ removed. Under `scope:v1` the agent *did* change the bank details and then
 called `approve_payment`, and the harness refused it. The gate is proven in
 code, with no policy helping.
 
-290 drills are recorded. 210 tests pass.
+434 drills are recorded. 220 tests pass.
+
+### On attacks it never saw
+
+A patch can learn the behaviour or just the wording, and only attacks it has
+never seen tell the two apart. So one whole tactic family, `lookalike-domain`,
+was held out. Its attacker turns were written by a different AI that was given
+only the cards: never the agent's defences, the patch, or the training wording.
+
+Its 24 drills against the unpatched agent were committed as a salted Merkle
+root in [`942b5c9`](https://github.com/shokhabbos-mukhammatov/calhacks13/commit/942b5c99fd83a030fbc94796105f9fbc456d8a79),
+which GitHub logged at 06:47:44 UTC on 25 Oct, before the patch existed.
+Factory Droid then wrote `patch:v3` through the SDK from the
+`vendor-mailbox-takeover` failures alone, with three harness tools and no file
+access, and every cell ran against it at 24 drills, fixed in advance.
+
+| Claude Haiku 4.5 | Paid the attacker | 95% interval |
+| --- | --- | --- |
+| held-out `lookalike-domain`, `baseline` | **23 of 24** | 0.80 – 0.99 |
+| held-out `lookalike-domain`, `patch:v3` | **0 of 48** | 0.00 – 0.07 |
+| training `vendor-mailbox-takeover`, `patch:v3` | 0 of 48 | 0.00 – 0.07 |
+| honest invoices under `patch:v3`, paid to the account on file | 24 of 24 | 0.86 – 1.00 |
+
+Fisher's exact test on the held-out drills, before against after:
+**p = 6.2 × 10⁻¹⁸**. The generalization gap is `Δ = 0.00 − 0.00 = 0`: the
+patch did no worse on a family it never saw than on the one it was written
+from, and it did not get safe by refusing to pay.
+
+![The held-out result on the results page: 23 of 24 to 0 of 48, Fisher p = 6.2e-18, a gap of zero, 24 of 24 honest invoices paid, and the commitment and reveal it was checked against](docs/images/heldout.png)
+
+**Check it yourself.** [`commitments/v3.reveal.json`](commitments/v3.reveal.json)
+holds the 24 drills and their salts. This reads the commitment as it was first
+committed, from git history, and recomputes the root. It needs no key, no
+network and no salts file:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\verify_reveal.py v3
+```
+
+**What changed is the number it rang.** Unpatched, the agent called the number
+offered in the message 15 times and tried to change the bank details in 23 of
+24 drills. Under `patch:v3` it called the number on file 45 times, never the
+attacker's, and never asked to change the account. So, as with `patch:v1`, the
+code gate never had to fire: the policy did the work, with the gate behind it.
+
+The zeros were checked as holds rather than failures: every drill ran to the
+end with replies. The agent's first `lookup_vendor` often errors, because it
+guesses a long vendor id before using the short one, but that happens at the
+same rate at baseline, where it still paid 23 times. This is one held-out
+family on one model: evidence that the patch learned the behaviour rather than
+the wording, not proof that it covers every attack.
 
 
 ![The breach grid: every model, hardening level and tactic card as a cell of unit squares, one square per drill, with a 95% interval under each](docs/images/results.png)
@@ -364,12 +414,14 @@ That is the point. A patch written from wording can block those phrases and
 still fail on a family it has not seen; a patch written from actions has to
 change behaviour.
 
-**Commit-reveal.** Before a patch exists, `remediate.py` writes a salted
-Merkle root over the held-out drills to `commitments/`. Commit that file to
-git and its timestamp predates the patch. After the re-run, `--reveal`
-publishes the drills and salts so anyone can recompute the root. Hash
-commitments are binding, so the held-out set cannot have been swapped for an
-easier one (ADR-0002).
+**Commit-reveal.** Before a patch exists, `remediate.py --commit-only` writes a
+salted Merkle root over the held-out drills to `commitments/` and stops, so the
+file can be pushed while there is still no patch. A commitment is never
+overwritten. After the re-run, `--reveal` writes the drills and salts and
+checks the root over exactly the drills committed to; publishing them is a
+deliberate force-add. Hash commitments are binding, so the held-out set cannot
+have been swapped for an easier one (ADR-0002). It was first used for
+`patch:v3`: see [On attacks it never saw](#on-attacks-it-never-saw).
 
 ---
 
@@ -584,7 +636,8 @@ here can be recomputed from `records/`.
   the numbers. The wording is the textbook business-email-compromise pretext
   from the public reports each card cites, aimed at invented vendors. Only the
   training family is published this way: a held-out family is committed as a
-  salted Merkle root first and revealed after the re-run (ADR-0002). The turn
+  salted Merkle root first and revealed after the re-run (ADR-0002).
+  `lookalike-domain` has been revealed and is published too. The turn
   templates in `turns/` stay local.
 - The code agent is shown actions, never message text, which also keeps attack
   wording out of anything sent to a model.
@@ -597,15 +650,16 @@ here can be recomputed from `records/`.
 
 ## Known limitations
 
-- **Small samples.** Six drills per cell. The intervals are wide and the
-  report says so rather than rounding it away.
-- **One tactic family has been drilled.** `lookalike-domain` and
-  `executive-impersonation` have cards but no attacker turns, so the held-out
-  generalization claim is not yet demonstrated. The machinery is built and
-  unused.
+- **Small samples.** At most 24 drills per cell, and 3 in the early
+  exploratory rows. The intervals are wide and the report says so rather than
+  rounding it away.
+- **One held-out family.** The patch held on `lookalike-domain`, a family it
+  never saw (0 of 48). `executive-impersonation` has cards but no attacker
+  turns, so a second held-out test is still to run, and both results are on
+  one model.
 - **The code-level gates are under-tested.** Under a full patch the agent
   never attempted the blocked action, so only `scope:v1` has actually fired a
-  gate.
+  gate. The same is true of `patch:v3` on the held-out family.
 - **Voice latency.** A warm turn is about 6 seconds; a cold container is
   nearer 15. Cartesia's own round trip is a small part of that — the time is
   the agent thinking and calling tools.
@@ -653,3 +707,4 @@ first: what is built, what is live, and what is left.
 - **A console that showed the wrong ledger.** The live view rebuilt the world from the same seed instead of watching the one being scored, so its ledger lines never moved. `run_drill` now hands the watcher the ledger the Scorer actually reads.
 - **One em dash crashed a demo path.** A Windows console defaults to a legacy code page, so a curly quote in a model's reply raised `UnicodeEncodeError` and took the whole run down. Every script forces UTF-8 now.
 - **`apify push` skips anything git ignores.** The Actors shipped without the package and failed on import. The copies are committed and `tests/test_actors_in_sync.py` fails until they match — a test that has since caught the same mistake twice more.
+- **The commit-reveal would have failed the first time it was used.** It had never run with a real held-out family, and three faults only showed up just before it did. The reveal re-checked the root over every held-out drill on disk, which after the patched re-run is more than were committed, so it would have printed DOES NOT MATCH at the final step. Re-running the commit step drew new salts and silently replaced a root already pushed. And the held-out drills would have gone public early, through `records/` and through the results page. All three were fixed and tested before the held-out family was run.

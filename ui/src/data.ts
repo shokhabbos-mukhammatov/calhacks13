@@ -116,6 +116,49 @@ export interface Scorecard {
   u: Rate;
 }
 
+export interface Commit {
+  sha: string;
+  committed_at: string;
+}
+
+export interface Behaviour {
+  drills: number;
+  called_attacker: number;
+  called_on_file: number;
+  tried_bank_change: number;
+}
+
+/** A held-out family, revealed: the drills committed to before the patch
+ * existed, the same family under it, and the training family under it for
+ * the gap. Kept apart from everything above, which is training only. */
+export interface HeldOut {
+  name: string;
+  families: string[];
+  model: string;
+  before: string;
+  after: string;
+  train_families: string[];
+  commitment: {
+    root: string;
+    count: number;
+    committed_at: string;
+    commit: Commit | null;
+    commit_url: string | null;
+    reveal_url: string;
+  };
+  patch_commit: Commit | null;
+  verified: boolean;
+  held_before: Rate;
+  held_after: Rate;
+  train_after: Rate;
+  utility_after: Rate;
+  gap: number | null;
+  fisher_one_sided: number;
+  fisher_two_sided: number;
+  behaviour: { before: Behaviour; after: Behaviour };
+  cells: Cell[];
+}
+
 export interface FailureStep {
   turn: number;
   tool: string;
@@ -142,6 +185,7 @@ export interface Data {
   } | null;
   scorecards: Scorecard[];
   cells: Cell[];
+  heldout: HeldOut[];
   failure_example: {
     drill: string;
     kit: Kit;
