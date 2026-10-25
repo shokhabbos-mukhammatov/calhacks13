@@ -23,7 +23,7 @@ breaches 13/24 → 0/24   Fisher exact p = 0.0000   intervals do not overlap
   The attack is not the bank-change request; it is the fake callback.
 - `scope:v1` proves the gate fires in code with the policy removed: the agent
   changed the bank details, called `approve_payment`, and the harness refused.
-- 146 drills recorded, 210 tests, on branch `ccr-b6ca9179-lsr7pr`.
+- 434 drills recorded and published, 226 tests, all merged to `main` (25 Oct).
 - **CRS decides the callback.** Offering the agent the CRS tool, with no
   policy at all, moved `vmt-02` from **12/12** breaches to **3/18**
   (Fisher one-sided p = 0.000005). Two of those three were told by CRS that
@@ -42,7 +42,7 @@ breaches 13/24 → 0/24   Fisher exact p = 0.0000   intervals do not overlap
 | Cartesia webhook tool | `agent_tool_ourfiHCVPcEiyKUG4Rh3ud` — `ask_accounts_payable` |
 | **Demo phone line** | **(484) 779-8381** |
 | Voice | Sonic, `Jacqueline` = `9626c31c-bec5-4cca-baa8-f8ba9e84c8bc` |
-| Elastic corpus | index `fire-drill-drills`, 92 drills |
+| Elastic corpus | index `fire-drill-drills`, 434 drills (re-indexed 25 Oct; published drills only) |
 | Agent Builder tool | `fire_drill_breaches`, ES\|QL over the corpus |
 
 Both Actors are public, pay-per-event, limited permissions, no logo.
