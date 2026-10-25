@@ -20,7 +20,6 @@ import argparse
 import os
 import sys
 import time
-from dataclasses import asdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +35,7 @@ from firedrill.drill import (
     build_scenario,
     load_cards,
     make_config,
+    read_turns,
     run_drill,
 )
 from firedrill.grid import CellSpec, run_grid, saved
@@ -64,9 +64,7 @@ def turns_for(card_id: str | None, seed: int) -> list[str] | None:
         card, path = CARDS[card_id], TURNS_DIR / f"{card_id}.txt"
     if path is None or not path.exists():
         return None
-    kit = asdict(build_scenario(card, seed).kit)
-    blocks = path.read_text(encoding="utf-8").replace("\r\n", "\n").split("\n---\n")
-    return [b.strip().format(**kit) for b in blocks if b.strip()]
+    return read_turns(path, build_scenario(card, seed).kit)
 
 
 def main() -> None:

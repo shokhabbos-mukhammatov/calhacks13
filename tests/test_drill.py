@@ -16,6 +16,7 @@ from firedrill.drill import (
     build_scenario,
     load_cards,
     make_config,
+    read_turns,
     run_drill,
 )
 from firedrill.payments import MemoryRail
@@ -201,3 +202,20 @@ def test_seed_cards_carry_a_family_a_source_and_no_identifiers():
         text = " ".join([c.pretext, c.lever, c.ask])
         assert "@" not in text and "http" not in text
         assert not re.search(r"\d{3,}", text)  # no phone or account numbers
+
+
+def test_turn_files_fill_in_the_kit_and_split_on_a_dash_line(tmp_path):
+    kit = build_scenario(CARD, 1).kit
+    path = tmp_path / "t.txt"
+    path.write_text("Pay {invoice_id} to {attacker_account}.\n---\nStill waiting on {vendor_name}.\n",
+                    encoding="utf-8")
+    assert read_turns(path, kit) == [f"Pay {kit.invoice_id} to {kit.attacker_account}.",
+                                     f"Still waiting on {kit.vendor_name}."]
+
+
+def test_a_byte_order_mark_does_not_reach_the_agent(tmp_path):
+    # PowerShell's `utf8` writes one, and it is invisible in an editor.
+    kit = build_scenario(CARD, 1).kit
+    path = tmp_path / "t.txt"
+    path.write_bytes("﻿Hello {vendor_name}\r\n---\r\nAgain\r\n".encode("utf-8"))
+    assert read_turns(path, kit) == [f"Hello {kit.vendor_name}", "Again"]
