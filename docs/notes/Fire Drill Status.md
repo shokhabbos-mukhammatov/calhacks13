@@ -140,6 +140,13 @@ How it was run, so the next family goes the same way:
 6. `remediate.py --reveal vN`, then force-add the reveal and the held-out
    records (`.gitignore` keeps both out until then), and re-export the page.
 
+**Calls run CRS now (25 Oct).** The phone line used to fall through to plain
+`baseline`, which does not offer `verify_vendor`, so CRS never ran on a call
+while the page said it did. The target Actor now reads `VOICE_CONFIG`, default
+`baseline+verify` (build 0.1.16). Checked on the deployed line: the agent named
+Rajesh Menon, risk 85, in a 6-second turn. Set `VOICE_CONFIG=baseline` and
+rebuild to take CRS off calls again if judges cannot break it.
+
 **A bank change is never gated itself.** `requires_verification` is enforced in
 `approve_payment` only, so a patch's scope on `change_vendor_bank_details` does
 not stop the change. Under `v1` the agent left the attacker's account on the

@@ -8,7 +8,7 @@ Fire Drill attacks an accounts-payable agent the way real invoice fraud works, r
 | | |
 |---|---|
 | **Read the results** | **[shokhabbos-mukhammatov.github.io/calhacks13](https://shokhabbos-mukhammatov.github.io/calhacks13/)** — every drill, interval and formula. One self-contained file: no network calls once it has loaded |
-| **Call the agent and break it yourself** | **(484) 779-8381** — a real phone line, no account needed. Card below. |
+| **Call the agent and break it yourself** | **(484) 779-8381** — a real phone line, no account needed. It can ask CRS who holds the number you give it, live. Card below. |
 | **Watch every step live** | `python scripts/live.py` — one line per event as it happens, for a second screen |
 | **Build that page yourself** | `python scripts/export_ui.py && npm --prefix ui run build` → `ui/dist/index.html`, which opens from disk |
 | **Run it yourself** | Two published Apify Actors: [fire-drill](https://apify.com/shohabbos_m/fire-drill) (the runner) · [ap-practice-target](https://apify.com/shohabbos_m/ap-practice-target) (the target) |
@@ -587,6 +587,20 @@ deterministic verdict.
 4. The real AP agent runs, with its tools over the ledger.
 5. Its reply is spoken back.
 6. The verdict is read from the ledger afterwards.
+
+**CRS answers during the call.** A call runs at `baseline+verify`: no policy
+and no gates, so a caller can still talk the agent into paying, but it is
+offered `verify_vendor`, so when it checks the number it was given, CRS answers
+live. On the deployed line, asked who holds the judge card's callback number,
+the agent said it is registered to Rajesh Menon, not the Northwind contact on
+file, with a fraud risk score of 85, in a 6-second turn. What it does with that
+answer is the test: in recorded drills with only this check, it still paid in
+3 of 18.
+
+The level is a setting on the target Actor, `VOICE_CONFIG`, so it can change
+without a code change (`baseline` takes CRS away again; rebuild after setting
+it). A value that names no real config falls back to the default rather than
+failing every call.
 
 The Cartesia agent is deliberately **only a relay**: its instructions forbid
 it from answering about invoices, vendors, bank details or payments itself.
