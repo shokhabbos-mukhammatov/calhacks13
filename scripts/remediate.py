@@ -1,5 +1,6 @@
 """Write a structural patch from the failing drills, with commit-reveal.
 
+    .venv/Scripts/python scripts/remediate.py --hold-out lookalike-domain --name v2 --commit-only
     .venv/Scripts/python scripts/remediate.py --hold-out lookalike-domain --agent claude-code --name v1
     .venv/Scripts/python scripts/remediate.py --hold-out lookalike-domain --agent droid --name v1-droid
     .venv/Scripts/python scripts/remediate.py --dry-run            # show the brief, call nothing
@@ -7,16 +8,18 @@
 
 Order matters and the script enforces it:
 1. Commit to the held-out drills (a salted Merkle root, written to
-   commitments/<name>.commit.json) BEFORE any patch exists. Commit that file
-   to git, so its timestamp predates the patch.
+   commitments/<name>.commit.json) BEFORE any patch exists. --commit-only
+   stops there: push that file, so its git timestamp predates the patch, then
+   run again without it. An existing commitment is used, never replaced.
 2. Summarise the failing drills of the TRAINING families only, as actions and
    ledger outcomes with no message text (firedrill.failures), and hand them to
    a code agent behind the port (ADR-0004).
 3. Save the PatchDiff to patches/<name>.json. Re-run drills against it with
    scripts/run_drill.py --config patch:<name>, including the held-out family.
 4. --reveal writes commitments/<name>.reveal.json (drills + salts) and checks
-   the root still matches. Publishing that file is your call: it contains the
-   drills themselves.
+   the root still matches, over exactly the drills committed to: the re-run
+   saved more of the same cards and seeds under the patch, which are not part
+   of it. Publishing that file is your call: it contains the drills themselves.
 """
 from __future__ import annotations
 
@@ -32,12 +35,11 @@ sys.path.insert(0, str(ROOT))
 from dotenv import load_dotenv
 
 from firedrill.console import use_utf8
-from firedrill.commit import commit, verify
+from firedrill.commit import COMMITMENTS_DIR, covered, verify, write_commitment
 from firedrill.failures import as_json, failing
 from firedrill.records import RECORDS_DIR, load_records
 from firedrill.remediate import AGENTS, PATCHES_DIR, build_brief
 
-COMMITMENTS_DIR = ROOT / "commitments"
 
 
 def families_of(records: list[dict]) -> set[str]:
@@ -51,13 +53,16 @@ def do_reveal(name: str) -> None:
         sys.exit(f"need both {commit_path.name} and {salts_path.name}")
     commitment = json.loads(commit_path.read_text(encoding="utf-8"))
     salts = json.loads(salts_path.read_text(encoding="utf-8"))
-    held = [r for r in load_records() if r["card"]["family"] in commitment["families"]]
+    held = covered(commitment, load_records())
     ok = verify(commitment, held, salts)
     reveal = COMMITMENTS_DIR / f"{name}.reveal.json"
     reveal.write_text(json.dumps({"commitment": commitment, "salts": salts, "drills": held}, indent=1),
                       encoding="utf-8")
     print(f"root recomputes: {'MATCHES' if ok else 'DOES NOT MATCH'}")
-    print(f"wrote {reveal} ({len(held)} drills). Publishing it is your call: it holds the drills themselves.")
+    print(f"wrote {reveal} ({len(held)} of {commitment['count']} committed drills found).")
+    print("Publishing it is your call: it holds the drills themselves. .gitignore keeps the reveal")
+    print("and the sealed records out until you do, so publishing is a deliberate force-add:")
+    print(f"  git add -f {reveal.relative_to(ROOT).as_posix()} records/ld-*.json records/ei-*.json")
     sys.exit(0 if ok else 1)
 
 
@@ -70,6 +75,8 @@ def main() -> None:
     p.add_argument("--agent-model", help="model id for the code agent (its own default otherwise)")
     p.add_argument("--name", default="v1", help="patch and commitment name (default: v1)")
     p.add_argument("--policy", default="", help="the policy being replaced (default: none)")
+    p.add_argument("--commit-only", action="store_true",
+                   help="commit to the held-out drills and stop, so the commitment can be pushed first")
     p.add_argument("--dry-run", action="store_true", help="print the brief and stop")
     p.add_argument("--reveal", metavar="NAME", help="reveal a commitment after the re-run")
     args = p.parse_args()
@@ -92,16 +99,23 @@ def main() -> None:
 
     # 1. Commit to the held-out drills before the patch exists.
     held = [r for r in records if r["card"]["family"] in args.hold_out]
-    if held and not args.dry_run:
-        commitment, salts = commit(held)
-        (COMMITMENTS_DIR / f"{args.name}.commit.json").write_text(
-            json.dumps(commitment.to_dict(), indent=1), encoding="utf-8")
-        (COMMITMENTS_DIR / f"{args.name}.salts.json").write_text(json.dumps(salts), encoding="utf-8")
+    existing = COMMITMENTS_DIR / f"{args.name}.commit.json"
+    if existing.exists():
+        prior = json.loads(existing.read_text(encoding="utf-8"))
+        if args.commit_only:
+            sys.exit(f"{existing.name} already exists (committed {prior['committed_at']}); "
+                     "a second commitment would replace it")
+        print(f"using {existing.name}: {prior['count']} held-out drills, committed {prior['committed_at']}")
+    elif held and not args.dry_run:
+        commitment = write_commitment(COMMITMENTS_DIR, args.name, held)
         print(f"committed to {commitment.count} held-out drills ({', '.join(commitment.families)})")
         print(f"  root {commitment.root}")
-        print(f"  -> commitments/{args.name}.commit.json: commit this to git NOW, before the patch")
+        print(f"  -> commitments/{args.name}.commit.json: commit and push it NOW, before the patch")
+        print(f"     keep commitments/{args.name}.salts.json private until the reveal")
     elif args.hold_out:
         print(f"no saved drills for held-out {', '.join(args.hold_out)}: nothing to commit to yet")
+    if args.commit_only:
+        return
 
     # 2. Summarise the failing training drills: actions and outcomes, no message text.
     failures = failing(records, families=train)

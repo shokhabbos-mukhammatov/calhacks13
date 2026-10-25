@@ -44,6 +44,7 @@ from firedrill.drill import (
     build_scenario,
     load_cards,
     make_config,
+    read_turns,
     run_drill,
 )
 from firedrill.payments import NessieRail
@@ -70,11 +71,6 @@ class TypedAttacker:
         while (line := input()) != "":
             lines.append(line)
         return "\n".join(lines) or None
-
-
-def read_turns(path: Path, kit) -> list[str]:
-    blocks = path.read_text(encoding="utf-8").split("\n---\n")
-    return [b.strip().format(**asdict(kit)) for b in blocks if b.strip()]
 
 
 def print_drill(record: dict) -> None:

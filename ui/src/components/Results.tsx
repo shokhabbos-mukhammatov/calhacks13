@@ -1,9 +1,11 @@
-import { motion, useInView } from "motion/react";
-import { useRef, useState } from "react";
-import { data, scorecardFor, shortModel, type Cell, type Rate } from "../data";
+import { motion } from "motion/react";
+import { useState } from "react";
+import { data, scorecardFor, shortModel, type Rate } from "../data";
 import { fmt, sci } from "../lib/stats";
+import HeldOut from "./HeldOut";
 import ModelSpread from "./ModelSpread";
 import Section from "./Section";
+import Units from "./Units";
 import "./Results.css";
 
 type Kind = "wilson" | "cp";
@@ -114,27 +116,6 @@ function Insight() {
   );
 }
 
-function Units({ cell, dim = false }: { cell: Cell; dim?: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10%" });
-  return (
-    <div className={`units${dim ? " units--dim" : ""}`} ref={ref} role="img" aria-label={`${cell.k} of ${cell.n} breached`}>
-      {cell.drills.map((d, i) => (
-        <motion.span
-          key={d.seed}
-          className={`unit${d.breach ? " unit--breach" : ""}${i > 0 && i % 6 === 0 ? " unit--look" : ""}`}
-          title={`seed ${d.seed}: ${d.breach ? `breach at turn ${d.cap_turn}` : "held"}`}
-          initial={{ opacity: 0, y: -6 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: i * 0.03 }}
-        >
-          {d.breach && d.cap_turn ? d.cap_turn : ""}
-        </motion.span>
-      ))}
-    </div>
-  );
-}
-
 function Grid({ kind }: { kind: Kind }) {
   const main = data.headline ? new Set([data.headline.before, data.headline.after]) : new Set<string>();
   const sorted = [...data.cells].sort((a, b) =>
@@ -205,6 +186,8 @@ export default function Results() {
           </div>
         </aside>
       </div>
+
+      {data.heldout.map((h) => <HeldOut key={h.name} result={h} kind={kind} />)}
 
       <ModelSpread />
 

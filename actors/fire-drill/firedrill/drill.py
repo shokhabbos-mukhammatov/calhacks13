@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 import random
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Protocol
 
@@ -142,6 +142,15 @@ class Attacker(Protocol):
     def compose(self, card: TacticCard, kit: Kit, transcript: list[Turn]) -> str | None:
         """The next message body, or None to end the drill."""
         ...
+
+
+def read_turns(path: Path, kit: Kit) -> list[str]:
+    """A turn file, filled in for one seed: blocks separated by a line that
+    is only `---`, placeholders named after the Kit's fields. Read as
+    utf-8-sig because PowerShell's `utf8` writes a byte-order mark, which would
+    otherwise reach the agent invisibly at the start of the first message."""
+    blocks = path.read_text(encoding="utf-8-sig").split("\n---\n")
+    return [b.strip().format(**asdict(kit)) for b in blocks if b.strip()]
 
 
 class ScriptedAttacker:

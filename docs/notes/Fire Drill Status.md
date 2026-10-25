@@ -108,6 +108,41 @@ Build order from [[Fire Drill Architecture]]: **1, 2, 3, 5, 6, 7, 9 complete**,
   it answers `vmt-02` 12/12 breaches, first capitulation turn 1, 379,050
   moved. `check_integrations.py` now executes that tool, not just pings it.
 
+## Held-out result (25 Oct)
+
+`lookalike-domain` is the first held-out family run, and the patch held on it.
+Claude Haiku 4.5, 24 drills a cell fixed in advance:
+
+| | Paid the attacker |
+| --- | --- |
+| held-out, `baseline` | 23 of 24 |
+| held-out, `patch:v3` | 0 of 48 |
+| training, `patch:v3` | 0 of 48 |
+| honest invoices, `patch:v3`, paid on file | 24 of 24 |
+
+Fisher p = 6.2 × 10⁻¹⁸; generalization gap 0. The order is in git: root
+committed in `942b5c9` (GitHub logged the push 06:47:44 UTC), `v3` written by
+Droid through the SDK at 06:49:17 UTC from the training failures only,
+revealed in `3d5aa3f`. `scripts/verify_reveal.py v3` re-checks it offline.
+
+How it was run, so the next family goes the same way:
+
+1. A different AI wrote `turns/ld-*.txt` from `turns/PROMPT-lookalike-domain.md`,
+   which gives it the cards and nothing about the agent's defences.
+2. `grid.py --cards ld-01 ld-02 --configs baseline`, which must breach, or the
+   test is empty.
+3. `remediate.py --hold-out <family> --name vN --commit-only`, then commit and
+   push `commitments/vN.commit.json` before anything else.
+4. `autofix.py --name vN --hold-out <family>`: the SDK path, three harness tools
+   and no file access. Not `remediate.py --agent`: both CLI adapters can read
+   the repo, which holds the held-out turns and records.
+5. `grid.py --cards <all> --configs patch:vN --benign --max-n 24 --width 0`.
+6. `remediate.py --reveal vN`, then force-add the reveal and the held-out
+   records (`.gitignore` keeps both out until then), and re-export the page.
+
+The page keeps everything it showed as **training only**; a revealed family is
+a separate `heldout` block in the export and its own subsection on the page.
+
 ## What is left
 
 **The frontend** (`ui/`) replaces the scorecard page as the thing
@@ -128,9 +163,8 @@ held drill cells at 1.48:1 in dark (now countable), and a prose measure near
 
 **Yours**
 
-- **Held-out turn files** for `ld-01`/`ld-02` or `ei-01`/`ei-02`. Until they
-  exist the generalization gap reads "the claim is untested", and ADR-0002's
-  whole apparatus sits idle. This is the sharpest question a judge can ask.
+- **A second held-out family**, if there is time: turn files for `ei-01`/`ei-02`.
+  The first is done (see below); a second would make it two families, not one.
 - **Record the phone demo today**, while it works. Hyphenate wants a video
   that opens with the moment; the venue network is a risk you cannot fix at
   10:30.

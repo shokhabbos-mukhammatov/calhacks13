@@ -7,7 +7,8 @@ offered); the payment rail only mirrors, so it is recorded but not hashed.
 The Remediator reads failing records; scripts/report.py aggregates them.
 Records hold the attacker's turns and are published, so anyone can re-score
 a drill from its ledger. That covers training families only: a held-out
-family is committed first and published when revealed (ADR-0002).
+family is committed first and published when revealed (ADR-0002), so
+everything that publishes records goes through `publishable`.
 """
 from __future__ import annotations
 
@@ -21,6 +22,22 @@ from typing import Any
 from firedrill.drill import Drill, VictimConfig
 
 RECORDS_DIR = Path(__file__).resolve().parents[1] / "records"
+
+# Held out from Remediation and sealed until revealed. Their record files are
+# git-ignored as well; this is the same rule for anything that renders them.
+SEALED_FAMILIES = frozenset({"lookalike-domain", "executive-impersonation"})
+
+
+def publishable(records: list[dict], revealed: set[str] | frozenset[str] = frozenset()) -> list[dict]:
+    sealed = SEALED_FAMILIES - set(revealed)
+    return [r for r in records if r["card"]["family"] not in sealed]
+
+
+def training(records: list[dict]) -> list[dict]:
+    """The families Remediation learned from. A revealed held-out family is
+    published, but it is still held out: it is reported beside these numbers,
+    never pooled into them."""
+    return [r for r in records if r["card"]["family"] not in SEALED_FAMILIES]
 
 
 def model_id(model: Any) -> str:
@@ -98,16 +115,19 @@ def find_records(
     seed: int | None = None,
     config: str | None = None,
     directory: Path = RECORDS_DIR,
+    model: str | None = None,
 ) -> list[dict]:
     """Saved drills matching a card, seed and hardening level, newest first.
 
     `record_path` names a file by the config's *fingerprint*, which a replay
     does not have: it is asking for "the drill I ran", not for a particular
     build of the agent. So the lookup is by the three things a person would
-    say out loud, and the newest match wins.
+    say out loud, and the newest match wins. Name the model too when it
+    matters: the same card and seed run on several models, and they disagree.
     """
     out = [r for r in load_records(directory)
            if (card_id is None or r["card"]["id"] == card_id)
            and (seed is None or r["seed"] == seed)
-           and (config is None or r["config"]["name"] == config)]
+           and (config is None or r["config"]["name"] == config)
+           and (model is None or r["config"]["model"] == model)]
     return sorted(out, key=lambda r: r.get("saved_at", ""), reverse=True)

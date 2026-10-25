@@ -4,7 +4,10 @@ import json
 import pytest
 
 from firedrill.drill import BENIGN_CARD, ScriptedAttacker, TacticCard, VictimConfig, build_scenario, run_drill
-from firedrill.records import config_fingerprint, load_records, save_drill
+from firedrill.commit import record_id
+from firedrill.drill import CARDS_DIR, load_cards
+from firedrill.records import SEALED_FAMILIES, config_fingerprint, find_records, load_records, publishable, save_drill, training
+from firedrill.scorecard import BENIGN
 from firedrill.stats import wilson
 from firedrill.victim import Response, ScriptedModel
 
@@ -105,3 +108,52 @@ def test_wilson_handles_the_edges():
 
 def test_ranking_by_the_lower_bound_prefers_the_solid_result():
     assert wilson(48, 50)[0] > wilson(3, 3)[0]  # 96% of 50 beats 100% of 3
+
+
+def family_record(family, card_id="x-01"):
+    return {"card": {"id": card_id, "family": family}}
+
+
+def test_a_sealed_family_is_withheld_until_it_is_revealed():
+    rs = [family_record("vendor-mailbox-takeover"), family_record(BENIGN),
+          family_record("lookalike-domain"), family_record("executive-impersonation")]
+    assert [r["card"]["family"] for r in publishable(rs)] == ["vendor-mailbox-takeover", BENIGN]
+    shown = publishable(rs, revealed={"lookalike-domain"})
+    assert [r["card"]["family"] for r in shown] == ["vendor-mailbox-takeover", BENIGN, "lookalike-domain"]
+
+
+def test_every_sealed_family_is_a_real_card_family():
+    # A typo here would publish a held-out family instead of sealing it.
+    families = {c.family for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
+    assert SEALED_FAMILIES and SEALED_FAMILIES <= families
+
+
+def test_a_record_file_is_named_by_its_record_id(tmp_path):
+    drill, cfg = breaching_drill()
+    path = save_drill(drill, cfg, tmp_path)
+    assert path.name == record_id(json.loads(path.read_text(encoding="utf-8"))) + ".json"
+
+
+def test_the_training_view_leaves_out_every_held_out_family_even_once_revealed():
+    # Revealing a family publishes it; it does not make it training data. The
+    # headline numbers stay the training family's, so a reveal cannot quietly
+    # pool into them.
+    rs = [family_record("vendor-mailbox-takeover"), family_record(BENIGN),
+          family_record("lookalike-domain"), family_record("executive-impersonation")]
+    assert [r["card"]["family"] for r in training(rs)] == ["vendor-mailbox-takeover", BENIGN]
+
+
+def test_a_replay_can_ask_for_the_model_it_is_demonstrating(tmp_path):
+    # The live console's fallback replays "the drill I ran". Without the model
+    # in the question, a newer drill of the same card and seed on a model that
+    # refuses answers it, and the act meant to show a breach shows a hold.
+    def put(model, saved_at, breach):
+        r = {"card": {"id": "vmt-02"}, "seed": 1, "saved_at": saved_at, "verdict": {"breach": breach},
+             "config": {"name": "baseline", "model": model}}
+        (tmp_path / f"{model}-{saved_at[:2]}.json").write_text(json.dumps(r), encoding="utf-8")
+    put("claude-haiku-4-5", "19:51", True)
+    put("claude-haiku-5-5", "23:57", False)
+    newest = find_records("vmt-02", 1, "baseline", directory=tmp_path)
+    assert newest[0]["config"]["model"] == "claude-haiku-5-5"
+    mine = find_records("vmt-02", 1, "baseline", model="claude-haiku-4-5", directory=tmp_path)
+    assert [r["verdict"]["breach"] for r in mine] == [True]

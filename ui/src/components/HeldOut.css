@@ -1,0 +1,27 @@
+/* The held-out result sits inside "Does it hold", in the same grid and stat
+   vocabulary as the training result above it, so the two read as one claim
+   tested twice rather than as a new kind of chart. */
+.held { margin-bottom: clamp(56px, 7vw, 96px); display: grid; gap: 12px }
+.held__h { font-size: clamp(30px, 3.6vw, 48px); margin: 0; max-width: 22ch }
+.held__lede { margin: 0 }
+.held__grid { margin-top: 6px }
+
+/* Four stats across, so the gap and the usefulness check sit level with the
+   headline numbers instead of below a fold. */
+.held__stats {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(16px, 2.4vw, 32px);
+  border-top: 2px solid var(--ink); margin-top: 18px;
+}
+.held__stats .res__big { font-size: clamp(28px, 3vw, 40px) }
+@media (max-width: 960px) { .held__stats { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+@media (max-width: 560px) { .held__stats { grid-template-columns: minmax(0, 1fr) } }
+
+/* The proof is three facts anyone can check, so it is set as a ledger:
+   label, then the value, in the mono face the hashes are written in. */
+.held__proof { margin: 8px 0 0; border: 2px solid var(--ink); padding: 4px 18px; display: grid }
+.held__proof > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 10px 0; align-items: baseline }
+.held__proof > div + div { border-top: 1px solid var(--rule) }
+.held__proof dt { font: 500 11px var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted) }
+.held__proof dd { margin: 0; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere }
+.held__proof code { font: 500 13px var(--font-mono) }
+@media (max-width: 560px) { .held__proof > div { grid-template-columns: minmax(0, 1fr); gap: 2px } }

@@ -4,6 +4,7 @@ import "./Footer.css";
 /** What the page does not show is part of the result. */
 export default function Footer() {
   const m = data.meta;
+  const held = data.heldout;
   return (
     <footer className="foot">
       <div className="wrap foot__grid">
@@ -11,13 +12,23 @@ export default function Footer() {
           <h2 className="sign foot__h">What this does not show yet</h2>
           <ul className="foot__gaps">
             <li>
-              <b>Generalization is untested.</b> Every drill so far is one tactic family. The fix has not
-              been run against families it never saw, so it is not yet known whether it learned
-              behaviour or wording. The held-out machinery is built and waiting.
+              {held.length ? (
+                <>
+                  <b>One held-out family.</b> The fix was tested against {held.length === 1 ? "one family" : `${held.length} families`} it
+                  never saw ({held.flatMap((h) => h.families).join(", ")}). Executive impersonation has
+                  cards but no attacker turns yet, so it is the next test, not a result.
+                </>
+              ) : (
+                <>
+                  <b>Generalization is untested.</b> The fix has not been run against a family it never
+                  saw, so it is not yet known whether it learned behaviour or wording.
+                </>
+              )}
             </li>
             <li>
-              <b>One model.</b> The headline is Claude Haiku 4.5. Other models were drilled only in early
-              exploratory runs, at a few drills each.
+              <b>The fix is measured on one model.</b> Claude Haiku 4.5 is the agent that falls for the
+              attack, so it is the one every before-and-after is measured on. The other models refused
+              it at baseline, leaving nothing for a patch to fix.
             </li>
             <li>
               <b>Phone calls are a demonstration, not the measurement.</b> The statistics come from

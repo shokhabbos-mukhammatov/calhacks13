@@ -4,9 +4,13 @@ The commitment is published before any patch is written; the drills and
 salts are published after the re-run. Anyone can then recompute the root.
 """
 import copy
+import json
 from datetime import datetime, timezone
 
-from firedrill.commit import Commitment, canonical, commit, leaf, merkle_root, verify
+import pytest
+
+from firedrill.commit import (Commitment, canonical, commit, covered, leaf, merkle_root,
+                             record_id, revealed_families, verify, write_commitment)
 
 NOW = lambda: datetime(2026, 10, 24, 12, 0, tzinfo=timezone.utc)
 
@@ -81,3 +85,47 @@ def test_merkle_promotes_odd_nodes():
     ab = hashlib.sha256(b"ab").hexdigest()
     assert merkle_root(["a", "b"]) == ab
     assert merkle_root(["a", "b", "c"]) == hashlib.sha256((ab + "c").encode()).hexdigest()
+
+
+def patched(r, name="patch:v2", fingerprint="beef"):
+    p = copy.deepcopy(r)
+    p["config"] = {**r["config"], "name": name, "fingerprint": fingerprint}
+    return p
+
+
+def test_the_reveal_checks_only_the_drills_committed_to():
+    # The re-run against the patch saves more held-out drills of the same
+    # cards and seeds. They were never committed to, so the reveal has to
+    # pick out exactly the committed ones or the root can never recompute.
+    c, salts = commit(HELD, now=NOW)
+    on_disk = HELD + [patched(r) for r in HELD]
+    assert verify(c.to_dict(), on_disk, salts) is False
+    assert verify(c.to_dict(), covered(c.to_dict(), on_disk), salts) is True
+
+
+def test_a_commitment_names_each_drill_with_its_config():
+    c, _ = commit(HELD, now=NOW)
+    assert c.record_ids == ["ld-01-s1-f00d", "ld-01-s2-f00d", "ld-02-s1-f00d"]
+    assert record_id(patched(HELD[0])) == "ld-01-s1-beef"
+
+
+def test_a_commitment_is_never_overwritten(tmp_path):
+    # Re-running the commit step would draw new salts and a new root,
+    # silently replacing the one already pushed. That is the one thing a
+    # commitment exists to prevent.
+    first = write_commitment(tmp_path, "v2", HELD, now=NOW)
+    with pytest.raises(FileExistsError):
+        write_commitment(tmp_path, "v2", HELD, now=NOW)
+    on_disk = json.loads((tmp_path / "v2.commit.json").read_text(encoding="utf-8"))
+    assert on_disk["root"] == first.root
+    salts = json.loads((tmp_path / "v2.salts.json").read_text(encoding="utf-8"))
+    assert verify(on_disk, HELD, salts) is True
+
+
+def test_a_family_is_revealed_only_by_a_reveal_file(tmp_path):
+    write_commitment(tmp_path, "v2", HELD, now=NOW)
+    assert revealed_families(tmp_path) == set()
+    (tmp_path / "v2.reveal.json").write_text(
+        json.dumps({"commitment": {"families": ["lookalike-domain"]}}), encoding="utf-8")
+    assert revealed_families(tmp_path) == {"lookalike-domain"}
+    assert revealed_families(tmp_path / "missing") == set()
