@@ -48,7 +48,14 @@ from firedrill.drill import (
 )
 from firedrill.payments import NessieRail
 from firedrill.records import drill_to_record, find_records, save_drill
-from firedrill.verify import CrsFraudFinder, NoSenderCheck, RdapDomainAge, VendorVerifier
+from firedrill.verify import (
+    CrsFraudFinder,
+    CrsReverseLookup,
+    NoPhoneOwner,
+    NoSenderCheck,
+    RdapDomainAge,
+    VendorVerifier,
+)
 from firedrill.victim import AnthropicModel
 
 
@@ -153,7 +160,8 @@ def main() -> None:
     load_dotenv(ROOT / ".env")
     rail = NessieRail.from_env(os.environ)
     sender_check = CrsFraudFinder.from_env(os.environ)
-    verifier = VendorVerifier(RdapDomainAge(), sender_check or NoSenderCheck())
+    verifier = VendorVerifier(RdapDomainAge(), sender_check or NoSenderCheck(),
+                              CrsReverseLookup.from_env(os.environ) or NoPhoneOwner())
     try:
         config = make_config(args.config, model=AnthropicModel(args.model), verifier=verifier, rail=rail)
     except (ValueError, FileNotFoundError) as e:

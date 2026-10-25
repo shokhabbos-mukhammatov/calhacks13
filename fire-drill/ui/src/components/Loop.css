@@ -34,3 +34,13 @@
   .loop__stages { grid-template-columns: minmax(0, 1fr); border-left: 0; border-top: 1px solid var(--rule) }
   .stage { border-right: 0; border-bottom: 1px solid var(--rule) }
 }
+
+.seats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: clamp(40px, 5vw, 64px) 0 0; border-top: 2px solid var(--ink) }
+.seats > div { padding: 18px 22px 0 0 }
+.seats > div + div { padding-left: 22px; border-left: 1px solid var(--rule) }
+.seats dt { font: 700 22px/1.1 var(--font-sign); text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 8px }
+.seats dd { margin: 0; font-size: 15px; color: var(--ink-2); line-height: 1.55; text-wrap: pretty }
+@media (max-width: 900px) {
+  .seats { grid-template-columns: minmax(0, 1fr) }
+  .seats > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); margin-top: 16px }
+}
