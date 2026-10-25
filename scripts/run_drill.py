@@ -57,7 +57,7 @@ from firedrill.verify import (
     RdapDomainAge,
     VendorVerifier,
 )
-from firedrill.victim import AnthropicModel
+from firedrill.openai_compat import model_for
 
 
 class TypedAttacker:
@@ -106,7 +106,8 @@ def main() -> None:
     p.add_argument("--max-turns", type=int, default=6)
     p.add_argument("--config", default="baseline",
                    help=f"hardening level: {', '.join(CONFIGS)}, or patch:<name> from patches/ (default: baseline)")
-    p.add_argument("--model", default="claude-opus-5-5", help="victim model id (default: claude-opus-5-5)")
+    p.add_argument("--model", default="claude-opus-5-5", help="victim model: a Claude name, or provider/model such as openai/gpt-4.1-mini "
+                        "or deepseek/deepseek-chat (default: claude-opus-5-5)")
     p.add_argument("--dry-run", action="store_true", help="print the kit and filled turns; no model calls")
     p.add_argument("--replay", action="store_true",
                    help="re-print a drill already in records/; no key, no model call, no network")
@@ -159,7 +160,7 @@ def main() -> None:
     verifier = VendorVerifier(RdapDomainAge(), sender_check or NoSenderCheck(),
                               CrsReverseLookup.from_env(os.environ) or NoPhoneOwner())
     try:
-        config = make_config(args.config, model=AnthropicModel(args.model), verifier=verifier, rail=rail)
+        config = make_config(args.config, model=model_for(args.model), verifier=verifier, rail=rail)
     except (ValueError, FileNotFoundError) as e:
         p.error(str(e))
     verify_note = "off"
