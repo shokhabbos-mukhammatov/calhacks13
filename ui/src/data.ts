@@ -169,6 +169,8 @@ export interface Data {
   sponsors: { name: string; role: string; where: string }[];
 }
 
+export const BENIGN = "benign";
+
 export const data = raw as unknown as Data;
 
 export const scorecardFor = (model: string, config: string) =>
