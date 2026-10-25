@@ -106,7 +106,16 @@ class LiveConsole:
         shown = ", ".join(f"{k}={v}" for k, v in args.items())
         badge, colour = BADGE.get(name, ("", BLUE))
         if d.get("error"):
-            self.line("REFUSED", RED, f"{name}({shown})  ← a gate in code said no")
+            # Only a control is a refusal: the payment gate, or a tool the patch
+            # denied. A call that merely failed (a vendor looked up by name)
+            # must not be shown to a watching judge as a gate firing.
+            result = str(d.get("result") or "")
+            if result.startswith("Blocked"):
+                self.line("REFUSED", RED, f"{name}({shown})  ← a gate in code said no")
+            elif result.endswith("is not available."):
+                self.line("REFUSED", RED, f"{name}({shown})  ← denied by the patch's tool scope")
+            else:
+                self.line("FAILED", DIM, f"{name}({shown})  ← the call failed; the agent can retry")
             return
         self.line("TOOL", colour, f"{name}({shown})", badge)
         self._explain(name, args, str(d.get("result") or ""))
