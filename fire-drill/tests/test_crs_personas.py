@@ -19,6 +19,23 @@ def test_a_contact_is_registered_to_someone_and_an_impostor_is_not_that_someone(
         assert p.expect not in contacts          # a stranger, or nobody at all
 
 
+def test_fraud_finder_separates_them_too():
+    """The second CRS answer about the same number. The two groups must not
+    overlap, or a risk threshold would be arbitrary."""
+    assert max(p.risk for p in CONTACTS) < min(p.risk for p in IMPOSTORS)
+
+
+def test_a_persona_body_carries_every_field_crs_matches_on():
+    """A body missing a field does not match a persona: CRS falls through to
+    the real vendor and the score comes back empty."""
+    for p in CONTACTS + IMPOSTORS:
+        body = p.fraud_finder_body()
+        assert {"firstName", "lastName", "phoneNumber", "email", "ipAddress", "address"} <= set(body)
+        assert len(body["phoneNumber"]) == 10 and body["phoneNumber"].isdigit()
+        assert {"addressLine1", "city", "state", "postalCode"} <= set(body["address"])
+        assert len(body["address"]["state"]) == 2
+
+
 def test_every_number_is_unreachable_and_speakable():
     for p in CONTACTS + IMPOSTORS:
         # Area code 555 with an exchange starting 0: unassignable in the North

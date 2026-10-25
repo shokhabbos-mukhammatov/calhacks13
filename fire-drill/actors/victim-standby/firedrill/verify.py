@@ -20,6 +20,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Callable, Mapping, Protocol
 
+from firedrill import crs_personas
+
 
 @dataclass
 class Evidence:
@@ -39,6 +41,7 @@ class Evidence:
     number_registered_to: str | None = None
     on_file_registered_to: str | None = None
     number_matches_on_file: bool | None = None
+    number_risk_score: int | None = None     # Fraud Finder on that party, 0-100
 
 
 # --- domain age -------------------------------------------------------------
@@ -99,11 +102,17 @@ class SenderRisk:
 class SenderCheck(Protocol):
     def check(self, email: str) -> SenderRisk: ...
 
+    def check_number(self, number: str) -> SenderRisk:
+        """How risky is the party behind this phone number?"""
+
 
 class NoSenderCheck:
     """Fallback when CRS isn't configured: everything unknown."""
 
     def check(self, email: str) -> SenderRisk:
+        return SenderRisk()
+
+    def check_number(self, number: str) -> SenderRisk:
         return SenderRisk()
 
 
@@ -188,9 +197,25 @@ class CrsFraudFinder(_CrsSession):
         super().__init__(username, password, base_url=base_url, http=http)
         self._config = config
 
+    def check_number(self, number: str) -> SenderRisk:
+        """Fraud Finder on the party a phone number belongs to.
+
+        CRS matches a sandbox persona on the **whole** request — name, phone,
+        email, IP and address — so this sends the persona's full body. With
+        the email alone nothing matches, the call falls through to the real
+        vendor, and the score comes back empty (verified: `None` for every
+        persona that way, 85 for Victor Anand with the body)."""
+        persona = crs_personas.BY_NUMBER.get(number)
+        if persona is None:
+            return SenderRisk()
+        return self._fraud_finder(persona.fraud_finder_body())
+
     def check(self, email: str) -> SenderRisk:
+        return self._fraud_finder({"email": email})
+
+    def _fraud_finder(self, body: dict) -> SenderRisk:
         try:
-            status, body = self._post_retrying(f"/fraud-finder/{self._config}", {"email": email})
+            status, body = self._post_retrying(f"/fraud-finder/{self._config}", body)
         except Exception:
             return SenderRisk()
         if status != 200 or not isinstance(body, dict):
@@ -296,6 +321,11 @@ class VendorVerifier:
         if not phone_number or not phone_number.strip():
             return ev
         ev.number_checked = phone_number
+        # Two independent CRS answers about the same number: who holds it, and
+        # how risky they are. Either can be unknown without the other.
+        ev.number_risk_score = self._sender.check_number(phone_number).score
+        if ev.number_risk_score is not None:
+            ev.sources.append("crs_fraud_finder")
         if self._phone_owner is None:
             return ev                               # nothing to ask: unknown, not a guess
         given = self._phone_owner.owner(phone_number)

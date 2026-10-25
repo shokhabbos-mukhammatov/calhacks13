@@ -230,3 +230,69 @@ def test_without_a_lookup_or_a_number_nothing_is_claimed():
 
 def test_no_phone_owner_is_always_unknown():
     assert NoPhoneOwner().owner("+1-555-010-1019") == PhoneOwner()
+
+
+# --- Fraud Finder on the party behind a number ---------------------------------
+class FakeFraud(FakeCrs):
+    """Answers Fraud Finder only when the request carries a full persona body,
+    the way the CRS sandbox does."""
+
+    def __init__(self, by_email: dict[str, int]):
+        super().__init__()
+        self.by_email = by_email
+
+    def __call__(self, method, url, body, headers):
+        if url.endswith("/fraud-finder/fraud-finder"):
+            self.calls.append((method, url.rsplit("/api", 1)[1], body, headers))
+            matched = {"firstName", "lastName", "phoneNumber", "email", "address"} <= set(body)
+            if not matched:
+                return 200, {"risk": {}, "email_validation": {"status": "invalid"}}
+            return 200, {"risk": {"score": self.by_email[body["email"]]}}
+        return super().__call__(method, url, body, headers)
+
+
+def test_a_number_is_scored_from_the_personas_full_body():
+    from firedrill.crs_personas import BY_NUMBER
+
+    impostor = BY_NUMBER["+1-555-010-1012"]
+    http = FakeFraud({impostor.email: 85})
+    assert finder(http).check_number(impostor.number).score == 85
+    sent = http.calls[-1][2]
+    assert sent["firstName"] == "VICTOR" and sent["phoneNumber"] == "5550101012"
+    assert sent["address"]["city"] == "NEW YORK"
+
+
+def test_a_number_crs_has_no_persona_for_is_unknown():
+    assert finder(FakeFraud({})).check_number("+1-555-010-9999").score is None
+
+
+def test_the_email_only_call_does_not_match_a_persona():
+    """What the integration used to do, kept as a test so it cannot come back:
+    the sandbox needs the whole body, and the email alone scores nothing."""
+    from firedrill.crs_personas import BY_NUMBER
+
+    impostor = BY_NUMBER["+1-555-010-1012"]
+    assert finder(FakeFraud({impostor.email: 85})).check(impostor.email).score is None
+
+
+def test_the_verifier_reports_both_crs_answers_about_one_number():
+    from firedrill.crs_personas import BY_NUMBER
+
+    contact, impostor = BY_NUMBER["+1-555-010-1018"], BY_NUMBER["+1-555-010-1012"]
+    owners = FixedPhoneOwner({contact.number: contact.expect, impostor.number: impostor.expect})
+    sender = finder(FakeFraud({contact.email: 12, impostor.email: 85}))
+    ev = VendorVerifier(FixedDomainAge({}), sender, owners).verify(
+        vendor_id="n", on_file_number=contact.number, sender_email=None,
+        phone_number=impostor.number)
+    assert ev.number_registered_to == "RAJESH MENON"
+    assert ev.number_matches_on_file is False
+    assert ev.number_risk_score == 85
+    assert set(ev.sources) == {"crs_fraud_finder", "crs_reverse_lookup"}
+
+
+def test_no_sender_check_scores_a_number_as_unknown():
+    ev = VendorVerifier(FixedDomainAge({}), NoSenderCheck(),
+                        FixedPhoneOwner({"+1-555-010-1018": "TERRENCE ABERNATHY"})).verify(
+        vendor_id="n", on_file_number="+1-555-010-1018", sender_email=None,
+        phone_number="+1-555-010-1012")
+    assert ev.number_risk_score is None
