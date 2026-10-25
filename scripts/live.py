@@ -14,7 +14,7 @@ them so you can talk:
 
   1. **break**  the agent with no controls pays the attacker
   2. **gate**   the same world with the policy deleted, and the code refuses
-  3. **hold**   the patched agent, which never tries
+  3. **hold**   the patched agent, which rings the number on file and pays no one new
 
 `--replay` plays the same acts from recorded drills instead of running them:
 the same console, no model calls and no network, for when the venue wifi dies.
