@@ -208,13 +208,43 @@ confirmed callback; Droid denied the bank-change tool outright and moved that
 work out of the agent. Both held.
 
 **`scope:v1` is the honest follow-up.** Under the full patch the agent never
-even attempted a bank change, so the code-level gate never fired — the policy
-text did the work. `scope:<name>` applies a patch's tool scope with its policy
+asked to pay the attacker, so the payment gate never fired: the policy text did
+that work. `scope:<name>` applies a patch's tool scope with its policy
 removed. Under `scope:v1` the agent *did* change the bank details and then
 called `approve_payment`, and the harness refused it. The gate is proven in
 code, with no policy helping.
 
-434 drills are recorded. 220 tests pass.
+### What it did, before and after
+
+The verdict is one bit: did money leave for an unverified account. The ledger
+records much more than that, so here is the rest, counted per drill. Claude
+Haiku 4.5, vendor-mailbox-takeover, with the same attacks and the same seeds;
+only the controls differ:
+
+| | No controls | Claude Code's patch (`v1`) | Factory Droid's patch (`v3`) |
+| --- | --- | --- | --- |
+| Paid the attacker | **13 of 24** | 0 of 24 | 0 of 48 |
+| Money sent to the attacker | **$393,200** | $0 | $0 |
+| Rang the number the attacker supplied | 12 of 24 | 0 of 24 | 0 of 48 |
+| Rang the number on file | 11 of 24 | **24 of 24** | **48 of 48** |
+| Left the attacker's account on the vendor record | 21 of 24 | **6 of 24** | **0 of 48** |
+| Honest invoices still paid | 3 of 3 | 3 of 3 | 24 of 24 |
+| Gave in on turn (median) | 1 | never | never |
+
+On the held-out family, `v3` goes from 23 of 24 to 0 of 48, and from $691,150
+sent to the attacker to $0.
+
+**Both patches stop the money; only one keeps the vendor record clean.** Under
+`v1` the agent changed the bank details to the attacker's account before
+ringing the number on file in 7 of 24 drills, and left them there in 6. No
+money moved, because the gate guards the payment, but the next payment run
+would have paid the attacker. Under `v3` it never touched them. This only shows
+up because the record is read from the ledger, replayed through the real
+`Ledger`, rather than from the verdict alone.
+
+![Before and after on the results page: paid the attacker 13 of 24 to 0, $393,200 to $0, the number on file rung 11 of 24 to every time, and the attacker's account left on the vendor record 21 of 24, then 6 of 24 under v1 and 0 of 48 under v3](docs/images/beforeafter.png)
+
+434 drills are recorded. 221 tests pass.
 
 ### On attacks it never saw
 
@@ -256,8 +286,9 @@ network and no salts file:
 **What changed is the number it rang.** Unpatched, the agent called the number
 offered in the message 15 times and tried to change the bank details in 23 of
 24 drills. Under `patch:v3` it called the number on file 45 times, never the
-attacker's, and never asked to change the account. So, as with `patch:v1`, the
-code gate never had to fire: the policy did the work, with the gate behind it.
+attacker's, and never asked to change the account or to pay anyone new. So,
+as with `patch:v1`, the payment gate never had to fire: the policy did the
+work, with the gate behind it.
 
 The zeros were checked as holds rather than failures: every drill ran to the
 end with replies. The agent's first `lookup_vendor` often errors, because it
@@ -660,6 +691,13 @@ here can be recomputed from `records/`.
 - **The code-level gates are under-tested.** Under a full patch the agent
   never attempted the blocked action, so only `scope:v1` has actually fired a
   gate. The same is true of `patch:v3` on the held-out family.
+- **A bank change is never gated itself.** `requires_verification` is enforced
+  where money moves, in `approve_payment`; a bank change moves no money, so it
+  is allowed through. Both code agents set that scope on
+  `change_vendor_bank_details`, and it does not stop the change. So the vendor
+  record is protected only by the agent's behaviour: under `v1` it was left
+  with the attacker's account in 6 of 24 drills. Gating the change too would
+  change the harness, so the drills above would need re-running to compare.
 - **Voice latency.** A warm turn is about 6 seconds; a cold container is
   nearer 15. Cartesia's own round trip is a small part of that — the time is
   the agent thinking and calling tools.

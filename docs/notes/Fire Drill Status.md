@@ -140,6 +140,13 @@ How it was run, so the next family goes the same way:
 6. `remediate.py --reveal vN`, then force-add the reveal and the held-out
    records (`.gitignore` keeps both out until then), and re-export the page.
 
+**A bank change is never gated itself.** `requires_verification` is enforced in
+`approve_payment` only, so a patch's scope on `change_vendor_bank_details` does
+not stop the change. Under `v1` the agent left the attacker's account on the
+vendor record in 6 of 24 drills (no money moved); under `v3`, 0 of 96. The page
+and README now say so. Gating the change would change the harness, so it is
+your call, and the drills would need re-running to compare.
+
 The page keeps everything it showed as **training only**; a revealed family is
 a separate `heldout` block in the export and its own subsection on the page.
 

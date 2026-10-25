@@ -100,7 +100,7 @@ export default function HeldOut({ result: h, kind }: { result: Result; kind: "wi
         {was.drills} drills. Under {h.after} it called the number on file {now.called_on_file} times
         {now.called_attacker === 0 ? " and the attacker’s never" : ` and the attacker’s ${now.called_attacker} times`},
         {now.tried_bank_change === 0
-          ? " and it never asked to change the bank details, so the code gate never had to fire: the patch’s policy did the work, with the gate behind it."
+          ? " and it never asked to change the bank details or to pay anyone new, so the payment gate never had to fire: the patch’s policy did the work, with the gate behind it."
           : ` and it tried to change the bank details ${now.tried_bank_change} times, each one stopped by the gate.`}{" "}
         One held-out family and one model: evidence that the patch learned the behaviour rather than the
         wording, not proof that it covers every attack.

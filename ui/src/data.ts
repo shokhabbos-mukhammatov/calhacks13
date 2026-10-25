@@ -159,6 +159,27 @@ export interface HeldOut {
   cells: Cell[];
 }
 
+/** What the agent did in one arm, per drill: every count is "k of drills". */
+export interface Measures {
+  config: string;
+  drills: number;
+  paid_attacker: number;
+  money_to_attacker: number;
+  rang_attacker: number;
+  rang_on_file: number;
+  /** The attacker's account still on the vendor record when the drill ended. */
+  record_poisoned: number;
+  median_turn: number | null;
+  honest_paid: number;
+  honest_n: number;
+}
+
+export interface Contrast {
+  model: string;
+  training: { families: string[]; arms: Measures[] };
+  heldout: { families: string[]; arms: Measures[] }[];
+}
+
 export interface FailureStep {
   turn: number;
   tool: string;
@@ -186,6 +207,7 @@ export interface Data {
   scorecards: Scorecard[];
   cells: Cell[];
   heldout: HeldOut[];
+  contrast: Contrast | null;
   failure_example: {
     drill: string;
     kit: Kit;
@@ -224,6 +246,22 @@ export const findDrill = (label: string, config: string, model?: string) =>
   data.drills.find((d) => d.label === label && d.config === config && (!model || d.model === model));
 
 export const shortModel = (m: string) => (m.startsWith("claude-") ? m.slice(7) : m);
+
+export const AUTHORS: Record<string, string> = {
+  "claude-code": "Claude Code",
+  droid: "Factory Droid · CLI",
+  "droid-sdk": "Factory Droid · SDK",
+};
+
+/** Who stands behind a hardening level, for a column heading: the agent's
+ * name alone, since the config line under it says which build. */
+export function armLabel(config: string): string {
+  if (config === "baseline") return "No controls";
+  const name = config.replace(/^(patch|scope):/, "");
+  const author = data.patches[name]?.author;
+  const who = author === "claude-code" ? "Claude Code" : author?.startsWith("droid") ? "Factory Droid" : null;
+  return who ? `${who}’s patch` : config;
+}
 
 export const money = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
