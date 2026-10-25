@@ -14,6 +14,7 @@ Solo build vault for Cal Hacks 13 (Oct 23–25, 2026, Palace of Fine Arts, SF). 
 | `Home.md` | Start here: deadlines and links |
 | `Fire Drill.md` | The idea, demo script and fit with the posted tracks |
 | `Fire Drill Stress Test.md` | The original review of the idea and its fixes |
+| `Judge Audit - Fire Drill.md` | The audit that picked this idea, from the `idea-council` branch |
 | `Fire Drill + Apify.md` | How Apify fits in: the Actors and what each prize sees |
 | `Fire Drill + Apify Stress Test.md` | Build order, fallbacks and fixes |
 | `Fire Drill + Apify Methods.md` | Scoring, statistics, commit-reveal and architecture |

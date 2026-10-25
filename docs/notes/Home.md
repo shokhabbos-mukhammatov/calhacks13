@@ -12,6 +12,7 @@ tags: [index]
 - **[[Prize Fit Audit]]: every prize against the code, what is strong, what is weak, who fixes what**
 - [[Fire Drill]]: the idea, demo script and fit with the posted tracks
 - [[Fire Drill Stress Test]]: the original review and its fixes
+- [[Judge Audit - Fire Drill]]: the 23 Oct audit that picked this idea, and where the build went another way
 - [[Fire Drill + Apify]]: the Apify plan
 - [[Fire Drill + Apify Stress Test]]: build order and fixes
 - [[Fire Drill + Apify Methods]]: scoring, statistics, commit-reveal and architecture
