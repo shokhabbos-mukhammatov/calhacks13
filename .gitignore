@@ -35,8 +35,6 @@ turns/
 # (firedrill.records.SEALED_FAMILIES is the same rule for the results page.)
 records/ld-*.json
 records/ei-*.json
-# The salts are the secret half of a commitment: published in the reveal.
-commitments/*.salts.json
 
 # the scorecard page is rendered from records/, which is not versioned either.
 # A committed copy would go stale and disagree with the live one, which is the
