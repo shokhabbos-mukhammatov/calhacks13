@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from collections import defaultdict
 import re
 import statistics
 import subprocess
@@ -473,6 +474,17 @@ def main() -> None:
                   r["config"]["name"] == c.config and r["card"]["id"] == card_id]
             cells.append(cell_of(rs, c.model, c.config, card_id, c.family))
 
+    # Revealed held-out families, every model and hardening level, for the grid
+    # to show beside the training family. Kept out of `cells`, which stays the
+    # training family the headline is computed from.
+    revealed = revealed_families()
+    by_cell: dict[tuple, list[dict]] = defaultdict(list)
+    for r in published:
+        if r["card"]["family"] in revealed:
+            by_cell[(r["config"]["model"], r["config"]["name"], r["card"]["id"])].append(r)
+    revealed_cells = [cell_of(rs, m, cfg, cid, rs[0]["card"]["family"])
+                      for (m, cfg, cid), rs in sorted(by_cell.items())]
+
     # The redaction the Remediator sees: one breaching drill, as actions only.
     example = next((r for r in records if r["verdict"]["breach"]
                     and r["card"]["id"] == "vmt-02" and r["config"]["name"] == "baseline"
@@ -511,6 +523,7 @@ def main() -> None:
         "cells": cells,
         "failure_example": failure,
         "heldout": heldout,
+        "revealed_cells": revealed_cells,
         "contrast": contrast(published, records, headline, heldout),
         "drills": [drill(r, args.withhold_attacks) for r in
                    sorted(records, key=lambda r: (r["card"]["id"], r["config"]["name"],

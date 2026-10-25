@@ -3,6 +3,7 @@ import { useState } from "react";
 import { data, scorecardFor, shortModel, type Rate } from "../data";
 import { fmt, sci } from "../lib/stats";
 import BeforeAfter from "./BeforeAfter";
+import BreachGrid from "./BreachGrid";
 import HeldOut from "./HeldOut";
 import ModelSpread from "./ModelSpread";
 import Section from "./Section";
@@ -117,33 +118,6 @@ function Insight() {
   );
 }
 
-function Grid({ kind }: { kind: Kind }) {
-  const main = data.headline ? new Set([data.headline.before, data.headline.after]) : new Set<string>();
-  const sorted = [...data.cells].sort((a, b) =>
-    Number(main.has(b.config)) - Number(main.has(a.config)) || a.model.localeCompare(b.model) ||
-    a.config.localeCompare(b.config) || a.card_id.localeCompare(b.card_id));
-  return (
-    <div className="bgrid">
-      <div className="bgrid__head">
-        <span>Model</span><span>Hardening</span><span>Card</span><span>One cell per drill</span><span className="num">Breaches</span><span>95% interval</span>
-      </div>
-      {sorted.map((c) => {
-        const small = c.n < 6;
-        return (
-          <div key={`${c.model}${c.config}${c.card_id}`} className={`bgrid__row${small ? " is-small" : ""}`}>
-            <span className="mono">{shortModel(c.model)}</span>
-            <span className="mono">{c.config}</span>
-            <span className="mono">{c.card_id}</span>
-            <Units cell={c} dim={small} />
-            <span className="num bgrid__k"><b>{c.k}</b>/{c.n}</span>
-            <span className="num bgrid__ci">[{fmt(c[kind][0])}, {fmt(c[kind][1])}]</span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 export default function Results() {
   const [kind, setKind] = useState<Kind>("wilson");
   const h = data.headline;
@@ -198,12 +172,13 @@ export default function Results() {
 
       <h3 className="sign res__h">The breach grid</h3>
       <p className="note">
-        Every model × hardening level × tactic card, one cell per drill. Drills run in looks of six (the
-        wider gaps); a cell stops early once its interval, widened for the number of looks, is decided.
-        Faded rows are early exploratory runs at three drills — kept, because dropping inconvenient data
-        is how results get dressed up.
+        A row per model and card, the hardening levels left to right, one square per drill: before and
+        after read along a line. Drills run in looks of six (the wider gaps); a cell stops early once its
+        interval, widened for the number of looks, is decided. Models that never broke, and exploratory
+        runs of a few drills, are folded rather than dropped, one click away, because dropping
+        inconvenient data is how results get dressed up.
       </p>
-      <Grid kind={kind} />
+      <BreachGrid kind={kind} />
     </Section>
   );
 }
