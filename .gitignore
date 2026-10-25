@@ -14,7 +14,7 @@ Graph/
 Thumbs.db
 desktop.ini
 
-# Python (fire-drill)
+# Python
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -24,10 +24,10 @@ venv/
 .env
 
 # the attacker turn templates stay local; the drills they produced are
-# published in fire-drill/records/ (see below)
-fire-drill/turns/
+# published in records/ (see below)
+turns/
 
-# fire-drill/records/ is published, attacker turns included, so anyone can
+# records/ is published, attacker turns included, so anyone can
 # re-score a drill from its ledger. Only the training family is in there:
 # held-out families go through commit-reveal (ADR-0002) and are published
 # only when revealed, never before the patch they test.
@@ -36,21 +36,21 @@ fire-drill/turns/
 # A committed copy would go stale and disagree with the live one, which is the
 # exact failure the single shared renderer exists to prevent: regenerate it
 # with scripts/scorecard.py.
-fire-drill/scorecard.html
+scorecard.html
 
 # commit-reveal: the commitment is public, the salts and the reveal (which
 # holds the drills themselves) are published only when you choose to
-fire-drill/commitments/*.salts.json
-fire-drill/commitments/*.reveal.json
+commitments/*.salts.json
+commitments/*.reveal.json
 
 # `apify push` skips anything git ignores, so the copies scripts/sync_actors.py
 # makes must be committed or the image ships without them. Never edit them by
 # hand: run the sync script, which tests/test_actors_in_sync.py enforces.
-fire-drill/actors/*/storage/
-fire-drill/actors/*/*.log
-fire-drill/actors/*/*.err
+actors/*/storage/
+actors/*/*.log
+actors/*/*.err
 
 # the frontend: dependencies and the build are regenerated. Its data file,
 # ui/src/data/fire-drill.json, is exported from records/ and published with it.
-fire-drill/ui/node_modules/
-fire-drill/ui/dist/
+ui/node_modules/
+ui/dist/
