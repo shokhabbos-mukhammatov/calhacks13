@@ -152,7 +152,12 @@ export interface Data {
   live: {
     phone: string;
     phone_e164: string;
-    judge_card: { vendor: string; invoice: string; amount: number; account: string; callback: string; on_file: string };
+    judge_card: {
+      vendor: string; invoice: string; amount: number; account: string;
+      callback: string; on_file: string;
+      // Who CRS says each number belongs to, looked up live.
+      callback_belongs_to: string | null; on_file_belongs_to: string | null;
+    };
     actors: { name: string; role: string; url: string }[];
     standby: string;
     cartesia_agent: string;

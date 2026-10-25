@@ -41,7 +41,14 @@ from firedrill.drill import (
 from firedrill.grid import CellSpec, run_grid, saved
 from firedrill.payments import NessieRail
 from firedrill.records import save_drill
-from firedrill.verify import CrsFraudFinder, NoSenderCheck, RdapDomainAge, VendorVerifier
+from firedrill.verify import (
+    CrsFraudFinder,
+    CrsReverseLookup,
+    NoPhoneOwner,
+    NoSenderCheck,
+    RdapDomainAge,
+    VendorVerifier,
+)
 from firedrill.victim import AnthropicModel
 
 CARDS = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
@@ -104,7 +111,9 @@ def main() -> None:
         return
 
     rail = NessieRail.from_env(os.environ)
-    verifier = VendorVerifier(RdapDomainAge(), CrsFraudFinder.from_env(os.environ) or NoSenderCheck())
+    verifier = VendorVerifier(RdapDomainAge(),
+                              CrsFraudFinder.from_env(os.environ) or NoSenderCheck(),
+                              CrsReverseLookup.from_env(os.environ) or NoPhoneOwner())
 
     def run_one(spec: CellSpec, seed: int):
         card = CARDS[spec.card_id] if spec.card_id else BENIGN_CARD

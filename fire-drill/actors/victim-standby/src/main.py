@@ -31,7 +31,14 @@ from firedrill.drill import CARDS_DIR, build_scenario, load_cards, make_config
 from firedrill.ledger import Ledger
 from firedrill.scorer import score
 from firedrill.trace import MemorySink
-from firedrill.verify import CrsFraudFinder, NoSenderCheck, RdapDomainAge, VendorVerifier
+from firedrill.verify import (
+    CrsFraudFinder,
+    CrsReverseLookup,
+    NoPhoneOwner,
+    NoSenderCheck,
+    RdapDomainAge,
+    VendorVerifier,
+)
 from firedrill.victim import AnthropicModel, ChannelMessage, VictimAgent
 
 READINESS_HEADER = "x-apify-container-server-readiness-probe"
@@ -41,7 +48,10 @@ STORE_NAME = "fire-drill-worlds"
 # can be handed a card with the vendor and invoice on it, and a model fast
 # enough that a turn does not outlast the line's patience.
 DEFAULT_VOICE_CARD = "vmt-01"
-DEFAULT_VOICE_SEED = 1192
+# Pinned so the judge card matches the world: Northwind Traders, and the
+# number the caller offers belongs to a different CRS identity (Rajesh
+# Menon), which the agent can check with verify_vendor while on the call.
+DEFAULT_VOICE_SEED = 205
 DEFAULT_VOICE_MODEL = "claude-haiku-4-5"
 
 CARDS = {c.id: c for path in CARDS_DIR.glob("*.json") for c in load_cards(path)}
@@ -110,7 +120,9 @@ async def handle_message(conversation_id: str, body: dict, api_key: str | None) 
     # so a drill on a hardened config calls the CRS sandbox during the demo
     # itself; without them the check reports "unknown", never a guess.
     sender_check = CrsFraudFinder.from_env(os.environ) or NoSenderCheck()
-    config = make_config(world["config"], verifier=VendorVerifier(RdapDomainAge(), sender_check),
+    phone_owner = CrsReverseLookup.from_env(os.environ) or NoPhoneOwner()
+    config = make_config(world["config"],
+                         verifier=VendorVerifier(RdapDomainAge(), sender_check, phone_owner),
                          model=AnthropicModel(world["model"], api_key=api_key))
     verifier = config.verifier.with_domain_age(_fixed(scenario.domain_ages)) if config.verifier else None
     agent = VictimAgent(ledger, config.model, store, policy=config.policy,

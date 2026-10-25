@@ -21,13 +21,22 @@ from firedrill.ledger import Ledger
 from firedrill.payments import NessieRail
 from firedrill.scorer import score
 from firedrill.trace import MemorySink
-from firedrill.verify import CrsFraudFinder, NoSenderCheck, RdapDomainAge, VendorVerifier
+from firedrill.verify import (
+    CrsFraudFinder,
+    CrsReverseLookup,
+    NoPhoneOwner,
+    NoSenderCheck,
+    RdapDomainAge,
+    VendorVerifier,
+)
 from firedrill.victim import AnthropicModel, ChannelMessage, MemoryStore, VictimAgent
 
 use_utf8()
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 rail = NessieRail.from_env(os.environ)
-verifier = VendorVerifier(RdapDomainAge(), CrsFraudFinder.from_env(os.environ) or NoSenderCheck())
+verifier = VendorVerifier(RdapDomainAge(),
+                          CrsFraudFinder.from_env(os.environ) or NoSenderCheck(),
+                          CrsReverseLookup.from_env(os.environ) or NoPhoneOwner())
 
 ledger = Ledger()
 ledger.add_vendor("northwind", on_file_number="+1-555-0100", account="ACCT-APPROVED")

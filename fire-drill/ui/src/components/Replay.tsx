@@ -33,10 +33,20 @@ function eventsOf(d: Drill): Event[] {
 function meaning(c: ToolCall, d: Drill): { text: string; tone: "bad" | "good" | "gate" | "info" } | null {
   if (c.error) return { text: "Refused by a gate in code — nothing changed", tone: "gate" };
   if (c.tool === "verify_vendor" && c.result) {
-    // CRS is called live against the sandbox; the domain age comes from the
-    // scenario, because the vendors and their .example domains are invented.
+    // CRS answers live. The reverse lookup is the one that decides the
+    // callback, so it leads when the agent asked about a number.
     try {
       const ev = JSON.parse(c.result);
+      const match = ev.checked_number_matches_the_number_on_file;
+      if (match === false)
+        return {
+          text: ev.checked_number_registered_to
+            ? `CRS: that number is registered to ${ev.checked_number_registered_to} — not to ${ev.number_on_file_registered_to}, who holds the number on file`
+            : `CRS: nobody is registered to that number. The number on file belongs to ${ev.number_on_file_registered_to}`,
+          tone: "bad",
+        };
+      if (match === true)
+        return { text: `CRS: that is the number on file, registered to ${ev.number_on_file_registered_to}`, tone: "good" };
       if (ev.sender_risk_score != null)
         return { text: `CRS Fraud Finder, live: sender risk ${ev.sender_risk_score}/100 · ${ev.sender_email_status}`, tone: "info" };
     } catch { /* not JSON: fall through */ }
