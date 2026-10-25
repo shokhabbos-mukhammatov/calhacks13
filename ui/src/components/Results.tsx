@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { data, scorecardFor, shortModel, type Rate } from "../data";
 import { fmt, sci } from "../lib/stats";
+import BeforeAfter from "./BeforeAfter";
 import HeldOut from "./HeldOut";
 import ModelSpread from "./ModelSpread";
 import Section from "./Section";
@@ -186,6 +187,8 @@ export default function Results() {
           </div>
         </aside>
       </div>
+
+      <BeforeAfter />
 
       {data.heldout.map((h) => <HeldOut key={h.name} result={h} kind={kind} />)}
 
