@@ -1,6 +1,6 @@
 import { motion, useInView } from "motion/react";
 import { useRef, useState } from "react";
-import { data, scorecardFor } from "../data";
+import { AUTHORS, data, scorecardFor } from "../data";
 import DroidAtWork from "./DroidAtWork";
 import Section from "./Section";
 import "./Fix.css";
@@ -9,12 +9,6 @@ const SCOPE_WORD: Record<string, { text: string; cls: string }> = {
   allowed: { text: "allowed", cls: "sc--allowed" },
   requires_verification: { text: "gated", cls: "sc--gated" },
   denied: { text: "removed", cls: "sc--denied" },
-};
-
-const AUTHORS: Record<string, string> = {
-  "claude-code": "Claude Code",
-  droid: "Factory Droid · CLI",
-  "droid-sdk": "Factory Droid · SDK",
 };
 
 /** The headline patch first, then the rest: file order would put Droid's
@@ -172,15 +166,22 @@ function Policies() {
 function GateProof() {
   const h = data.headline;
   const sc = h && scorecardFor(h.model, "scope:v1");
+  // Counted from the export, so this paragraph cannot drift from the drills.
+  const full = data.contrast?.training.arms.find((a) => a.config === h?.after);
   return (
     <div className="gate">
       <div className="gate__copy">
         <h3 className="sign gate__h">Was it the words or the code?</h3>
         <p>
-          Under the full patch the agent never even attempted a bank change, so the gate never fired —
-          the policy text did all the work. That proves less than it looks. <code>scope:v1</code> keeps
-          the gates and <b>deletes the policy</b>. The agent changed the bank details and called{" "}
-          <code>approve_payment</code>; the code refused.
+          Under the full patch the agent never asked to pay the attacker, so the payment gate never fired:
+          the policy text did that work.
+          {full && full.record_poisoned > 0 && (
+            <> It did not keep away from the bank details, though. In {full.record_poisoned} of {full.drills}{" "}
+              drills it changed them to the attacker’s account before ringing the number on file, and left them
+              there; the gate guards the payment, not the record.</>
+          )}{" "}
+          That proves less than it looks. <code>scope:v1</code> keeps the gates and <b>deletes the policy</b>.
+          The agent changed the bank details and called <code>approve_payment</code>; the code refused.
         </p>
         {sc && (
           <p className="gate__stat">
