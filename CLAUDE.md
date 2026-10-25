@@ -1,13 +1,13 @@
 # Fire Drill (Cal Hacks 13, solo)
 
-Start with `Fire Drill Status.md`: what is built, what is live, what is left, and the traps that have already cost time. Before writing code, read `Fire Drill Architecture.md` (module map, interfaces, pseudo-code, formulas), `CONTEXT.md` (glossary: use these terms exactly) and `docs/adr/` (decisions not to undo).
+Start with `docs/notes/Fire Drill Status.md`: what is built, what is live, what is left, and the traps that have already cost time. Before writing code, read `docs/notes/Fire Drill Architecture.md` (module map, interfaces, pseudo-code, formulas), `docs/notes/CONTEXT.md` (glossary: use these terms exactly) and `docs/adr/` (decisions not to undo).
 
-- Code lives in `fire-drill/`. Run tests with `pytest` from `fire-drill/`. Build test-first.
-- The frontend is `fire-drill/ui/` (Vite + React): `npm run data`, then `npm run build` for one offline HTML file. It reads only `ui/src/data/fire-drill.json`, exported from `records/` by `scripts/export_ui.py`.
+- The project is the repository root: `firedrill/` is the package, `scripts/` the entry points, `ui/` the frontend. Run `pytest` from the root. Build test-first.
+- The frontend is `ui/` (Vite + React): `npm run data`, then `npm run build` for one offline HTML file. It reads only `ui/src/data/fire-drill.json`, exported from `records/` by `scripts/export_ui.py`.
 - `records/` is published (training family only); a held-out family is committed before any patch and published only when revealed (ADR-0002).
 - Run `scripts/sync_actors.py` after changing `firedrill/`: `apify push` skips git-ignored files and `tests/test_actors_in_sync.py` fails until the copies match.
 - Every sponsor integration is an adapter behind a port with an in-memory fallback. The Ledger is the source of truth for scoring (ADR-0001); never score with an LLM.
-- Secrets come from environment variables named in `fire-drill/.env.example`. Never commit them, and never ask the user to paste a key into chat.
+- Secrets come from environment variables named in `.env.example`. Never commit them, and never ask the user to paste a key into chat.
 
 ## Cartesia rules (from Cartesia's integration guidance)
 1. Fetch https://docs.cartesia.ai/llms.txt before using any endpoint, parameter, example or voice ID. Don't invent fields or voice IDs.
