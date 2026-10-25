@@ -1,0 +1,52 @@
+/* A matrix, read left to right: no controls, then each patch. Cells keep the
+   page's one-square-per-drill strip at a smaller size, so a rate is never shown
+   without its n, and the count sits under it in the mono face the rest of the
+   numbers use. Rules separate models, not every row, so a model reads as one
+   block. */
+.bmx { margin-top: 18px }
+.bmx__scroll { overflow-x: auto; border-top: 2px solid var(--ink) }
+.bmx__table { border-collapse: collapse; min-width: 820px; width: 100% }
+.bmx__table thead th {
+  text-align: left; padding: 10px 14px 8px 0; border-bottom: 1px solid var(--rule);
+  font: 500 11px var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted);
+}
+.bmx__table thead th.mono { text-transform: none; letter-spacing: 0.02em; color: var(--ink-2); font-size: 12px }
+
+.bmx__table tbody tr.is-first > * { border-top: 1px solid var(--rule) }
+.bmx__model { text-align: left; vertical-align: top; padding: 12px 14px 12px 0; font-size: 13px; font-weight: 600; width: 1% ; white-space: nowrap }
+.bmx__card { text-align: left; vertical-align: top; padding: 12px 14px 12px 0; font-size: 13px; font-weight: 400; white-space: nowrap }
+.bmx__tag {
+  display: block; margin-top: 3px; font: 500 10px var(--font-mono); letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--muted);
+}
+.bmx__cell { vertical-align: top; padding: 12px 14px 12px 0 }
+.bmx__k { display: block; margin-top: 5px; font: 500 12.5px var(--font-mono); white-space: nowrap }
+.bmx__k b { font-size: 14px }
+.bmx__ci { color: var(--muted); font-size: 11px }
+.bmx__none { color: var(--muted); font: 500 14px var(--font-mono) }
+.bmx__cell.is-small, tr.is-dim > * { color: var(--ink-2) }
+tr.is-dim .units { opacity: 0.6 }
+
+/* The micro strip: same squares, small enough for a column per level. A grid,
+   not a flex row, so it always wraps at two looks of six whatever width the
+   table cell gives it: twelve 9px columns, the seventh 4px wider and its square
+   pushed right, which is the gap between looks. (.units in Results.css loads
+   later, hence the doubled class.) */
+.units.units--micro {
+  display: grid; grid-template-columns: repeat(6, 9px) 13px repeat(5, 9px); gap: 2px;
+  width: max-content; max-width: none;
+}
+.units--micro .unit { width: 9px; height: 9px; border-width: 1px }
+.units--micro .unit--look { margin-left: 0 }
+.units--micro .unit:nth-child(12n + 7) { justify-self: end }
+
+.bmx__fold td {
+  padding: 14px 0; border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink-2); line-height: 1.5;
+}
+.bmx__fold b { color: var(--ink) }
+.bmx__controls { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px }
+.bmx__toggle {
+  font: 600 13px var(--font-text); color: var(--ink); background: none; border: 0; padding: 0;
+  text-decoration: underline; text-decoration-color: var(--signal); text-underline-offset: 3px; cursor: pointer;
+}
+.bmx__fold .bmx__toggle { margin-left: 4px }
