@@ -1,0 +1,31 @@
+.droid { border: 2px solid var(--ink); margin-bottom: clamp(56px, 7vw, 88px) }
+.droid__head {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 28px;
+  padding: clamp(18px, 2.5vw, 28px); border-bottom: 2px solid var(--ink); background: var(--paper-2);
+}
+@media (max-width: 900px) { .droid__head { grid-template-columns: minmax(0, 1fr) } }
+.droid__h { font-size: clamp(30px, 3.4vw, 44px); margin: 6px 0 10px }
+.droid__lede { margin: 0; color: var(--ink-2); font-size: 15px; max-width: 58ch }
+.droid__access { margin: 0; display: grid; gap: 10px; align-content: start }
+.droid__access dt { font: 500 11px var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2) }
+.droid__access dd { margin: 2px 0 0; font-size: 14px }
+.droid__access code { font-size: 12.5px; background: var(--ink); color: var(--paper); padding: 1px 5px }
+
+.droid__steps { list-style: none; margin: 0; padding: 14px clamp(18px, 2.5vw, 28px); display: grid; gap: 8px }
+.dstep { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: start; padding: 10px 12px; border: 1px solid var(--rule); background: var(--paper) }
+.dstep__n { font: 500 11px var(--font-mono); color: var(--muted); padding-top: 3px }
+.dstep b { font-size: 14.5px }
+.dstep p { margin: 3px 0 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.5; overflow-wrap: anywhere }
+.dstep--try p { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink) }
+.dstep--thought { border-left: 4px solid var(--ink) }
+.dstep--result.dstep--bad { border: 2px solid var(--signal); box-shadow: inset 6px 0 0 var(--signal) }
+.dstep--result.dstep--bad b { color: var(--signal) }
+.dstep--result.dstep--good { border: 2px solid var(--safe); box-shadow: inset 6px 0 0 var(--safe) }
+.dstep--result.dstep--good b { color: var(--safe) }
+.dstep--gate { border-style: dashed }
+
+.droid__end { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 2px solid var(--ink) }
+.droid__end > div { padding: 14px clamp(18px, 2.5vw, 28px) }
+.droid__end > div + div { border-left: 1px solid var(--rule) }
+.droid__end p { margin: 6px 0 0; font: 700 24px/1.1 var(--font-sign) }
+@media (max-width: 700px) { .droid__end { grid-template-columns: minmax(0, 1fr) } .droid__end > div + div { border-left: 0; border-top: 1px solid var(--rule) } }

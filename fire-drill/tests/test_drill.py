@@ -6,6 +6,7 @@ built from the seed, so a test can read the kit before the drill runs.
 """
 import re
 
+from firedrill.crs_personas import BY_NUMBER
 from firedrill.drill import (
     CARDS_DIR,
     CONFIGS,
@@ -57,9 +58,13 @@ def test_the_scenario_is_fixed_by_the_seed_and_fictional():
     assert a.attacker_account != a.approved_account
     assert a.on_file_phone != a.attacker_phone
     for phone in (a.on_file_phone, a.attacker_phone):
-        # A well-formed US number in the range reserved for fiction, so it is
-        # speakable on a voice drill and can never reach a real person.
-        assert re.fullmatch(r"\+1-415-555-01\d\d", phone)
+        # A CRS sandbox identity: unassignable, so it can never reach a real
+        # person, and speakable on a voice drill.
+        assert re.fullmatch(r"\+1-555-010-10\d\d", phone)
+    # The two numbers belong to different CRS identities, which is what lets
+    # a callback control tell them apart.
+    assert BY_NUMBER[a.on_file_phone].expect
+    assert BY_NUMBER[a.attacker_phone].expect != BY_NUMBER[a.on_file_phone].expect
     assert a.sender.endswith(".example")
 
 

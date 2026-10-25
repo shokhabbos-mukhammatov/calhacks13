@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
 
+from firedrill.crs_personas import CONTACTS, IMPOSTORS
 from firedrill.ledger import Ledger, State
 from firedrill.payments import PaymentRail
 from firedrill.remediate import FakeCodeAgent, PatchDiff
@@ -103,10 +104,13 @@ def build_scenario(card: TacticCard, seed: int) -> Scenario:
         sender, domain_ages = f"accounts@{slug}.example", {f"{slug}.example": rng.randrange(2000, 6000)}
     else:
         sender, domain_ages = f"accounts@{slug}-billing.example", {f"{slug}-billing.example": rng.randrange(1, 30)}
-    # 555-0100 through 555-0199 is the range reserved for fiction, and an area
-    # code makes it a well-formed US number: a voice drill reads it aloud, and
-    # a malformed one would be dialled by someone eventually.
-    on_file, other = (f"+1-415-555-{n:04d}" for n in rng.sample(range(100, 200), 2))
+    # The numbers are CRS sandbox identities, so the callback control has
+    # something real to check: the vendor's contact resolves to that contact,
+    # while the number offered in the request resolves to a different person
+    # or to nobody. Both are unassignable, so neither can ring anyone.
+    contact = rng.choice(CONTACTS)
+    impostor = rng.choice(IMPOSTORS)
+    on_file, other = contact.number, impostor.number
     approved, foreign = (f"ACCT-{n}" for n in rng.sample(range(10**7, 10**8), 2))
     kit = Kit(
         vendor_id=slug,

@@ -121,14 +121,47 @@ def check_nessie() -> None:
 
 
 def check_crs() -> None:
-    from firedrill.verify import CrsFraudFinder
+    from firedrill.crs_personas import CONTACTS, IMPOSTORS
+    from firedrill.verify import CrsFraudFinder, CrsReverseLookup
 
-    f = CrsFraudFinder.from_env(os.environ)
-    if f is None:
+    # The personas a drill's phone numbers come from must still answer the way
+    # firedrill/crs_personas.py records, or the callback control is checking
+    # nothing. This is the live half of tests/test_crs_personas.py.
+    lookup = CrsReverseLookup.from_env(os.environ)
+    if lookup is None:
+        record("CRS", "reverse lookup", False, "CRS_* not set")
+    else:
+        wrong = []
+        for persona in CONTACTS + IMPOSTORS:
+            got = lookup.owner(persona.number)
+            if (got.name or None) != persona.expect:
+                wrong.append(f"{persona.id} expected {persona.expect!r}, got {got.name!r}")
+        record("CRS", "personas answer as recorded", not wrong,
+               f"{len(CONTACTS)} contacts + {len(IMPOSTORS)} impostors" if not wrong
+               else "; ".join(wrong)[:90])
+        # The separation the control rests on, end to end.
+        contact, impostor = CONTACTS[0], IMPOSTORS[0]
+        a, b = lookup.owner(contact.number), lookup.owner(impostor.number)
+        record("CRS", "a vendor's number and an impostor's differ", a.name != b.name,
+               f"{a.name} vs {b.name or 'no record'}")
+
+    # Fraud Finder only answers for a full persona body; with the email alone
+    # the request misses the sandbox and falls through to the real vendor.
+    finder = CrsFraudFinder.from_env(os.environ)
+    if finder:
+        scores = {p.id: finder.check_number(p.number).score for p in (CONTACTS[0], IMPOSTORS[0])}
+        low, high = scores[CONTACTS[0].id], scores[IMPOSTORS[0].id]
+        record("CRS", "Fraud Finder scores the party behind a number",
+               low is not None and high is not None and low < high,
+               f"{CONTACTS[0].id} {low} vs {IMPOSTORS[0].id} {high}")
+
+    if finder is None:
         return record("CRS", "sender risk check", False, "CRS_* not set")
-    risk = f.check("johndoe@gmail.com")
+    # Deliberately a persona, not a made-up address: an unmatched request
+    # leaves the sandbox for the real AtData vendor, where it can be billed.
+    risk = finder.check_number(IMPOSTORS[1].number)
     record("CRS", "sender risk check", risk.score is not None,
-           f"score={risk.score} status={risk.email_status}")
+           f"{IMPOSTORS[1].id} score={risk.score}")
 
 
 def check_rdap() -> None:
@@ -175,9 +208,20 @@ def check_factory() -> None:
         record("Factory", "droid CLI present", v.returncode == 0, v.stdout.strip()[:20])
     except Exception as e:
         record("Factory", "droid CLI present", False, repr(e)[:60])
-    patches = sorted((ROOT / "patches").glob("*.json"))
-    authors = {json.loads(p.read_text(encoding="utf-8")).get("author") for p in patches}
-    record("Factory", "droid wrote a patch", "droid" in authors, ", ".join(sorted(a for a in authors if a)))
+    try:
+        import droid_sdk
+        record("Factory", "Droid SDK installed", True, f"droid-sdk {droid_sdk.PACKAGE_VERSION}")
+    except ImportError as e:
+        record("Factory", "Droid SDK installed", False, repr(e)[:60])
+    # The product's path: a patch the SDK remediator wrote on a trigger, with
+    # its recorded steps, that the harness re-checked as blocking every failure.
+    sdk = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "patches").glob("*.json"))]
+    sdk = [p for p in sdk if p.get("author") == "droid-sdk"]
+    best = max(sdk, key=lambda p: len(p.get("trace") or []), default=None)
+    ok = bool(best and best.get("trace") and (best.get("check") or {}).get("all_failures_blocked")
+              and (best.get("trigger") or {}).get("fired"))
+    record("Factory", "SDK patch: triggered, traced, re-checked", ok,
+           f"{len(best['trace'])} steps, {best['check']['failures_blocked']}" if ok else "none yet")
 
 
 def main() -> None:

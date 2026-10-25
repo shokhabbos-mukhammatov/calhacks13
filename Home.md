@@ -9,6 +9,7 @@ tags: [index]
 
 ## The project
 - **[[Fire Drill Status]]: what is built, what is live, what is left — read this first**
+- **[[Prize Fit Audit]]: every prize against the code, what is strong, what is weak, who fixes what**
 - [[Fire Drill]]: the idea, demo script and fit with the posted tracks
 - [[Fire Drill Stress Test]]: the original review and its fixes
 - [[Fire Drill + Apify]]: the Apify plan
