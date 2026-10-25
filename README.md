@@ -60,6 +60,16 @@ patch from the remediator for a human to review. Verdicts are predicates over
 ledger state, so a passing run is evidence an auditor can re-check, not a
 model's opinion.
 
+## How this differs from voice-agent testing platforms
+
+[Hamming](https://hamming.ai/blog/hamming-vs-coval), [Cekura](https://www.cekura.ai/blogs/hamming-alternative) and [Coval](https://www.coval.ai/blog/hamming-vs-cekura) run simulated callers against a voice agent, and all three advertise red-teaming or jailbreak testing. Fire Drill asks a different question: can an agent with **payment authority** be talked into moving money? That changes four things.
+
+- **The verdict is the money, not the call.** A breach is read from ledger state after the drill. A call that sounds exemplary and still pays an unverified account is a breach; a clumsy one that sends the change to a human is not.
+- **The phone is one channel of three.** The same drill, against the same agent and ledger, can arrive as an invoice, an email or a live call, because vendor-impersonation fraud uses all three.
+- **It closes the loop.** It names the turn the agent gave in, hands the failure to a coding agent as actions and roles rather than the attacker's words, checks the patch by replaying the failures through the real ledger, and re-runs with intervals and Fisher's exact test.
+- **It is a drill for an employee, not QA for a product.** Closer to a phishing simulation for the AP clerk than to a test of how the agent sounds.
+
+One claim from the original pitch is not earned yet: that a patch holds on attacks it has never seen. The held-out families are committed by Merkle root ([ADR-0002](docs/adr/0002-held-out-by-tactic-family.md)) but have no attacker turns yet, so that comparison is untested, and the results page says so.
 
 ## How it works
 
