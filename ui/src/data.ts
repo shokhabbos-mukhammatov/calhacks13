@@ -213,6 +213,8 @@ export interface Data {
   scorecards: Scorecard[];
   cells: Cell[];
   heldout: HeldOut[];
+  /** Revealed held-out families: every model and level, for the grid only. */
+  revealed_cells: Cell[];
   contrast: Contrast | null;
   failure_example: {
     drill: string;

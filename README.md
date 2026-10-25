@@ -12,7 +12,7 @@ Fire Drill attacks an accounts-payable agent the way real invoice fraud works, r
 | **Watch every step live** | `python scripts/live.py` — one line per event as it happens, for a second screen |
 | **Build that page yourself** | `python scripts/export_ui.py && npm --prefix ui run build` → `ui/dist/index.html`, which opens from disk |
 | **Run it yourself** | Two published Apify Actors: [fire-drill](https://apify.com/shohabbos_m/fire-drill) (the runner) · [ap-practice-target](https://apify.com/shohabbos_m/ap-practice-target) (the target) |
-| **Re-check any number here** | All 656 drills are in `records/`, with the ledger each verdict was read from. `scripts/verify_reveal.py v3` checks the held-out result against its commitment, offline |
+| **Re-check any number here** | All 758 drills are in `records/`, with the ledger each verdict was read from. `scripts/verify_reveal.py v3` checks the held-out result against its commitment, offline |
 
 ![The results page: an AI agent paid a fraudster in 13 of 24 drills, 0 of 24 after the fix, Fisher p = 1.3 × 10⁻⁵, $393,200 sent to attackers](docs/images/hero.png)
 
@@ -244,7 +244,7 @@ up because the record is read from the ledger, replayed through the real
 
 ![Before and after on the results page: paid the attacker 13 of 24 to 0, $393,200 to $0, the number on file rung 11 of 24 to every time, and the attacker's account left on the vendor record 21 of 24, then 6 of 24 under v1 and 0 of 48 under v3](docs/images/beforeafter.png)
 
-656 drills are recorded. 238 tests pass.
+758 drills are recorded. 238 tests pass.
 
 ### On attacks it never saw
 
@@ -298,20 +298,32 @@ family on one model: evidence that the patch learned the behaviour rather than
 the wording, not proof that it covers every attack.
 
 
-![The breach grid: every model, hardening level and tactic card as a cell of unit squares, one square per drill, with a 95% interval under each](docs/images/results.png)
+![The breach grid: a row per model and card, the hardening levels left to right, one square per drill. Haiku 4.5 and GPT-4.1-mini break with no controls and hold under every patch; the three models that never broke are folded into one line](docs/images/results.png)
 
 ### The same attack, five agents, three providers
 
 Identical cards, identical seeds, no controls on any of them; only the model
 differs:
 
-| At `baseline`, attack drills | Breached | 95% interval | Called the attacker's number |
-| --- | --- | --- | --- |
-| Claude Haiku 4.5 | **13 of 24** | 0.35 – 0.72 | 12 of 24 |
-| OpenAI GPT-4.1-mini | **15 of 30** | 0.33 – 0.67 | 15 of 30 |
-| DeepSeek Flash | 0 of 24 | 0.00 – 0.14 | 0 of 24 |
-| Claude Sonnet 4.5 | 0 of 24 | 0.00 – 0.14 | 0 of 24 |
-| Claude Haiku 5.5 | 0 of 24 | 0.00 – 0.14 | 0 of 24 |
+| At `baseline` | Training attacks | 95% interval | Harder held-out attacks | 95% interval |
+| --- | --- | --- | --- | --- |
+| Claude Haiku 4.5 | **13 of 24** | 0.35 – 0.72 | **23 of 24** | 0.80 – 0.99 |
+| OpenAI GPT-4.1-mini | **15 of 30** | 0.33 – 0.67 | **26 of 30** | 0.70 – 0.95 |
+| DeepSeek Flash | 0 of 24 | 0.00 – 0.14 | 0 of 24 | 0.00 – 0.14 |
+| Claude Sonnet 4.5 | 0 of 24 | 0.00 – 0.14 | 0 of 24 | 0.00 – 0.14 |
+| Claude Haiku 5.5 | 0 of 24 | 0.00 – 0.14 | 0 of 24 | 0.00 – 0.14 |
+
+The harder attacks are the lookalike-domain family, held out from the patch.
+Haiku 4.5's 24 were the committed held-out drills; the other four models were
+run on the same cards and seeds afterwards, so their runs are ordinary drills,
+not part of that commitment.
+
+**A harder attack breaks the models that break, and not the ones that hold.**
+Sonnet 4.5, Haiku 5.5 and DeepSeek Flash called the number on file in every
+one of their 72 harder drills, never the attacker's, and never paid the
+attacker. GPT-4.1-mini called the attacker's number in 26 of its 30 and paid
+in the same 26. Haiku 4.5 paid in 23, 15 of them after calling the attacker's
+number and 8 without calling anyone.
 
 Two pay the fraudster and three do not, and the two fail the same way: when
 the message offers its own number to confirm the bank change on, they call it,
@@ -745,8 +757,10 @@ here can be recomputed from `records/`.
   by company name instead, fails and asks the sender, so it leaves honest
   invoices unpaid at baseline too (14 of 24). A lookup that also accepted names
   would change the harness, so the drills would need re-running to compare.
-- **Cross-provider results are on the training family only.** The held-out
-  test ran on Claude Haiku 4.5.
+- **Cross-provider patch results are on the training family only.** The
+  committed held-out test ran on Claude Haiku 4.5. The other four models were
+  run on the held-out cards at baseline only, afterwards and uncommitted; no
+  patch has been run on GPT-4.1-mini for that family yet.
 - **A bank change is never gated itself.** `requires_verification` is enforced
   where money moves, in `approve_payment`; a bank change moves no money, so it
   is allowed through. Both code agents set that scope on

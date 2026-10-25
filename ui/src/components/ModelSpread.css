@@ -1,23 +1,28 @@
 .spread { margin-bottom: clamp(56px, 7vw, 96px) }
-.spread__h { font-size: clamp(30px, 3.6vw, 48px); margin: 0 0 14px; max-width: 20ch }
+.spread__h { font-size: clamp(30px, 3.6vw, 48px); margin: 0 0 14px; max-width: 30ch }
 .spread__lede { margin: 0 0 24px; font-size: 16px; color: var(--ink-2); max-width: 64ch; text-wrap: pretty }
 .spread__lede em { font-style: normal; color: var(--ink); font-weight: 600 }
 
 .spread__rows { list-style: none; margin: 0 0 18px; padding: 0; border-top: 2px solid var(--ink) }
 .spread__rows li {
-  display: grid; grid-template-columns: 150px minmax(0, 1fr) 76px; gap: 18px;
+  display: grid; grid-template-columns: 215px 210px minmax(0, 1fr) 130px; gap: 18px;
   align-items: center; padding: 12px 0; border-bottom: 1px solid var(--rule);
 }
 .spread__model { font-size: 14px }
+/* A model's second family sits under its first, so a model reads as one block. */
+.spread__rows li.is-cont { border-top: 0; padding-top: 0 }
+.spread__rows li:has(+ li.is-cont) { border-bottom: 0 }
+.spread__family { font-size: 12px; color: var(--muted) }
 .spread__bar { position: relative; height: 22px; background: var(--paper-2); display: flex; align-items: center }
 .spread__fill { position: absolute; inset: 0 auto 0 0; background: var(--ink-2) }
 .is-breaching .spread__fill { background: var(--signal) }
-.spread__ci { position: relative; margin-left: 10px; font: 400 12px var(--font-mono); color: var(--ink-2) }
-.spread__n { font: 500 14px var(--font-mono); text-align: right }
+.spread__ci { display: block; margin-top: 2px; font: 400 11.5px var(--font-mono); color: var(--muted) }
+.spread__n { font: 500 14px var(--font-mono); text-align: right; white-space: nowrap }
 .spread__n b { font-size: 17px }
 .is-breaching .spread__n b { color: var(--signal) }
 
 @media (max-width: 700px) {
-  .spread__rows li { grid-template-columns: minmax(0, 1fr) 70px; gap: 6px 12px }
-  .spread__model { grid-column: 1 / -1 }
+  .spread__rows li { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px }
+  .spread__model, .spread__family { grid-column: 1 / -1 }
+  .spread__rows li.is-cont .spread__model { display: none }
 }

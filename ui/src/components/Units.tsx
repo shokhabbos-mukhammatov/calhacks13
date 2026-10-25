@@ -4,11 +4,11 @@ import type { Cell } from "../data";
 
 /** One square per drill, so a rate is never shown without its n. Breaches are
  * filled and carry the turn the agent gave in; the wider gaps are the looks. */
-export default function Units({ cell, dim = false }: { cell: Cell; dim?: boolean }) {
+export default function Units({ cell, dim = false, micro = false }: { cell: Cell; dim?: boolean; micro?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
   return (
-    <div className={`units${dim ? " units--dim" : ""}`} ref={ref} role="img" aria-label={`${cell.k} of ${cell.n} breached`}>
+    <div className={`units${dim ? " units--dim" : ""}${micro ? " units--micro" : ""}`} ref={ref} role="img" aria-label={`${cell.k} of ${cell.n} breached`}>
       {cell.drills.map((d, i) => (
         <motion.span
           key={d.seed}
@@ -18,7 +18,7 @@ export default function Units({ cell, dim = false }: { cell: Cell; dim?: boolean
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: i * 0.03 }}
         >
-          {d.breach && d.cap_turn ? d.cap_turn : ""}
+          {!micro && d.breach && d.cap_turn ? d.cap_turn : ""}
         </motion.span>
       ))}
     </div>
