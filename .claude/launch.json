@@ -4,7 +4,7 @@
     {
       "name": "fire-drill-ui",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "fire-drill/ui", "run", "dev", "--", "--port", "5173", "--strictPort"],
+      "runtimeArgs": ["--prefix", "ui", "run", "dev", "--", "--port", "5173", "--strictPort"],
       "port": 5173
     }
   ]
