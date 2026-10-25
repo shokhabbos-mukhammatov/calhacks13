@@ -88,6 +88,27 @@ export default function Loop() {
           </p>
         </div>
       </div>
+
+      <dl className="seats">
+        <div>
+          <dt>The seat it fills</dt>
+          <dd>The controls tester an accounts-payable team does not have: it red-teams an AI agent
+            before it is allowed near the vendor master, and again after every change to its prompt,
+            tools or model.</dd>
+        </div>
+        <div>
+          <dt>Who it protects</dt>
+          <dd>Finance staff at small and mid-sized businesses, now being handed agents that can change
+            a vendor’s bank details and approve the payment — and the vendors whose money goes
+            missing when they do.</dd>
+        </div>
+        <div>
+          <dt>Path to production</dt>
+          <dd>Put your own agent behind the same tool interface, run the grid in CI on every change,
+            and let a decided breach open a patch for a human to review. Every verdict is something an
+            auditor can re-check.</dd>
+        </div>
+      </dl>
     </Section>
   );
 }

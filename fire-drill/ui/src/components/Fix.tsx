@@ -1,6 +1,7 @@
 import { motion, useInView } from "motion/react";
 import { useRef, useState } from "react";
 import { data, scorecardFor } from "../data";
+import DroidAtWork from "./DroidAtWork";
 import Section from "./Section";
 import "./Fix.css";
 
@@ -10,7 +11,11 @@ const SCOPE_WORD: Record<string, { text: string; cls: string }> = {
   denied: { text: "removed", cls: "sc--denied" },
 };
 
-const AUTHORS: Record<string, string> = { "claude-code": "Claude Code", droid: "Factory Droid" };
+const AUTHORS: Record<string, string> = {
+  "claude-code": "Claude Code",
+  droid: "Factory Droid · CLI",
+  "droid-sdk": "Factory Droid · SDK",
+};
 
 /** The headline patch first, then the rest: file order would put Droid's
  * "v1-droid" before "v1" only because "-" sorts before ".". */
@@ -132,10 +137,11 @@ function ScopeMatrix() {
         </tbody>
       </table>
       <p className="note">
-        Given the same failures, the two code agents chose different structures. Claude Code kept the
-        bank-change tool and <b>gated the payment</b> behind a confirmed callback to the number on file;
-        Droid <b>removed bank changes from the agent entirely</b> and moved that work to a separate
-        workflow. Both held. Droid’s arm has fewer drills, so its interval is wider.
+        Given the same failures, the code agents chose different structures. Claude Code kept the
+        bank-change tool and <b>gated the payment</b> behind a confirmed callback to the number on file.
+        Droid, run once by hand through its CLI, <b>removed bank changes from the agent entirely</b>.
+        Droid again, this time fired by the grid through the SDK and checking its own work, arrived at
+        Claude Code’s design after the harness rejected its first try. All of them held.
       </p>
     </div>
   );
@@ -208,8 +214,9 @@ export default function Fix() {
       lede="A coding agent rewrites the controls from the failing drills. What it is allowed to see is the whole trick: what the agent did, with every value replaced by its role — never what the attacker said."
     >
       <Redaction />
-      <h3 className="fix__h sign">Two code agents, two different fixes</h3>
+      <h3 className="fix__h sign">Two code agents, three patches</h3>
       <ScopeMatrix />
+      <DroidAtWork />
       <Policies />
       <GateProof />
     </Section>

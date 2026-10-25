@@ -79,10 +79,12 @@ SPONSORS = [
      "and ledger a text drill uses", "where": "actors/victim-standby · /voice/relay"},
     {"name": "Capital One", "role": "Nessie mirrors every approved payment into a sandbox bank",
      "where": "firedrill/payments.py"},
-    {"name": "CRS", "role": "Fraud Finder scores the sender's address inside Vendor Verify",
-     "where": "firedrill/verify.py"},
-    {"name": "Factory", "role": "Droid wrote an independent patch from the same failures",
-     "where": "patches/v1-droid.json"},
+    {"name": "CRS", "role": "Fraud Finder scores the sender's address, live against the sandbox, "
+     "whenever the agent asks Vendor Verify for evidence",
+     "where": "firedrill/verify.py · actors/victim-standby"},
+    {"name": "Factory", "role": "Droid, through the Droid SDK, is the remediation engine: the "
+     "breach grid triggers it, it can touch only three harness tools, and it checks its own patch",
+     "where": "firedrill/droid_remediator.py · scripts/autofix.py"},
     {"name": "Elastic", "role": "The drill corpus, and an Agent Builder tool that answers "
      "which drills breached and where", "where": "firedrill/elastic.py"},
 ]
@@ -281,7 +283,8 @@ def main() -> None:
     for path in sorted(PATCHES_DIR.glob("*.json")):
         data = json.loads(path.read_text(encoding="utf-8"))
         patches[path.stem] = {k: data.get(k) for k in ("policy", "tool_scope", "rationale",
-                                                         "author", "tests")}
+                                                         "author", "tests", "trace", "check",
+                                                         "trigger")}
 
     out = {
         "meta": {

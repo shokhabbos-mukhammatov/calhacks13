@@ -3,6 +3,7 @@
     .venv\\Scripts\\python.exe scripts\\grid.py --dry-run
     .venv\\Scripts\\python.exe scripts\\grid.py --cards vmt-01 vmt-02 --configs baseline patch:v1
     .venv\\Scripts\\python.exe scripts\\grid.py --cards vmt-01 --configs baseline patch:v1 --benign --max-n 12
+    .venv\\Scripts\\python.exe scripts\\grid.py --cards vmt-01 vmt-02 --configs baseline --autofix
 
 Each cell runs in **looks** of six drills and stops as soon as its interval,
 widened for the number of looks planned in advance, is narrow enough. A cell
@@ -74,6 +75,10 @@ def main() -> None:
     p.add_argument("--concurrency", type=int, default=4, help="drills at once within a look")
     p.add_argument("--cells", type=int, default=2, help="cells at once")
     p.add_argument("--dry-run", action="store_true", help="list the cells and stop")
+    p.add_argument("--autofix", action="store_true",
+                   help="when the run leaves a cell decidedly breaching, start Droid on it "
+                        "(scripts/autofix.py) and save the patch it writes")
+    p.add_argument("--autofix-name", default="v2-droid", help="patch name for --autofix")
     args = p.parse_args()
 
     load_dotenv(ROOT / ".env")
@@ -135,6 +140,15 @@ def main() -> None:
     print(f"\n{ran} drills in {time.monotonic() - started:.0f}s "
           f"({fixed} if every cell had run to {args.max_n}: {100 * (1 - ran / fixed):.0f}% fewer)")
     print("records written. Now:  .venv\\Scripts\\python.exe scripts\\report.py")
+
+    # The trigger: the grid's own fresh result decides whether Droid runs.
+    if args.autofix:
+        from autofix import run_autofix  # scripts/ is on the path when this runs
+
+        from firedrill.records import load_records
+        print()
+        for config in args.configs:
+            run_autofix(load_records(), config=config, name=args.autofix_name)
 
 
 if __name__ == "__main__":

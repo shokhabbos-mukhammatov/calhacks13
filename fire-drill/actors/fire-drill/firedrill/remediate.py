@@ -38,6 +38,11 @@ class PatchDiff:
     tests: str                           # regression test source shipped with the patch
     rationale: list[str] = field(default_factory=list)
     author: str = "fake"                 # which adapter wrote it
+    # Set by the Droid SDK remediator (firedrill.droid_remediator): the steps
+    # it took, the harness's own re-check of the final scope, and what fired it.
+    trace: list[dict] = field(default_factory=list)
+    check: dict | None = None
+    trigger: dict | None = None
 
     def to_dict(self) -> dict:
         return asdict(self)
