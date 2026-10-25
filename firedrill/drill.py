@@ -22,7 +22,7 @@ from firedrill.ledger import Ledger, State
 from firedrill.payments import PaymentRail
 from firedrill.remediate import FakeCodeAgent, PatchDiff
 from firedrill.scorer import Verdict, score
-from firedrill.trace import MemorySink, TraceEvent
+from firedrill.trace import MemorySink, TraceEvent, TraceSink
 from firedrill.verify import FixedDomainAge, VendorVerifier
 from firedrill.victim import (
     BASELINE_POLICY,
@@ -218,6 +218,25 @@ class Drill:
     events: list[TraceEvent]
 
 
+@dataclass
+class _Tee:
+    """Records to `kept` and forwards to `watch`. A watcher that raises must
+    not take a drill down with it, so its failures are swallowed."""
+    kept: MemorySink
+    watch: TraceSink
+
+    @property
+    def events(self) -> list[TraceEvent]:
+        return self.kept.events
+
+    def emit(self, event: TraceEvent) -> None:
+        self.kept.emit(event)
+        try:
+            self.watch.emit(event)
+        except Exception:
+            pass
+
+
 def run_drill(
     card: TacticCard,
     seed: int,
@@ -225,9 +244,18 @@ def run_drill(
     attacker: Attacker,
     victim: VictimConfig,
     max_turns: int = MAX_TURNS,
+    watch: TraceSink | None = None,
 ) -> Drill:
+    """`watch` is told about every event as it happens, for a live view. The
+    drill still keeps its own record, so what a watcher does cannot change
+    what is scored."""
     scenario = build_scenario(card, seed)
-    kit, ledger, sink = scenario.kit, scenario.ledger, MemorySink()
+    kit, ledger = scenario.kit, scenario.ledger
+    sink = MemorySink() if watch is None else _Tee(MemorySink(), watch)
+    # A watcher that wants to show ledger state needs this drill's ledger,
+    # not one it built itself from the same seed.
+    if watch is not None and hasattr(watch, "attach"):
+        watch.attach(ledger)
     verifier = victim.verifier.with_domain_age(FixedDomainAge(scenario.domain_ages)) if victim.verifier else None
     agent = VictimAgent(
         ledger, victim.model, MemoryStore(),

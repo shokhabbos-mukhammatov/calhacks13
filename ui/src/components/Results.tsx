@@ -2,6 +2,7 @@ import { motion, useInView } from "motion/react";
 import { useRef, useState } from "react";
 import { data, scorecardFor, shortModel, type Cell, type Rate } from "../data";
 import { fmt, sci } from "../lib/stats";
+import ModelSpread from "./ModelSpread";
 import Section from "./Section";
 import "./Results.css";
 
@@ -204,6 +205,8 @@ export default function Results() {
           </div>
         </aside>
       </div>
+
+      <ModelSpread />
 
       <Insight />
 
