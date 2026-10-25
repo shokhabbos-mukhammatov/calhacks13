@@ -38,7 +38,8 @@ from firedrill.drill import CARDS_DIR, build_scenario, load_cards
 from firedrill.elastic import BREACH_TOOL, DRILL_INDEX
 from firedrill.failures import summarize
 from firedrill.ledger import Ledger
-from firedrill.records import RECORDS_DIR, load_records
+from firedrill.commit import revealed_families
+from firedrill.records import RECORDS_DIR, SEALED_FAMILIES, load_records, publishable
 from firedrill.scorecard import BENIGN, configs_in, grid, scorecard
 from firedrill.scorer import score
 from firedrill.stats import clopper_pearson, fisher_exact, wilson
@@ -212,7 +213,13 @@ def main() -> None:
                    help="drop the attacker's message text, for a public build")
     args = p.parse_args()
 
-    records = load_records(args.records)
+    # This file is committed and served by Pages, so a held-out family stays
+    # out of it until its reveal exists (ADR-0002), whatever is on disk.
+    on_disk = load_records(args.records)
+    records = publishable(on_disk, revealed_families())
+    if len(records) < len(on_disk):
+        sealed = sorted({r["card"]["family"] for r in on_disk} & (SEALED_FAMILIES - revealed_families()))
+        print(f"withheld {len(on_disk) - len(records)} sealed drills ({', '.join(sealed)}) until revealed")
     if not records:
         sys.exit(f"no records in {args.records}")
 

@@ -31,6 +31,12 @@ turns/
 # re-score a drill from its ledger. Only the training family is in there:
 # held-out families go through commit-reveal (ADR-0002) and are published
 # only when revealed, never before the patch they test.
+# So their records stay local until then: the reveal step force-adds them.
+# (firedrill.records.SEALED_FAMILIES is the same rule for the results page.)
+records/ld-*.json
+records/ei-*.json
+# The salts are the secret half of a commitment: published in the reveal.
+commitments/*.salts.json
 
 # the scorecard page is rendered from records/, which is not versioned either.
 # A committed copy would go stale and disagree with the live one, which is the
