@@ -26,6 +26,30 @@ def git(*args: str) -> str:
     return subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True, check=True).stdout
 
 
+def check_original(name: str, public: str, sha: str) -> bool | None:
+    """History was rewritten once, to correct authorship, so the commitment's
+    commit ID today is not the one GitHub timestamped. commitments/rewrites.json
+    names the original. When that commit is present, its commitment file must
+    be byte-identical to today's; None when it cannot be checked here."""
+    path = COMMITMENTS_DIR / "rewrites.json"
+    if not path.exists():
+        return None
+    entry = json.loads(path.read_text(encoding="utf-8")).get(name)
+    if not entry or entry.get("rewritten_as") != sha:
+        return None
+    original = entry["original_commit"]
+    print(f"  originally {original[:7]}, which GitHub logged at {entry['github_logged_push_at']}"
+          f" (history rewritten to correct authorship; see commitments/rewrites.json)")
+    present = subprocess.run(["git", "-C", str(ROOT), "cat-file", "-e", f"{original}^{{commit}}"],
+                             capture_output=True).returncode == 0
+    if not present:
+        print("  original not in this clone: git fetch origin pull/10/head, then run this again")
+        return None
+    same = git("rev-parse", f"{original}:{public}") == git("rev-parse", f"{sha}:{public}")
+    print(f"  original commitment file identical to today's: {'yes' if same else 'NO'}")
+    return same
+
+
 def main() -> None:
     use_utf8()
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -41,10 +65,11 @@ def main() -> None:
     reveal = json.loads((COMMITMENTS_DIR / f"{name}.reveal.json").read_text(encoding="utf-8"))
 
     print(f"commitment first committed in {sha[:7]} at {when}")
+    original_matches = check_original(name, public, sha)
     print(f"  root   {committed['root']}  over {committed['count']} drills ({', '.join(committed['families'])})")
     same = reveal["commitment"]["root"] == committed["root"]
     print(f"reveal names the same root: {'yes' if same else 'NO'}")
-    ok = same and verify(committed, reveal["drills"], reveal["salts"])
+    ok = same and original_matches is not False and verify(committed, reveal["drills"], reveal["salts"])
     print(f"root recomputed from the {len(reveal['drills'])} revealed drills and salts: "
           f"{'MATCHES' if ok else 'DOES NOT MATCH'}")
     sys.exit(0 if ok else 1)

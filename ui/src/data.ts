@@ -145,6 +145,8 @@ export interface HeldOut {
     commit: Commit | null;
     commit_url: string | null;
     reveal_url: string;
+    /** The commit GitHub's push log timestamped, if history was rewritten since. */
+    original: { sha: string; url: string; pushed_at: string; note: string } | null;
   };
   patch_commit: Commit | null;
   verified: boolean;

@@ -256,6 +256,13 @@ only the cards: never the agent's defences, the patch, or the training wording.
 Its 24 drills against the unpatched agent were committed as a salted Merkle
 root in [`942b5c9`](https://github.com/shokhabbos-mukhammatov/calhacks13/commit/942b5c99fd83a030fbc94796105f9fbc456d8a79),
 which GitHub logged at 06:47:44 UTC on 25 Oct, before the patch existed.
+
+> History was rewritten later on 25 Oct to correct commit authorship, so on
+> `main` that commit is now [`339f9c6`](https://github.com/shokhabbos-mukhammatov/calhacks13/commit/339f9c62918892f08e25c9c44e20b7e4a639380f).
+> Every commit ID changed; no file, date or other message content did, checked
+> commit by commit. [`commitments/rewrites.json`](commitments/rewrites.json)
+> records the pair, and the original stays reachable through the pull request
+> that merged it.
 Factory Droid then wrote `patch:v3` through the SDK from the
 `vendor-mailbox-takeover` failures alone, with three harness tools and no file
 access, and every cell ran against it at 24 drills, fixed in advance.
@@ -282,6 +289,10 @@ network and no salts file:
 ```powershell
 .\.venv\Scripts\python.exe scripts\verify_reveal.py v3
 ```
+
+To also check the original `942b5c9` against today's commitment file, fetch it
+first with `git fetch origin pull/10/head`; the verifier then confirms the two
+are byte-identical.
 
 **What changed is the number it rang.** Unpatched, the agent called the number
 offered in the message 15 times and tried to change the bank details in 23 of

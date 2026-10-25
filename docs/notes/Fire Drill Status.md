@@ -125,6 +125,12 @@ committed in `942b5c9` (GitHub logged the push 06:47:44 UTC), `v3` written by
 Droid through the SDK at 06:49:17 UTC from the training failures only,
 revealed in `3d5aa3f`. `scripts/verify_reveal.py v3` re-checks it offline.
 
+History was rewritten on 25 Oct to correct authorship (the Claude and
+Akmalchan commits re-authored, the Claude co-author lines removed). Every ID
+changed and no file did: `942b5c9` is now `339f9c6`, `3d5aa3f` is now
+`5e0e0da`; `commitments/rewrites.json` records the commitment pair. The old
+history is backed up in the local branch `backup/pre-rewrite-main`.
+
 How it was run, so the next family goes the same way:
 
 1. A different AI wrote `turns/ld-*.txt` from `turns/PROMPT-lookalike-domain.md`,

@@ -75,6 +75,14 @@ export default function HeldOut({ result: h, kind }: { result: Result; kind: "wi
             {c.commit && <>, in {c.commit_url
               ? <a href={c.commit_url} target="_blank" rel="noreferrer"><code>{c.commit.sha.slice(0, 7)}</code></a>
               : <code>{c.commit.sha.slice(0, 7)}</code>} at {utc(c.commit.committed_at)}</>}
+            {c.original && (
+              <span className="held__orig" title={c.original.note}>
+                Originally{" "}
+                <a href={c.original.url} target="_blank" rel="noreferrer"><code>{c.original.sha.slice(0, 7)}</code></a>,
+                which GitHub logged at {utc(c.original.pushed_at)}. History was later rewritten to correct
+                commit authorship: every commit ID changed, no file did.
+              </span>
+            )}
           </dd>
         </div>
         {h.patch_commit && (

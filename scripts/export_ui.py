@@ -171,6 +171,20 @@ def behaviour(rs: list[dict]) -> dict:
             "called_on_file": called_on_file, "tried_bank_change": tried_change}
 
 
+def original_commit(name: str) -> dict | None:
+    """commitments/rewrites.json names a commitment's original commit when
+    history was rewritten after it was pushed (ADR-0002): the one GitHub's
+    push log timestamped, which the page has to show beside today's ID."""
+    path = COMMITMENTS_DIR / "rewrites.json"
+    if not path.exists():
+        return None
+    entry = json.loads(path.read_text(encoding="utf-8")).get(name)
+    if not entry:
+        return None
+    return {"sha": entry["original_commit"], "url": entry["original_url"],
+            "pushed_at": entry["github_logged_push_at"], "note": entry["note"]}
+
+
 def held_out_results(records: list[dict], train: list[dict], repo: str) -> list[dict]:
     """One entry per reveal: the committed drills before the patch, the same
     family under it, and the training family under it for the gap."""
@@ -206,7 +220,9 @@ def held_out_results(records: list[dict], train: list[dict], repo: str) -> list[
             "commitment": {"root": c["root"], "count": c["count"], "committed_at": c["committed_at"],
                            "commit": published,
                            "commit_url": f"{repo}/commit/{published['sha']}" if published else None,
-                           "reveal_url": f"{repo}/blob/main/commitments/{path.name}"},
+                           "reveal_url": f"{repo}/blob/main/commitments/{path.name}",
+                           # The commit GitHub timestamped, if history was rewritten since.
+                           "original": original_commit(name)},
             # When the patch first appears in git, to set beside the commitment's.
             "patch_commit": first_commit(PATCHES_DIR / f"{name}.json"),
             "verified": verify(c, before, reveal["salts"]),

@@ -24,4 +24,5 @@
 .held__proof dt { font: 500 11px var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted) }
 .held__proof dd { margin: 0; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere }
 .held__proof code { font: 500 13px var(--font-mono) }
+.held__orig { display: block; margin-top: 4px; font-size: 13px; color: var(--ink-2) }
 @media (max-width: 560px) { .held__proof > div { grid-template-columns: minmax(0, 1fr); gap: 2px } }
