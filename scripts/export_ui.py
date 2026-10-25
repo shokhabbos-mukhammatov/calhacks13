@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import statistics
 import subprocess
 import sys
@@ -93,6 +94,18 @@ SPONSORS = [
     {"name": "Elastic", "role": "The drill corpus, and an Agent Builder tool that answers "
      "which drills breached and where", "where": "firedrill/elastic.py"},
 ]
+
+
+TARGET_MAIN = ROOT / "actors" / "victim-standby" / "src" / "main.py"
+
+
+def voice_default() -> str:
+    """The config a call runs at, read from the target Actor's own source, so
+    the page cannot describe a different agent from the one on the line."""
+    found = re.search(r'^DEFAULT_VOICE_CONFIG = "([^"]+)"', TARGET_MAIN.read_text(encoding="utf-8"), re.M)
+    if not found:
+        sys.exit(f"no DEFAULT_VOICE_CONFIG in {TARGET_MAIN}")
+    return found.group(1)
 
 
 def commit_id() -> str | None:
@@ -381,6 +394,7 @@ def main() -> None:
         "on_file_belongs_to": (BY_NUMBER[demo.on_file_phone].expect
                                if demo.on_file_phone in BY_NUMBER else None),
     }
+    LIVE["voice_config"] = voice_default()
 
     # --- the headline pair: the before/after with the most drills behind it --
     cards = {(m, c): scorecard(records, m, c) for m, c in configs_in(records)}
