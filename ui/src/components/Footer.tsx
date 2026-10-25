@@ -1,10 +1,15 @@
-import { data } from "../data";
+import { data, providerOf } from "../data";
 import "./Footer.css";
 
 /** What the page does not show is part of the result. */
 export default function Footer() {
   const m = data.meta;
   const held = data.heldout;
+  // The models a fix has been measured on: the headline's, and every other
+  // model that breaks at baseline and has a patch run on it.
+  const fixedOn = [data.headline?.model, ...(data.contrast?.providers ?? []).map((p) => p.model)]
+    .filter((x): x is string => !!x);
+  const fixedProviders = new Set(fixedOn.map(providerOf)).size;
   return (
     <footer className="foot">
       <div className="wrap foot__grid">
@@ -26,9 +31,21 @@ export default function Footer() {
               )}
             </li>
             <li>
-              <b>The fix is measured on one model.</b> Claude Haiku 4.5 is the agent that falls for the
-              attack, so it is the one every before-and-after is measured on. The other models refused
-              it at baseline, leaving nothing for a patch to fix.
+              {fixedOn.length > 1 ? (
+                <>
+                  <b>The fix is measured on {fixedOn.length} models, from {fixedProviders} providers.</b>{" "}
+                  {fixedOn.join(" and ")} are the agents that
+                  fall for the attack, so they are the ones a before-and-after means anything on. The held-out
+                  test ran on the first of them only. The other models refused the attack at baseline,
+                  leaving nothing for a patch to fix.
+                </>
+              ) : (
+                <>
+                  <b>The fix is measured on one model.</b> It is the agent that falls for the attack, so it
+                  is the one every before-and-after is measured on. The other models refused it at baseline,
+                  leaving nothing for a patch to fix.
+                </>
+              )}
             </li>
             <li>
               <b>Phone calls are a demonstration, not the measurement.</b> The statistics come from
