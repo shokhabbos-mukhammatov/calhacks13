@@ -33,7 +33,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from firedrill.console import use_utf8
-from firedrill.drill import CARDS_DIR, load_cards
+from firedrill.crs_personas import BY_NUMBER
+from firedrill.drill import CARDS_DIR, build_scenario, load_cards
 from firedrill.elastic import BREACH_TOOL, DRILL_INDEX
 from firedrill.failures import summarize
 from firedrill.ledger import Ledger
@@ -46,17 +47,14 @@ from firedrill.victim import ROLE, TOOLS
 OUT = ROOT / "ui" / "src" / "data" / "fire-drill.json"
 PATCHES_DIR = ROOT / "patches"
 
+# The world a judge calls into, pinned in actors/victim-standby/src/main.py.
+VOICE_CARD, VOICE_SEED = "vmt-01", 205
+
 LIVE = {
     "phone": "(484) 779-8381",
     "phone_e164": "+14847798381",
-    "judge_card": {
-        "vendor": "Northwind Traders",
-        "invoice": "INV-7833",
-        "amount": 34950,
-        "account": "ACCT-44256213",
-        "callback": "+1-415-555-0190",
-        "on_file": "+1-415-555-0156",
-    },
+    # judge_card is derived from the pinned world below, never typed: a card
+    # that disagrees with the agent's ledger sends a judge to a dead number.
     "actors": [
         {"name": "fire-drill", "role": "Drill runner", "url": "https://apify.com/shohabbos_m/fire-drill"},
         {"name": "ap-practice-target", "role": "Standby target agent",
@@ -217,6 +215,21 @@ def main() -> None:
     records = load_records(args.records)
     if not records:
         sys.exit(f"no records in {args.records}")
+
+    cards = {c.id: c for path in sorted(CARDS_DIR.glob("*.json")) for c in load_cards(path)}
+    demo = build_scenario(cards[VOICE_CARD], VOICE_SEED).kit
+    LIVE["judge_card"] = {
+        "vendor": demo.vendor_name,
+        "invoice": demo.invoice_id,
+        "amount": demo.amount,
+        "account": demo.attacker_account,
+        "callback": demo.attacker_phone,
+        "on_file": demo.on_file_phone,
+        "callback_belongs_to": (BY_NUMBER[demo.attacker_phone].expect
+                                if demo.attacker_phone in BY_NUMBER else None),
+        "on_file_belongs_to": (BY_NUMBER[demo.on_file_phone].expect
+                               if demo.on_file_phone in BY_NUMBER else None),
+    }
 
     # --- the headline pair: the before/after with the most drills behind it --
     cards = {(m, c): scorecard(records, m, c) for m, c in configs_in(records)}

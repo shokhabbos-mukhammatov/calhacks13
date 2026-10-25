@@ -23,7 +23,10 @@ moment**, which Hyphenate requires and which only you can record.
 | --- | --- | --- |
 | **Factory eligibility** | Droid was called through its CLI (`droid exec`); the track requires the **Droid SDK** doing real work in the running product | `firedrill/droid_remediator.py` drives Droid through the Python SDK. The breach grid **triggers** it; it can touch **three harness tools and nothing else** (allowlist + permission gate, escape **probed**); every step is **recorded and shown**. Its patch held 0/24 attacks, 12/12 honest invoices paid, on real drills |
 | **CRS not live in the live demo** | The Standby target behind the phone line used `NoSenderCheck` | It calls CRS Fraud Finder whenever the Actor has `CRS_*` set. **Needs your secrets in the Apify console and a new push** |
-| **CRS invisible on the page** | CRS results sat inside raw tool output | The replay labels every Vendor Verify call: *CRS Fraud Finder, live: sender risk 100/100 · invalid* |
+| **CRS invisible on the page** | CRS results sat inside raw tool output | The replay labels every live CRS verdict, and the judge card names who each number belongs to |
+| **CRS could not tell attacker from vendor** | Every sender was an invented `.example` address, so Fraud Finder returned the same answer for all of them | Drill phone numbers are **CRS sandbox personas**; the reverse lookup separates the vendor's contact from the impostor. `verify_vendor` takes a `phone_number`. Nine personas checked live |
+| **Possible rule problem** | We scored invented identities; the guide says use only the provided test identities | Fixed by the same change: the numbers *are* CRS's personas |
+| **Voice latency** | 14 s per turn, and judges score voice quality | Measured: 12 s is the agent under test thinking, which cannot be removed. `pre_tool_speech: "force"` means the caller hears the agent speak first instead of 14 s of silence |
 | **Hyphenate "seats" line** | Required deliverable, absent | "The seat it fills" on the page and in the README |
 | **Microsoft path to production / Anthropic named community** | Absent | "Who it protects" and "Path to production", on the page and in the README |
 
@@ -97,21 +100,25 @@ Rule: meaningful use of the sandbox, shown working live; use only the provided
 test identities. Judged on centrality ("not a bolt-on"), live demo,
 usefulness, creativity.
 
-**Fit: Good for Best Identity / Fraud Innovation and Most Unexpected Use;
-weak for Best Overall.** Honest weaknesses:
-1. **CRS is a supporting signal, not the core.** The verdict never depends
-   on it, by design (ADR-0001).
-2. **It cannot tell attacker from vendor here.** Every sender is an invented
-   `.example` address, so Fraud Finder returns the same answer for all of
-   them (risk 100, invalid).
-3. **Possible rule problem:** the guide says to use only the provided test
-   identities, and we score invented addresses.
+**Fit: Strong now — all three weaknesses are fixed.** CRS decides the control
+the whole project is about. Every drill draws its two phone numbers from CRS's
+own sandbox personas, and the reverse lookup separates them: the number on
+file resolves to the vendor's contact, the number in the attacker's message to
+a different person or to nobody. `verify_vendor` takes a `phone_number`, so the
+agent can ask about the number it is being pushed toward.
 
-**What would fix all three (me, ~1 hour, if you get the test identities):**
-take the sender addresses from CRS's sandbox test identities — a clean one
-for the real vendor, a risky one for a lookalike-domain attacker — so CRS
-genuinely separates them. That needs the lookalike-domain turn files
-(**you**, and they double as the held-out set).
+- *Central, not a bolt-on:* a callback control is exactly "does this number
+  belong to the party the file names?", and CRS is what answers it.
+- *Live:* `check_integrations.py` asks CRS whether all nine personas still
+  answer as recorded, and the replay labels every live verdict.
+- *Only test identities:* yes, now — CRS's own 20 personas.
+- *Creative, and the best finding in the project:* on `baseline+verify`, Haiku
+  asked CRS in **6 of 6** drills. In seed 5 CRS said the number belonged to
+  **Rajesh Menon**, not to the contact on file — and the agent called it
+  anyway, changed the bank details and paid. **Evidence is not a control.**
+
+**Best Identity / Fraud Innovation** is now the strongest single fit; **Best
+Overall CRS Hack** is live.
 
 ### Apify ($5k pool; Best Actor $400)
 **Fit: Strong.** Two published Actors; a Standby target holding state in a
@@ -125,12 +132,27 @@ Chat"; the Hacker Guide does not require it. We did not use AI Chat.)
 naturalness), execution, impact and responsibility. "Voice should be core to
 the product."
 
-**Fit: Good, with one real risk.** The argument for voice being core is
-strong and data-backed: the attack that breaks the agent 12 of 12 times *is
-a phone callback*, and the live line lets a judge attack by voice. **Risk:
-latency.** A voice turn takes about 14 seconds end to end, which judges will
-hear as voice quality. **Left:** measure where the 14 s goes and cut it
-(**me**); README and responsible-use notes are already done.
+**Fit: Good, and the latency is handled.** Voice is core by argument and by
+data: the attack that breaks the agent 12 of 12 times *is* a phone callback,
+and a judge can run that attack by voice.
+
+**The 14 seconds, measured rather than guessed.** `/voice/relay` alone took
+14.1 s. Timing each model call inside one turn: **12 s is five sequential
+round trips** by the agent under test (read the invoice, look the vendor up,
+call the number, change the bank, approve). That time *is* the subject of the
+experiment — an agent that reasons less is a different agent, and every
+recorded drill would stop being comparable, so it cannot be optimised away.
+Prompt caching was already on.
+
+**What was fixed is the silence.** `scripts/cartesia_tune.py` sets
+`pre_tool_speech: "force"` (it was `"auto"`, and the model mostly chose
+silence), so the agent says a short, specific line — "let me pull that invoice
+up" — before every tool call, the way a person on a switchboard does. The
+instructions now ask for exactly that and tell it not to apologise or repeat
+itself while it waits. `response_timeout_secs` is 120, well clear of a slow
+turn. Nothing touches the agent under test, the ledger or the scorer.
+
+**Left:** call the line after the push and listen (**you**).
 
 ### Capital One — Best Use of Nessie ($300 each)
 Completeness, creativity, complexity. **Fit: Weak.** Nessie mirrors approved
@@ -158,14 +180,15 @@ Cursor), Convex, Visa, Atlassian, Bright Data, Mana, Spacetime, Notability.
 2. **Record the demo video, opening with the moment** (Hyphenate requires it;
    Cartesia and every judge benefit).
 3. **Submit a Devpost draft tonight**; the guide recommends it.
-4. Put **CRS credentials on the `ap-practice-target` Actor** (secret env
-   vars) and say the word for me to push the new build.
+4. **Say the word for me to push the Standby Actor.** Until then the live
+   phone line serves the *old* world and the judge card will not match it.
+   Add **CRS credentials** to that Actor first (secret env vars) so the live
+   call can ask CRS too.
 5. One **firsthand line** for Anthropic, and the **lookalike-domain turn
    files** (they unlock CRS and the generalization claim at once).
 
 **Me, on your word**
-1. The Devpost write-up, one paragraph per track you enter.
-2. Cut voice latency.
-3. CRS sandbox test identities in the worlds, once the turn files exist.
+1. `apify push` the Standby Actor, so the live line matches the judge card.
+2. The Devpost write-up, one paragraph per track you enter.
 
 Back to [[Home]] · [[Fire Drill Status]] · [[Prizes]]

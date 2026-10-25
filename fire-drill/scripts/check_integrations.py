@@ -121,7 +121,29 @@ def check_nessie() -> None:
 
 
 def check_crs() -> None:
-    from firedrill.verify import CrsFraudFinder
+    from firedrill.crs_personas import CONTACTS, IMPOSTORS
+    from firedrill.verify import CrsFraudFinder, CrsReverseLookup
+
+    # The personas a drill's phone numbers come from must still answer the way
+    # firedrill/crs_personas.py records, or the callback control is checking
+    # nothing. This is the live half of tests/test_crs_personas.py.
+    lookup = CrsReverseLookup.from_env(os.environ)
+    if lookup is None:
+        record("CRS", "reverse lookup", False, "CRS_* not set")
+    else:
+        wrong = []
+        for persona in CONTACTS + IMPOSTORS:
+            got = lookup.owner(persona.number)
+            if (got.name or None) != persona.expect:
+                wrong.append(f"{persona.id} expected {persona.expect!r}, got {got.name!r}")
+        record("CRS", "personas answer as recorded", not wrong,
+               f"{len(CONTACTS)} contacts + {len(IMPOSTORS)} impostors" if not wrong
+               else "; ".join(wrong)[:90])
+        # The separation the control rests on, end to end.
+        contact, impostor = CONTACTS[0], IMPOSTORS[0]
+        a, b = lookup.owner(contact.number), lookup.owner(impostor.number)
+        record("CRS", "a vendor's number and an impostor's differ", a.name != b.name,
+               f"{a.name} vs {b.name or 'no record'}")
 
     f = CrsFraudFinder.from_env(os.environ)
     if f is None:
