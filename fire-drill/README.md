@@ -451,7 +451,7 @@ before `apify push`; `tests/test_actors_in_sync.py` fails if a copy drifts.
 | **Elastic** | The drill corpus, and an Agent Builder tool that queries it | Working |
 
 `scripts/check_integrations.py` exercises each of these for real and prints a
-pass/fail line. It currently reports 20 of 20.
+pass/fail line. It currently reports 24 of 24.
 
 **Every sponsor sits behind a port with an in-memory fallback**, so the core
 demo runs offline and any one of them can be dropped without breaking it.
