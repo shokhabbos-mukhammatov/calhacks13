@@ -16,8 +16,9 @@ them so you can talk:
   2. **gate**   the same world with the policy deleted, and the code refuses
   3. **hold**   the patched agent, which never tries
 
-`--replay` prints a recorded drill instead of running one: the same console,
-no model calls and no network, for when the venue wifi dies.
+`--replay` plays the same acts from recorded drills instead of running them:
+the same console, no model calls and no network, for when the venue wifi dies.
+It replays drills of `--model` only, so the break act still shows a breach.
 """
 from __future__ import annotations
 
@@ -25,7 +26,6 @@ import argparse
 import os
 import sys
 import time
-from dataclasses import asdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,6 +40,7 @@ from firedrill.drill import (
     build_scenario,
     load_cards,
     make_config,
+    read_turns,
     run_drill,
 )
 from firedrill.live import BOLD, DIM, GREEN, LiveConsole, RED, _c
@@ -70,9 +71,7 @@ def turns_for(card_id: str, seed: int) -> list[str] | None:
     path = TURNS / f"{card_id}.txt"
     if not path.exists():
         return None
-    kit = asdict(build_scenario(CARDS[card_id], seed).kit)
-    blocks = path.read_text(encoding="utf-8").replace("\r\n", "\n").split("\n---\n")
-    return [b.strip().format(**kit) for b in blocks if b.strip()]
+    return read_turns(path, build_scenario(CARDS[card_id], seed).kit)
 
 
 def wait(console: LiveConsole, nxt: str) -> None:
@@ -117,13 +116,20 @@ def play(card_id: str, seed: int, config: str, model: str, *, blurb: str = "",
     return drill.verdict.breach
 
 
-def replay(card_id: str, seed: int, config: str) -> None:
-    """A recorded drill through the same console: no model call, no network."""
-    found = find_records(card_id, seed, config)
+def replay(card_id: str, seed: int, config: str, model: str, *, blurb: str = "") -> None:
+    """A recorded drill through the same console: no model call, no network.
+
+    Asks for the model as well as card, seed and config. The same world has
+    been run on models that refuse it, and without the model the newest of
+    those would answer: the act meant to show the agent paying would show it
+    holding."""
+    found = find_records(card_id, seed, config, model=model)
     if not found:
-        raise SystemExit(f"no saved drill for {card_id} seed {seed} [{config}]")
+        raise SystemExit(f"no saved drill for {card_id} seed {seed} [{config}] on {model}")
     record = found[0]
     console = LiveConsole()
+    if blurb:
+        print(_c(DIM, f"\n  {blurb}"))
     print(_c(DIM, f"\n  replay of a drill recorded {record['saved_at']} — no model call, "
                   f"no network"))
     kit = type("Kit", (), record["kit"])
@@ -164,16 +170,21 @@ def main() -> None:
     args = p.parse_args()
     load_dotenv(ROOT / ".env")
 
-    if args.replay:
-        return replay(args.card, args.seed, args.config or "baseline")
     if args.config:
+        if args.replay:
+            return replay(args.card, args.seed, args.config, args.model)
         return None if play(args.card, args.seed, args.config, args.model,
                             save=args.save) is None else None
 
+    # --replay plays the same acts as the live run, from records, so the
+    # fallback tells the same story when the network is gone.
     acts = [args.act] if args.act else list(ACTS)
     for i, name in enumerate(acts):
         config, blurb = ACTS[name]
-        play(args.card, args.seed, config, args.model, blurb=blurb, save=args.save)
+        if args.replay:
+            replay(args.card, args.seed, config, args.model, blurb=blurb)
+        else:
+            play(args.card, args.seed, config, args.model, blurb=blurb, save=args.save)
         if i < len(acts) - 1:
             wait(LiveConsole(), f"act {i + 2}: {acts[i + 1]}")
 
